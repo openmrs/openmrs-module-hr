@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrIscoCodes" table="hr_isco_codes" catalog="openmrs">
+        <id name="codeIsco" type="string">
+            <column name="codeISCO" length="4" />
+            <generator class="assigned" />
+        </id>
+        <property name="title" type="string">
+            <column name="title" length="25" not-null="true" />
+        </property>
+        <property name="definition" type="string">
+            <column name="definition" length="65535" />
+        </property>
+        <property name="tasksInclude" type="string">
+            <column name="tasks_include" length="65535" />
+        </property>
+        <property name="tasksExclude" type="string">
+            <column name="tasks_exclude" length="65535" />
+        </property>
+        <property name="excludedOccupations" type="string">
+            <column name="excluded_occupations" length="65535" />
+        </property>
+        <property name="notes" type="string">
+            <column name="notes" length="65535" />
+        </property>
+        <set name="hrJobTitles" inverse="true">
+            <key>
+                <column name="codeISCO" length="4" />
+            </key>
+            <one-to-many class="org.openmrs.module.hr.HrJobTitle" />
+        </set>
+    </class>
+</hibernate-mapping>
