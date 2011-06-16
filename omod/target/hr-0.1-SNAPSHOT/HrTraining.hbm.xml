@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16 Jun, 2011 9:24:54 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrTraining" table="hr_training" catalog="openmrs">
+        <id name="trainingId" type="int">
+            <column name="training_id" />
+            <generator class="assigned" />
+        </id>
+        <property name="nationalId" type="java.lang.Integer">
+            <column name="national_id" />
+        </property>
+        <property name="category" type="string">
+            <column name="category" not-null="true" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" length="65535" not-null="true" />
+        </property>
+        <property name="description" type="string">
+            <column name="description" length="65535" not-null="true" />
+        </property>
+        <property name="creator" type="int">
+            <column name="creator" not-null="true" />
+        </property>
+        <property name="dateCreated" type="timestamp">
+            <column name="date_created" length="19" not-null="true" />
+        </property>
+        <property name="changedBy" type="java.lang.Integer">
+            <column name="changed_by" />
+        </property>
+        <property name="dateChanged" type="timestamp">
+            <column name="date_changed" length="19" />
+        </property>
+        <property name="retired" type="short">
+            <column name="retired" not-null="true" />
+        </property>
+        <property name="retiredBy" type="java.lang.Integer">
+            <column name="retired_by" />
+        </property>
+        <property name="dateRetired" type="timestamp">
+            <column name="date_retired" length="19" />
+        </property>
+        <property name="retireReason" type="string">
+            <column name="retire_reason" />
+        </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" />
+        </property>
+        <property name="sortWeight" type="java.lang.Double">
+            <column name="sort_weight" precision="22" scale="0" />
+        </property>
+        <set name="hrTrainingClasses" inverse="true">
+            <key>
+                <column name="train_class_id" not-null="true" unique="true" />
+            </key>
+            <one-to-many class="org.openmrs.module.hr.HrTrainingClass" />
+        </set>
+        
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16 Jun, 2011 9:24:54 PM by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrEducation" table="hr_education" catalog="openmrs">
+        <id name="educationId" type="int">
+            <column name="education_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="staff_id" not-null="true" />
+        </many-to-one>
+        <property name="degree" type="string">
+            <column name="degree" length="50" not-null="true" />
+        </property>
+        <property name="institution" type="string">
+            <column name="institution" length="50" not-null="true" />
+        </property>
+        <property name="institutionLocation" type="string">
+            <column name="institution_location" length="50" not-null="true" />
+        </property>
+        <property name="major" type="string">
+            <column name="major" length="50" not-null="true" />
+        </property>
+        <property name="degreeYear" type="java.lang.Integer">
+            <column name="degree_year" />
+        </property>
+        <property name="creator" type="int">
+            <column name="creator" not-null="true" />
+        </property>
+        <property name="dateCreated" type="timestamp">
+            <column name="date_created" length="19" not-null="true" />
+        </property>
+        <property name="changedBy" type="java.lang.Integer">
+            <column name="changed_by" />
+        </property>
+        <property name="dateChanged" type="timestamp">
+            <column name="date_changed" length="19" />
+        </property>
+        <property name="voided" type="short">
+            <column name="voided" not-null="true" />
+        </property>
+        <property name="voidedBy" type="java.lang.Integer">
+            <column name="voided_by" />
+        </property>
+        <property name="dateVoided" type="timestamp">
+            <column name="date_voided" length="19" />
+        </property>
+        <property name="voidReason" type="string">
+            <column name="void_reason" />
+        </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

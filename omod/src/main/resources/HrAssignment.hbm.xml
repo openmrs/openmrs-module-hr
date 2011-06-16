@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrAssignment" table="hr_assignment" catalog="openmrs">
+        <id name="assignmentId" type="int">
+            <column name="assignment_id" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="hrPostHistory" class="org.openmrs.module.hr.HrPostHistory" fetch="select">
+            <column name="post_history_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="supervisor_id" />
+        </many-to-one>
+        <property name="locationId" type="int">
+            <column name="location_id" not-null="true" />
+        </property>
+        <property name="assignment" type="string">
+            <column name="assignment" />
+        </property>
+        <property name="grade" type="string">
+            <column name="grade" length="4" />
+        </property>
+        <property name="timeBasis" type="string">
+            <column name="time_basis" length="45" />
+        </property>
+        <property name="workSchedule" type="string">
+            <column name="work_schedule" length="50" />
+        </property>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="19" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="19" />
+        </property>
+        <property name="endReason" type="string">
+            <column name="end_reason" length="10" />
+        </property>
+        <property name="endReasonOther" type="string">
+            <column name="end_reason_other" length="252" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" />
+        </property>
+        <property name="creator" type="int">
+            <column name="creator" not-null="true" />
+        </property>
+        <property name="dateCreated" type="timestamp">
+            <column name="date_created" length="19" not-null="true" />
+        </property>
+        <property name="changedBy" type="java.lang.Integer">
+            <column name="changed_by" />
+        </property>
+        <property name="dateChanged" type="timestamp">
+            <column name="date_changed" length="19" />
+        </property>
+        <property name="voided" type="short">
+            <column name="voided" not-null="true" />
+        </property>
+        <property name="voidedBy" type="java.lang.Integer">
+            <column name="voided_by" />
+        </property>
+        <property name="dateVoided" type="timestamp">
+            <column name="date_voided" length="19" />
+        </property>
+        <property name="voidReason" type="string">
+            <column name="void_reason" />
+        </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
