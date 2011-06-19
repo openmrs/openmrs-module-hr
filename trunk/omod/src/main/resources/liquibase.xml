@@ -131,7 +131,7 @@
 		<createTable tableName="hr_staff" schemaName="openmrs">
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="provider_id" type="int(11)"></column>
-		<column name="staff_status" type="varchar(20)" defaultValue="NULL"></column>
+		<column name="staff_status" type="int(11)" defaultValue="NULL"></column>
 		<column name="initial_hire_date" type="DATETIME"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="NULL"></column>
@@ -252,9 +252,8 @@
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="codeISCO" type="char(4)" defaultValue="NULL"></column>
 		<column name="title" type="varchar(255)" defaultValue=""><constraints nullable="false"/></column>
-		<column name="cadre" type="varchar(50)" defaultValue=""><constraints nullable="false"/></column>
-		<column name="min_grade" type="char(4)" defaultValue="NULL"></column>
-		<column name="max_grade" type="char(4)" defaultValue="NULL"></column>
+		<column name="cadre" type="int(11)"><constraints nullable="false"/></column>
+		<column name="grades" type="varchar(255)"><constraints nullable="false"/></column>
 		<column name="description" type="TEXT" defaultValue="NULL"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
@@ -346,9 +345,9 @@
 		</createTable>
 		<addPrimaryKey tableName="hr_staff_note" schemaName="openmrs" columnNames="staff_note_id"/>
 		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="note_hierarchy_index"><column name="parent"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_hierarchy"><column name="parent"></column> </createIndex>
 		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_staff"><column name="staff_id"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="note_hierarchy_self" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
 	<!-- 
@@ -446,7 +445,7 @@
 		<column name="min_grade" type="char(4)" defaultValue="NULL"></column>
 		<column name="max_grade" type="char(4)" defaultValue="NULL"></column>
 		<column name="time_basis" type="varchar(50)" defaultValue="NULL"></column>
-		<column name="status" type="varchar(50)" defaultValue="NULL"></column>
+		<column name="status" type="int(11)" defaultValue="NULL"></column>
 		<column name="funding_source" type="varchar(50)" defaultValue="NULL"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
@@ -563,7 +562,7 @@
 		<column name="post_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="start_date" type="DATETIME"><constraints nullable="false"/></column>
 		<column name="end_date" type="DATETIME" defaultValue="NULL"></column>
-		<column name="end_reason" type="varchar(10)"></column>
+		<column name="end_reason" type="int(11)"></column>
 		<column name="end_reason_other" type="varchar(252)"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
@@ -601,7 +600,7 @@
 		<column name="supervisor_id" type="int(11)"></column>
 		<column name="grade" type="varchar(4)"></column>
 		<column name="time_basis" type="varchar(45)"></column>
-		<column name="work_schedule" type="varchar(50)"></column>
+		<column name="work_schedule" type="int(11)"></column>
 		<column name="start_date" type="DATETIME"></column>
 		<column name="end_date" type="DATETIME"></column>
 		<column name="end_reason" type="varchar(10)"></column>
@@ -875,7 +874,7 @@
 		<column name="post_history_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="start_date" type="DATETIME"><constraints nullable="false"/></column>
 		<column name="end_date" type="DATETIME" defaultValue="NULL"></column>
-		<column name="leave_type" type="varchar(10)"></column>
+		<column name="leave_type" type="int(11)"></column>
 		<column name="leave_type_other" type="varchar(252)"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
