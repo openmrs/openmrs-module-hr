@@ -17,7 +17,7 @@ public class HumanResourcesGutterLinkExt extends LinkExt {
 
 	@Override
 	public String getUrl() {
-		return "module/hr/gutterIndex.form";
+		return "module/hr/gutterIndexPage.form";
 	}
 
 }
