@@ -15,14 +15,14 @@ public class GutterIndexFormController {
 		
 		/** Success form view name */
 		
-		
+		private final String SUCCESS_FORM_VIEW = "/module/hr/gutterIndex";
 		/**
 		 * Initially called after the formBackingObject method to get the landing form name  
 		 * @return String form view name
 		 */
-		@RequestMapping(value = "module/hr/gutterIndex.form")
-		public void showPage(){
-			
+		@RequestMapping(value = "module/hr/gutterIndexPage.form")
+		public String showPage(){
+			return SUCCESS_FORM_VIEW;
 		}
 		
 }
