@@ -130,7 +130,6 @@
 		</comment>
 		<createTable tableName="hr_staff" schemaName="openmrs">
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
-		<column name="provider_id" type="int(11)"></column>
 		<column name="staff_status" type="int(11)" defaultValue="NULL"></column>
 		<column name="initial_hire_date" type="DATETIME"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
@@ -145,11 +144,8 @@
 		<addPrimaryKey tableName="hr_staff" schemaName="openmrs" columnNames="staff_id"/>
 		<createIndex tableName="hr_staff" schemaName="openmrs"  indexName="staff_id_UNIQUE" unique="true"><column name="staff_id"></column> </createIndex>
 		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_person"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="provider_id_UNIQUE" unique="true"><column name="provider_id"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_provider"><column name="provider_id"></column> </createIndex>
 		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_status_concept"><column name="staff_status"></column> </createIndex>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="staff_person" referencedTableName="person" baseColumnNames="staff_id" baseTableName="hr_staff" referencedColumnNames="person_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_provider" referencedTableName="hr_provider" baseColumnNames="provider_id" baseTableName="hr_staff" referencedColumnNames="provider_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_status_concept" referencedTableName="concept" baseColumnNames="staff_status" baseTableName="hr_staff" referencedColumnNames="concept_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 	</changeSet>	
 	
