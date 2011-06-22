@@ -32,14 +32,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This class configured as controller using annotation and mapped with the URL of 'module/hr/humanresourcemoduleLink.form'.
  */
 @Controller
-@RequestMapping(value = "module/hr/humanresourcemoduleLink.form")
-public class HumanResourceModuleFormController{
+@RequestMapping(value = "module/hr/admin/jobs.list")
+public class JobTitlesListController{
 	
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	/** Success form view name */
-	private final String SUCCESS_FORM_VIEW = "/module/hr/humanresourceForm";
+	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/jobs";
 	
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
