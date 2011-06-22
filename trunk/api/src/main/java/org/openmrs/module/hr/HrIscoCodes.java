@@ -14,7 +14,7 @@ public class HrIscoCodes  implements java.io.Serializable {
      private String title;
      private String definition;
      private String tasksInclude;
-     private String tasksExclude;
+     private String includedOccupations;
      private String excludedOccupations;
      private String notes;
      private Set hrJobTitles = new HashSet(0);
@@ -33,12 +33,12 @@ public class HrIscoCodes  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrIscoCodes(String codeIsco, String title, String definition, String tasksInclude, String tasksExclude, String excludedOccupations, String notes, Set hrJobTitles) {
+    public HrIscoCodes(String codeIsco, String title, String definition, String tasksInclude, String includedOccupations, String excludedOccupations, String notes, Set hrJobTitles) {
         this.codeIsco = codeIsco;
         this.title = title;
         this.definition = definition;
         this.tasksInclude = tasksInclude;
-        this.tasksExclude = tasksExclude;
+        this.includedOccupations = includedOccupations;
         this.excludedOccupations = excludedOccupations;
         this.notes = notes;
         this.hrJobTitles = hrJobTitles;
@@ -79,20 +79,19 @@ public class HrIscoCodes  implements java.io.Serializable {
     public void setTasksInclude(String tasksInclude) {
         this.tasksInclude = tasksInclude;
     }
+    public String getIncludedOccupations() {
+		return includedOccupations;
+	}
 
-    public String getTasksExclude() {
-        return this.tasksExclude;
-    }
-    
-    public void setTasksExclude(String tasksExclude) {
-        this.tasksExclude = tasksExclude;
-    }
-
-    public String getExcludedOccupations() {
+	public void setIncludedOccupations(String includedOccupations) {
+		this.includedOccupations = includedOccupations;
+	}
+  
+	public String getExcludedOccupations() {
         return this.excludedOccupations;
     }
     
-    public void setExcludedOccupations(String excludedOccupations) {
+   	public void setExcludedOccupations(String excludedOccupations) {
         this.excludedOccupations = excludedOccupations;
     }
 
