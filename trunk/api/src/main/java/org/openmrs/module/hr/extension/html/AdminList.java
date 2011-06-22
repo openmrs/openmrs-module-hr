@@ -14,6 +14,7 @@
 package org.openmrs.module.hr.extension.html;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.openmrs.module.Extension;
@@ -45,10 +46,11 @@ public class AdminList extends AdministrationSectionExt {
 	 */
 	public Map<String, String> getLinks() {
 		
-		Map<String, String> map = new HashMap<String, String>();
-		
-		map.put("module/hr/humanresourcemoduleLink.form", "PatientData");
-		
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		map.put("module/hr/admin/jobs.list", "Manage Jobs");
+		map.put("module/hr/admin/posts.list", "Manage Posts");
+		map.put("module/hr/admin/staff.list", "Manage Staff");
+		map.put("module/hr/admin/staffAttributeTypes.list", "Manage Staff Attribute Types");
 		return map;
 	}
 	
