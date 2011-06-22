@@ -16,17 +16,11 @@
         <property name="locationId" type="int">
             <column name="location_id" not-null="true" />
         </property>
-        <property name="minGrade" type="string">
-            <column name="min_grade" length="4" />
-        </property>
-        <property name="maxGrade" type="string">
-            <column name="max_grade" length="4" />
-        </property>
         <property name="timeBasis" type="string">
             <column name="time_basis" length="50" />
         </property>
-        <property name="status" type="string">
-            <column name="status" length="50" />
+        <property name="status" type="java.lang.Integer">
+            <column name="status" />
         </property>
         <property name="fundingSource" type="string">
             <column name="funding_source" length="50" />

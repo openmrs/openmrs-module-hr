@@ -52,8 +52,8 @@
 		<createTable tableName="hr_competency" schemaName="openmrs" >
 		<column name="competency_id" type="int(11)"><constraints nullable="false"/> </column>
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
+		<column name="category" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="name" type="varchar(255)"><constraints nullable="false"/></column>
-		<column name="subname" type="varchar(255)"><constraints nullable="false"/></column>
 		<column name="levels" type="varchar(255)"><constraints nullable="false"/></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
@@ -70,7 +70,7 @@
 		<addPrimaryKey tableName="hr_competency" schemaName="openmrs"  columnNames="competency_id"/>
 		<addAutoIncrement tableName="hr_competency" schemaName="openmrs" columnName="competency_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="business_key" unique="true"><column name="name"></column><column name="subname"></column> </createIndex>
+		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="business_key" unique="true"><column name="name"></column><column name="category"></column> </createIndex>
 		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_retired_status"><column name="retired"></column> </createIndex>
  		</changeSet>
  		
@@ -140,6 +140,7 @@
 		<column name="voided_by" type="int(11)" defaultValue="NULL"></column>
 		<column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
+		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
 		<addPrimaryKey tableName="hr_staff" schemaName="openmrs" columnNames="staff_id"/>
 		<createIndex tableName="hr_staff" schemaName="openmrs"  indexName="staff_id_UNIQUE" unique="true"><column name="staff_id"></column> </createIndex>
@@ -226,10 +227,10 @@
 		</comment>
 		<createTable tableName="hr_isco_codes" schemaName="openmrs">
 		<column name="codeISCO" type="char(4)"><constraints nullable="false"/></column>
-		<column name="title" type="varchar(25)"><constraints nullable="false"/></column>
+		<column name="title" type="varchar(255)" defaultValue=""><constraints nullable="false"/></column>
 		<column name="definition" type="TEXT"></column>
 		<column name="tasks_include" type="TEXT"></column>
-		<column name="tasks_exclude" type="TEXT"></column>
+		<column name="included_occupations" type="TEXT"></column>
 		<column name="excluded_occupations" type="TEXT"></column>
 		<column name="notes" type="TEXT"></column>
 		</createTable>
@@ -438,8 +439,6 @@
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="job_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="location_id" type="int(11)"><constraints nullable="false"/></column>
-		<column name="min_grade" type="char(4)" defaultValue="NULL"></column>
-		<column name="max_grade" type="char(4)" defaultValue="NULL"></column>
 		<column name="time_basis" type="varchar(50)" defaultValue="NULL"></column>
 		<column name="status" type="int(11)" defaultValue="NULL"></column>
 		<column name="funding_source" type="varchar(50)" defaultValue="NULL"></column>
@@ -557,14 +556,15 @@
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="post_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="start_date" type="DATETIME"><constraints nullable="false"/></column>
+		<column name="grade" type="varchar(20)" defaultValue="NULL"></column>
 		<column name="end_date" type="DATETIME" defaultValue="NULL"></column>
 		<column name="end_reason" type="int(11)"></column>
 		<column name="end_reason_other" type="varchar(252)"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
 		<column name="changed_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
 		<column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
+		<column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
 		<column name="voided_by" type="int(11)" defaultValue="NULL"></column>
 		<column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
@@ -577,7 +577,7 @@
 		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="provider_natural"><column name="staff_id"></column><column name="start_date"></column><column name="end_date"></column><column name="voided"></column></createIndex>
 		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_end_reason_concept"><column name="end_reason"></column> </createIndex>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_post" referencedTableName="hr_post" baseColumnNames="post_id" baseTableName="hr_post_history" referencedColumnNames="post_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_staff" referencedTableName="hr_staff" baseColumnNames="post_history_ID" baseTableName="hr_post_history" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_post_history" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_end_reason_concept" referencedTableName="concept" baseColumnNames="end_reason" baseTableName="hr_post_history" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
 	
@@ -594,7 +594,6 @@
 		<column name="location_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="assignment" type="varchar(255)"></column>
 		<column name="supervisor_id" type="int(11)"></column>
-		<column name="grade" type="varchar(4)"></column>
 		<column name="time_basis" type="varchar(45)"></column>
 		<column name="work_schedule" type="int(11)"></column>
 		<column name="start_date" type="DATETIME"></column>

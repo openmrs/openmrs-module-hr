@@ -19,14 +19,11 @@
         <property name="assignment" type="string">
             <column name="assignment" />
         </property>
-        <property name="grade" type="string">
-            <column name="grade" length="4" />
-        </property>
         <property name="timeBasis" type="string">
             <column name="time_basis" length="45" />
         </property>
-        <property name="workSchedule" type="string">
-            <column name="work_schedule" length="50" />
+        <property name="workSchedule" type="java.lang.Integer">
+            <column name="work_schedule" />
         </property>
         <property name="startDate" type="timestamp">
             <column name="start_date" length="19" />

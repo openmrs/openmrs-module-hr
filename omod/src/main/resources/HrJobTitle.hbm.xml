@@ -16,14 +16,11 @@
         <property name="title" type="string">
             <column name="title" not-null="true" />
         </property>
-        <property name="cadre" type="string">
-            <column name="cadre" length="50" not-null="true" />
+        <property name="cadre" type="int">
+            <column name="cadre" not-null="true" />
         </property>
-        <property name="minGrade" type="string">
-            <column name="min_grade" length="4" />
-        </property>
-        <property name="maxGrade" type="string">
-            <column name="max_grade" length="4" />
+        <property name="grades" type="string">
+            <column name="grades" not-null="true" />
         </property>
         <property name="description" type="string">
             <column name="description" length="65535" />

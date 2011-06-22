@@ -55,6 +55,5 @@
             </key>
             <one-to-many class="org.openmrs.module.hr.HrTrainingClass" />
         </set>
-        
-    </class>
+     </class>
 </hibernate-mapping>

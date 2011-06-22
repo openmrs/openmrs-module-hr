@@ -7,11 +7,8 @@
             <column name="staff_id" />
             <generator class="assigned" />
         </id>
-        <many-to-one name="hrProvider" class="org.openmrs.module.hr.HrProvider" fetch="select">
-            <column name="provider_id" unique="true" />
-        </many-to-one>
-        <property name="staffStatus" type="string">
-            <column name="staff_status" length="20" />
+        <property name="staffStatus" type="java.lang.Integer">
+            <column name="staff_status" />
         </property>
         <property name="initialHireDate" type="timestamp">
             <column name="initial_hire_date" length="19" />
@@ -40,17 +37,20 @@
         <property name="voidReason" type="string">
             <column name="void_reason" />
         </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" />
+        </property>
         <set name="hrAssignments" inverse="true">
             <key>
                 <column name="supervisor_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrAssignment" />
         </set>
-        <set name="hrStaffs" inverse="true">
+        <set name="hrStaffNotes" inverse="true">
             <key>
-                <column name="staff_id" not-null="true" unique="true" />
+                <column name="staff_id" />
             </key>
-            <one-to-many class="org.openmrs.module.hr.HrStaff" />
+            <one-to-many class="org.openmrs.module.hr.HrStaffNote" />
         </set>
         <set name="hrStaffAttributes" inverse="true">
             <key>
@@ -78,7 +78,7 @@
         </set>
         <set name="hrPostHistories" inverse="true">
             <key>
-                <column name="post_history_ID" not-null="true" unique="true" />
+                <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrPostHistory" />
         </set>

@@ -16,8 +16,8 @@
         <property name="endDate" type="timestamp">
             <column name="end_date" length="19" />
         </property>
-        <property name="leaveType" type="string">
-            <column name="leave_type" length="10" />
+        <property name="leaveType" type="java.lang.Integer">
+            <column name="leave_type" />
         </property>
         <property name="leaveTypeOther" type="string">
             <column name="leave_type_other" length="252" />

@@ -7,14 +7,14 @@
             <column name="staff_note_id" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="staff_id" />
+        </many-to-one>
         <many-to-one name="hrStaffNote" class="org.openmrs.module.hr.HrStaffNote" fetch="select">
             <column name="parent" />
         </many-to-one>
         <property name="staffNoteType" type="string">
             <column name="staff_note_type" length="50" />
-        </property>
-        <property name="staffId" type="java.lang.Integer">
-            <column name="staff_id" />
         </property>
         <property name="text" type="string">
             <column name="text" length="65535" not-null="true" />
