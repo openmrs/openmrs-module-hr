@@ -11,8 +11,7 @@ public class HrStaff  implements java.io.Serializable {
     // Fields    
 
      private int staffId;
-     private HrProvider hrProvider;
-     private String staffStatus;
+     private Integer staffStatus;
      private Date initialHireDate;
      private int creator;
      private Date dateCreated;
@@ -22,9 +21,9 @@ public class HrStaff  implements java.io.Serializable {
      private Integer voidedBy;
      private Date dateVoided;
      private String voidReason;
+     private String uuid;
      private Set hrAssignments = new HashSet(0);
-     //private Set hrStaffTagMaps = new HashSet(0);
-     private Set hrStaffs = new HashSet(0);
+     private Set hrStaffNotes = new HashSet(0);
      private Set hrStaffAttributes = new HashSet(0);
      private Set hrEducations = new HashSet(0);
      private Set hrEvaluations = new HashSet(0);
@@ -39,16 +38,16 @@ public class HrStaff  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrStaff(int staffId, int creator, short voided) {
+    public HrStaff(int staffId, int creator, short voided, String uuid) {
         this.staffId = staffId;
         this.creator = creator;
         this.voided = voided;
+        this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrStaff(int staffId, HrProvider hrProvider, String staffStatus, Date initialHireDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, Set hrAssignments, Set hrStaffTagMaps, Set hrStaffs, Set hrStaffAttributes, Set hrEducations, Set hrEvaluations, Set hrStaffCerts, Set hrPostHistories) {
+    public HrStaff(int staffId, Integer staffStatus, Date initialHireDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrAssignments, Set hrStaffNotes, Set hrStaffAttributes, Set hrEducations, Set hrEvaluations, Set hrStaffCerts, Set hrPostHistories) {
         this.staffId = staffId;
-        this.hrProvider = hrProvider;
         this.staffStatus = staffStatus;
         this.initialHireDate = initialHireDate;
         this.creator = creator;
@@ -59,9 +58,9 @@ public class HrStaff  implements java.io.Serializable {
         this.voidedBy = voidedBy;
         this.dateVoided = dateVoided;
         this.voidReason = voidReason;
+        this.uuid = uuid;
         this.hrAssignments = hrAssignments;
-      //  this.hrStaffTagMaps = hrStaffTagMaps;
-        this.hrStaffs = hrStaffs;
+        this.hrStaffNotes = hrStaffNotes;
         this.hrStaffAttributes = hrStaffAttributes;
         this.hrEducations = hrEducations;
         this.hrEvaluations = hrEvaluations;
@@ -81,19 +80,11 @@ public class HrStaff  implements java.io.Serializable {
         this.staffId = staffId;
     }
 
-    public HrProvider getHrProvider() {
-        return this.hrProvider;
-    }
-    
-    public void setHrProvider(HrProvider hrProvider) {
-        this.hrProvider = hrProvider;
-    }
-
-    public String getStaffStatus() {
+    public Integer getStaffStatus() {
         return this.staffStatus;
     }
     
-    public void setStaffStatus(String staffStatus) {
+    public void setStaffStatus(Integer staffStatus) {
         this.staffStatus = staffStatus;
     }
 
@@ -169,6 +160,14 @@ public class HrStaff  implements java.io.Serializable {
         this.voidReason = voidReason;
     }
 
+    public String getUuid() {
+        return this.uuid;
+    }
+    
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     public Set getHrAssignments() {
         return this.hrAssignments;
     }
@@ -177,20 +176,12 @@ public class HrStaff  implements java.io.Serializable {
         this.hrAssignments = hrAssignments;
     }
 
-   /* public Set getHrStaffTagMaps() {
-        return this.hrStaffTagMaps;
+     public Set getHrStaffNotes() {
+        return this.hrStaffNotes;
     }
     
-    public void setHrStaffTagMaps(Set hrStaffTagMaps) {
-        this.hrStaffTagMaps = hrStaffTagMaps;
-    }
-*/
-    public Set getHrStaffs() {
-        return this.hrStaffs;
-    }
-    
-    public void setHrStaffs(Set hrStaffs) {
-        this.hrStaffs = hrStaffs;
+    public void setHrStaffNotes(Set hrStaffNotes) {
+        this.hrStaffNotes = hrStaffNotes;
     }
 
     public Set getHrStaffAttributes() {

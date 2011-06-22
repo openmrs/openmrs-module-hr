@@ -2,6 +2,7 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
+
 public class HrAssignment  implements java.io.Serializable {
 
 
@@ -12,9 +13,8 @@ public class HrAssignment  implements java.io.Serializable {
      private HrStaff hrStaff;
      private int locationId;
      private String assignment;
-     private String grade;
      private String timeBasis;
-     private String workSchedule;
+     private Integer workSchedule;
      private Date startDate;
      private Date endDate;
      private String endReason;
@@ -49,13 +49,12 @@ public class HrAssignment  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrAssignment(int assignmentId, HrPostHistory hrPostHistory, HrStaff hrStaff, int locationId, String assignment, String grade, String timeBasis, String workSchedule, Date startDate, Date endDate, String endReason, String endReasonOther, String note, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
+    public HrAssignment(int assignmentId, HrPostHistory hrPostHistory, HrStaff hrStaff, int locationId, String assignment, String timeBasis, Integer workSchedule, Date startDate, Date endDate, String endReason, String endReasonOther, String note, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
         this.assignmentId = assignmentId;
         this.hrPostHistory = hrPostHistory;
         this.hrStaff = hrStaff;
         this.locationId = locationId;
         this.assignment = assignment;
-        this.grade = grade;
         this.timeBasis = timeBasis;
         this.workSchedule = workSchedule;
         this.startDate = startDate;
@@ -118,14 +117,6 @@ public class HrAssignment  implements java.io.Serializable {
         this.assignment = assignment;
     }
 
-    public String getGrade() {
-        return this.grade;
-    }
-    
-    public void setGrade(String grade) {
-        this.grade = grade;
-    }
-
     public String getTimeBasis() {
         return this.timeBasis;
     }
@@ -134,11 +125,11 @@ public class HrAssignment  implements java.io.Serializable {
         this.timeBasis = timeBasis;
     }
 
-    public String getWorkSchedule() {
+    public Integer getWorkSchedule() {
         return this.workSchedule;
     }
     
-    public void setWorkSchedule(String workSchedule) {
+    public void setWorkSchedule(Integer workSchedule) {
         this.workSchedule = workSchedule;
     }
 

@@ -2,8 +2,6 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
-
-
 public class HrLeave  implements java.io.Serializable {
 
 
@@ -13,7 +11,7 @@ public class HrLeave  implements java.io.Serializable {
      private HrPostHistory hrPostHistory;
      private Date startDate;
      private Date endDate;
-     private String leaveType;
+     private Integer leaveType;
      private String leaveTypeOther;
      private int creator;
      private Date dateCreated;
@@ -44,7 +42,7 @@ public class HrLeave  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrLeave(int leaveId, HrPostHistory hrPostHistory, Date startDate, Date endDate, String leaveType, String leaveTypeOther, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid) {
+    public HrLeave(int leaveId, HrPostHistory hrPostHistory, Date startDate, Date endDate, Integer leaveType, String leaveTypeOther, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid) {
         this.leaveId = leaveId;
         this.hrPostHistory = hrPostHistory;
         this.startDate = startDate;
@@ -98,11 +96,11 @@ public class HrLeave  implements java.io.Serializable {
         this.endDate = endDate;
     }
 
-    public String getLeaveType() {
+    public Integer getLeaveType() {
         return this.leaveType;
     }
     
-    public void setLeaveType(String leaveType) {
+    public void setLeaveType(Integer leaveType) {
         this.leaveType = leaveType;
     }
 

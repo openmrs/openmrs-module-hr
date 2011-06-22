@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
 public class HrPost  implements java.io.Serializable {
 
 
@@ -15,10 +14,8 @@ public class HrPost  implements java.io.Serializable {
      private HrJobTitle hrJobTitle;
      private Integer nationalId;
      private int locationId;
-     private String minGrade;
-     private String maxGrade;
      private String timeBasis;
-     private String status;
+     private Integer status;
      private String fundingSource;
      private int creator;
      private Date dateCreated;
@@ -50,13 +47,11 @@ public class HrPost  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, int locationId, String minGrade, String maxGrade, String timeBasis, String status, String fundingSource, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrPostHistories) {
+    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, int locationId, String timeBasis, Integer status, String fundingSource, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrPostHistories) {
         this.postId = postId;
         this.hrJobTitle = hrJobTitle;
         this.nationalId = nationalId;
         this.locationId = locationId;
-        this.minGrade = minGrade;
-        this.maxGrade = maxGrade;
         this.timeBasis = timeBasis;
         this.status = status;
         this.fundingSource = fundingSource;
@@ -108,22 +103,6 @@ public class HrPost  implements java.io.Serializable {
         this.locationId = locationId;
     }
 
-    public String getMinGrade() {
-        return this.minGrade;
-    }
-    
-    public void setMinGrade(String minGrade) {
-        this.minGrade = minGrade;
-    }
-
-    public String getMaxGrade() {
-        return this.maxGrade;
-    }
-    
-    public void setMaxGrade(String maxGrade) {
-        this.maxGrade = maxGrade;
-    }
-
     public String getTimeBasis() {
         return this.timeBasis;
     }
@@ -132,11 +111,11 @@ public class HrPost  implements java.io.Serializable {
         this.timeBasis = timeBasis;
     }
 
-    public String getStatus() {
+    public Integer getStatus() {
         return this.status;
     }
     
-    public void setStatus(String status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

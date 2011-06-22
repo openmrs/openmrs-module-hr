@@ -21,7 +21,7 @@ public class HrStaffTag  implements java.io.Serializable {
      private Date dateRetired;
      private String retireReason;
      private String uuid;
-    // private Set hrStaffTagMaps = new HashSet(0);
+
 
 
     // Constructors
@@ -40,7 +40,7 @@ public class HrStaffTag  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrStaffTag(int staffTagId, String name, String desciption, int creator, Date dateCreated, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrStaffTagMaps) {
+    public HrStaffTag(int staffTagId, String name, String desciption, int creator, Date dateCreated, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid){
         this.staffTagId = staffTagId;
         this.name = name;
         this.desciption = desciption;
@@ -51,7 +51,6 @@ public class HrStaffTag  implements java.io.Serializable {
         this.dateRetired = dateRetired;
         this.retireReason = retireReason;
         this.uuid = uuid;
-     //   this.hrStaffTagMaps = hrStaffTagMaps;
     }
     
 
@@ -138,15 +137,7 @@ public class HrStaffTag  implements java.io.Serializable {
         this.uuid = uuid;
     }
 
-   /* public Set getHrStaffTagMaps() {
-        return this.hrStaffTagMaps;
-    }
-    
-    public void setHrStaffTagMaps(Set hrStaffTagMaps) {
-        this.hrStaffTagMaps = hrStaffTagMaps;
-    }
-   */
-
+ 
 
 
 
