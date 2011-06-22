@@ -12,17 +12,18 @@ public class HrPostHistory  implements java.io.Serializable {
     // Fields    
 
      private int postHistoryId;
+     private HrStaff hrStaff;
      private HrPost hrPost;
-     private int staffId;
      private Date startDate;
+     private String grade;
      private Date endDate;
-     private String endReason;
+     private Integer endReason;
      private String endReasonOther;
      private int creator;
      private Date dateCreated;
      private Integer changedBy;
-     private Date dateChanged;
      private short voided;
+     private Date dateChanged;
      private Integer voidedBy;
      private Date dateVoided;
      private String voidReason;
@@ -38,10 +39,10 @@ public class HrPostHistory  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrPostHistory(int postHistoryId, HrPost hrPost, int staffId, Date startDate, int creator, Date dateCreated, short voided, String uuid) {
+    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, int creator, Date dateCreated, short voided, String uuid) {
         this.postHistoryId = postHistoryId;
+        this.hrStaff = hrStaff;
         this.hrPost = hrPost;
-        this.staffId = staffId;
         this.startDate = startDate;
         this.creator = creator;
         this.dateCreated = dateCreated;
@@ -50,19 +51,20 @@ public class HrPostHistory  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrPostHistory(int postHistoryId, HrPost hrPost, int staffId, Date startDate, Date endDate, String endReason, String endReasonOther, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrAssignments, Set hrLeaves) {
+    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String grade, Date endDate, Integer endReason, String endReasonOther, int creator, Date dateCreated, Integer changedBy, short voided, Date dateChanged, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrAssignments, Set hrLeaves) {
         this.postHistoryId = postHistoryId;
+        this.hrStaff = hrStaff;
         this.hrPost = hrPost;
-        this.staffId = staffId;
         this.startDate = startDate;
+        this.grade = grade;
         this.endDate = endDate;
         this.endReason = endReason;
         this.endReasonOther = endReasonOther;
         this.creator = creator;
         this.dateCreated = dateCreated;
         this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
         this.voided = voided;
+        this.dateChanged = dateChanged;
         this.voidedBy = voidedBy;
         this.dateVoided = dateVoided;
         this.voidReason = voidReason;
@@ -83,20 +85,20 @@ public class HrPostHistory  implements java.io.Serializable {
         this.postHistoryId = postHistoryId;
     }
 
+    public HrStaff getHrStaff() {
+        return this.hrStaff;
+    }
+    
+    public void setHrStaff(HrStaff hrStaff) {
+        this.hrStaff = hrStaff;
+    }
+
     public HrPost getHrPost() {
         return this.hrPost;
     }
     
     public void setHrPost(HrPost hrPost) {
         this.hrPost = hrPost;
-    }
-
-    public int getStaffId() {
-        return this.staffId;
-    }
-    
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
     }
 
     public Date getStartDate() {
@@ -107,6 +109,14 @@ public class HrPostHistory  implements java.io.Serializable {
         this.startDate = startDate;
     }
 
+    public String getGrade() {
+        return this.grade;
+    }
+    
+    public void setGrade(String grade) {
+        this.grade = grade;
+    }
+
     public Date getEndDate() {
         return this.endDate;
     }
@@ -115,11 +125,11 @@ public class HrPostHistory  implements java.io.Serializable {
         this.endDate = endDate;
     }
 
-    public String getEndReason() {
+    public Integer getEndReason() {
         return this.endReason;
     }
     
-    public void setEndReason(String endReason) {
+    public void setEndReason(Integer endReason) {
         this.endReason = endReason;
     }
 
@@ -155,20 +165,20 @@ public class HrPostHistory  implements java.io.Serializable {
         this.changedBy = changedBy;
     }
 
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
     public short getVoided() {
         return this.voided;
     }
     
     public void setVoided(short voided) {
         this.voided = voided;
+    }
+
+    public Date getDateChanged() {
+        return this.dateChanged;
+    }
+    
+    public void setDateChanged(Date dateChanged) {
+        this.dateChanged = dateChanged;
     }
 
     public Integer getVoidedBy() {

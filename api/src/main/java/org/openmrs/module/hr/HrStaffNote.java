@@ -5,16 +5,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
 public class HrStaffNote  implements java.io.Serializable {
 
 
     // Fields    
 
      private int staffNoteId;
+     private HrStaff hrStaff;
      private HrStaffNote hrStaffNote;
      private String staffNoteType;
-     private Integer staffId;
      private String text;
      private Integer priority;
      private int creator;
@@ -46,11 +45,11 @@ public class HrStaffNote  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrStaffNote(int staffNoteId, HrStaffNote hrStaffNote, String staffNoteType, Integer staffId, String text, Integer priority, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrStaffNotes) {
+    public HrStaffNote(int staffNoteId, HrStaff hrStaff, HrStaffNote hrStaffNote, String staffNoteType, String text, Integer priority, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrStaffNotes) {
         this.staffNoteId = staffNoteId;
+        this.hrStaff = hrStaff;
         this.hrStaffNote = hrStaffNote;
         this.staffNoteType = staffNoteType;
-        this.staffId = staffId;
         this.text = text;
         this.priority = priority;
         this.creator = creator;
@@ -77,6 +76,14 @@ public class HrStaffNote  implements java.io.Serializable {
         this.staffNoteId = staffNoteId;
     }
 
+    public HrStaff getHrStaff() {
+        return this.hrStaff;
+    }
+    
+    public void setHrStaff(HrStaff hrStaff) {
+        this.hrStaff = hrStaff;
+    }
+
     public HrStaffNote getHrStaffNote() {
         return this.hrStaffNote;
     }
@@ -91,14 +98,6 @@ public class HrStaffNote  implements java.io.Serializable {
     
     public void setStaffNoteType(String staffNoteType) {
         this.staffNoteType = staffNoteType;
-    }
-
-    public Integer getStaffId() {
-        return this.staffId;
-    }
-    
-    public void setStaffId(Integer staffId) {
-        this.staffId = staffId;
     }
 
     public String getText() {

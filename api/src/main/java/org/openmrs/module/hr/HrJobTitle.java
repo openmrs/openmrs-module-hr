@@ -14,9 +14,8 @@ public class HrJobTitle  implements java.io.Serializable {
      private HrIscoCodes hrIscoCodes;
      private Integer nationalId;
      private String title;
-     private String cadre;
-     private String minGrade;
-     private String maxGrade;
+     private int cadre;
+     private String grades;
      private String description;
      private int creator;
      private Date dateCreated;
@@ -37,10 +36,11 @@ public class HrJobTitle  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrJobTitle(int jobId, String title, String cadre, int creator, Date dateCreated, short retired, String uuid) {
+    public HrJobTitle(int jobId, String title, int cadre, String grades, int creator, Date dateCreated, short retired, String uuid) {
         this.jobId = jobId;
         this.title = title;
         this.cadre = cadre;
+        this.grades = grades;
         this.creator = creator;
         this.dateCreated = dateCreated;
         this.retired = retired;
@@ -48,14 +48,13 @@ public class HrJobTitle  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrJobTitle(int jobId, HrIscoCodes hrIscoCodes, Integer nationalId, String title, String cadre, String minGrade, String maxGrade, String description, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrPosts) {
+    public HrJobTitle(int jobId, HrIscoCodes hrIscoCodes, Integer nationalId, String title, int cadre, String grades, String description, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrPosts) {
         this.jobId = jobId;
         this.hrIscoCodes = hrIscoCodes;
         this.nationalId = nationalId;
         this.title = title;
         this.cadre = cadre;
-        this.minGrade = minGrade;
-        this.maxGrade = maxGrade;
+        this.grades = grades;
         this.description = description;
         this.creator = creator;
         this.dateCreated = dateCreated;
@@ -105,28 +104,20 @@ public class HrJobTitle  implements java.io.Serializable {
         this.title = title;
     }
 
-    public String getCadre() {
+    public int getCadre() {
         return this.cadre;
     }
     
-    public void setCadre(String cadre) {
+    public void setCadre(int cadre) {
         this.cadre = cadre;
     }
 
-    public String getMinGrade() {
-        return this.minGrade;
+    public String getGrades() {
+        return this.grades;
     }
     
-    public void setMinGrade(String minGrade) {
-        this.minGrade = minGrade;
-    }
-
-    public String getMaxGrade() {
-        return this.maxGrade;
-    }
-    
-    public void setMaxGrade(String maxGrade) {
-        this.maxGrade = maxGrade;
+    public void setGrades(String grades) {
+        this.grades = grades;
     }
 
     public String getDescription() {

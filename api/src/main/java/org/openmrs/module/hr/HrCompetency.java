@@ -12,8 +12,8 @@ public class HrCompetency  implements java.io.Serializable {
 
      private int competencyId;
      private Integer nationalId;
+     private String category;
      private String name;
-     private String subname;
      private String levels;
      private int creator;
      private Date dateCreated;
@@ -26,7 +26,7 @@ public class HrCompetency  implements java.io.Serializable {
      private String editPrivilege;
      private String uuid;
      private Double sortWeight;
-    // private Set hrTrainingCompetencies = new HashSet(0);
+     private Set hrTrainingCompetencies = new HashSet(0);
      private Set hrEvaluations = new HashSet(0);
 
 
@@ -37,10 +37,9 @@ public class HrCompetency  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrCompetency(int competencyId, String name, String subname, String levels, int creator, Date dateCreated, short retired, String uuid) {
+    public HrCompetency(int competencyId, String name, String levels, int creator, Date dateCreated, short retired, String uuid) {
         this.competencyId = competencyId;
         this.name = name;
-        this.subname = subname;
         this.levels = levels;
         this.creator = creator;
         this.dateCreated = dateCreated;
@@ -49,11 +48,11 @@ public class HrCompetency  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrCompetency(int competencyId, Integer nationalId, String name, String subname, String levels, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String editPrivilege, String uuid, Double sortWeight, Set hrTrainingCompetencies, Set hrEvaluations) {
+    public HrCompetency(int competencyId, Integer nationalId, String category, String name, String levels, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String editPrivilege, String uuid, Double sortWeight, Set hrTrainingCompetencies, Set hrEvaluations) {
         this.competencyId = competencyId;
         this.nationalId = nationalId;
+        this.category = category;
         this.name = name;
-        this.subname = subname;
         this.levels = levels;
         this.creator = creator;
         this.dateCreated = dateCreated;
@@ -66,7 +65,7 @@ public class HrCompetency  implements java.io.Serializable {
         this.editPrivilege = editPrivilege;
         this.uuid = uuid;
         this.sortWeight = sortWeight;
-     //   this.hrTrainingCompetencies = hrTrainingCompetencies;
+        this.hrTrainingCompetencies = hrTrainingCompetencies;
         this.hrEvaluations = hrEvaluations;
     }
     
@@ -90,20 +89,20 @@ public class HrCompetency  implements java.io.Serializable {
         this.nationalId = nationalId;
     }
 
+    public String getCategory() {
+        return this.category;
+    }
+    
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getName() {
         return this.name;
     }
     
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSubname() {
-        return this.subname;
-    }
-    
-    public void setSubname(String subname) {
-        this.subname = subname;
     }
 
     public String getLevels() {
@@ -202,13 +201,13 @@ public class HrCompetency  implements java.io.Serializable {
         this.sortWeight = sortWeight;
     }
 
-   /* public Set getHrTrainingCompetencies() {
+    public Set getHrTrainingCompetencies() {
         return this.hrTrainingCompetencies;
     }
     
     public void setHrTrainingCompetencies(Set hrTrainingCompetencies) {
         this.hrTrainingCompetencies = hrTrainingCompetencies;
-    }*/
+    }
 
     public Set getHrEvaluations() {
         return this.hrEvaluations;

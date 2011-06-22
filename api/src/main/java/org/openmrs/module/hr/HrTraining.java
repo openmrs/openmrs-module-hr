@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-
 public class HrTraining  implements java.io.Serializable {
 
 
@@ -27,7 +26,7 @@ public class HrTraining  implements java.io.Serializable {
      private String uuid;
      private Double sortWeight;
      private Set hrTrainingClasses = new HashSet(0);
-    // private Set hrTrainingCompetencies = new HashSet(0);
+
 
 
     // Constructors
@@ -66,7 +65,7 @@ public class HrTraining  implements java.io.Serializable {
         this.uuid = uuid;
         this.sortWeight = sortWeight;
         this.hrTrainingClasses = hrTrainingClasses;
-       // this.hrTrainingCompetencies = hrTrainingCompetencies;
+        this.hrTrainingCompetencies = hrTrainingCompetencies;
     }
     
 
@@ -201,14 +200,14 @@ public class HrTraining  implements java.io.Serializable {
         this.hrTrainingClasses = hrTrainingClasses;
     }
 
-   /* public Set getHrTrainingCompetencies() {
+    public Set getHrTrainingCompetencies() {
         return this.hrTrainingCompetencies;
     }
     
     public void setHrTrainingCompetencies(Set hrTrainingCompetencies) {
         this.hrTrainingCompetencies = hrTrainingCompetencies;
     }
-   */
+   
 
 
 
