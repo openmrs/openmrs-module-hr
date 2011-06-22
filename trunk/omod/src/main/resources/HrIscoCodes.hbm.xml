@@ -8,7 +8,7 @@
             <generator class="assigned" />
         </id>
         <property name="title" type="string">
-            <column name="title" length="25" not-null="true" />
+            <column name="title" not-null="true" />
         </property>
         <property name="definition" type="string">
             <column name="definition" length="65535" />
@@ -16,8 +16,8 @@
         <property name="tasksInclude" type="string">
             <column name="tasks_include" length="65535" />
         </property>
-        <property name="tasksExclude" type="string">
-            <column name="tasks_exclude" length="65535" />
+        <property name="includedOccupations" type="string">
+            <column name="included_occupations" length="65535" />
         </property>
         <property name="excludedOccupations" type="string">
             <column name="excluded_occupations" length="65535" />

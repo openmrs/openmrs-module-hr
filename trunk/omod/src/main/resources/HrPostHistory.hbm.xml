@@ -7,20 +7,23 @@
             <column name="post_history_ID" />
             <generator class="assigned" />
         </id>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="staff_id" not-null="true" />
+        </many-to-one>
         <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" fetch="select">
             <column name="post_id" not-null="true" />
         </many-to-one>
-        <property name="staffId" type="int">
-            <column name="staff_id" not-null="true" />
-        </property>
         <property name="startDate" type="timestamp">
             <column name="start_date" length="19" not-null="true" />
+        </property>
+        <property name="grade" type="string">
+            <column name="grade" length="20" />
         </property>
         <property name="endDate" type="timestamp">
             <column name="end_date" length="19" />
         </property>
-        <property name="endReason" type="string">
-            <column name="end_reason" length="10" />
+        <property name="endReason" type="java.lang.Integer">
+            <column name="end_reason" />
         </property>
         <property name="endReasonOther" type="string">
             <column name="end_reason_other" length="252" />
@@ -34,11 +37,11 @@
         <property name="changedBy" type="java.lang.Integer">
             <column name="changed_by" />
         </property>
-        <property name="dateChanged" type="timestamp">
-            <column name="date_changed" length="19" />
-        </property>
         <property name="voided" type="short">
             <column name="voided" not-null="true" />
+        </property>
+        <property name="dateChanged" type="timestamp">
+            <column name="date_changed" length="19" />
         </property>
         <property name="voidedBy" type="java.lang.Integer">
             <column name="voided_by" />

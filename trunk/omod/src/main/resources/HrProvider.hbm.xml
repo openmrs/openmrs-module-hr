@@ -7,11 +7,5 @@
             <column name="provider_id" />
             <generator class="assigned" />
         </id>
-        <set name="hrStaffs" inverse="true">
-            <key>
-                <column name="provider_id" unique="true" />
-            </key>
-            <one-to-many class="org.openmrs.module.hr.HrStaff" />
-        </set>
     </class>
 </hibernate-mapping>

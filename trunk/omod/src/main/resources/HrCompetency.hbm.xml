@@ -10,11 +10,11 @@
         <property name="nationalId" type="java.lang.Integer">
             <column name="national_id" />
         </property>
+        <property name="category" type="string">
+            <column name="category" />
+        </property>
         <property name="name" type="string">
             <column name="name" not-null="true" />
-        </property>
-        <property name="subname" type="string">
-            <column name="subname" not-null="true" />
         </property>
         <property name="levels" type="string">
             <column name="levels" not-null="true" />

@@ -34,6 +34,5 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" />
         </property>
-        
     </class>
 </hibernate-mapping>
