@@ -45,18 +45,18 @@ public class HumanResourceModuleActivator implements Activator {
 		{
 			if(r.getName().equals("Human Resource Manager"))
 				humanResourceManager=r;
-			if(r.getName().equals("Human Resource Clerk"));
-				humanResourceClerk=r;
+			if(r.getName().equals("Human Resource Clerk"))
+			humanResourceClerk=r;
 		}
 		if(humanResourceManager==null){
-		humanResourceManager=new Role("Human Resource Manager","HR manager");
-		humanResourceManager.setInheritedRoles(inheritedRoleSet);
-		Context.getUserService().saveRole(humanResourceManager);
+			humanResourceManager=new Role("Human Resource Manager","HR manager");
+			humanResourceManager.setInheritedRoles(inheritedRoleSet);
+			Context.getUserService().saveRole(humanResourceManager);
 		}
 		if(humanResourceClerk==null){
-		humanResourceClerk=new Role("Human Resource Clerk","HR Clerk");
-		humanResourceClerk.setInheritedRoles(inheritedRoleSet);
-		Context.getUserService().saveRole(humanResourceClerk);
+			humanResourceClerk=new Role("Human Resource Clerk","HR Clerk");
+			humanResourceClerk.setInheritedRoles(inheritedRoleSet);
+			Context.getUserService().saveRole(humanResourceClerk);
 		}
 		log.info("Starting Human Resource Module");
 	}
@@ -65,6 +65,24 @@ public class HumanResourceModuleActivator implements Activator {
 	 * @see org.openmrs.module.Activator#shutdown()
 	 */
 	public void shutdown() {
+		Role humanResourceManager=null;
+		Role humanResourceClerk=null;
+		Set<Role> inheritedRoleSet=new HashSet<Role>();
+		inheritedRoleSet.add(Context.getUserService().getRole(OpenmrsConstants.AUTHENTICATED_ROLE));
+		List<Role> AllRoles=Context.getUserService().getAllRoles();
+		for(Role r:AllRoles)
+		{
+			if(r.getName().equals("Human Resource Manager"))
+				humanResourceManager=r;
+			if(r.getName().equals("Human Resource Clerk"));
+			humanResourceClerk=r;
+		}
+		if(humanResourceManager!=null){
+			Context.getUserService().purgeRole(humanResourceManager);
+		}
+		if(humanResourceClerk!=null){
+			Context.getUserService().purgeRole(humanResourceClerk);
+		}
 		log.info("Shutting down Human Resource Module");
 	}
 	
