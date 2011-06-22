@@ -48,7 +48,7 @@ public class HrTraining  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrTraining(int trainingId, Integer nationalId, String category, String name, String description, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Double sortWeight, Set hrTrainingClasses, Set hrTrainingCompetencies) {
+    public HrTraining(int trainingId, Integer nationalId, String category, String name, String description, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Double sortWeight, Set hrTrainingClasses) {
         this.trainingId = trainingId;
         this.nationalId = nationalId;
         this.category = category;
@@ -65,7 +65,6 @@ public class HrTraining  implements java.io.Serializable {
         this.uuid = uuid;
         this.sortWeight = sortWeight;
         this.hrTrainingClasses = hrTrainingClasses;
-        this.hrTrainingCompetencies = hrTrainingCompetencies;
     }
     
 
@@ -199,21 +198,5 @@ public class HrTraining  implements java.io.Serializable {
     public void setHrTrainingClasses(Set hrTrainingClasses) {
         this.hrTrainingClasses = hrTrainingClasses;
     }
-
-    public Set getHrTrainingCompetencies() {
-        return this.hrTrainingCompetencies;
-    }
-    
-    public void setHrTrainingCompetencies(Set hrTrainingCompetencies) {
-        this.hrTrainingCompetencies = hrTrainingCompetencies;
-    }
-   
-
-
-
-
-
-
-
 
 }
