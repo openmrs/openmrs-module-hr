@@ -14,6 +14,7 @@
 package org.openmrs.module.hr.web.controller;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -22,7 +23,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrJobTitle;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,24 +36,37 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * This class configured as controller using annotation and mapped with the URL of 'module/hr/humanresourcemoduleLink.form'.
  */
 @Controller
-@RequestMapping(value = "module/hr/admin/jobs.list")
-public class JobTitlesListController{
+public class JobTitleController{
 	
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	/** Success form view name */
-	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/jobs";
+	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/jobs";
+	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/job";
 	
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name
 	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String showForm(){
+	/*@ModelAttribute("JobList")
+	@RequestMapping(value = "module/hr/admin/jobs.list")
+	public Collection<HrJobTitle> getAllJobs()
+	{
+		
+	}*/
+	@RequestMapping(value = "module/hr/admin/jobs.list",method = RequestMethod.GET)
+	public String showForm(ModelMap model){
+		HRService hrService=Context.getService(HRService.class);
+		List<HrJobTitle> jobList= hrService.getAllJobTitles();
+		model.addAttribute("JobList",jobList);
+		return SUCCESS_LIST_VIEW;
+	}
+	@RequestMapping(value="module/hr/admin/job.form",method=RequestMethod.GET)
+	public String showEditPost()
+	{
 		return SUCCESS_FORM_VIEW;
 	}
-	
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
@@ -58,7 +75,7 @@ public class JobTitlesListController{
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST)
+	/*@RequestMapping(method = RequestMethod.POST)
 	public String onSubmit(HttpSession httpSession,
 	                               @ModelAttribute("anyRequestObject") Object anyRequestObject, BindingResult errors) {
 		
@@ -67,14 +84,14 @@ public class JobTitlesListController{
 		}
 		
 		return SUCCESS_FORM_VIEW;
-	}
+	}*/
 	
 	/**
 	 * This class returns the form backing object. This can be a string, a boolean, or a normal java
 	 * pojo. The bean name defined in the ModelAttribute annotation and the type can be just
 	 * defined by the return type of this method
 	 */
-	@ModelAttribute("thePatientList")
+	/*@ModelAttribute("thePatientList")
 	protected Collection<Patient> formBackingObject(HttpServletRequest request) throws Exception {
 		// get all patients that have an identifier "101" (from the demo sample data)
 		// see http://resources.openmrs.org/doc/index.html?org/openmrs/api/PatientService.html for
@@ -84,6 +101,6 @@ public class JobTitlesListController{
 		// this object will be made available to the jsp page under the variable name
 		// that is defined in the @ModuleAttribute tag
 		return patients;
-	}
+	}*/
 	
 }

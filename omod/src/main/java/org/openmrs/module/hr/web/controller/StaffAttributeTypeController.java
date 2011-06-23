@@ -11,23 +11,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "module/hr/admin/posts.list")
-public class PostsListController {
+public class StaffAttributeTypeController {
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	/** Success form view name */
-	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/posts";
+	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/staffAttributeTypes";
 	
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name
 	 */
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value = "module/hr/admin/staffAttributeTypes.list",method = RequestMethod.GET)
 	public String showForm(){
 		return SUCCESS_FORM_VIEW;
 	}
-	
+	@RequestMapping(value="module/hr/admin/staffAttributeType.form",method=RequestMethod.GET)
+	public String showEditPost()
+	{
+		return "module/hr/admin/staffAttributeType";
+	}
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
