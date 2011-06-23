@@ -3,20 +3,15 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="PatientData" /></h2>
+<h2><spring:message code="Manage jobs" /></h2>
 
-<br/>
-<table>
-  <tr>
-   <th>Patient Id</th>
-   <th>Name</th>
-   <th>Identifier</th>
-  </tr>
-  <c:forEach var="patient" items="${thePatientList}">
+<a href="job.form"><spring:message code="Add New Job"/></a>
+ <table>
+ <c:forEach var="Job" items="${JobList}">
       <tr>
-        <td>${patient.patientId}</td>
-        <td>${patient.personName}</td>
-        <td>${patient.patientIdentifier}</td>
+        <td>${Job.jobId}</td>
+        <td>${Job.title}</td>
+        <td>${Job.cadre}</td>
       </tr>		
   </c:forEach>
 </table>
