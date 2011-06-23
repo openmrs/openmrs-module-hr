@@ -4,8 +4,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openmrs.BaseOpenmrsMetadata;
+import org.openmrs.Concept;
+import org.openmrs.Location;
 
-public class HrPost  implements java.io.Serializable {
+
+public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable {
 
 
     // Fields    
@@ -13,18 +17,10 @@ public class HrPost  implements java.io.Serializable {
      private int postId;
      private HrJobTitle hrJobTitle;
      private Integer nationalId;
-     private int locationId;
+     private Location location;
      private String timeBasis;
-     private Integer status;
+     private Concept status;
      private String fundingSource;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short retired;
-     private Integer retiredBy;
-     private Date dateRetired;
-     private String retireReason;
      private String uuid;
      private Set hrPostHistories = new HashSet(0);
 
@@ -36,33 +32,22 @@ public class HrPost  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrPost(int postId, HrJobTitle hrJobTitle, int locationId, int creator, Date dateCreated, short retired, String uuid) {
+    public HrPost(int postId, HrJobTitle hrJobTitle, Location location,String uuid) {
         this.postId = postId;
         this.hrJobTitle = hrJobTitle;
-        this.locationId = locationId;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.retired = retired;
+        this.location = location;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, int locationId, String timeBasis, Integer status, String fundingSource, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String uuid, Set hrPostHistories) {
+    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, Location location, String timeBasis, Concept status, String fundingSource, String uuid, Set hrPostHistories) {
         this.postId = postId;
         this.hrJobTitle = hrJobTitle;
         this.nationalId = nationalId;
-        this.locationId = locationId;
+        this.location = location;
         this.timeBasis = timeBasis;
         this.status = status;
         this.fundingSource = fundingSource;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.retired = retired;
-        this.retiredBy = retiredBy;
-        this.dateRetired = dateRetired;
-        this.retireReason = retireReason;
         this.uuid = uuid;
         this.hrPostHistories = hrPostHistories;
     }
@@ -95,12 +80,12 @@ public class HrPost  implements java.io.Serializable {
         this.nationalId = nationalId;
     }
 
-    public int getLocationId() {
-        return this.locationId;
+    public Location getLocation() {
+        return this.location;
     }
     
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getTimeBasis() {
@@ -111,11 +96,11 @@ public class HrPost  implements java.io.Serializable {
         this.timeBasis = timeBasis;
     }
 
-    public Integer getStatus() {
+    public Concept getStatus() {
         return this.status;
     }
     
-    public void setStatus(Integer status) {
+    public void setStatus(Concept status) {
         this.status = status;
     }
 
@@ -125,70 +110,6 @@ public class HrPost  implements java.io.Serializable {
     
     public void setFundingSource(String fundingSource) {
         this.fundingSource = fundingSource;
-    }
-
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getRetired() {
-        return this.retired;
-    }
-    
-    public void setRetired(short retired) {
-        this.retired = retired;
-    }
-
-    public Integer getRetiredBy() {
-        return this.retiredBy;
-    }
-    
-    public void setRetiredBy(Integer retiredBy) {
-        this.retiredBy = retiredBy;
-    }
-
-    public Date getDateRetired() {
-        return this.dateRetired;
-    }
-    
-    public void setDateRetired(Date dateRetired) {
-        this.dateRetired = dateRetired;
-    }
-
-    public String getRetireReason() {
-        return this.retireReason;
-    }
-    
-    public void setRetireReason(String retireReason) {
-        this.retireReason = retireReason;
     }
 
     public String getUuid() {
@@ -206,13 +127,13 @@ public class HrPost  implements java.io.Serializable {
     public void setHrPostHistories(Set hrPostHistories) {
         this.hrPostHistories = hrPostHistories;
     }
-   
 
+	public Integer getId() {
+		return getPostId();
+	}
 
-
-
-
-
-
+	public void setId(Integer id) {
+		setPostId(id);
+	}
 
 }

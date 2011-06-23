@@ -2,26 +2,25 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
+import org.openmrs.BaseOpenmrsData;
+import org.openmrs.Person;
 
-public class HrTrainPerson  implements java.io.Serializable {
+
+public class HrTrainPerson extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
 
-     private int trainPersonId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int trainPersonId;
      private HrTrainingClass hrTrainingClass;
-     private int personId;
+     private Person person;
      private short completed;
      private String reason;
      private Date followUpDate;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short voided;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
 
 
@@ -31,36 +30,14 @@ public class HrTrainPerson  implements java.io.Serializable {
     public HrTrainPerson() {
     }
 
-	/** minimal constructor */
-    public HrTrainPerson(int trainPersonId, HrTrainingClass hrTrainingClass, int personId, short completed, String reason, Date followUpDate, int creator, Date dateCreated, short voided, String uuid) {
-        this.trainPersonId = trainPersonId;
-        this.hrTrainingClass = hrTrainingClass;
-        this.personId = personId;
-        this.completed = completed;
-        this.reason = reason;
-        this.followUpDate = followUpDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.voided = voided;
-        this.uuid = uuid;
-    }
-    
     /** full constructor */
-    public HrTrainPerson(int trainPersonId, HrTrainingClass hrTrainingClass, int personId, short completed, String reason, Date followUpDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
+    public HrTrainPerson(int trainPersonId, HrTrainingClass hrTrainingClass, Person person, short completed, String reason, Date followUpDate,  String uuid) {
         this.trainPersonId = trainPersonId;
         this.hrTrainingClass = hrTrainingClass;
-        this.personId = personId;
+        this.person = person;
         this.completed = completed;
         this.reason = reason;
         this.followUpDate = followUpDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.voided = voided;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
     }
     
@@ -84,12 +61,12 @@ public class HrTrainPerson  implements java.io.Serializable {
         this.hrTrainingClass = hrTrainingClass;
     }
 
-    public int getPersonId() {
-        return this.personId;
+    public Person getPerson() {
+        return this.person;
     }
     
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setPerson(Person person) {
+        this.person= person;
     }
 
     public short getCompleted() {
@@ -116,70 +93,6 @@ public class HrTrainPerson  implements java.io.Serializable {
         this.followUpDate = followUpDate;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
-    }
-
     public String getUuid() {
         return this.uuid;
     }
@@ -187,13 +100,12 @@ public class HrTrainPerson  implements java.io.Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-   
 
+	public Integer getId() {
+		return getTrainPersonId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setTrainPersonId(id);
+	}
 }

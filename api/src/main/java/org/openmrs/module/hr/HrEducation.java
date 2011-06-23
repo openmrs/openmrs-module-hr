@@ -2,8 +2,10 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
+import org.openmrs.BaseOpenmrsData;
 
-public class HrEducation  implements java.io.Serializable {
+
+public class HrEducation extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
@@ -15,14 +17,6 @@ public class HrEducation  implements java.io.Serializable {
      private String institutionLocation;
      private String major;
      private Integer degreeYear;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short voided;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
 
 
@@ -33,21 +27,18 @@ public class HrEducation  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrEducation(int educationId, HrStaff hrStaff, String degree, String institution, String institutionLocation, String major, int creator, Date dateCreated, short voided, String uuid) {
+    public HrEducation(int educationId, HrStaff hrStaff, String degree, String institution, String institutionLocation, String major, String uuid) {
         this.educationId = educationId;
         this.hrStaff = hrStaff;
         this.degree = degree;
         this.institution = institution;
         this.institutionLocation = institutionLocation;
         this.major = major;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.voided = voided;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrEducation(int educationId, HrStaff hrStaff, String degree, String institution, String institutionLocation, String major, Integer degreeYear, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
+    public HrEducation(int educationId, HrStaff hrStaff, String degree, String institution, String institutionLocation, String major, Integer degreeYear, String uuid) {
         this.educationId = educationId;
         this.hrStaff = hrStaff;
         this.degree = degree;
@@ -55,14 +46,6 @@ public class HrEducation  implements java.io.Serializable {
         this.institutionLocation = institutionLocation;
         this.major = major;
         this.degreeYear = degreeYear;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.voided = voided;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
     }
     
@@ -126,70 +109,6 @@ public class HrEducation  implements java.io.Serializable {
         this.degreeYear = degreeYear;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
-    }
-
     public String getUuid() {
         return this.uuid;
     }
@@ -197,6 +116,14 @@ public class HrEducation  implements java.io.Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
+
+	public Integer getId() {
+		return getEducationId();
+	}
+
+	public void setId(Integer id) {
+		setEducationId(id);
+	}
    
 
 
