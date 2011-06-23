@@ -16,30 +16,14 @@
         <property name="value" type="string">
             <column name="value" length="50" />
         </property>
-        <property name="creator" type="int">
-            <column name="creator" not-null="true" />
-        </property>
-        <property name="dateCreated" type="timestamp">
-            <column name="date_created" length="19" not-null="true" />
-        </property>
-        <property name="changedBy" type="java.lang.Integer">
-            <column name="changed_by" />
-        </property>
-        <property name="dateChanged" type="timestamp">
-            <column name="date_changed" length="19" />
-        </property>
-        <property name="voided" type="short">
-            <column name="voided" not-null="true" />
-        </property>
-        <property name="voidedBy" type="java.lang.Integer">
-            <column name="voided_by" />
-        </property>
-        <property name="dateVoided" type="timestamp">
-            <column name="date_voided" length="19" />
-        </property>
-        <property name="voidReason" type="string">
-            <column name="void_reason" />
-        </property>
+        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+		<property name="dateChanged" type="java.util.Date" column="date_changed" />		
+		<property name="voided" type="java.lang.Boolean" length="1" not-null="true" column="voided"/>
+		<many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
+		<property name="dateVoided" type="java.util.Date" column="date_voided" />	
+		<property name="voidReason" type="string" column="void_reason" />
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" unique="true" />
         </property>
