@@ -513,7 +513,7 @@
 		<createTable tableName="hr_staff_tag" schemaName="openmrs">
 		<column name="staff_tag_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"></column>
-		<column name="desciption" type="varchar(255)"></column>
+		<column name="description" type="varchar(255)"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
 		<column name="retired" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
@@ -692,7 +692,7 @@
 		<addAutoIncrement tableName="hr_training_class" schemaName="openmrs" columnName="train_class_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_retired_status"><column name="voided"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_class_training" referencedTableName="hr_training" baseColumnNames="train_class_id" baseTableName="hr_training_class" referencedColumnNames="training_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_class_training" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_class" referencedColumnNames="training_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_train_person">
