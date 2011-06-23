@@ -4,9 +4,12 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openmrs.BaseOpenmrsData;
+import org.openmrs.Concept;
 
 
-public class HrPostHistory  implements java.io.Serializable {
+
+public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
@@ -17,16 +20,8 @@ public class HrPostHistory  implements java.io.Serializable {
      private Date startDate;
      private String grade;
      private Date endDate;
-     private Integer endReason;
+     private Concept endReason;
      private String endReasonOther;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private short voided;
-     private Date dateChanged;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
      private Set hrAssignments = new HashSet(0);
      private Set hrLeaves = new HashSet(0);
@@ -39,19 +34,16 @@ public class HrPostHistory  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, int creator, Date dateCreated, short voided, String uuid) {
+    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String uuid) {
         this.postHistoryId = postHistoryId;
         this.hrStaff = hrStaff;
         this.hrPost = hrPost;
         this.startDate = startDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.voided = voided;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String grade, Date endDate, Integer endReason, String endReasonOther, int creator, Date dateCreated, Integer changedBy, short voided, Date dateChanged, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrAssignments, Set hrLeaves) {
+    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String grade, Date endDate, Concept endReason, String endReasonOther,  String uuid, Set hrAssignments, Set hrLeaves) {
         this.postHistoryId = postHistoryId;
         this.hrStaff = hrStaff;
         this.hrPost = hrPost;
@@ -60,14 +52,6 @@ public class HrPostHistory  implements java.io.Serializable {
         this.endDate = endDate;
         this.endReason = endReason;
         this.endReasonOther = endReasonOther;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.voided = voided;
-        this.dateChanged = dateChanged;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
         this.hrAssignments = hrAssignments;
         this.hrLeaves = hrLeaves;
@@ -125,11 +109,11 @@ public class HrPostHistory  implements java.io.Serializable {
         this.endDate = endDate;
     }
 
-    public Integer getEndReason() {
+    public Concept getEndReason() {
         return this.endReason;
     }
     
-    public void setEndReason(Integer endReason) {
+    public void setEndReason(Concept endReason) {
         this.endReason = endReason;
     }
 
@@ -139,70 +123,6 @@ public class HrPostHistory  implements java.io.Serializable {
     
     public void setEndReasonOther(String endReasonOther) {
         this.endReasonOther = endReasonOther;
-    }
-
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
     }
 
     public String getUuid() {
@@ -228,13 +148,12 @@ public class HrPostHistory  implements java.io.Serializable {
     public void setHrLeaves(Set hrLeaves) {
         this.hrLeaves = hrLeaves;
     }
-   
 
+	public Integer getId() {
+		return getPostHistoryId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setPostHistoryId(id);
+	}
 }

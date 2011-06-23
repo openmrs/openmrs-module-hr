@@ -4,26 +4,18 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-public class HrStaffAttributeType  implements java.io.Serializable {
+import org.openmrs.BaseOpenmrsMetadata;
+
+public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io.Serializable {
 
 
     // Fields    
 
      private int staffAttributeTypeId;
-     private String name;
-     private String description;
      private String handlerType;
      private String handlerConfiguration;
      private int minOccurs;
      private Integer maxOccurs;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short retired;
-     private Integer retiredBy;
-     private Date dateRetired;
-     private String retireReason;
      private String editPrivilege;
      private String uuid;
      private Double sortWeight;
@@ -37,35 +29,20 @@ public class HrStaffAttributeType  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrStaffAttributeType(int staffAttributeTypeId, String name, String description, String handlerType, int minOccurs, int creator, Date dateCreated, short retired, String uuid) {
+    public HrStaffAttributeType(int staffAttributeTypeId,String handlerType, int minOccurs, String uuid) {
         this.staffAttributeTypeId = staffAttributeTypeId;
-        this.name = name;
-        this.description = description;
         this.handlerType = handlerType;
         this.minOccurs = minOccurs;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.retired = retired;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrStaffAttributeType(int staffAttributeTypeId, String name, String description, String handlerType, String handlerConfiguration, int minOccurs, Integer maxOccurs, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short retired, Integer retiredBy, Date dateRetired, String retireReason, String editPrivilege, String uuid, Double sortWeight, Set hrStaffAttributes) {
+    public HrStaffAttributeType(int staffAttributeTypeId,String handlerType, String handlerConfiguration, int minOccurs, Integer maxOccurs,String editPrivilege, String uuid, Double sortWeight, Set hrStaffAttributes) {
         this.staffAttributeTypeId = staffAttributeTypeId;
-        this.name = name;
-        this.description = description;
         this.handlerType = handlerType;
         this.handlerConfiguration = handlerConfiguration;
         this.minOccurs = minOccurs;
         this.maxOccurs = maxOccurs;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.retired = retired;
-        this.retiredBy = retiredBy;
-        this.dateRetired = dateRetired;
-        this.retireReason = retireReason;
         this.editPrivilege = editPrivilege;
         this.uuid = uuid;
         this.sortWeight = sortWeight;
@@ -82,22 +59,6 @@ public class HrStaffAttributeType  implements java.io.Serializable {
     
     public void setStaffAttributeTypeId(int staffAttributeTypeId) {
         this.staffAttributeTypeId = staffAttributeTypeId;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getHandlerType() {
@@ -132,70 +93,6 @@ public class HrStaffAttributeType  implements java.io.Serializable {
         this.maxOccurs = maxOccurs;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getRetired() {
-        return this.retired;
-    }
-    
-    public void setRetired(short retired) {
-        this.retired = retired;
-    }
-
-    public Integer getRetiredBy() {
-        return this.retiredBy;
-    }
-    
-    public void setRetiredBy(Integer retiredBy) {
-        this.retiredBy = retiredBy;
-    }
-
-    public Date getDateRetired() {
-        return this.dateRetired;
-    }
-    
-    public void setDateRetired(Date dateRetired) {
-        this.dateRetired = dateRetired;
-    }
-
-    public String getRetireReason() {
-        return this.retireReason;
-    }
-    
-    public void setRetireReason(String retireReason) {
-        this.retireReason = retireReason;
-    }
-
     public String getEditPrivilege() {
         return this.editPrivilege;
     }
@@ -227,13 +124,12 @@ public class HrStaffAttributeType  implements java.io.Serializable {
     public void setHrStaffAttributes(Set hrStaffAttributes) {
         this.hrStaffAttributes = hrStaffAttributes;
     }
-   
 
+	public Integer getId() {
+		return getStaffAttributeTypeId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setStaffAttributeTypeId(id);
+	}
 }

@@ -4,23 +4,19 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openmrs.BaseOpenmrsData;
+import org.openmrs.Concept;
+import org.openmrs.Person;
 
-public class HrStaff  implements java.io.Serializable {
+
+public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
 
      private int staffId;
-     private Integer staffStatus;
+     private Concept staffStatus;
      private Date initialHireDate;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short voided;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
      private Set hrAssignments = new HashSet(0);
      private Set hrStaffNotes = new HashSet(0);
@@ -38,26 +34,16 @@ public class HrStaff  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrStaff(int staffId, int creator, short voided, String uuid) {
+    public HrStaff(int staffId, String uuid) {
         this.staffId = staffId;
-        this.creator = creator;
-        this.voided = voided;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrStaff(int staffId, Integer staffStatus, Date initialHireDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid, Set hrAssignments, Set hrStaffNotes, Set hrStaffAttributes, Set hrEducations, Set hrEvaluations, Set hrStaffCerts, Set hrPostHistories) {
+    public HrStaff(int staffId, Concept staffStatus, Date initialHireDate,String uuid, Set hrAssignments, Set hrStaffNotes, Set hrStaffAttributes, Set hrEducations, Set hrEvaluations, Set hrStaffCerts, Set hrPostHistories) {
         this.staffId = staffId;
         this.staffStatus = staffStatus;
         this.initialHireDate = initialHireDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.voided = voided;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
         this.hrAssignments = hrAssignments;
         this.hrStaffNotes = hrStaffNotes;
@@ -79,12 +65,12 @@ public class HrStaff  implements java.io.Serializable {
     public void setStaffId(int staffId) {
         this.staffId = staffId;
     }
-
-    public Integer getStaffStatus() {
+    
+    public Concept getStaffStatus() {
         return this.staffStatus;
     }
     
-    public void setStaffStatus(Integer staffStatus) {
+    public void setStaffStatus(Concept staffStatus) {
         this.staffStatus = staffStatus;
     }
 
@@ -96,70 +82,7 @@ public class HrStaff  implements java.io.Serializable {
         this.initialHireDate = initialHireDate;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
     
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
-    }
-
     public String getUuid() {
         return this.uuid;
     }
@@ -223,13 +146,12 @@ public class HrStaff  implements java.io.Serializable {
     public void setHrPostHistories(Set hrPostHistories) {
         this.hrPostHistories = hrPostHistories;
     }
-   
 
+	public Integer getId() {
+		return getStaffId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setStaffId(id);
+	}
 }

@@ -2,8 +2,11 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
+import org.openmrs.BaseOpenmrsData;
+import org.openmrs.Person;
 
-public class HrEvaluation  implements java.io.Serializable {
+
+public class HrEvaluation extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
@@ -11,17 +14,9 @@ public class HrEvaluation  implements java.io.Serializable {
      private int evaluationId;
      private HrStaff hrStaff;
      private HrCompetency hrCompetency;
-     private int evaluatorId;
+     private Person evaluator;
      private String level;
      private Date evaluationDate;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short voided;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
 
 
@@ -30,37 +25,15 @@ public class HrEvaluation  implements java.io.Serializable {
     /** default constructor */
     public HrEvaluation() {
     }
-
-	/** minimal constructor */
-    public HrEvaluation(int evaluationId, HrStaff hrStaff, HrCompetency hrCompetency, int evaluatorId, String level, Date evaluationDate, int creator, Date dateCreated, short voided, String uuid) {
-        this.evaluationId = evaluationId;
-        this.hrStaff = hrStaff;
-        this.hrCompetency = hrCompetency;
-        this.evaluatorId = evaluatorId;
-        this.level = level;
-        this.evaluationDate = evaluationDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.voided = voided;
-        this.uuid = uuid;
-    }
-    
+ 
     /** full constructor */
-    public HrEvaluation(int evaluationId, HrStaff hrStaff, HrCompetency hrCompetency, int evaluatorId, String level, Date evaluationDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
+    public HrEvaluation(int evaluationId, HrStaff hrStaff, HrCompetency hrCompetency, Person evaluator, String level, Date evaluationDate, String uuid) {
         this.evaluationId = evaluationId;
         this.hrStaff = hrStaff;
         this.hrCompetency = hrCompetency;
-        this.evaluatorId = evaluatorId;
+        this.evaluator = evaluator;
         this.level = level;
         this.evaluationDate = evaluationDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.voided = voided;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
     }
     
@@ -92,12 +65,12 @@ public class HrEvaluation  implements java.io.Serializable {
         this.hrCompetency = hrCompetency;
     }
 
-    public int getEvaluatorId() {
-        return this.evaluatorId;
+    public Person getEvaluator() {
+        return this.evaluator;
     }
     
-    public void setEvaluatorId(int evaluatorId) {
-        this.evaluatorId = evaluatorId;
+    public void setEvaluator(Person evaluator) {
+        this.evaluator = evaluator;
     }
 
     public String getLevel() {
@@ -116,70 +89,6 @@ public class HrEvaluation  implements java.io.Serializable {
         this.evaluationDate = evaluationDate;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
-    }
-
     public String getUuid() {
         return this.uuid;
     }
@@ -187,13 +96,13 @@ public class HrEvaluation  implements java.io.Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-   
 
+	public Integer getId() {
+		return getEvaluationId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setEvaluationId(id);
+	}
+ 
 }

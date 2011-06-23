@@ -2,9 +2,11 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 
+import org.openmrs.BaseOpenmrsData;
 
 
-public class HrStaffCert  implements java.io.Serializable {
+
+public class HrStaffCert extends BaseOpenmrsData implements java.io.Serializable {
 
 
     // Fields    
@@ -18,14 +20,6 @@ public class HrStaffCert  implements java.io.Serializable {
      private Date certExpirationDate;
      private String certCancel;
      private Date cancelDate;
-     private int creator;
-     private Date dateCreated;
-     private Integer changedBy;
-     private Date dateChanged;
-     private short voided;
-     private Integer voidedBy;
-     private Date dateVoided;
-     private String voidReason;
      private String uuid;
 
 
@@ -36,20 +30,17 @@ public class HrStaffCert  implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrStaffCert(int staffCertId, HrCertificate hrCertificate, HrStaff hrStaff, String level, Date currentCertDate, int creator, Date dateCreated, short voided, String uuid) {
+    public HrStaffCert(int staffCertId, HrCertificate hrCertificate, HrStaff hrStaff, String level, Date currentCertDate, String uuid) {
         this.staffCertId = staffCertId;
         this.hrCertificate = hrCertificate;
         this.hrStaff = hrStaff;
         this.level = level;
         this.currentCertDate = currentCertDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.voided = voided;
         this.uuid = uuid;
     }
     
     /** full constructor */
-    public HrStaffCert(int staffCertId, HrCertificate hrCertificate, HrStaff hrStaff, String level, Date initialCertDate, Date currentCertDate, Date certExpirationDate, String certCancel, Date cancelDate, int creator, Date dateCreated, Integer changedBy, Date dateChanged, short voided, Integer voidedBy, Date dateVoided, String voidReason, String uuid) {
+    public HrStaffCert(int staffCertId, HrCertificate hrCertificate, HrStaff hrStaff, String level, Date initialCertDate, Date currentCertDate, Date certExpirationDate, String certCancel, Date cancelDate, String uuid) {
         this.staffCertId = staffCertId;
         this.hrCertificate = hrCertificate;
         this.hrStaff = hrStaff;
@@ -59,14 +50,6 @@ public class HrStaffCert  implements java.io.Serializable {
         this.certExpirationDate = certExpirationDate;
         this.certCancel = certCancel;
         this.cancelDate = cancelDate;
-        this.creator = creator;
-        this.dateCreated = dateCreated;
-        this.changedBy = changedBy;
-        this.dateChanged = dateChanged;
-        this.voided = voided;
-        this.voidedBy = voidedBy;
-        this.dateVoided = dateVoided;
-        this.voidReason = voidReason;
         this.uuid = uuid;
     }
     
@@ -146,70 +129,6 @@ public class HrStaffCert  implements java.io.Serializable {
         this.cancelDate = cancelDate;
     }
 
-    public int getCreator() {
-        return this.creator;
-    }
-    
-    public void setCreator(int creator) {
-        this.creator = creator;
-    }
-
-    public Date getDateCreated() {
-        return this.dateCreated;
-    }
-    
-    public void setDateCreated(Date dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Integer getChangedBy() {
-        return this.changedBy;
-    }
-    
-    public void setChangedBy(Integer changedBy) {
-        this.changedBy = changedBy;
-    }
-
-    public Date getDateChanged() {
-        return this.dateChanged;
-    }
-    
-    public void setDateChanged(Date dateChanged) {
-        this.dateChanged = dateChanged;
-    }
-
-    public short getVoided() {
-        return this.voided;
-    }
-    
-    public void setVoided(short voided) {
-        this.voided = voided;
-    }
-
-    public Integer getVoidedBy() {
-        return this.voidedBy;
-    }
-    
-    public void setVoidedBy(Integer voidedBy) {
-        this.voidedBy = voidedBy;
-    }
-
-    public Date getDateVoided() {
-        return this.dateVoided;
-    }
-    
-    public void setDateVoided(Date dateVoided) {
-        this.dateVoided = dateVoided;
-    }
-
-    public String getVoidReason() {
-        return this.voidReason;
-    }
-    
-    public void setVoidReason(String voidReason) {
-        this.voidReason = voidReason;
-    }
-
     public String getUuid() {
         return this.uuid;
     }
@@ -217,13 +136,12 @@ public class HrStaffCert  implements java.io.Serializable {
     public void setUuid(String uuid) {
         this.uuid = uuid;
     }
-   
 
+	public Integer getId() {
+		return getStaffCertId();
+	}
 
-
-
-
-
-
-
+	public void setId(Integer id) {
+		setStaffCertId(id);
+	}
 }
