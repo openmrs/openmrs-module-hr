@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-
-public class StaffListController {
+public class StaffController {
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
@@ -23,11 +22,16 @@ public class StaffListController {
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name
 	 */
-	@RequestMapping(value = "module/hr/admin/staff.list")
+	@RequestMapping(value = "module/hr/admin/staff.list",method = RequestMethod.GET)
 	public String showForm(){
 		return SUCCESS_FORM_VIEW;
 	}
 	
+	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.GET)
+	public String showEditPost()
+	{
+		return "module/hr/admin/staff";
+	}
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
