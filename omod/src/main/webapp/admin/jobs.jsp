@@ -1,5 +1,3 @@
-<%@page import="org.openmrs.api.context.Context"%>
-<%@page import="org.openmrs.api.ConceptService"%>
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
 <%@ include file="/WEB-INF/template/header.jsp"%>
