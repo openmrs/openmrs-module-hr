@@ -40,6 +40,12 @@ public class HRServiceImpl implements HRService{
 		dao.saveStaff(staff);
 		
 	}
+	public void retireJobTitle(HrJobTitle jobTitle,String retireReason){
+		dao.saveJobTitle(jobTitle);
+	}
+	public void unretireJobTitle(HrJobTitle jobTitle) {
+		dao.saveJobTitle(jobTitle);
+	}
 	public HrJobTitle getJobTitleById( int id)
 	{
 		return dao.getJobTitleById(id);
