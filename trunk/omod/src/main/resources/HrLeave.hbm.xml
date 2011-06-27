@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrLeave" table="hr_leave" catalog="openmrs">
         <id name="leaveId" type="int">
             <column name="leave_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="hrPostHistory" class="org.openmrs.module.hr.HrPostHistory" fetch="select">
             <column name="post_history_id" not-null="true" />

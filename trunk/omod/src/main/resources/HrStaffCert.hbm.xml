@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrStaffCert" table="hr_staff_cert" catalog="openmrs">
         <id name="staffCertId" type="int">
             <column name="staff_cert_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="hrCertificate" class="org.openmrs.module.hr.HrCertificate" fetch="select">
             <column name="certificate_id" not-null="true" />

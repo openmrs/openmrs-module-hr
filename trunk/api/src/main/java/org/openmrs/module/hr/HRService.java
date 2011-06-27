@@ -14,8 +14,12 @@ public interface HRService {
 	
 	public void saveStaff(HrStaff staff);
 	
+	public HrJobTitle getJobTitleById( int id);
+	
 	public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
 	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
+	
+	public List<HrIscoCodes> getAllIscoCodes();
 	
 }

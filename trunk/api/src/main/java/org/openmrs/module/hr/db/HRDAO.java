@@ -1,11 +1,13 @@
 package org.openmrs.module.hr.db;
 
+import java.sql.SQLException;
 import java.util.List;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
 import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrEvaluation;
+import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrLeave;
 import org.openmrs.module.hr.HrPost;
@@ -173,4 +175,6 @@ public interface HRDAO {
 	public List<HrTrainPerson> findTrainPersonByExample(HrTrainPerson trainPerson);
 	
 	public HrTrainPerson getTrainPersonById( int id);
+	
+	public List<HrIscoCodes> getAllIscoCodes();
 }

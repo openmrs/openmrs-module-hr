@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrTrainPerson" table="hr_train_person" catalog="openmrs">
         <id name="trainPersonId" type="int">
             <column name="train_person_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="hrTrainingClass" class="org.openmrs.module.hr.HrTrainingClass" fetch="select">
             <column name="train_class_id" not-null="true" />
