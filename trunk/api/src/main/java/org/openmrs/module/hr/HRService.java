@@ -12,6 +12,10 @@ public interface HRService {
 	
 	public List<HrPost> getAllPosts();
 	
+	public void retireJobTitle(HrJobTitle jobTitle,String retireReason);
+	
+	public void unretireJobTitle(HrJobTitle jobTitle);
+	
 	public void saveStaff(HrStaff staff);
 	
 	public HrJobTitle getJobTitleById( int id);
