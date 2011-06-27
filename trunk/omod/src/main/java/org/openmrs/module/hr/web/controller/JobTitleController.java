@@ -107,14 +107,14 @@ public class JobTitleController{
 					errors.reject("retireReason", "Retire reason cannot be empty");
 					return SUCCESS_FORM_VIEW;
 				}
-				//conceptService.retireDrug(drug, retireReason);
-				//httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "");
+				hrService.retireJobTitle(jobTitle, retireReason);
+				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Retired Successfully");
+				return showList(model);
 			}
-			// if this obs is already voided and needs to be unvoided
 			else if (request.getParameter("unretireJobTitle") != null) {
-				//conceptService.unretireDrug(drug);
-				//httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "");
-				//return listview;
+				hrService.unretireJobTitle(jobTitle);
+				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Unretired Successfully");
+				return showList(model);
 			} else {
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"cadre", "error.null");
@@ -123,7 +123,7 @@ public class JobTitleController{
 					return SUCCESS_FORM_VIEW;
 				}
 				else{
-				//hrService.saveJobTitle(jobTitle);
+				hrService.saveJobTitle(jobTitle);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title saved Successfully");
 				return showList(model);
 				}
