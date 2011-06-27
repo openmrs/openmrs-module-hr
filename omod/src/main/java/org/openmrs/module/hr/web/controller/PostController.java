@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
@@ -13,6 +14,7 @@ import org.openmrs.module.hr.HrPost;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,7 +34,7 @@ public class PostController {
 	 * @return String form view name
 	 */
 	@RequestMapping(value = "module/hr/admin/posts.list",method = RequestMethod.GET)
-	public String showForm(ModelMap model){
+	public String showList(ModelMap model){
 		HRService hrService=Context.getService(HRService.class);
 		List<HrPost> postList= hrService.getAllPosts();
 		model.addAttribute("PostList",postList);
@@ -47,19 +49,19 @@ public class PostController {
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(value = "module/hr/admin/posts.list",method = RequestMethod.POST)
+	@RequestMapping(value = "module/hr/admin/posts.form",method = RequestMethod.POST)
 	public String onSubmit(HttpSession httpSession,
 	                               @ModelAttribute("anyRequestObject") Object anyRequestObject, BindingResult errors) {
 		
 		if (errors.hasErrors()) {
-			// return error view
+			return showForm(errors);
 		}
 		
 		return SUCCESS_FORM_VIEW;
 	}
 	@RequestMapping(value="module/hr/admin/post.form",method=RequestMethod.GET)
-	public String showEditPost()
+	public String showForm(Errors errors)
 	{
-		return "module/hr/admin/post";
+		return SUCCESS_FORM_VIEW;
 	}
 }

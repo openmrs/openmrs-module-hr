@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrStaffAttributeType" table="hr_staff_attribute_type" catalog="openmrs">
         <id name="staffAttributeTypeId" type="int">
             <column name="staff_attribute_type_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <property name="name" type="string">
             <column name="name" length="50" not-null="true" />

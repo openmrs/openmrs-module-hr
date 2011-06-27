@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrStaff;
@@ -39,6 +40,10 @@ public class HRServiceImpl implements HRService{
 		dao.saveStaff(staff);
 		
 	}
+	public HrJobTitle getJobTitleById( int id)
+	{
+		return dao.getJobTitleById(id);
+	}
 	public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType) {
 		dao.saveStaffAttributeType(staffAttributeType);
 		
@@ -46,6 +51,9 @@ public class HRServiceImpl implements HRService{
 	public List<HrStaffAttributeType> getAllStaffAttributeTypes() {
 		List<HrStaffAttributeType> list=dao.getAllStaffAttributeTypes();
 		return list;
+	}
+	public List<HrIscoCodes> getAllIscoCodes() {
+		return dao.getAllIscoCodes();
 	}
 	
 }

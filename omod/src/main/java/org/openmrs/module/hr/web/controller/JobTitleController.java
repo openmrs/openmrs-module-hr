@@ -13,24 +13,32 @@
  */
 package org.openmrs.module.hr.web.controller;
 
+
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
+import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 /**
  * This class configured as controller using annotation and mapped with the URL of 'module/hr/humanresourcemoduleLink.form'.
@@ -41,31 +49,37 @@ public class JobTitleController{
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	/** Success form view name */
+	/** Success list view name */
 	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/jobs";
+	/** Success form view name */
 	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/job";
-	
-	/**
-	 * Initially called after the formBackingObject method to get the landing form name  
-	 * @return String form view name
-	 */
-	/*@ModelAttribute("JobList")
+
 	@RequestMapping(value = "module/hr/admin/jobs.list")
-	public Collection<HrJobTitle> getAllJobs()
-	{
-		
-	}*/
-	@RequestMapping(value = "module/hr/admin/jobs.list",method = RequestMethod.GET)
-	public String showForm(ModelMap model){
+	public String showList(ModelMap model){
 		HRService hrService=Context.getService(HRService.class);
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
 		model.addAttribute("JobList",jobList);
 		return SUCCESS_LIST_VIEW;
 	}
-	@RequestMapping(value="module/hr/admin/job.form",method=RequestMethod.GET)
-	public String showEditPost()
+	
+
+	@RequestMapping(value="module/hr/admin/job.form")
+	@ModelAttribute("job")
+	public HrJobTitle showForm(ModelMap model,@RequestParam(value="jobId",required=false) Integer jobId,@ModelAttribute(value="job") HrJobTitle jobTitle,Errors errors)
 	{
-		return SUCCESS_FORM_VIEW;
+		HRService hrService=Context.getService(HRService.class);
+		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
+		ConceptService cs=Context.getConceptService();
+		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
+		Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+		model.addAttribute("IscoCodeList",iscoCodeList);
+		model.addAttribute("CadreAnswers", cadreAnswers);
+		if(jobId!=null)
+		jobTitle=hrService.getJobTitleById(jobId);
+		else{
+		jobTitle=new HrJobTitle();
+		}
+		return jobTitle;
 	}
 	/**
 	 * All the parameters are optional based on the necessity  
@@ -75,32 +89,52 @@ public class JobTitleController{
 	 * @param errors
 	 * @return
 	 */
-	/*@RequestMapping(method = RequestMethod.POST)
-	public String onSubmit(HttpSession httpSession,
-	                               @ModelAttribute("anyRequestObject") Object anyRequestObject, BindingResult errors) {
+	@RequestMapping(value="module/hr/admin/job.form",method = RequestMethod.POST)
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
 		
-		if (errors.hasErrors()) {
-			// return error view
+		if (Context.isAuthenticated()) {
+			
+			HRService hrService=Context.getService(HRService.class);
+			List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
+			ConceptService cs=Context.getConceptService();
+			Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
+			Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+			model.addAttribute("IscoCodeList",iscoCodeList);
+			model.addAttribute("CadreAnswers", cadreAnswers);
+			if (request.getParameter("retireJobTitle") != null) {
+				String retireReason = request.getParameter("retireReason");
+				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {
+					errors.reject("retireReason", "Retire reason cannot be empty");
+					return SUCCESS_FORM_VIEW;
+				}
+				//conceptService.retireDrug(drug, retireReason);
+				//httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "");
+			}
+			// if this obs is already voided and needs to be unvoided
+			else if (request.getParameter("unretireJobTitle") != null) {
+				//conceptService.unretireDrug(drug);
+				//httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "");
+				//return listview;
+			} else {
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "error.null");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"cadre", "error.null");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"grades", "error.null");
+				if (errors.hasErrors()) {
+					return SUCCESS_FORM_VIEW;
+				}
+				else{
+				//hrService.saveJobTitle(jobTitle);
+				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title saved Successfully");
+				return showList(model);
+				}
+			}
 		}
-		
 		return SUCCESS_FORM_VIEW;
-	}*/
+	}
 	
 	/**
 	 * This class returns the form backing object. This can be a string, a boolean, or a normal java
 	 * pojo. The bean name defined in the ModelAttribute annotation and the type can be just
 	 * defined by the return type of this method
 	 */
-	/*@ModelAttribute("thePatientList")
-	protected Collection<Patient> formBackingObject(HttpServletRequest request) throws Exception {
-		// get all patients that have an identifier "101" (from the demo sample data)
-		// see http://resources.openmrs.org/doc/index.html?org/openmrs/api/PatientService.html for
-		// a list of all PatientService methods
-		Collection<Patient> patients = Context.getPatientService().findPatients("101", false);
-		
-		// this object will be made available to the jsp page under the variable name
-		// that is defined in the @ModuleAttribute tag
-		return patients;
-	}*/
-	
 }

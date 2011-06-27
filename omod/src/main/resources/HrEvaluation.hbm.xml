@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrEvaluation" table="hr_evaluation" catalog="openmrs">
         <id name="evaluationId" type="int">
             <column name="evaluation_id" />
-            <generator class="assigned" />
+            <generator class="native" />
         </id>
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" not-null="true" />

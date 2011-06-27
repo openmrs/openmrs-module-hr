@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.db.hibernate;
 
+import java.sql.SQLException;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -11,6 +12,7 @@ import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
 import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrEvaluation;
+import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrLeave;
 import org.openmrs.module.hr.HrPost;
@@ -386,6 +388,25 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+    	public List<HrIscoCodes> getAllIscoCodes() {
+    		log.debug("getting all Isco Codes");
+    		try {
+            List<HrIscoCodes> iscoCodeList=sessionFactory.getCurrentSession().createCriteria(HrIscoCodes.class).list();
+            if (iscoCodeList==null) {
+                log.debug("get successful, no isco codes found");
+            }
+            else {
+                log.debug("get successful, returining isco codes found");
+            }
+            return iscoCodeList;
+        }
+        
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+		
+	}
     public void saveJobTitle(HrJobTitle jobTitle) {
         log.debug("saving HrJobTitle instance");
         try {
@@ -561,13 +582,14 @@ public class HibernateHRDAO implements HRDAO {
     public void savePost(HrPost post) {
         log.debug("saving HrPost instance");
         try {
-            sessionFactory.getCurrentSession().saveOrUpdate(post);
+        	sessionFactory.getCurrentSession().saveOrUpdate(post);
             log.debug("save successful");
         }
         catch (RuntimeException re) {
             log.error("save failed", re);
             throw re;
         }
+       
     }
     public void deletePost(HrPost post) {
         log.debug("deleting HrPost instance");
@@ -1074,4 +1096,6 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+
+	
 }
