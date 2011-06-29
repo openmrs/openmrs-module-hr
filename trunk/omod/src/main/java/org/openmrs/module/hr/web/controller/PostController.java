@@ -38,6 +38,10 @@ public class PostController {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrPost> postList= hrService.getAllPosts();
 		model.addAttribute("PostList",postList);
+		HrPost hrpost=new HrPost();
+		hrpost.setHrJobTitle(hrService.getAllJobTitles().get(0));
+		hrpost.setLocation(Context.getLocationService().getAllLocations().get(1));
+		hrService.savePost(hrpost);
 		return SUCCESS_LIST_VIEW;
 	}
 	

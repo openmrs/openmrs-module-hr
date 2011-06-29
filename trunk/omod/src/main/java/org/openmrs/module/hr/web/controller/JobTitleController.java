@@ -28,6 +28,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
+import org.openmrs.module.hr.HrPost;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -96,11 +97,11 @@ public class JobTitleController{
 			
 			HRService hrService=Context.getService(HRService.class);
 			List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
-			ConceptService cs=Context.getConceptService();
-			Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
-			Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+			//ConceptService cs=Context.getConceptService();
+			//Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
+			//Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
 			model.addAttribute("IscoCodeList",iscoCodeList);
-			model.addAttribute("CadreAnswers", cadreAnswers);
+			//model.addAttribute("CadreAnswers", cadreAnswers);
 			if (request.getParameter("retireJobTitle") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {
@@ -119,12 +120,13 @@ public class JobTitleController{
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"cadre", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"grades", "error.null");
-				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"iscoTitle", "error.null");
-				jobTitle.setHrIscoCodes(hrService.getIscoCodeById(request.getParameter("IscoCode")));
+				if(request.getParameter("IscoCode")==null)				
+				errors.reject("IscoCode", "error.null");
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
 				}
 				else{
+				jobTitle.setHrIscoCodes(hrService.getIscoCodeById(request.getParameter("IscoCode")));
 				hrService.saveJobTitle(jobTitle);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title saved Successfully");
 				return showList(model);
