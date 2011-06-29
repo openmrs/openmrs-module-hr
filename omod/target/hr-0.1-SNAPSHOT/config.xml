@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+	
+	<!-- Base Module Properties -->
+	<id>hr</id>
+	<name>Human Resource Module</name>
+	<version>0.1</version>
+	<package>org.openmrs.module.hr</package>
+	<author>Sai Manohar Nethi</author>
+	<description>
+			Human Resource Module for managing personnel information
+	</description>
+
+	<activator>org.openmrs.module.hr.HumanResourceModuleActivator</activator>
+	
+	<!-- <updateURL>https://dev.openmrs.org/modules/download/hr/update.rdf</updateURL> -->
+	<!-- /Base Module Properties -->
+	
+	<require_version>1.7.0</require_version>
+	
+	<!-- Extensions -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.hr.extension.html.AdminList</class>
+	</extension>
+	<extension>
+	<point>org.openmrs.gutter.tools</point>
+	<class>org.openmrs.module.hr.extension.html.HumanResourcesGutterLinkExt
+	</class>
+	</extension>
+	
+	
+	
+	
+	<!-- Internationalization -->
+	<!-- All message codes should start with hr.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<servlet>
+		<servlet-name>AttributePopulator</servlet-name>
+		<servlet-class>org.openmrs.module.hr.web.servlet.AttributePopulator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AttributePopulator</servlet-name>
+		<url-pattern>/AttributePopulator</url-pattern>
+	</servlet-mapping>
+	<!-- /Internationalization -->
+	<!-- mappings -->
+	<mappingFiles>
+		HrAssignment.hbm.xml
+		HrPostHistory.hbm.xml
+		HrPost.hbm.xml
+		HrLeave.hbm.xml
+		HrIscoCodes.hbm.xml
+		HrJobTitle.hbm.xml
+		HrStaff.hbm.xml
+		HrProvider.hbm.xml
+		HrCertificate.hbm.xml
+		HrCompetency.hbm.xml
+		HrEducation.hbm.xml
+		HrEvaluation.hbm.xml
+		HrStaffAttribute.hbm.xml
+		HrStaffAttributeType.hbm.xml
+		HrStaffCert.hbm.xml
+		HrStaffNote.hbm.xml 
+		HrTraining.hbm.xml
+		HrTrainingClass.hbm.xml
+		HrTrainPerson.hbm.xml
+		HrStaffTag.hbm.xml
+	</mappingFiles>
+</module>
+

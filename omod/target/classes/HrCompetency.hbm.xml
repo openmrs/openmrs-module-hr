@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrCompetency" table="hr_competency" catalog="openmrs">
+        <id name="competencyId" type="int">
+            <column name="competency_id" />
+            <generator class="native" />
+        </id>
+        <property name="nationalId" type="java.lang.Integer">
+            <column name="national_id" />
+        </property>
+        <property name="category" type="string">
+            <column name="category" />
+        </property>
+        <property name="name" type="string">
+            <column name="name" not-null="true" />
+        </property>
+        <property name="levels" type="string">
+            <column name="levels" not-null="true" />
+        </property>
+      	<many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+		<property name="dateChanged" type="java.util.Date" column="date_changed" />		
+		<property name="retired" type="java.lang.Boolean" length="1" not-null="true" column="retired"/>
+		<many-to-one name="retiredBy" class="org.openmrs.User" column="retired_by" />
+		<property name="dateRetired" type="java.util.Date" column="date_retired" />	
+		<property name="retireReason" type="string" column="retire_reason" />
+        <property name="editPrivilege" type="string">
+            <column name="edit_privilege" />
+        </property>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" unique="true" />
+        </property>
+        <property name="sortWeight" type="java.lang.Double">
+            <column name="sort_weight" precision="22" scale="0" />
+        </property>
+        <set name="hrEvaluations" inverse="true">
+            <key>
+                <column name="competency_id" not-null="true" />
+            </key>
+            <one-to-many class="org.openmrs.module.hr.HrEvaluation" />
+        </set>
+    </class>
+</hibernate-mapping>

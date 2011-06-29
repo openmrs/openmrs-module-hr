@@ -61,5 +61,9 @@ public class HRServiceImpl implements HRService{
 	public List<HrIscoCodes> getAllIscoCodes() {
 		return dao.getAllIscoCodes();
 	}
+	public HrIscoCodes getIscoCodeById( String id) {
+		return dao.getIscoCodeById(id);
+	}
+	
 	
 }

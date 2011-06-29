@@ -177,4 +177,6 @@ public interface HRDAO {
 	public HrTrainPerson getTrainPersonById( int id);
 	
 	public List<HrIscoCodes> getAllIscoCodes();
+	
+	public HrIscoCodes getIscoCodeById( String id) ;
 }

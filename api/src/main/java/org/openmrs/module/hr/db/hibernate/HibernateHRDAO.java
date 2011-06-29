@@ -388,6 +388,23 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+    public HrIscoCodes getIscoCodeById( String id) {
+        log.debug("getting HrIscoCode instance with id: " + id);
+        try {
+            HrIscoCodes instance = (HrIscoCodes) sessionFactory.getCurrentSession().get(HrIscoCodes.class, id);
+            if (instance==null) {
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return instance;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
     	public List<HrIscoCodes> getAllIscoCodes() {
     		log.debug("getting all Isco Codes");
     		try {
