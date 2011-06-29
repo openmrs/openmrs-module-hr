@@ -47,9 +47,9 @@
 	function handleTableHttpResponse() {
 		results=reqObj.responseText.split("^");
 		if(results[0]!="null")
-		document.getElementById("iscoTitle").value=results[0];
+		document.getElementById("hrIscoCodes.title").value=results[0];
 		else
-			document.getElementById("iscoTitle").value="";
+			document.getElementById("hrIscoCodes.title").value="";
 		if(results[1]!="null")
 		document.getElementById("iscoDefinition").value=results[1];
 		else
@@ -134,8 +134,13 @@
 		<th valign="top"><spring:message code="ISCO Code Title"/></th>
 		<td>
 			<spring:bind path="job.hrIscoCodes.title">
-				<input type="text" readonly="readonly" id="iscoTitle" name="iscoTitle" size="40"  value="${status.value}" />
+				<input type="text" readonly="readonly" id="${status.expression}" name="${status.expression}" size="40"  value="${status.value}" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+				<spring:hasBindErrors name="job">
+				<c:forEach items="${errors.allErrors}" var="error">
+					<c:if test="${error.code == 'IscoCode'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span></c:if>
+				</c:forEach>
+				</spring:hasBindErrors>
 			<c:set var="length" value="0"/>
 			<c:set var="loopStarted" value="false"/>
 				<ul id="tree" class="treeview">
@@ -169,7 +174,7 @@
 					</c:when>
 					<c:when test="${fn:length(code.codeIsco)==4 }">
 						<c:set var="length" value="4"/>
-						<ul><li <c:if test="${fn:startsWith(job.hrIscoCodes.codeIsco,code.codeIsco)}">class="open" </c:if>><input type="radio" name="IscoCode" <c:if test="${job.hrIscoCodes.codeIsco==code.codeIsco }">checked="checked"</c:if> value="${code.codeIsco}" onclick="setAttributes('${pageContext.request.contextPath}','${code.codeIsco}')"/>${code.title}
+						<ul><li <c:if test="${fn:startsWith(job.hrIscoCodes.codeIsco,code.codeIsco)}">class="open" </c:if>><input type="radio" id="IscoCode" name="IscoCode" <c:if test="${job.hrIscoCodes.codeIsco==code.codeIsco }">checked="checked"</c:if> value="${code.codeIsco}" onclick="setAttributes('${pageContext.request.contextPath}','${code.codeIsco}')"/>${code.title}
 						<%out.println("</li></ul>"); %>
 					</c:when>
 					</c:choose>
