@@ -119,6 +119,8 @@ public class JobTitleController{
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"cadre", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"grades", "error.null");
+				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"iscoTitle", "error.null");
+				jobTitle.setHrIscoCodes(hrService.getIscoCodeById(request.getParameter("IscoCode")));
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
 				}

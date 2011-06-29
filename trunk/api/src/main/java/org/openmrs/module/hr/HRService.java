@@ -26,4 +26,6 @@ public interface HRService {
 	
 	public List<HrIscoCodes> getAllIscoCodes();
 	
+	public HrIscoCodes getIscoCodeById( String id) ;
+	
 }

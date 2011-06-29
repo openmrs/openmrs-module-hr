@@ -47,6 +47,14 @@
 		<lang>es</lang>
 		<file>messages_es.properties</file>
 	</messages>
+	<servlet>
+		<servlet-name>AttributePopulator</servlet-name>
+		<servlet-class>org.openmrs.module.hr.web.servlet.AttributePopulator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AttributePopulator</servlet-name>
+		<url-pattern>/AttributePopulator</url-pattern>
+	</servlet-mapping>
 	<!-- /Internationalization -->
 	<!-- mappings -->
 	<mappingFiles>
