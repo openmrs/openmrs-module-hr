@@ -97,11 +97,11 @@ public class JobTitleController{
 			
 			HRService hrService=Context.getService(HRService.class);
 			List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
-			//ConceptService cs=Context.getConceptService();
-			//Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
-			//Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+			ConceptService cs=Context.getConceptService();
+			Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
+			Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
 			model.addAttribute("IscoCodeList",iscoCodeList);
-			//model.addAttribute("CadreAnswers", cadreAnswers);
+			model.addAttribute("CadreAnswers", cadreAnswers);
 			if (request.getParameter("retireJobTitle") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {
