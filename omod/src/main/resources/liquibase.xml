@@ -40,6 +40,12 @@
 		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_uuid_index" unique="true"><column name="uuid"></column></createIndex>
 		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_retired_status" ><column name="retired"></column></createIndex>
 		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column></createIndex>
+		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
 		</changeSet>
 		
 	<changeSet id="humanresource_competency" author="saimanohar">
@@ -72,6 +78,12 @@
 		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="business_key" unique="true"><column name="name"></column><column name="category"></column> </createIndex>
 		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_retired_status"><column name="retired"></column> </createIndex>
+		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_competency" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
  		</changeSet>
  		
  	<!-- <changeSet id="humanresource_person"  author="saimanohar">
@@ -146,6 +158,12 @@
 		<createIndex tableName="hr_staff" schemaName="openmrs"  indexName="staff_id_UNIQUE" unique="true"><column name="staff_id"></column> </createIndex>
 		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_person"><column name="staff_id"></column> </createIndex>
 		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_status_concept"><column name="staff_status"></column> </createIndex>
+		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="staff_person" referencedTableName="person" baseColumnNames="staff_id" baseTableName="hr_staff" referencedColumnNames="person_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_status_concept" referencedTableName="concept" baseColumnNames="staff_status" baseTableName="hr_staff" referencedColumnNames="concept_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 	</changeSet>	
@@ -180,6 +198,12 @@
 		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_retired_status"><column name="voided"></column> </createIndex>
 		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_education" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_education" referencedColumnNames="staff_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 		</changeSet>
 	
@@ -213,6 +237,12 @@
 		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_competency"><column name="competency_id"></column></createIndex>
 		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_evaluator"><column name="evaluator_id"></column></createIndex>
 		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_staff"><column name="staff_id"></column></createIndex>
+		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_competency" referencedTableName="hr_competency" baseColumnNames="competency_id" baseTableName="hr_evaluation" referencedColumnNames="competency_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_evaluator" referencedTableName="person" baseColumnNames="evaluator_id" baseTableName="hr_evaluation" referencedColumnNames="person_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_evaluation" referencedColumnNames="staff_id"/>
@@ -270,6 +300,12 @@
 		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_isco"><column name="codeISCO"></column></createIndex>
 		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="cadre_concept"><column name="cadre"></column> </createIndex>
 		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="max_grade_concept"><column name="grades"></column> </createIndex>
+		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_isco" referencedTableName="hr_isco_codes" baseColumnNames="codeISCO" baseTableName="hr_job_title" referencedColumnNames="codeISCO" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="cadre_concept" referencedTableName="concept" baseColumnNames="cadre" baseTableName="hr_job_title" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
@@ -344,6 +380,12 @@
 		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_hierarchy"><column name="parent"></column> </createIndex>
 		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
@@ -461,6 +503,12 @@
 		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_retired_status"><column name="retired"></column> </createIndex>
 		<createIndex tableName="hr_post" schemaName="openmrs" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column> </createIndex>
 		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_status_concept"><column name="status"></column> </createIndex>
+		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_job" referencedTableName="hr_job_title" baseColumnNames="job_id" baseTableName="hr_post" referencedColumnNames="job_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_post" referencedColumnNames="location_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_status_concept" referencedTableName="concept" baseColumnNames="status" baseTableName="hr_post" referencedColumnNames="concept_id"/>
@@ -499,6 +547,12 @@
 		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
 		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_certificate"><column name="certificate_id"></column></createIndex>
 		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_staff"><column name="staff_id"></column></createIndex>
+		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="person_cert_certificate" referencedTableName="hr_certificate" baseColumnNames="certificate_id" baseTableName="hr_staff_cert" referencedColumnNames="certificate_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_cert" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
@@ -525,6 +579,10 @@
 		<addPrimaryKey tableName="hr_staff_tag" schemaName="openmrs" columnNames="staff_tag_id"/>
 		<addAutoIncrement tableName="hr_staff_tag" schemaName="openmrs" columnName="staff_tag_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="provider_tag_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="staff_tag_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="staff_tag_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_tag_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_tag_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_tag_map">
@@ -576,6 +634,12 @@
 		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_post"><column name="post_id"></column></createIndex>
 		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="provider_natural"><column name="staff_id"></column><column name="start_date"></column><column name="end_date"></column><column name="voided"></column></createIndex>
 		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_end_reason_concept"><column name="end_reason"></column> </createIndex>
+		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_post" referencedTableName="hr_post" baseColumnNames="post_id" baseTableName="hr_post_history" referencedColumnNames="post_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_post_history" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_end_reason_concept" referencedTableName="concept" baseColumnNames="end_reason" baseTableName="hr_post_history" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
@@ -620,6 +684,12 @@
 		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="subpost_retired_status"><column name="voided"></column> </createIndex>
 		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_supervisor"><column name="supervisor_id"></column> </createIndex>
 		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="work_schedule_concept"><column name="work_schedule"></column></createIndex>
+		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_assignment" referencedColumnNames="location_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_assignment" referencedColumnNames="post_history_ID"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_supervisor" referencedTableName="hr_staff" baseColumnNames="supervisor_id" baseTableName="hr_assignment" referencedColumnNames="staff_id"/>
@@ -654,6 +724,12 @@
 		<addAutoIncrement tableName="hr_training" schemaName="openmrs" columnName="training_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_training"  schemaName="openmrs" indexName="training_uuid_index"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_training"  schemaName="openmrs" indexName="training_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_training_class">
@@ -692,6 +768,12 @@
 		<addAutoIncrement tableName="hr_training_class" schemaName="openmrs" columnName="train_class_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_retired_status"><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_class_training" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_class" referencedColumnNames="training_id"/>
 	</changeSet>
 	
@@ -725,6 +807,12 @@
 		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
 		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_person"><column name="person_id"></column></createIndex>
 		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_train_class"><column name="train_class_id"></column></createIndex>
+		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="hr_train_person" referencedColumnNames="person_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_train_class" referencedTableName="hr_training_class" baseColumnNames="train_class_id" baseTableName="hr_train_person" referencedColumnNames="train_class_id"/>
 	</changeSet>
@@ -757,10 +845,9 @@
 		<column name="staff_attribute_type_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"><constraints nullable="false"/></column>
 		<column name="description" type="TEXT"><constraints nullable="false"/></column>
-		<column name="handler_type" type="varchar(50)"><constraints nullable="false"/></column>
-		<column name="handler_configuration" type="varchar(50)"></column>
-		<column name="min_occurs" type="int(11)"><constraints nullable="false"/></column>
-		<column name="max_occurs" type="int(11)"></column>
+		<column name="format" type="varchar(50)" defaultValue="NULL"></column>
+		<column name="foreign_key" type="int(11)" defaultValue="NULL"></column>
+		<column name="searchable" type="smallint(6)"><constraints nullable="false"/></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
 		<column name="changed_by" type="int(11)" defaultValue="NULL"></column>
@@ -776,9 +863,16 @@
 		<addPrimaryKey tableName="hr_staff_attribute_type" schemaName="openmrs" columnNames="staff_attribute_type_id"/>
 		<addAutoIncrement tableName="hr_staff_attribute_type" schemaName="openmrs" columnName="staff_attribute_type_id" columnDataType="int(11)"/>
 		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="attribute_is_searchable"><column name="min_occurs"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="attribute_is_searchable"><column name="searchable"></column></createIndex>
 		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="name_of_attribute"><column name="name"></column></createIndex>
 		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_changer"><column name="changed_by"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_creator"><column name="creator"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="user_who_retired_staff_attribute_type"><column name="retired_by"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="privilege_which_can_edit_staff_attribute_type"><column name="edit_privilege"></column></createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="user_who_retired_staff_attribute_type" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_attribute">
@@ -808,6 +902,12 @@
 		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
 		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_type"><column name="staff_attribute_id"></column> </createIndex>
 		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_ref" referencedTableName="hr_staff_attribute_type" baseColumnNames="staff_attribute_type_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_attribute_type_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
@@ -888,6 +988,12 @@
 		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="end_start"><column name="end_date"></column><column name="start_date"></column></createIndex>
 		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="subpost_retired_status"><column name="retired"></column></createIndex>
 		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_type_concept"><column name="leave_type"></column></createIndex>
+		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_leave" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_leave" referencedColumnNames="post_history_ID"/>
 		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_type_concept" referencedTableName="concept" baseColumnNames="leave_type" baseTableName="hr_leave" referencedColumnNames="concept_id"/>
 		</changeSet>
