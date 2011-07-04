@@ -5,7 +5,7 @@
     <class name="org.openmrs.module.hr.HrStaff" table="hr_staff" catalog="openmrs">
         <id name="staffId" type="int">
             <column name="staff_id" />
-            <generator class="native"/>
+            <generator class="assigned"/>
 	    </id>
         <many-to-one name="staffStatus" class="org.openmrs.Concept">
             <column name="staff_status" not-null="true" />

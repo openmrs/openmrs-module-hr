@@ -14,7 +14,6 @@
 package org.openmrs.module.hr.web.controller;
 
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
-import org.openmrs.module.hr.HrPost;
 import org.openmrs.web.WebConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,6 +37,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 
 /**
@@ -91,31 +90,36 @@ public class JobTitleController{
 	 * @return
 	 */
 	@RequestMapping(value="module/hr/admin/job.form",method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
-		
+	public ModelAndView onSubmit(HttpServletRequest request,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
+		HRService hrService=Context.getService(HRService.class);
+		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
+		ConceptService cs=Context.getConceptService();
+		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
+		Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+		ModelAndView formView=new ModelAndView(SUCCESS_FORM_VIEW);
+		formView.addObject("IscoCodeList", iscoCodeList);
+		formView.addObject("CadreAnswers", cadreAnswers);
+		List<HrJobTitle> jobList=null;
 		if (Context.isAuthenticated()) {
-			
-			HRService hrService=Context.getService(HRService.class);
-			List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
-			ConceptService cs=Context.getConceptService();
-			Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
-			Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
-			model.addAttribute("IscoCodeList",iscoCodeList);
-			model.addAttribute("CadreAnswers", cadreAnswers);
+			ModelAndView listView=new ModelAndView(SUCCESS_LIST_VIEW);
 			if (request.getParameter("retireJobTitle") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {
 					errors.reject("retireReason", "Retire reason cannot be empty");
-					return SUCCESS_FORM_VIEW;
+					return formView;
 				}
 				hrService.retireJobTitle(jobTitle, retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Retired Successfully");
-				return showList(model);
+				jobList=hrService.getAllJobTitles();
+				listView.addObject("JobList", jobList);
+				return listView;
 			}
 			else if (request.getParameter("unretireJobTitle") != null) {
 				hrService.unretireJobTitle(jobTitle);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Unretired Successfully");
-				return showList(model);
+				jobList=hrService.getAllJobTitles();
+				listView.addObject("JobList", jobList);
+				return listView;
 			} else {
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"title", "error.null");
 				ValidationUtils.rejectIfEmptyOrWhitespace(errors,"cadre", "error.null");
@@ -123,17 +127,19 @@ public class JobTitleController{
 				if(request.getParameter("IscoCode")==null)				
 				errors.reject("IscoCode", "error.null");
 				if (errors.hasErrors()) {
-					return SUCCESS_FORM_VIEW;
+					return formView;
 				}
 				else{
 				jobTitle.setHrIscoCodes(hrService.getIscoCodeById(request.getParameter("IscoCode")));
 				hrService.saveJobTitle(jobTitle);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title saved Successfully");
-				return showList(model);
+				jobList=hrService.getAllJobTitles();
+				listView.addObject("JobList", jobList);
+				return listView;
 				}
 			}
 		}
-		return SUCCESS_FORM_VIEW;
+		return formView;
 	}
 	
 	/**

@@ -126,4 +126,5 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
 		setJobId(id);
 	}
 
+
 }

@@ -13,28 +13,47 @@
 	</a>
 	<spring:message code="Current Posts"/>
 </b>
+<script type="text/javascript">
+function hideShowDetails(jobid,locationid)
+{
+	
+	if (document.getElementById("detailsRow" + jobid + locationid).style.display == "none") {
+			document.getElementById("hideShowLabel" + jobid + locationid).innerHTML = "-";
+			document.getElementById("detailsRow" + jobid + locationid).style.display = "";
+		} else {
+			document.getElementById("hideShowLabel" + jobid + locationid).innerHTML = "+";
+			document.getElementById("detailsRow" + jobid + locationid).style.display = "none";
+		}
+
+	}
+</script>
 <form method="post" class="box">
-<table id="PostsTable" width="100%">
+<table id="PostsTable" width="80%">
 		<tr>
-			<th> <spring:message code="Post Id" /> </th>
+			<th> </th>
 			<th> <spring:message code="Job Title" /> </th>
 			<th> <spring:message code="Location" /> </th>
-			<th> <spring:message code="Time Basis" /> </th>
-			<th> <spring:message code="Status" /> </th>
-			<th> <spring:message code="Funding Source" /> </th>
+			
 		</tr>
-		<c:forEach var="post" items="${PostList}" varStatus="rowStatus">
-			<tr <c:if test="${post.retired}">class="retired ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> >
-				<td valign="top" width="10%">
-					<a href="post.form?postId=${post.postId}">${post.postId}</a>
-				</td>
-				<td valign="top" width="20%">${post.hrJobTitle.title}</td>
-				<td valign="top" width="20%">${post.location.name}</td>
-				<td valign="top" width="10%">${post.timeBasis}	</td>
-				<td valign="top" width="10%">${post.status.name}</td>
-				<td valign="top" width="10%">${post.fundingSource}</td>
-			</tr>
+		<c:set var="prevJobTitle" value=""/>
+		<c:set var="prevLocation" value=""/>
+		<c:forEach var="postList" items="${PostListItemList}" varStatus="rowStatus">
+			<c:choose>
+			<c:when test="${(prevJobTitle != postList.post.hrJobTitle.title) or  (prevLocation != postList.post.location.name)}">
+			<c:if test="${prevJobTitle!='' and prevLocation!=''}"><%out.print("</table></td></tr>"); %></c:if>
+			<c:set var="prevJobTitle" value="${postList.post.hrJobTitle.title}"/>
+			<c:set var="prevLocation" value="${postList.post.location.name}"/>
+			<tr><td align="left" width="5%"><label id="hideShowLabel${postList.post.hrJobTitle.jobId}${postList.post.location.id}" style="cursor:pointer;" onclick="hideShowDetails('${postList.post.hrJobTitle.jobId}','${postList.post.location.id}')">+</label></td><td width="30%" align="left">${postList.post.hrJobTitle.title}</td><td align="left" width="50%">${postList.post.location.name }</td><td></td><td></td></tr>
+			<tr id="detailsRow${postList.post.hrJobTitle.jobId}${postList.post.location.id}" style="display:none;"><td colspan="5"><table id="postsUnder" width="80%">
+			<tr class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'><th width="5%"></th><th align="left" width="20%"> <spring:message code="Time Basis" /></th><th align="left" width="5%"> <spring:message code="Status" /></th> <th align="left" width="20%"><spring:message code="Funding Source" /></th><th align="left" width="20%"> <spring:message code="Most recent"/></th></tr>
+			<tr <c:if test="${postList.post.retired}">class="retired ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!postList.post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> ><td width="5%"></td><td width="20%">${postList.post.timeBasis}</td><td width="5%">${postList.post.status.name.name}</td><td width="20%">${postList.post.fundingSource}</td><td width="20%">${postList.mostRecentIncumbent}</td></tr>
+			</c:when>
+			<c:otherwise>
+			<tr <c:if test="${postList.post.retired}">class="retired ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!postList.post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> ><td width="5%"></td><td width="20%">${postList.post.timeBasis}</td><td width="5%">${postList.post.status.name.name}</td><td width="20%">${postList.post.fundingSource}</td><td width="20%">${postList.mostRecentIncumbent}</td></tr>
+			</c:otherwise>
+			</c:choose>
 		</c:forEach>
+		</table>
 	</table>
 </form>
 

@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.db;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
@@ -126,7 +127,7 @@ public interface HRDAO {
 	
 	public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
-	public void deleteStaffAttribute(HrStaffAttributeType staffAttributeType);
+	public void deleteStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
 	public List<HrStaffAttributeType> findStaffAttributeTypeByExample(HrStaffAttributeType staffAttributeType);
 	
@@ -144,7 +145,7 @@ public interface HRDAO {
 	
 	public void saveStaffNote(HrStaffNote staffNote);
 	
-	public void deleteStaffCert(HrStaffNote staffNote);
+	public void deleteStaffNote(HrStaffNote staffNote);
 	
 	public List<HrStaffNote> findStaffNoteByExample(HrStaffNote staffCert);
 	
@@ -179,4 +180,6 @@ public interface HRDAO {
 	public List<HrIscoCodes> getAllIscoCodes();
 	
 	public HrIscoCodes getIscoCodeById( String id) ;
+	
+	public String getMostRecentIncumbentForPostbyId(int id);
 }

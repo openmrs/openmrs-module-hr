@@ -3,7 +3,6 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Staff Attribute Type" /></h2>
 <script type="text/javascript">
 
 	function confirmPurge() {
@@ -28,45 +27,19 @@
 		<td><spring:message code="general.name"/></td>
 		<td>
 			<spring:bind path="staffAttributeType.name">
-				<input type="text" name="name" value="${status.value}" size="50" />
+				<input type="text" name="name" value="${status.value}" size="35" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</spring:bind>
 		</td>
 	</tr>
 	<tr>
-		<td valign="top"><spring:message code="general.description"/></td>
-		<td valign="top">
-			<spring:bind path="staffAttributeType.description">
-				<textarea name="description" rows="3" cols="40" >${status.value}</textarea>
-				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-			</spring:bind>
-		</td>
-	</tr>
-	<tr>
-		<td><spring:message code="FormField.minOccurs"/></td>
+		<td><spring:message code="general.format"/></td>
 		<td>
-			<spring:bind path="staffAttributeType.minOccurs">
-				<input type="text" name="minOccurs" value="${status.value}" size="10" />
-				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-			</spring:bind>
-		</td>
-	</tr>
-	<tr>
-		<td><spring:message code="FormField.maxOccurs"/></td>
-		<td>
-			<spring:bind path="staffAttributeType.maxOccurs">
-				<input type="text" name="maxOccurs" value="${status.value}" size="10" />
-				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-			</spring:bind>
-		</td>
-	</tr>
-	<tr>
-		<td><spring:message code="Handler Type"/></td>
-		<td>
-			<spring:bind path="Handler Type">
-				<select name="handlerType">
-					<c:forEach items="${handlertypes}" var="handlertype">
-						<option value="${handlertype}" <c:if test="${handlertype == status.value}">selected</c:if>>${handlertype}</option>
+			<spring:bind path="staffAttributeType.format">
+				<select name="format">
+					<option value=""></option>
+					<c:forEach items="${formats}" var="format">
+						<option value="${format}" <c:if test="${format == status.value}">selected</c:if>>${format}</option>
 					</c:forEach>
 				</select>
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
@@ -74,13 +47,46 @@
 		</td>
 	</tr>
 	<tr>
-		<td><spring:message code="AttributeType.handlerConfig"/></td>
+		<td><spring:message code="Foreign Key"/></td>
 		<td>
-			<spring:bind path="staffAttributeType.handlerConfiguration">
-				<textarea name="handlerConfiguration" rows="3" cols="40" >${status.value}</textarea>
+			<spring:bind path="staffAttributeType.foreignKey">
+				<input type="text" name="foreignKey" value="${status.value}" size="35" />
+				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</spring:bind>
 		</td>
 	</tr>
+	<tr>
+		<td><spring:message code="Searchable"/></td>
+		<td>
+			<spring:bind path="staffAttributeType.searchable">
+				<input type="hidden" name="_${status.expression}">
+				<input type="checkbox" name="${status.expression}" id="${status.expression}" <c:if test="${status.value == true}">checked</c:if>/>
+			</spring:bind>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top"><spring:message code="general.description"/></td>
+		<td valign="top">
+			<spring:bind path="staffAttributeType.description">
+				<textarea name="description" rows="3" cols="40">${status.value}</textarea>
+				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+			</spring:bind>
+		</td>
+	</tr>
+	<tr>
+		<td><spring:message code="Edit Privilege"/></td>
+		<td>
+			<spring:bind path="staffAttributeType.editPrivilege">
+				<select name="editPrivilege">
+					<option value=""></option>
+					<c:forEach items="${privileges}" var="privilege">
+						<option value="${privilege.privilege}" <c:if test="${privilege.privilege == status.value}">selected</c:if>>${privilege.privilege}</option>
+					</c:forEach>
+				</select>
+				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+			</spring:bind>
+		</td>
+	</tr>	
 	<c:if test="${!(staffAttributeType.creator == null)}">
 		<tr>
 			<td><spring:message code="general.createdBy" /></td>
@@ -93,11 +99,11 @@
 <input type="submit" value="<spring:message code="Save Staff Attribute Type"/>" name="save">
 
 </fieldset>
-</form>
+
 
 <br/>
 
-<c:if test="${not staffAttributeType.retired && not empty staffAttributeType.staffAttributeTypeId}">
+<c:if test="${not staffAttributeType.retired && staffAttributeType.staffAttributeTypeId!=0}">
 	<fieldset>
 			<h4><spring:message code="Retire Staff Attribute Type"/></h4>
 			
@@ -115,15 +121,15 @@
 
 <br/>
 
-<c:if test="${staffAttributeType.retired == true && not empty staffAttributeType.staffAttributeTypeId}">
+<c:if test="${staffAttributeType.retired == true && staffAttributeType.staffAttributeTypeId!=0}">
 	<fieldset>
 		<h4><spring:message	code="Unretire Staff Attribute Type" /></h4>
 		<input type="submit" value='<spring:message code="Unretire Staff Attribute Type"/>'	name="unretire" />
 		</fieldset>
 </c:if>
 <br />
-
-<c:if test="${not empty staffAttributeType.staffAttributeTypeId}">
+</form>
+<c:if test="${staffAttributeType.staffAttributeTypeId!=0}">
 	<form id="purge" method="post" onsubmit="return confirmPurge()">
 			<fieldset>
 				<h4><spring:message code="Purge Staff Attribute Type"/></h4>

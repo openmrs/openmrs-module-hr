@@ -12,10 +12,9 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
     // Fields    
 
      private int staffAttributeTypeId;
-     private String handlerType;
-     private String handlerConfiguration;
-     private int minOccurs;
-     private Integer maxOccurs;
+     private String format;
+     private Integer foreignKey;
+     private Boolean searchable=false;
      private String editPrivilege;
      private String uuid;
      private Double sortWeight;
@@ -28,29 +27,18 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
     public HrStaffAttributeType() {
     }
 
-	/** minimal constructor */
-    public HrStaffAttributeType(int staffAttributeTypeId,String handlerType, int minOccurs, String uuid) {
-        this.staffAttributeTypeId = staffAttributeTypeId;
-        this.handlerType = handlerType;
-        this.minOccurs = minOccurs;
-        this.uuid = uuid;
-    }
-    
-    /** full constructor */
-    public HrStaffAttributeType(int staffAttributeTypeId,String handlerType, String handlerConfiguration, int minOccurs, Integer maxOccurs,String editPrivilege, String uuid, Double sortWeight, Set hrStaffAttributes) {
-        this.staffAttributeTypeId = staffAttributeTypeId;
-        this.handlerType = handlerType;
-        this.handlerConfiguration = handlerConfiguration;
-        this.minOccurs = minOccurs;
-        this.maxOccurs = maxOccurs;
-        this.editPrivilege = editPrivilege;
-        this.uuid = uuid;
-        this.sortWeight = sortWeight;
-        this.hrStaffAttributes = hrStaffAttributes;
-    }
-    
+ 
+    public HrStaffAttributeType(int staffAttributeTypeId, String format,Integer foreignKey, Boolean searchable, String editPrivilege,String uuid, Double sortWeight, Set hrStaffAttributes) {
+		this.staffAttributeTypeId = staffAttributeTypeId;
+		this.format = format;
+		this.foreignKey = foreignKey;
+		this.searchable = searchable;
+		this.editPrivilege = editPrivilege;
+		this.uuid = uuid;
+		this.sortWeight = sortWeight;
+		this.hrStaffAttributes = hrStaffAttributes;
+	}
 
-   
     // Property accessors
 
     public int getStaffAttributeTypeId() {
@@ -61,39 +49,37 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
         this.staffAttributeTypeId = staffAttributeTypeId;
     }
 
-    public String getHandlerType() {
-        return this.handlerType;
-    }
-    
-    public void setHandlerType(String handlerType) {
-        this.handlerType = handlerType;
-    }
+    public String getFormat() {
+		return format;
+	}
 
-    public String getHandlerConfiguration() {
-        return this.handlerConfiguration;
-    }
-    
-    public void setHandlerConfiguration(String handlerConfiguration) {
-        this.handlerConfiguration = handlerConfiguration;
-    }
 
-    public int getMinOccurs() {
-        return this.minOccurs;
-    }
-    
-    public void setMinOccurs(int minOccurs) {
-        this.minOccurs = minOccurs;
-    }
+	public void setFormat(String format) {
+		this.format = format;
+	}
 
-    public Integer getMaxOccurs() {
-        return this.maxOccurs;
-    }
-    
-    public void setMaxOccurs(Integer maxOccurs) {
-        this.maxOccurs = maxOccurs;
-    }
 
-    public String getEditPrivilege() {
+	public Integer getForeignKey() {
+		return foreignKey;
+	}
+
+
+	public void setForeignKey(Integer foreignKey) {
+		this.foreignKey = foreignKey;
+	}
+
+
+	public Boolean getSearchable() {
+		return searchable;
+	}
+
+
+	public void setSearchable(Boolean searchable) {
+		this.searchable = searchable;
+	}
+
+
+	public String getEditPrivilege() {
         return this.editPrivilege;
     }
     

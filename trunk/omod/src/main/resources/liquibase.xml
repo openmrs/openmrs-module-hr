@@ -844,7 +844,7 @@
 		<createTable tableName="hr_staff_attribute_type" schemaName="openmrs">
 		<column name="staff_attribute_type_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"><constraints nullable="false"/></column>
-		<column name="description" type="TEXT"><constraints nullable="false"/></column>
+		<column name="description" type="TEXT"></column>
 		<column name="format" type="varchar(50)" defaultValue="NULL"></column>
 		<column name="foreign_key" type="int(11)" defaultValue="NULL"></column>
 		<column name="searchable" type="smallint(6)"><constraints nullable="false"/></column>

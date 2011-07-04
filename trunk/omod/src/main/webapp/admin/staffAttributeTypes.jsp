@@ -4,6 +4,7 @@
 
 <%@ include file="localHeader.jsp" %>
 <h2><spring:message code="Manage Staff Attribute Types" /></h2>
+<a href="staffAttributeType.form"><spring:message code="Add New Staff Attribute Type"/></a>
 <br /><br />
 
 <b class="boxHeader"><spring:message code="Current Staff Atrribute Types"/></b>
@@ -33,5 +34,5 @@
 	</table>
 </form>
 
-<a href="staffAttributeType.form"><spring:message code="Add New Staff Attribute Type"/></a>
+
 <%@ include file="/WEB-INF/template/footer.jsp"%>

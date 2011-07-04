@@ -13,19 +13,16 @@
         <property name="description" type="string">
             <column name="description" length="65535" not-null="true" />
         </property>
-        <property name="handlerType" type="string">
-            <column name="handler_type" length="50" not-null="true" />
+        <property name="format" type="string">
+            <column name="format" length="50" not-null="true" />
         </property>
-        <property name="handlerConfiguration" type="string">
-            <column name="handler_configuration" length="50" />
+        <property name="foreignKey" type="java.lang.Integer">
+            <column name="foreign_key" />
         </property>
-        <property name="minOccurs" type="int">
-            <column name="min_occurs" not-null="true" />
+        <property name="searchable" type="java.lang.Boolean" length="1">
+            <column name="searchable" not-null="true" />
         </property>
-        <property name="maxOccurs" type="java.lang.Integer">
-            <column name="max_occurs" />
-        </property>
-       <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
 		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
 		<property name="dateChanged" type="java.util.Date" column="date_changed" />		
