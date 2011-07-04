@@ -3,12 +3,22 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+<openmrs:htmlInclude file="/scripts/dojoConfig.js" />
+<openmrs:htmlInclude file="/scripts/dojo/dojo.js" />
+
+<script type="text/javascript">
+	dojo.addOnLoad( function() {
+		toggleRowVisibilityForClass("drugTable", "retired", false);
+	})
+</script>
 <h2><spring:message code="Manage jobs" /></h2>
 <a href="job.form"><spring:message code="Add New Job"/></a>
 <br/>
 <br/>
 <b class="boxHeader">
-	<a style="display: block; float: right" href="#">
+	<a style="display: block; float: right"
+		href="#"
+		onClick="return toggleRowVisibilityForClass('JobsTable', 'retired', false);">
 		<spring:message code="general.toggle.retired" />
 	</a>
 	<spring:message code="Current Jobs"/>

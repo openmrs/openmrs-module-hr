@@ -1,12 +1,23 @@
 package org.openmrs.module.hr.db.hibernate;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Person;
+import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
@@ -634,7 +645,7 @@ public class HibernateHRDAO implements HRDAO {
     public List<HrPost> getAllPosts() {
     	log.debug("getting all Posts");
         try {
-            List<HrPost> postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).list();
+            List<HrPost> postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("hrJobTitle","jobTitle").addOrder(Order.asc("jobTitle.title")).list();
             if (postList==null) {
                 log.debug("get successful, no posts found");
             }
@@ -780,7 +791,7 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
-    public void deleteStaffAttribute(HrStaffAttributeType staffAttributeType) {
+    public void deleteStaffAttributeType(HrStaffAttributeType staffAttributeType) {
         log.debug("deleting HrStaffAttributeType instance");
         try {
             sessionFactory.getCurrentSession().delete(staffAttributeType);
@@ -901,7 +912,7 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
-    public void deleteStaffCert(HrStaffNote staffNote) {
+    public void deleteStaffNote(HrStaffNote staffNote) {
         log.debug("deleting staffNote instance");
         try {
             sessionFactory.getCurrentSession().delete(staffNote);
@@ -1113,6 +1124,30 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+
+	public String getMostRecentIncumbentForPostbyId(int id){
+		List results=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph1").setProjection(Projections.max("ph1.startDate")).list();
+		if(results.get(0)!=null){
+			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
+			List rowList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrStaff.staffId"),"staffId").add(Projections.property("ph2.endDate"),"endDate")).list();
+			Object[] firstResult = (Object[]) rowList.get(0);
+			int staffId = (Integer)firstResult[0];
+			Date endDate=null;
+			if(firstResult[1]!=null)
+			endDate= new Date(((Timestamp)firstResult[1]).getTime());
+			Person person=Context.getPersonService().getPerson(staffId);
+			String personName;
+			if(endDate!=null){
+				
+				personName="["+person.getGivenName()+" "+person.getFamilyName()+"]";
+			}
+			else
+				personName=person.getGivenName()+" "+person.getFamilyName();
+			return personName;
+		}
+		return null;
+
+	}
 
 	
 }

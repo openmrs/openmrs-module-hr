@@ -1,7 +1,11 @@
 package org.openmrs.module.hr;
 
+import java.text.ParseException;
 import java.util.List;
 
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
 public interface HRService {
 	
 	public List<HrJobTitle> getAllJobTitles();
@@ -28,4 +32,13 @@ public interface HRService {
 	
 	public HrIscoCodes getIscoCodeById( String id) ;
 	
+	public HrStaffAttributeType getStaffAttributeTypeById( int id);
+	
+	public String getMostRecentIncumbentForPostbyId(int id);
+	
+	public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType,String reitreReason);
+	
+	public void unretireStaffAttributeType(HrStaffAttributeType staffAttributeType);
+	
+	public void purgeStaffAttributeType(HrStaffAttributeType staffAttributeType);
 }

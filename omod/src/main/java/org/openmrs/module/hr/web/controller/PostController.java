@@ -1,5 +1,7 @@
 package org.openmrs.module.hr.web.controller;
 
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.listItem.PostListItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,12 +39,13 @@ public class PostController {
 	@RequestMapping(value = "module/hr/admin/posts.list",method = RequestMethod.GET)
 	public String showList(ModelMap model){
 		HRService hrService=Context.getService(HRService.class);
-		List<HrPost> postList= hrService.getAllPosts();
-		model.addAttribute("PostList",postList);
-		HrPost hrpost=new HrPost();
-		hrpost.setHrJobTitle(hrService.getAllJobTitles().get(0));
-		hrpost.setLocation(Context.getLocationService().getAllLocations().get(1));
-		hrService.savePost(hrpost);
+		List<HrPost> allPosts=hrService.getAllPosts();
+		List<PostListItem> postListItemList=new ArrayList<PostListItem>();
+		for(HrPost post:allPosts)
+		{
+			postListItemList.add(new PostListItem(post,hrService.getMostRecentIncumbentForPostbyId(post.getPostId())));		
+		}
+		model.addAttribute("PostListItemList",postListItemList);
 		return SUCCESS_LIST_VIEW;
 	}
 	

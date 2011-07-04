@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.impl;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -64,6 +65,22 @@ public class HRServiceImpl implements HRService{
 	public HrIscoCodes getIscoCodeById( String id) {
 		return dao.getIscoCodeById(id);
 	}
-	
+	public HrStaffAttributeType getStaffAttributeTypeById(int id) {
+		return dao.getStaffAttributeTypeById(id);
+	}
+	public String getMostRecentIncumbentForPostbyId(int id){
+		return dao.getMostRecentIncumbentForPostbyId(id);
+	}
+	public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType, String reitreReason) {
+		dao.saveStaffAttributeType(staffAttributeType);
+		
+	}
+	public void unretireStaffAttributeType(HrStaffAttributeType staffAttributeType) {
+		dao.saveStaffAttributeType(staffAttributeType);
+		
+	}
+	public void purgeStaffAttributeType(HrStaffAttributeType staffAttributeType){
+		dao.deleteStaffAttributeType(staffAttributeType);
+	}
 	
 }
