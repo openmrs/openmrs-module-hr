@@ -2,6 +2,7 @@ package org.openmrs.module.hr.impl;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -40,6 +41,9 @@ public class HRServiceImpl implements HRService{
 	public void saveStaff(HrStaff staff) {
 		dao.saveStaff(staff);
 		
+	}
+	public List<HrStaff> getAllStaff() {
+		return dao.getAllStaff();
 	}
 	public void retireJobTitle(HrJobTitle jobTitle,String retireReason){
 		dao.saveJobTitle(jobTitle);
@@ -90,5 +94,8 @@ public class HRServiceImpl implements HRService{
 	}
 	public void unretirePost(HrPost post){
 		dao.savePost(post);
+	}
+	public Map<String,String> getCurrentJobLocationForStaff(int id){
+		return dao.getCurrentJobLocationForStaff(id);
 	}
 }

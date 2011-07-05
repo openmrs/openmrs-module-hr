@@ -3,6 +3,8 @@ package org.openmrs.module.hr.db;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
+
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
@@ -181,5 +183,9 @@ public interface HRDAO {
 	
 	public HrIscoCodes getIscoCodeById( String id) ;
 	
+	public List<HrStaff> getAllStaff();
+	
 	public String getMostRecentIncumbentForPostbyId(int id);
+	
+	public Map<String,String> getCurrentJobLocationForStaff(int id);
 }

@@ -1,10 +1,20 @@
 package org.openmrs.module.hr.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.PersonService;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.listItem.StaffListItem;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,20 +25,29 @@ public class StaffController {
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	/** Success form view name */
-	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/staffList";
+	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/staffList";
+	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/staff";
 	
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name
 	 */
 	@RequestMapping(value = "module/hr/admin/staff.list",method = RequestMethod.GET)
-	public String showForm(){
-		return SUCCESS_FORM_VIEW;
+	public String showList(ModelMap model){
+		HRService hrService=Context.getService(HRService.class);
+		List<HrStaff> staffList=hrService.getAllStaff();
+		List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
+		PersonService ps=Context.getPersonService();
+		for(HrStaff staff:staffList){
+			Map<String,String> jlMap=hrService.getCurrentJobLocationForStaff(staff.getId());
+			staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, jlMap.get("LocationName"), jlMap.get("JobTitle")));
+		}
+		model.addAttribute("StaffListItemList",staffListItemList);
+		return SUCCESS_LIST_VIEW;
 	}
 	
 	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.GET)
-	public String showEditPost()
+	public String showForm()
 	{
 		return "module/hr/admin/staff";
 	}
