@@ -3,13 +3,15 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
 <h2><spring:message code="Manage Staff Attribute Types" /></h2>
 <a href="staffAttributeType.form"><spring:message code="Add New Staff Attribute Type"/></a>
 <br /><br />
 
-<b class="boxHeader"><spring:message code="Current Staff Atrribute Types"/></b>
+<b class="boxHeader">
+<spring:message code="Current Staff Atrribute Types"/></b>
 <form method="post" class="box">
-	<table>
+	<table id="StaffAttributeTypesTable">
 		<tr>
 			<th> <spring:message code="general.name"/> </th>
 			<th> <spring:message code="general.description"/> </th>
@@ -20,7 +22,7 @@
 					<a href="staffAttributeType.form?staffAttributeTypeId=${staffAttributeType.staffAttributeTypeId}">
 						<c:choose>
 							<c:when test="${staffAttributeType.retired == true}">
-								<del>${visitAttributeType.name}</del>
+								<del>${staffAttributeType.name}</del>
 							</c:when>
 							<c:otherwise>
 								${staffAttributeType.name}

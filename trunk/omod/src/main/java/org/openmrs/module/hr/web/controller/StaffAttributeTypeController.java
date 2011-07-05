@@ -48,11 +48,12 @@ public class StaffAttributeTypeController {
 		model.addAttribute("StaffAttributeTypeList",staffAttributeTypeList);
 		return SUCCESS_LIST_VIEW;
 	}
+	@ModelAttribute("staffAttributeType")	
 	@RequestMapping(value="module/hr/admin/staffAttributeType.form",method=RequestMethod.GET)
-	@ModelAttribute("staffAttributeType")
-	public HrStaffAttributeType showForm(ModelMap model,@RequestParam(value="staffAttributeTypeId",required=false) Integer staffAttributeTypeId,@ModelAttribute(value="staffAttributeType") HrStaffAttributeType staffAttributeType,Errors errors)
+	public HrStaffAttributeType showForm(ModelMap model,@RequestParam(value="staffAttributeTypeId",required=false) Integer staffAttributeTypeId)
 	{
 		HRService hrService=Context.getService(HRService.class);
+		HrStaffAttributeType staffAttributeType;
 		if(staffAttributeTypeId!=null)
 			staffAttributeType=hrService.getStaffAttributeTypeById(staffAttributeTypeId);
 			else{
@@ -96,9 +97,12 @@ public class StaffAttributeTypeController {
 		formView.addObject("formats", formats);
 		List<HrStaffAttributeType> staffAttributeTypeList=null;
 		if (Context.isAuthenticated()) {
-			
+			HrStaffAttributeType temp;
 			ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
-			
+			if((temp=hrService.getStaffAttributeTypeById(staffAttributeType.getId()))!=null)
+			{
+				staffAttributeType=temp;
+			}
 			if (request.getParameter("purge") != null) {
 				try {
 					HrStaffAttributeType sat=hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId());
