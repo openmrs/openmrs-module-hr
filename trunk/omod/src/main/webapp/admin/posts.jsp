@@ -69,5 +69,9 @@ function hideShowDetails(jobid,locationid)
 		</table>
 	</table>
 </form>
-
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
 <%@ include file="/WEB-INF/template/footer.jsp"%>
