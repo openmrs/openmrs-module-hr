@@ -2,6 +2,7 @@ package org.openmrs.module.hr;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,4 +48,8 @@ public interface HRService {
 	public void retirePost(HrPost post,String reitreReason);
 	
 	public void unretirePost(HrPost post);
+	
+	public Map<String,String> getCurrentJobLocationForStaff(int id);
+	
+	public List<HrStaff> getAllStaff();
 }

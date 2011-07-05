@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Person;
@@ -163,7 +165,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no certificates found");
             }
             else {
-                log.debug("get successful, returining certificates found");
+                log.debug("get successful, returning certificates found");
             }
             return certificateList;
         }
@@ -232,7 +234,7 @@ public class HibernateHRDAO implements HRDAO {
                  log.debug("get successful, no competencies found");
              }
              else {
-                 log.debug("get successful, returining competencies found");
+                 log.debug("get successful, returning competencies found");
              }
              return competencyList;
          }
@@ -424,7 +426,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no isco codes found");
             }
             else {
-                log.debug("get successful, returining isco codes found");
+                log.debug("get successful, returning isco codes found");
             }
             return iscoCodeList;
         }
@@ -465,7 +467,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no job titles found");
             }
             else {
-                log.debug("get successful, returining job titles found");
+                log.debug("get successful, returning job titles found");
             }
             return jobTitleList;
         }
@@ -650,7 +652,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no posts found");
             }
             else {
-                log.debug("get successful, returining posts found");
+                log.debug("get successful, returning posts found");
             }
             return postList;
         }
@@ -729,6 +731,25 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+    public List<HrStaff> getAllStaff() {
+    	log.debug("getting all Staff");
+        try {
+            List<HrStaff> staffList=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).list();
+            if (staffList==null) {
+                log.debug("get successful, no staff found");
+            }
+            else {
+                log.debug("get successful, returning staff found");
+            }
+            return staffList;
+        }
+        
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+		
+	}
     public void saveStaffAttribute(HrStaffAttribute staffAttribute) {
         log.debug("saving HrStaffAttribute instance");
         try {
@@ -839,7 +860,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no staff attribute types found");
             }
             else {
-                log.debug("get successful, returining saff attribute types found");
+                log.debug("get successful, returning staff attribute types found");
             }
             return staffAttributeTypeList;
         }
@@ -943,7 +964,7 @@ public class HibernateHRDAO implements HRDAO {
                 log.debug("get successful, no staff notes found");
             }
             else {
-                log.debug("get successful, returining saff notes found");
+                log.debug("get successful, returning staff notes found");
             }
             return staffNoteList;
         }
@@ -1130,11 +1151,11 @@ public class HibernateHRDAO implements HRDAO {
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
 			List rowList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrStaff.staffId"),"staffId").add(Projections.property("ph2.endDate"),"endDate")).list();
-			Object[] firstResult = (Object[]) rowList.get(0);
-			int staffId = (Integer)firstResult[0];
+			Object[] result = (Object[]) rowList.get(0);
+			int staffId = (Integer)result[0];
 			Date endDate=null;
-			if(firstResult[1]!=null)
-			endDate= new Date(((Timestamp)firstResult[1]).getTime());
+			if(result[1]!=null)
+			endDate= new Date(((Timestamp)result[1]).getTime());
 			Person person=Context.getPersonService().getPerson(staffId);
 			String personName;
 			if(endDate!=null){
@@ -1147,6 +1168,22 @@ public class HibernateHRDAO implements HRDAO {
 		}
 		return null;
 
+	}
+
+	public Map<String, String> getCurrentJobLocationForStaff(int id) {
+		Map<String,String> jlMap=null;
+		List results=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph1").setProjection(Projections.max("ph1.startDate")).list();
+		if(results.get(0)!=null){
+			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
+			List rowList=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrPost.postId"),"postId")).list();
+			int postId = (Integer) rowList.get(0);
+			List details=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", postId)).createAlias("hrJobTitle","job").createAlias("location", "loc").setProjection(Projections.projectionList().add(Projections.property("job.title")).add(Projections.property("loc.name"))).list();
+			jlMap=new HashMap<String, String>();
+			Object[] result = (Object[]) details.get(0);
+			jlMap.put("JobTitle",(String)result[0]);
+			jlMap.put("LocationName",(String)result[1]);
+		}
+		return jlMap;
 	}
 
 	

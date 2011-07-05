@@ -3,8 +3,8 @@ package org.openmrs.module.hr.listItem;
 import org.openmrs.module.hr.HrPost;
 
 public class PostListItem {
-	HrPost post;
-	String mostRecentIncumbent;
+	private HrPost post;
+	private String mostRecentIncumbent;
 	public PostListItem() {
 		
 	}
