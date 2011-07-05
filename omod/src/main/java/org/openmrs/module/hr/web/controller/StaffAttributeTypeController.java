@@ -97,12 +97,7 @@ public class StaffAttributeTypeController {
 		formView.addObject("formats", formats);
 		List<HrStaffAttributeType> staffAttributeTypeList=null;
 		if (Context.isAuthenticated()) {
-			HrStaffAttributeType temp;
 			ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
-			if((temp=hrService.getStaffAttributeTypeById(staffAttributeType.getId()))!=null)
-			{
-				staffAttributeType=temp;
-			}
 			if (request.getParameter("purge") != null) {
 				try {
 					HrStaffAttributeType sat=hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId());
@@ -132,7 +127,7 @@ public class StaffAttributeTypeController {
 					errors.reject("retireReason", "general.retiredReason.empty");
 					return formView;
 				}
-				hrService.retireStaffAttributeType(staffAttributeType, retireReason);
+				hrService.retireStaffAttributeType(hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()), retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type retired scuccessfully");
 				staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 				listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
@@ -144,7 +139,7 @@ public class StaffAttributeTypeController {
 
 			else if (request.getParameter("unretire") != null) {
 				try {
-					hrService.unretireStaffAttributeType(staffAttributeType);
+					hrService.unretireStaffAttributeType(hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()));
 					request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type unretired successfully");
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);

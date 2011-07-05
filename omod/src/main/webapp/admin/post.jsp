@@ -13,7 +13,7 @@
 	<openmrs:formatDate date="${post.dateRetired}" type="medium" />
 	-
 	${post.retireReason}
-	<input type="submit" value='<spring:message code="Unretire Post"/>' name="unretire"/>
+	<input type="submit" value='<spring:message code="Unretire Post"/>' name="unretirePost"/>
 	</div>
 	</div>
 	</form>
@@ -28,10 +28,10 @@
 	<tr>
 		<th valign="top"><spring:message code="Job Title"/></th>
 		<td>
-			<spring:bind path="post.hrJobTitle.title">	
-				<select name="${status.expression}" id="${status.expression}">
+			<spring:bind path="post.hrJobTitle.id">	
+				<select name="job" id="${status.expression}">
 					<c:forEach items="${JobList}" var="job" varStatus="status">
-						<option value="${job.title}" <c:if test="${ post.hrJobTitle.title == job.title}">selected</c:if>>${job.title}</option>
+						<option value="${job.id}" <c:if test="${ post.hrJobTitle.title == job.title}">selected</c:if>>${job.title}</option>
 					</c:forEach>
      		</select> 
 			</spring:bind>
@@ -40,10 +40,10 @@
 	<tr>
 		<th valign="top"><spring:message code="Locations"/></th>
 		<td>
-			<spring:bind path="post.location.name">	
-				<select name="${status.expression}" id="${status.expression}">
+			<spring:bind path="post.location.id">	
+				<select name="location" id="${status.expression}">
 					<c:forEach items="${LocationList}" var="location" varStatus="status">
-						<option value="${location.name}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
+						<option value="${location.id}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
 					</c:forEach>
      		</select> 
 			</spring:bind>
@@ -99,7 +99,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="Retire Post"/>' name="retire"/>
+			<input type="submit" value='<spring:message code="Retire Post"/>' name="retirePost"/>
 		</fieldset>
 </c:if>
 

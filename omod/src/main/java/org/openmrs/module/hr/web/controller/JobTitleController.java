@@ -102,25 +102,20 @@ public class JobTitleController{
 		List<HrJobTitle> jobList=null;
 		if (Context.isAuthenticated()) {
 			ModelAndView listView=new ModelAndView(SUCCESS_LIST_VIEW);
-			HrJobTitle temp;
-			if((temp=hrService.getJobTitleById(jobTitle.getId()))!=null)
-			{
-				jobTitle=temp;
-			}
 			if (request.getParameter("retireJobTitle") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {
 					errors.reject("retireReason", "Retire reason cannot be empty");
 					return formView;
 				}
-				hrService.retireJobTitle(jobTitle, retireReason);
+				hrService.retireJobTitle(hrService.getJobTitleById(jobTitle.getId()), retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Retired Successfully");
 				jobList=hrService.getAllJobTitles();
 				listView.addObject("JobList", jobList);
 				return listView;
 			}
 			else if (request.getParameter("unretireJobTitle") != null) {
-				hrService.unretireJobTitle(jobTitle);
+				hrService.unretireJobTitle(hrService.getJobTitleById(jobTitle.getId()));
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Unretired Successfully");
 				jobList=hrService.getAllJobTitles();
 				listView.addObject("JobList", jobList);

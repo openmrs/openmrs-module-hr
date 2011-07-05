@@ -85,4 +85,10 @@ public class HRServiceImpl implements HRService{
 	public HrPost getPostById( int id) {
 		return dao.getPostById(id);
 	}
+	public void retirePost(HrPost post,String reitreReason){
+		dao.savePost(post);
+	}
+	public void unretirePost(HrPost post){
+		dao.savePost(post);
+	}
 }
