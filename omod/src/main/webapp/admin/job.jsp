@@ -68,7 +68,7 @@
 			document.getElementById("iscoExcludedOccupations").value="";
 	}
 </script>
-<c:if test="${jobs.retired}">
+<c:if test="${job.retired}">
 <form action="" method="post">
 	<div class="retiredMessage">
 	<div>

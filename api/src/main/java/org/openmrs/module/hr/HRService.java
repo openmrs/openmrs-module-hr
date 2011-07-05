@@ -41,4 +41,6 @@ public interface HRService {
 	public void unretireStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
 	public void purgeStaffAttributeType(HrStaffAttributeType staffAttributeType);
+	
+	public HrPost getPostById( int id);
 }

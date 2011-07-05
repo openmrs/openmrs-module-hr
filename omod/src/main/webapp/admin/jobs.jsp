@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
 	dojo.addOnLoad( function() {
-		toggleRowVisibilityForClass("drugTable", "retired", false);
+		toggleRowVisibilityForClass("JobsTable", "retired", false);
 	})
 </script>
 <h2><spring:message code="Manage jobs" /></h2>

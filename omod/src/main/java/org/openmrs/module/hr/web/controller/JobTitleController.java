@@ -62,10 +62,9 @@ public class JobTitleController{
 		return SUCCESS_LIST_VIEW;
 	}
 	
-
-	@RequestMapping(value="module/hr/admin/job.form")
 	@ModelAttribute("job")
-	public HrJobTitle showForm(ModelMap model,@RequestParam(value="jobId",required=false) Integer jobId,@ModelAttribute(value="job") HrJobTitle jobTitle,Errors errors)
+	@RequestMapping(value="module/hr/admin/job.form")
+	public HrJobTitle showForm(ModelMap model,@RequestParam(value="jobId",required=false) Integer jobId)
 	{
 		HRService hrService=Context.getService(HRService.class);
 		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
@@ -74,6 +73,7 @@ public class JobTitleController{
 		Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
 		model.addAttribute("IscoCodeList",iscoCodeList);
 		model.addAttribute("CadreAnswers", cadreAnswers);
+		HrJobTitle jobTitle;
 		if(jobId!=null)
 		jobTitle=hrService.getJobTitleById(jobId);
 		else{
@@ -102,6 +102,11 @@ public class JobTitleController{
 		List<HrJobTitle> jobList=null;
 		if (Context.isAuthenticated()) {
 			ModelAndView listView=new ModelAndView(SUCCESS_LIST_VIEW);
+			HrJobTitle temp;
+			if((temp=hrService.getJobTitleById(jobTitle.getId()))!=null)
+			{
+				jobTitle=temp;
+			}
 			if (request.getParameter("retireJobTitle") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (jobTitle.getId() != null && (retireReason == null || retireReason.length() == 0)) {

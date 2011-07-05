@@ -2,15 +2,21 @@ package org.openmrs.module.hr.web.controller;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
+import org.openmrs.Location;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.listItem.PostListItem;
@@ -21,6 +27,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 
@@ -48,7 +55,28 @@ public class PostController {
 		model.addAttribute("PostListItemList",postListItemList);
 		return SUCCESS_LIST_VIEW;
 	}
-	
+	@RequestMapping(value="module/hr/admin/post.form")
+	@ModelAttribute("post")
+	public HrPost showForm(ModelMap model,@RequestParam(value="postId",required=false) Integer postId)
+	{
+		HRService hrService=Context.getService(HRService.class);
+		List<HrJobTitle> jobList= hrService.getAllJobTitles();
+		ConceptService cs=Context.getConceptService();
+		Concept postStatus=cs.getConceptByMapping("Post Status","HR Module");
+		Collection<ConceptAnswer> postStatusAnswers=postStatus.getAnswers();
+		LocationService ls=Context.getLocationService();
+		List<Location> locationList=ls.getAllLocations();
+		model.addAttribute("JobList",jobList);
+		model.addAttribute("LocationList", locationList);
+		model.addAttribute("PostStatusAnswers", postStatusAnswers);
+		HrPost post;
+		if(postId!=null)
+		post=hrService.getPostById(postId);
+		else{
+		post=new HrPost();
+		}
+		return post;
+	}
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
@@ -57,19 +85,13 @@ public class PostController {
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(value = "module/hr/admin/posts.form",method = RequestMethod.POST)
-	public String onSubmit(HttpSession httpSession,
-	                               @ModelAttribute("anyRequestObject") Object anyRequestObject, BindingResult errors) {
+	@RequestMapping(value = "module/hr/admin/post.form",method = RequestMethod.POST)
+	public String onSubmit(HttpSession httpSession,@ModelAttribute("post") HrPost post, BindingResult errors) {
 		
 		if (errors.hasErrors()) {
-			return showForm(errors);
+			
 		}
 		
-		return SUCCESS_FORM_VIEW;
-	}
-	@RequestMapping(value="module/hr/admin/post.form",method=RequestMethod.GET)
-	public String showForm(Errors errors)
-	{
 		return SUCCESS_FORM_VIEW;
 	}
 }

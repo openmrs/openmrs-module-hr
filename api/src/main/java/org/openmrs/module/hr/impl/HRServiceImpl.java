@@ -82,5 +82,7 @@ public class HRServiceImpl implements HRService{
 	public void purgeStaffAttributeType(HrStaffAttributeType staffAttributeType){
 		dao.deleteStaffAttributeType(staffAttributeType);
 	}
-	
+	public HrPost getPostById( int id) {
+		return dao.getPostById(id);
+	}
 }
