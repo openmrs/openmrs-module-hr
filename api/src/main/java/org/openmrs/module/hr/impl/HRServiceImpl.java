@@ -98,4 +98,7 @@ public class HRServiceImpl implements HRService{
 	public Map<String,String> getCurrentJobLocationForStaff(int id){
 		return dao.getCurrentJobLocationForStaff(id);
 	}
+	public HrStaff getStaffById( int id){
+		return dao.getStaffById(id);
+	}
 }

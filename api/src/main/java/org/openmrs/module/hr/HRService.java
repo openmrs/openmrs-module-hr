@@ -52,4 +52,6 @@ public interface HRService {
 	public Map<String,String> getCurrentJobLocationForStaff(int id);
 	
 	public List<HrStaff> getAllStaff();
+	
+	public HrStaff getStaffById( int id);
 }
