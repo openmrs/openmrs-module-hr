@@ -7,8 +7,8 @@ public class StaffListItem {
 
 	private Person person;
 	private HrStaff staff;
-	private String locationName;
-	private String jobTitle;
+	private String locationName="";
+	private String jobTitle="";
 	public StaffListItem(){
 		
 	}
