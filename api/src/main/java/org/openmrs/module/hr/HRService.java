@@ -15,7 +15,7 @@ public interface HRService {
 	
 	public void savePost(HrPost post);
 	
-	public List<HrPost> getAllPosts();
+	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 	
 	public void retireJobTitle(HrJobTitle jobTitle,String retireReason);
 	

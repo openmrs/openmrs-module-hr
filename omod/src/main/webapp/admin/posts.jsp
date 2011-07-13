@@ -7,6 +7,10 @@
 <a href="post.form"><spring:message code="Add New Post"/></a>
 <br/>
 <br/>
+<input name="allposts" id="allposts" value="" type="checkbox" <c:if test="${param.allposts}">checked</c:if> onclick="updateList()">Include non current posts
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="alllocations" id="alllocations" value="" type="checkbox" <c:if test="${param.alllocations}">checked</c:if> onclick="updateList()">Show all locations
+<br/>
+<br/>
 <b class="boxHeader">
 	<a style="display: block; float: right" href="#">
 		<spring:message code="general.toggle.retired" />
@@ -26,6 +30,12 @@ function hideShowDetails(jobid,locationid)
 		}
 
 	}
+function updateList() {
+	var url = "posts.list?";
+	url += "allposts=" + document.getElementById('allposts').checked;
+	url += "&alllocations="+document.getElementById('alllocations').checked;
+	document.location = url;
+}
 </script>
 <style type="text/css">
 

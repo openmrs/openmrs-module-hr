@@ -44,9 +44,9 @@ public class PostController {
 	 * @return String form view name
 	 */
 	@RequestMapping(value = "module/hr/admin/posts.list",method = RequestMethod.GET)
-	public String showList(ModelMap model){
+	public String showList(ModelMap model,@RequestParam(required=false,value="allposts") boolean allpostsIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
 		HRService hrService=Context.getService(HRService.class);
-		List<HrPost> allPosts=hrService.getAllPosts();
+		List<HrPost> allPosts=hrService.getAllPosts(allpostsIncluded,allLocationsIncluded);
 		List<PostListItem> postListItemList=new ArrayList<PostListItem>();
 		for(HrPost post:allPosts)
 		{
@@ -106,12 +106,12 @@ public class PostController {
 				}
 				hrService.retirePost(hrService.getPostById(post.getId()), retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post Retired Successfully");
-				return showList(model);
+				return showList(model,false,false);
 			}
 			else if (request.getParameter("unretirePost") != null) {
 				hrService.unretirePost(hrService.getPostById(post.getId()));
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post Unretired Successfully");
-				return showList(model);
+				return showList(model,false,false);
 			} else {
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
@@ -121,7 +121,7 @@ public class PostController {
 				post.setLocation(ls.getLocation(Integer.parseInt(request.getParameter("location"))));
 				hrService.savePost(post);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post saved Successfully");
-				return showList(model);
+				return showList(model,false,false);
 				}
 			}
 		}
