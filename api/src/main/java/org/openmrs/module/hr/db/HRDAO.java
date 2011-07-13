@@ -183,9 +183,9 @@ public interface HRDAO {
 	
 	public HrIscoCodes getIscoCodeById( String id) ;
 	
-	public List<HrStaff> getAllStaff();
+	public List<HrStaff> getAllStaff(boolean inlcudeAllStaff,boolean includeAllLocations);
 	
 	public String getMostRecentIncumbentForPostbyId(int id);
 	
-	public Map<String,String> getCurrentJobLocationForStaff(int id);
+	public Map<String,Object> getCurrentJobLocationForStaff(int id);
 }

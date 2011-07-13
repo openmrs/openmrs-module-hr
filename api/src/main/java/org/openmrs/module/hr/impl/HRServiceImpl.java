@@ -42,8 +42,8 @@ public class HRServiceImpl implements HRService{
 		dao.saveStaff(staff);
 		
 	}
-	public List<HrStaff> getAllStaff() {
-		return dao.getAllStaff();
+	public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations) {
+		return dao.getAllStaff(includeAllStaff,includeAllLocations);
 	}
 	public void retireJobTitle(HrJobTitle jobTitle,String retireReason){
 		dao.saveJobTitle(jobTitle);
@@ -95,7 +95,7 @@ public class HRServiceImpl implements HRService{
 	public void unretirePost(HrPost post){
 		dao.savePost(post);
 	}
-	public Map<String,String> getCurrentJobLocationForStaff(int id){
+	public Map<String,Object> getCurrentJobLocationForStaff(int id){
 		return dao.getCurrentJobLocationForStaff(id);
 	}
 	public HrStaff getStaffById( int id){

@@ -1,30 +1,22 @@
 package org.openmrs.module.hr.web.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
+
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Vector;
-
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
+import org.openmrs.Location;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
-import org.openmrs.Role;
-import org.openmrs.User;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.listItem.StaffListItem;
-import org.openmrs.util.OpenmrsConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -32,7 +24,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.request.WebRequest;
+
 
 @Controller
 public class StaffController {
@@ -47,14 +39,14 @@ public class StaffController {
 	 * @return String form view name
 	 */
 	@RequestMapping(value = "module/hr/admin/staff.list",method = RequestMethod.GET)
-	public String showList(ModelMap model){
+	public String showList(ModelMap model,@RequestParam(required=false,value="allstaff") boolean allStaffIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
 		HRService hrService=Context.getService(HRService.class);
-		List<HrStaff> staffList=hrService.getAllStaff();
+		List<HrStaff> staffList=hrService.getAllStaff(allStaffIncluded,allLocationsIncluded);
 		List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
 		PersonService ps=Context.getPersonService();
 		for(HrStaff staff:staffList){
-			Map<String,String> jlMap=hrService.getCurrentJobLocationForStaff(staff.getId());
-			staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, jlMap.get("LocationName"), jlMap.get("JobTitle")));
+			Map<String,Object> jlMap=hrService.getCurrentJobLocationForStaff(staff.getId());
+			staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
 		}
 		model.addAttribute("StaffListItemList",staffListItemList);
 		return SUCCESS_LIST_VIEW;
