@@ -107,7 +107,7 @@ public interface HRDAO {
 	
 	public List<HrPost> findPostByExample(HrPost post);
 	
-	public List<HrPost> getAllPosts();
+	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 	
 	public HrPost getPostById(int id);
 	

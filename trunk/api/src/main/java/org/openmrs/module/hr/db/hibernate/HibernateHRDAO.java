@@ -651,10 +651,21 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
-    public List<HrPost> getAllPosts() {
+    public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations) {
     	log.debug("getting all Posts");
+       	List<HrPost> postList=null;
+    	Criteria criteria=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("hrJobTitle","jobTitle").addOrder(Order.asc("jobTitle.title"));
+    	LocationService locService=Context.getLocationService();
+    	ConceptService conceptService=Context.getConceptService();
+    	List<Location> hrManagedLocations=locService.getLocationsByTag(locService.getLocationTagByName("HR Managed"));
+    	List<Concept> postStatusCurrent=conceptService.getConceptsByMapping("Post status current", "HR Module");
         try {
-            List<HrPost> postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("hrJobTitle","jobTitle").addOrder(Order.asc("jobTitle.title")).list();
+        	if(!includeAllPosts)
+        		criteria.add(Restrictions.in("status",postStatusCurrent));
+           	if(!includeAllLocations){
+           		criteria.add(Restrictions.in("location",hrManagedLocations));
+           	}
+           	postList=criteria.list();
             if (postList==null) {
                 log.debug("get successful, no posts found");
             }
