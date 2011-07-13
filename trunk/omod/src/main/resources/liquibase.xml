@@ -14,12 +14,12 @@
     -->
  <changeSet id="humanresource_certificate" author="saimanohar">
     <preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_certificate" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_certificate"/></not>
 		</preConditions>
 		<comment>
 			Creating the certificate table
 		</comment>
-		<createTable tableName="hr_certificate" schemaName="openmrs">
+		<createTable tableName="hr_certificate">
 			<column name="certificate_id" type="int(11)"><constraints nullable="false" /></column>
 			<column name="national_id" type="int(11)" defaultValue="NULL"/>
 			<column name="agency" type="TEXT"><constraints nullable="false" /></column>
@@ -35,27 +35,27 @@
 			<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 			<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_certificate" schemaName="openmrs" columnNames="certificate_id"/>
-		<addAutoIncrement tableName="hr_certificate" schemaName="openmrs" columnName="certificate_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_uuid_index" unique="true"><column name="uuid"></column></createIndex>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_retired_status" ><column name="retired"></column></createIndex>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column></createIndex>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_certificate" schemaName="openmrs" indexName="certificate_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="certificate_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="hr_certificate" columnNames="certificate_id"/>
+		<addAutoIncrement tableName="hr_certificate" columnName="certificate_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_certificate" indexName="certificate_uuid_index" unique="true"><column name="uuid"></column></createIndex>
+		<createIndex tableName="hr_certificate" indexName="certificate_retired_status" ><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_certificate" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column></createIndex>
+		<createIndex tableName="hr_certificate" indexName="certificate_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_certificate" indexName="certificate_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_certificate" indexName="certificate_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="certificate_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="certificate_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="certificate_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_certificate" referencedColumnNames="user_id"/>
 		</changeSet>
 		
 	<changeSet id="humanresource_competency" author="saimanohar">
    	 	<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_competency" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_competency"/></not>
 		</preConditions>
 		<comment>
 			Creating the competency table
 		</comment>
-		<createTable tableName="hr_competency" schemaName="openmrs" >
+		<createTable tableName="hr_competency" >
 		<column name="competency_id" type="int(11)"><constraints nullable="false"/> </column>
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="category" type="varchar(255)" defaultValue="NULL"></column>
@@ -73,27 +73,27 @@
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		<column name="sort_weight" type="double" defaultValue="NULL"></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_competency" schemaName="openmrs"  columnNames="competency_id"/>
-		<addAutoIncrement tableName="hr_competency" schemaName="openmrs" columnName="competency_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="business_key" unique="true"><column name="name"></column><column name="category"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_retired_status"><column name="retired"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_competency" schemaName="openmrs" indexName="competency_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_competency" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="hr_competency"  columnNames="competency_id"/>
+		<addAutoIncrement tableName="hr_competency" columnName="competency_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_competency" indexName="competency_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_competency" indexName="business_key" unique="true"><column name="name"></column><column name="category"></column> </createIndex>
+		<createIndex tableName="hr_competency" indexName="competency_retired_status"><column name="retired"></column> </createIndex>
+		<createIndex tableName="hr_competency" indexName="competency_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_competency" indexName="competency_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_competency" indexName="competency_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="competency_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="competency_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_competency" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="competency_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
  		</changeSet>
  		
  	<!-- <changeSet id="humanresource_person"  author="saimanohar">
  	  <preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person" schemaName="openmrs"/></not>
+			<not><tableExists tableName="person"/></not>
 		</preConditions>
 		<comment>
 			Creating the person table
 		</comment>
-		<createTable tableName="person" schemaName="openmrs">
+		<createTable tableName="person">
 		<column name="person_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="gender" type="VARCHAR(50)" defaultValue=""></column>
 		<column name="birthdate" type="DATE" defaultValue="NULL"></column>
@@ -111,36 +111,36 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="person" schemaName="openmrs" columnNames="person_id"/>
-		<addAutoIncrement tableName="person" schemaName="openmrs" columnName="person_id" columnDataType="int(11)"/>
-		<createIndex tableName="person" schemaName="openmrs" indexName="person_uuid_index" unique="true"><column name="uuid"></column></createIndex>
-		<createIndex tableName="person" schemaName="openmrs" indexName="person_birthdate"><column name="birthdate"></column></createIndex>
-		<createIndex tableName="person" schemaName="openmrs" indexName="person_death_date"><column name="death_date"></column></createIndex>
+		<addPrimaryKey tableName="person" columnNames="person_id"/>
+		<addAutoIncrement tableName="person" columnName="person_id" columnDataType="int(11)"/>
+		<createIndex tableName="person" indexName="person_uuid_index" unique="true"><column name="uuid"></column></createIndex>
+		<createIndex tableName="person" indexName="person_birthdate"><column name="birthdate"></column></createIndex>
+		<createIndex tableName="person" indexName="person_death_date"><column name="death_date"></column></createIndex>
  		</changeSet> -->
  		
  	<changeSet id="humanresource_provider"  author="saimanohar">
  	  <preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_provider" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_provider"/></not>
 		</preConditions>
 		<comment>
 			Creating the provider table
 		</comment>
-		<createTable tableName="hr_provider" schemaName="openmrs">
+		<createTable tableName="hr_provider">
 		<column name="provider_id" type="int(11)"><constraints nullable="false"/> </column>
 		</createTable>
-		<addPrimaryKey tableName="hr_provider" schemaName="openmrs" columnNames="provider_id" />
-		<addAutoIncrement tableName="hr_provider" schemaName="openmrs" columnName="provider_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_provider" schemaName="openmrs" indexName="provider_id_UNIQUE" unique="true"><column name="provider_id"></column> </createIndex>
+		<addPrimaryKey tableName="hr_provider" columnNames="provider_id" />
+		<addAutoIncrement tableName="hr_provider" columnName="provider_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_provider" indexName="provider_id_UNIQUE" unique="true"><column name="provider_id"></column> </createIndex>
 		</changeSet>
 		
 	<changeSet author="saimanohar" id="humanresource_staff">
 	 <preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff table
 		</comment>
-		<createTable tableName="hr_staff" schemaName="openmrs">
+		<createTable tableName="hr_staff">
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_status" type="int(11)" defaultValue="NULL"></column>
 		<column name="initial_hire_date" type="DATETIME"></column>
@@ -154,28 +154,28 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff" schemaName="openmrs" columnNames="staff_id"/>
-		<createIndex tableName="hr_staff" schemaName="openmrs"  indexName="staff_id_UNIQUE" unique="true"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_person"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_status_concept"><column name="staff_status"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_staff" schemaName="openmrs" indexName="staff_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="staff_person" referencedTableName="person" baseColumnNames="staff_id" baseTableName="hr_staff" referencedColumnNames="person_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_status_concept" referencedTableName="concept" baseColumnNames="staff_status" baseTableName="hr_staff" referencedColumnNames="concept_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+		<addPrimaryKey tableName="hr_staff" columnNames="staff_id"/>
+		<createIndex tableName="hr_staff"  indexName="staff_id_UNIQUE" unique="true"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff" indexName="staff_person"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff" indexName="staff_status_concept"><column name="staff_status"></column> </createIndex>
+		<createIndex tableName="hr_staff" indexName="staff_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff" indexName="staff_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff" indexName="staff_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="staff_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint  constraintName="staff_person" referencedTableName="person" baseColumnNames="staff_id" baseTableName="hr_staff" referencedColumnNames="person_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+		<addForeignKeyConstraint constraintName="staff_status_concept" referencedTableName="concept" baseColumnNames="staff_status" baseTableName="hr_staff" referencedColumnNames="concept_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 	</changeSet>	
 	
 	<changeSet author="saimanohar" id="humanresource_education">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_education" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_education"/></not>
 		</preConditions>
 		<comment>
 			Creating the education table
 		</comment>
-		<createTable tableName="hr_education" schemaName="openmrs">
+		<createTable tableName="hr_education">
 		<column name="education_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="degree" type="varchar(50)" defaultValue=""><constraints nullable="false"/></column>
@@ -193,28 +193,28 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_education" schemaName="openmrs" columnNames="education_id"/>
-		<addAutoIncrement tableName="hr_education" schemaName="openmrs" columnName="education_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_retired_status"><column name="voided"></column> </createIndex>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_staff"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_education" schemaName="openmrs" indexName="education_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_education" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="education_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_education" referencedColumnNames="staff_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+		<addPrimaryKey tableName="hr_education" columnNames="education_id"/>
+		<addAutoIncrement tableName="hr_education" columnName="education_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_education" indexName="education_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_education" indexName="education_retired_status"><column name="voided"></column> </createIndex>
+		<createIndex tableName="hr_education" indexName="education_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_education" indexName="education_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_education" indexName="education_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_education" indexName="education_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="education_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="education_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_education" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="education_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_education" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="education_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_education" referencedColumnNames="staff_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 		</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_evaluation">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_evaluation" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_evaluation"/></not>
 		</preConditions>
 		<comment>
 			Creating the evaluation table
 		</comment>
-		<createTable tableName="hr_evaluation" schemaName="openmrs">
+		<createTable tableName="hr_evaluation">
 		<column name="evaluation_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="competency_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
@@ -231,31 +231,31 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_evaluation" schemaName="openmrs" columnNames="evaluation_id"/>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_retired_status"><column name="voided"></column></createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_competency"><column name="competency_id"></column></createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_evaluator"><column name="evaluator_id"></column></createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="eval_staff"><column name="staff_id"></column></createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_evaluation" schemaName="openmrs" indexName="evaluation_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="evaluation_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_competency" referencedTableName="hr_competency" baseColumnNames="competency_id" baseTableName="hr_evaluation" referencedColumnNames="competency_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_evaluator" referencedTableName="person" baseColumnNames="evaluator_id" baseTableName="hr_evaluation" referencedColumnNames="person_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="eval_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_evaluation" referencedColumnNames="staff_id"/>
+		<addPrimaryKey tableName="hr_evaluation" columnNames="evaluation_id"/>
+		<createIndex tableName="hr_evaluation" indexName="evaluation_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_evaluation" indexName="evaluation_retired_status"><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_evaluation" indexName="eval_competency"><column name="competency_id"></column></createIndex>
+		<createIndex tableName="hr_evaluation" indexName="eval_evaluator"><column name="evaluator_id"></column></createIndex>
+		<createIndex tableName="hr_evaluation" indexName="eval_staff"><column name="staff_id"></column></createIndex>
+		<createIndex tableName="hr_evaluation" indexName="evaluation_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_evaluation" indexName="evaluation_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_evaluation" indexName="evaluation_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="evaluation_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="evaluation_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="evaluation_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_evaluation" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="eval_competency" referencedTableName="hr_competency" baseColumnNames="competency_id" baseTableName="hr_evaluation" referencedColumnNames="competency_id"/>
+		<addForeignKeyConstraint constraintName="eval_evaluator" referencedTableName="person" baseColumnNames="evaluator_id" baseTableName="hr_evaluation" referencedColumnNames="person_id"/>
+		<addForeignKeyConstraint constraintName="eval_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_evaluation" referencedColumnNames="staff_id"/>
 		</changeSet>
 		
 	<changeSet author="saimanohar" id="humanresource_isco_codes">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_isco_codes" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_isco_codes"/></not>
 		</preConditions>
 		<comment>
 			Creating the isco_codes table
 		</comment>
-		<createTable tableName="hr_isco_codes" schemaName="openmrs">
+		<createTable tableName="hr_isco_codes">
 		<column name="codeISCO" type="char(4)"><constraints nullable="false"/></column>
 		<column name="title" type="varchar(255)" defaultValue=""><constraints nullable="false"/></column>
 		<column name="definition" type="TEXT"></column>
@@ -264,17 +264,17 @@
 		<column name="excluded_occupations" type="TEXT"></column>
 		<column name="notes" type="TEXT"></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_isco_codes" schemaName="openmrs" columnNames="codeISCO"/>
+		<addPrimaryKey tableName="hr_isco_codes" columnNames="codeISCO"/>
 		</changeSet>
 		
 	<changeSet author="saimanohar" id="humanresource_job_title">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_job_title" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_job_title"/></not>
 		</preConditions>
 		<comment>
 			Creating the job_title table
 		</comment>
-		<createTable tableName="hr_job_title" schemaName="openmrs">
+		<createTable tableName="hr_job_title">
 		<column name="job_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="codeISCO" type="char(4)" defaultValue="NULL"></column>
@@ -292,32 +292,32 @@
 		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_job_title" schemaName="openmrs" columnNames="job_id"/>
-		<addAutoIncrement tableName="hr_job_title" schemaName="openmrs" columnName="job_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="national_id"><column name="national_id"></column></createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_isco"><column name="codeISCO"></column></createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="cadre_concept"><column name="cadre"></column> </createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="max_grade_concept"><column name="grades"></column> </createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_job_title" schemaName="openmrs" indexName="job_title_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_title_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="job_isco" referencedTableName="hr_isco_codes" baseColumnNames="codeISCO" baseTableName="hr_job_title" referencedColumnNames="codeISCO" onDelete="NO ACTION" onUpdate="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="cadre_concept" referencedTableName="concept" baseColumnNames="cadre" baseTableName="hr_job_title" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addPrimaryKey tableName="hr_job_title" columnNames="job_id"/>
+		<addAutoIncrement tableName="hr_job_title" columnName="job_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_job_title" indexName="job_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_job_title" indexName="national_id"><column name="national_id"></column></createIndex>
+		<createIndex tableName="hr_job_title" indexName="job_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_job_title" indexName="job_isco"><column name="codeISCO"></column></createIndex>
+		<createIndex tableName="hr_job_title" indexName="cadre_concept"><column name="cadre"></column> </createIndex>
+		<createIndex tableName="hr_job_title" indexName="max_grade_concept"><column name="grades"></column> </createIndex>
+		<createIndex tableName="hr_job_title" indexName="job_title_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_job_title" indexName="job_title_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_job_title" indexName="job_title_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="job_title_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="job_title_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="job_title_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_job_title" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="job_isco" referencedTableName="hr_isco_codes" baseColumnNames="codeISCO" baseTableName="hr_job_title" referencedColumnNames="codeISCO" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addForeignKeyConstraint constraintName="cadre_concept" referencedTableName="concept" baseColumnNames="cadre" baseTableName="hr_job_title" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
 		
 	<!-- <changeSet author="saimanohar" id="humanresource_location">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="location" schemaName="openmrs"/></not>
+			<not><tableExists tableName="location"/></not>
 		</preConditions>
 		<comment>
 			Creating the location table
 		</comment>
-		<createTable tableName="location" schemaName="openmrs">
+		<createTable tableName="location">
 		<column name="location_id" type="INT(11)"><constraints nullable="false"/></column>
 		<column name="name" type="VARCHAR(255)" defaultValue=""><constraints nullable="false"/></column>
 		<column name="description" type="VARCHAR(255)" defaultValue="NULL"></column>
@@ -343,23 +343,23 @@
 		<column name="parent_location" type="INT(11)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="location" schemaName="openmrs" columnNames="location_id"/>
-		<addAutoIncrement tableName="location" schemaName="openmrs" columnName="location_id" columnDataType="int(11)"/>
-		<createIndex tableName="location" schemaName="openmrs" indexName="location_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="location" schemaName="openmrs" indexName="name_of_location"><column name="name"></column></createIndex>
-		<createIndex tableName="location" schemaName="openmrs" indexName="retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="location" schemaName="openmrs" indexName="parent_location"><column name="parent_location"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="parent_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location" referencedColumnNames="parent_location"/>
+		<addPrimaryKey tableName="location" columnNames="location_id"/>
+		<addAutoIncrement tableName="location" columnName="location_id" columnDataType="int(11)"/>
+		<createIndex tableName="location" indexName="location_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="location" indexName="name_of_location"><column name="name"></column></createIndex>
+		<createIndex tableName="location" indexName="retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="location" indexName="parent_location"><column name="parent_location"></column></createIndex>
+		<addForeignKeyConstraint constraintName="parent_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location" referencedColumnNames="parent_location"/>
 		</changeSet> -->
 		
 	<changeSet author="saimanohar" id="humanresource_staff_note">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_note" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_note"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_note table
 		</comment>
-		<createTable tableName="hr_staff_note" schemaName="openmrs">
+		<createTable tableName="hr_staff_note">
 		<column name="staff_note_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="staff_note_type" type="varchar(50)" defaultValue="NULL"></column>
 		<column name="staff_id" type="int(11)" defaultValue="NULL"></column>
@@ -376,28 +376,28 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff_note" schemaName="openmrs" columnNames="staff_note_id"/>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_hierarchy"><column name="parent"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_staff"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_staff_note" schemaName="openmrs" indexName="staff_note_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addPrimaryKey tableName="hr_staff_note" columnNames="staff_note_id"/>
+		<createIndex tableName="hr_staff_note" indexName="note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" indexName="staff_note_hierarchy"><column name="parent"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" indexName="staff_note_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" indexName="staff_note_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" indexName="staff_note_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_note" indexName="staff_note_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="staff_note_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_note_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_note_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_note" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
+		<addForeignKeyConstraint constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
 	<!-- 
 	<changeSet author="saimanohar" id="humanresource_person_address">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person_address" schemaName="openmrs"/></not>
+			<not><tableExists tableName="person_address"/></not>
 		</preConditions>
 		<comment>
 			Creating the person_address table
 		</comment>
-		<createTable tableName="person_address" schemaName="openmrs">
+		<createTable tableName="person_address">
 		<column name="person_address_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="person_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="preferred" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
@@ -422,21 +422,21 @@
 		<column name="township_division" type="VARCHAR(50)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="person_address" schemaName="openmrs" columnNames="person_address_id"/>
-		<addAutoIncrement tableName="person_address" schemaName="openmrs"  columnName="person_address_id" columnDataType="int(11)"/>
-		<createIndex tableName="person_address" schemaName="openmrs" indexName="person_address_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="person_address" schemaName="openmrs" indexName="address_for_person"><column name="person_id"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="address_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_address" referencedColumnNames="person_id" onUpdate="CASCADE"/>
+		<addPrimaryKey tableName="person_address" columnNames="person_address_id"/>
+		<addAutoIncrement tableName="person_address"  columnName="person_address_id" columnDataType="int(11)"/>
+		<createIndex tableName="person_address" indexName="person_address_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="person_address" indexName="address_for_person"><column name="person_id"></column></createIndex>
+		<addForeignKeyConstraint constraintName="address_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_address" referencedColumnNames="person_id" onUpdate="CASCADE"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_person_name">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person_name" schemaName="openmrs"/></not>
+			<not><tableExists tableName="person_name"/></not>
 		</preConditions>
 		<comment>
 			Creating the person_name table
 		</comment>
-		<createTable tableName="person_name" schemaName="openmrs">
+		<createTable tableName="person_name">
 		<column name="person_name_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="preferred" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
 		<column name="person_id" type="int(11)" defaultValue="NULL"></column>
@@ -458,25 +458,25 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="person_name" schemaName="openmrs"  columnNames="person_name_id"/>
-		<addAutoIncrement tableName="person_name"  schemaName="openmrs"  columnName="person_name_id"/>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="person_name_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="first_name"><column name="given_name"></column></createIndex>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="last_name"><column name="family_name"></column></createIndex>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="middle_name"><column name="middle_name"></column></createIndex>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="name_for_person"><column name="person_id"></column></createIndex>
-		<createIndex tableName="person_name" schemaName="openmrs" indexName="family_name_2"><column name="family_name_2"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="name_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_name" referencedColumnNames="person_id" onUpdate="CASCADE"/>
+		<addPrimaryKey tableName="person_name"  columnNames="person_name_id"/>
+		<addAutoIncrement tableName="person_name"   columnName="person_name_id"/>
+		<createIndex tableName="person_name" indexName="person_name_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="person_name" indexName="first_name"><column name="given_name"></column></createIndex>
+		<createIndex tableName="person_name" indexName="last_name"><column name="family_name"></column></createIndex>
+		<createIndex tableName="person_name" indexName="middle_name"><column name="middle_name"></column></createIndex>
+		<createIndex tableName="person_name" indexName="name_for_person"><column name="person_id"></column></createIndex>
+		<createIndex tableName="person_name" indexName="family_name_2"><column name="family_name_2"></column></createIndex>
+		<addForeignKeyConstraint constraintName="name_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_name" referencedColumnNames="person_id" onUpdate="CASCADE"/>
 	</changeSet> -->
 	
 	<changeSet author="saimanohar" id="humanresource_post">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_post" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_post"/></not>
 		</preConditions>
 		<comment>
 			Creating the post table
 		</comment>
-		<createTable tableName="hr_post" schemaName="openmrs">
+		<createTable tableName="hr_post">
 		<column name="post_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="job_id" type="int(11)"><constraints nullable="false"/></column>
@@ -494,34 +494,34 @@
 		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_post" schemaName="openmrs" columnNames="post_id"/>
-		<addAutoIncrement tableName="hr_post" schemaName="openmrs" columnName="post_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="national_id"><column name="national_id"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="job_id"><column name="job_id"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="location_id"><column name="location_id"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_retired_status"><column name="retired"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_status_concept"><column name="status"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_post" schemaName="openmrs" indexName="post_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_job" referencedTableName="hr_job_title" baseColumnNames="job_id" baseTableName="hr_post" referencedColumnNames="job_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_post" referencedColumnNames="location_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_status_concept" referencedTableName="concept" baseColumnNames="status" baseTableName="hr_post" referencedColumnNames="concept_id"/>
+		<addPrimaryKey tableName="hr_post" columnNames="post_id"/>
+		<addAutoIncrement tableName="hr_post" columnName="post_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_post" indexName="post_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="national_id"><column name="national_id"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="job_id"><column name="job_id"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="location_id"><column name="location_id"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="post_retired_status"><column name="retired"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="national_id_UNIQUE" unique="true"><column name="national_id"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="post_status_concept"><column name="status"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="post_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="post_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_post" indexName="post_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="post_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_post" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_job" referencedTableName="hr_job_title" baseColumnNames="job_id" baseTableName="hr_post" referencedColumnNames="job_id"/>
+		<addForeignKeyConstraint constraintName="post_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_post" referencedColumnNames="location_id"/>
+		<addForeignKeyConstraint constraintName="post_status_concept" referencedTableName="concept" baseColumnNames="status" baseTableName="hr_post" referencedColumnNames="concept_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_cert">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_cert" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_cert"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_cert table
 		</comment>
-		<createTable tableName="hr_staff_cert" schemaName="openmrs">
+		<createTable tableName="hr_staff_cert">
 		<column name="staff_cert_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="certificate_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
@@ -541,30 +541,30 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff_cert" schemaName="openmrs" columnNames="staff_cert_id"/>
-		<addAutoIncrement tableName="hr_staff_cert" schemaName="openmrs" columnName="staff_cert_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="provider_cert_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_certificate"><column name="certificate_id"></column></createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_staff"><column name="staff_id"></column></createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_staff_cert" schemaName="openmrs" indexName="staff_cert_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="person_cert_certificate" referencedTableName="hr_certificate" baseColumnNames="certificate_id" baseTableName="hr_staff_cert" referencedColumnNames="certificate_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_cert_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_cert" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addPrimaryKey tableName="hr_staff_cert" columnNames="staff_cert_id"/>
+		<addAutoIncrement tableName="hr_staff_cert" columnName="staff_cert_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_staff_cert" indexName="provider_cert_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="staff_cert_certificate"><column name="certificate_id"></column></createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="staff_cert_staff"><column name="staff_id"></column></createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="staff_cert_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="staff_cert_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_cert" indexName="staff_cert_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="staff_cert_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_cert_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_cert_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_cert" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="person_cert_certificate" referencedTableName="hr_certificate" baseColumnNames="certificate_id" baseTableName="hr_staff_cert" referencedColumnNames="certificate_id"/>
+		<addForeignKeyConstraint constraintName="staff_cert_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_cert" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_tag">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_tag" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_tag"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_tag table
 		</comment>
-		<createTable tableName="hr_staff_tag" schemaName="openmrs">
+		<createTable tableName="hr_staff_tag">
 		<column name="staff_tag_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"></column>
 		<column name="description" type="varchar(255)"></column>
@@ -576,40 +576,40 @@
 		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff_tag" schemaName="openmrs" columnNames="staff_tag_id"/>
-		<addAutoIncrement tableName="hr_staff_tag" schemaName="openmrs" columnName="staff_tag_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="provider_tag_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="staff_tag_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_staff_tag" schemaName="openmrs" indexName="staff_tag_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_tag_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_tag_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="hr_staff_tag" columnNames="staff_tag_id"/>
+		<addAutoIncrement tableName="hr_staff_tag" columnName="staff_tag_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_staff_tag" indexName="provider_tag_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_tag" indexName="staff_tag_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_tag" indexName="staff_tag_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="staff_tag_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_tag_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_tag" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_tag_map">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_tag_map" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_tag_map"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_tag_map table
 		</comment>
-		<createTable tableName="hr_staff_tag_map" schemaName="openmrs">
+		<createTable tableName="hr_staff_tag_map">
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_tag_id" type="int(11)"><constraints nullable="false"/></column>
 		</createTable>
-		<createIndex tableName="hr_staff_tag_map" schemaName="openmrs" indexName="staff_tag_map_tag"><column name="staff_tag_id"></column> </createIndex>
-		<createIndex tableName="hr_staff_tag_map" schemaName="openmrs" indexName="person_tag_map_staff"><column name="staff_id"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_tag_map_tag" referencedTableName="hr_staff_tag" baseColumnNames="staff_tag_id" baseTableName="hr_staff_tag_map" referencedColumnNames="staff_tag_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="person_tag_map_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_tag_map" referencedColumnNames="staff_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+		<createIndex tableName="hr_staff_tag_map" indexName="staff_tag_map_tag"><column name="staff_tag_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_tag_map" indexName="person_tag_map_staff"><column name="staff_id"></column></createIndex>
+		<addForeignKeyConstraint constraintName="staff_tag_map_tag" referencedTableName="hr_staff_tag" baseColumnNames="staff_tag_id" baseTableName="hr_staff_tag_map" referencedColumnNames="staff_tag_id"/>
+		<addForeignKeyConstraint constraintName="person_tag_map_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_tag_map" referencedColumnNames="staff_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_post_history">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_post_history" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_post_history"/></not>
 		</preConditions>
 		<comment>
 			Creating the post_history table
 		</comment>
-		<createTable tableName="hr_post_history" schemaName="openmrs">
+		<createTable tableName="hr_post_history">
 		<column name="post_history_ID" type="int(11)"><constraints nullable="false"/></column>
 		<column name="staff_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="post_id" type="int(11)"><constraints nullable="false"/></column>
@@ -628,31 +628,31 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_post_history" schemaName="openmrs" columnNames="post_history_ID"/>
-		<addAutoIncrement tableName="hr_post_history" schemaName="openmrs" columnName="post_history_ID" columnDataType="int(11)"/>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="uuid_UNIQUE"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_post"><column name="post_id"></column></createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="provider_natural"><column name="staff_id"></column><column name="start_date"></column><column name="end_date"></column><column name="voided"></column></createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_end_reason_concept"><column name="end_reason"></column> </createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_post_history" schemaName="openmrs" indexName="post_history_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_post" referencedTableName="hr_post" baseColumnNames="post_id" baseTableName="hr_post_history" referencedColumnNames="post_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_post_history" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="post_history_end_reason_concept" referencedTableName="concept" baseColumnNames="end_reason" baseTableName="hr_post_history" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addPrimaryKey tableName="hr_post_history" columnNames="post_history_ID"/>
+		<addAutoIncrement tableName="hr_post_history" columnName="post_history_ID" columnDataType="int(11)"/>
+		<createIndex tableName="hr_post_history" indexName="uuid_UNIQUE"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_post_history" indexName="post_history_post"><column name="post_id"></column></createIndex>
+		<createIndex tableName="hr_post_history" indexName="provider_natural"><column name="staff_id"></column><column name="start_date"></column><column name="end_date"></column><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_post_history" indexName="post_history_end_reason_concept"><column name="end_reason"></column> </createIndex>
+		<createIndex tableName="hr_post_history" indexName="post_history_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_post_history" indexName="post_history_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_post_history" indexName="post_history_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="post_history_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_history_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_history_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_post_history" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="post_history_post" referencedTableName="hr_post" baseColumnNames="post_id" baseTableName="hr_post_history" referencedColumnNames="post_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+		<addForeignKeyConstraint constraintName="post_history_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_post_history" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addForeignKeyConstraint constraintName="post_history_end_reason_concept" referencedTableName="concept" baseColumnNames="end_reason" baseTableName="hr_post_history" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_assignment">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_assignment" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_assignment"/></not>
 		</preConditions>
 		<comment>
 			Creating the assignment table
 		</comment>
-		<createTable tableName="hr_assignment" schemaName="openmrs">
+		<createTable tableName="hr_assignment">
 		<column name="assignment_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="post_history_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="location_id" type="int(11)"><constraints nullable="false"/></column>
@@ -675,35 +675,35 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_assignment" schemaName="openmrs" columnNames="assignment_id"/>
-		<addAutoIncrement tableName="hr_assignment" schemaName="openmrs" columnName="assignment_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="subpost_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="post_id"><column name="post_history_id"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="location_id"><column name="location_id"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="end_start"><column name="end_date"></column> <column name="start_date"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="subpost_retired_status"><column name="voided"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_supervisor"><column name="supervisor_id"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="work_schedule_concept"><column name="work_schedule"></column></createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_assignment" schemaName="openmrs" indexName="assignment_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="assignment_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_assignment" referencedColumnNames="location_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_assignment" referencedColumnNames="post_history_ID"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="assignment_supervisor" referencedTableName="hr_staff" baseColumnNames="supervisor_id" baseTableName="hr_assignment" referencedColumnNames="staff_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs"  constraintName="work_schedule_concept" referencedTableName="concept" baseColumnNames="work_schedule" baseTableName="hr_assignment" referencedColumnNames="concept_id"/>
+		<addPrimaryKey tableName="hr_assignment" columnNames="assignment_id"/>
+		<addAutoIncrement tableName="hr_assignment" columnName="assignment_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_assignment" indexName="subpost_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="post_id"><column name="post_history_id"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="location_id"><column name="location_id"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="end_start"><column name="end_date"></column> <column name="start_date"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="subpost_retired_status"><column name="voided"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="assignment_supervisor"><column name="supervisor_id"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="work_schedule_concept"><column name="work_schedule"></column></createIndex>
+		<createIndex tableName="hr_assignment" indexName="assignment_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="assignment_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_assignment" indexName="assignment_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="assignment_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="assignment_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="assignment_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_assignment" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint  constraintName="assignment_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="hr_assignment" referencedColumnNames="location_id"/>
+		<addForeignKeyConstraint  constraintName="assignment_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_assignment" referencedColumnNames="post_history_ID"/>
+		<addForeignKeyConstraint  constraintName="assignment_supervisor" referencedTableName="hr_staff" baseColumnNames="supervisor_id" baseTableName="hr_assignment" referencedColumnNames="staff_id"/>
+		<addForeignKeyConstraint  constraintName="work_schedule_concept" referencedTableName="concept" baseColumnNames="work_schedule" baseTableName="hr_assignment" referencedColumnNames="concept_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_training">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_training" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_training"/></not>
 		</preConditions>
 		<comment>
 			Creating the training table
 		</comment>
-		<createTable tableName="hr_training" schemaName="openmrs">
+		<createTable tableName="hr_training">
 		<column name="training_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="national_id" type="int(11)" defaultValue="NULL"></column>
 		<column name="category" type="varchar(255)" defaultValue=""><constraints nullable="false"/></column>
@@ -720,26 +720,26 @@
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		<column name="sort_weight" type="DOUBLE" defaultValue="NULL"></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_training" schemaName="openmrs" columnNames="training_id"/>
-		<addAutoIncrement tableName="hr_training" schemaName="openmrs" columnName="training_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_training"  schemaName="openmrs" indexName="training_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_training"  schemaName="openmrs" indexName="training_retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_training" schemaName="openmrs" indexName="training_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="hr_training" columnNames="training_id"/>
+		<addAutoIncrement tableName="hr_training" columnName="training_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_training"  indexName="training_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_training"  indexName="training_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_training" indexName="training_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_training" indexName="training_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_training" indexName="training_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="training_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="training_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="training_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_training" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_training_class">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_training_class" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_training_class"/></not>
 		</preConditions>
 		<comment>
 			Creating the training_class table
 		</comment>
-		<createTable tableName="hr_training_class" schemaName="openmrs">
+		<createTable tableName="hr_training_class">
 		<column name="train_class_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="training_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="start_date" type="DATETIME"><constraints nullable="false"/></column>
@@ -764,27 +764,27 @@
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		<column name="sort_weight" type="DOUBLE" defaultValue="NULL"></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_training_class" schemaName="openmrs" columnNames="train_class_id"/>
-		<addAutoIncrement tableName="hr_training_class" schemaName="openmrs" columnName="train_class_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="train_class_retired_status"><column name="voided"></column></createIndex>
-		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_training_class" schemaName="openmrs" indexName="training_class_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_class_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_class_training" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_class" referencedColumnNames="training_id"/>
+		<addPrimaryKey tableName="hr_training_class" columnNames="train_class_id"/>
+		<addAutoIncrement tableName="hr_training_class" columnName="train_class_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_training_class" indexName="train_class_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_training_class" indexName="train_class_retired_status"><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_training_class" indexName="training_class_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_training_class" indexName="training_class_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_training_class" indexName="training_class_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="training_class_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="training_class_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="training_class_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_training_class" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="train_class_training" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_class" referencedColumnNames="training_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_train_person">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_train_person" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_train_person"/></not>
 		</preConditions>
 		<comment>
 			Creating the train_person table
 		</comment>
-		<createTable tableName="hr_train_person" schemaName="openmrs">
+		<createTable tableName="hr_train_person">
 		<column name="train_person_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="train_class_id" type="int(11))"><constraints nullable="false"/></column>
 		<column name="person_id" type="int(11)"><constraints nullable="false"/></column>
@@ -801,47 +801,47 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_train_person" schemaName="openmrs" columnNames="train_person_id"/>
-		<addAutoIncrement tableName="hr_train_person" schemaName="openmrs" columnName="train_person_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_person"><column name="person_id"></column></createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_train_class"><column name="train_class_id"></column></createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_train_person" schemaName="openmrs" indexName="train_person_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="hr_train_person" referencedColumnNames="person_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="train_person_train_class" referencedTableName="hr_training_class" baseColumnNames="train_class_id" baseTableName="hr_train_person" referencedColumnNames="train_class_id"/>
+		<addPrimaryKey tableName="hr_train_person" columnNames="train_person_id"/>
+		<addAutoIncrement tableName="hr_train_person" columnName="train_person_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_train_person" indexName="train_person_uuid_index"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_train_person" indexName="provider_cert_retired_status"><column name="voided"></column></createIndex>
+		<createIndex tableName="hr_train_person" indexName="train_person_person"><column name="person_id"></column></createIndex>
+		<createIndex tableName="hr_train_person" indexName="train_person_train_class"><column name="train_class_id"></column></createIndex>
+		<createIndex tableName="hr_train_person" indexName="train_person_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_train_person" indexName="train_person_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_train_person" indexName="train_person_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="train_person_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="train_person_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="train_person_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_train_person" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="train_person_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="hr_train_person" referencedColumnNames="person_id"/>
+		<addForeignKeyConstraint constraintName="train_person_train_class" referencedTableName="hr_training_class" baseColumnNames="train_class_id" baseTableName="hr_train_person" referencedColumnNames="train_class_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_training_competency">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_training_competency" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_training_competency"/></not>
 		</preConditions>
 		<comment>
 			Creating the training_competency table
 		</comment>
-		<createTable tableName="hr_training_competency" schemaName="openmrs">
+		<createTable tableName="hr_training_competency">
 		<column name="training_id" type="int(11)"><constraints nullable="false"/> </column>
 		<column name="competency_id" type="int(11)"><constraints nullable="false"/> </column>
 		</createTable>
-		<addPrimaryKey tableName="hr_training_competency" schemaName="openmrs" columnNames="training_id,competency_id"/>
-		<createIndex tableName="hr_training_competency" schemaName="openmrs" indexName="competency"><column name="competency_id"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="competency_tag" referencedTableName="hr_competency" baseColumnNames="competency_id" baseTableName="hr_training_competency" referencedColumnNames="competency_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="training_tag" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_competency" referencedColumnNames="training_id"/>
+		<addPrimaryKey tableName="hr_training_competency" columnNames="training_id,competency_id"/>
+		<createIndex tableName="hr_training_competency" indexName="competency"><column name="competency_id"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="competency_tag" referencedTableName="hr_competency" baseColumnNames="competency_id" baseTableName="hr_training_competency" referencedColumnNames="competency_id"/>
+		<addForeignKeyConstraint constraintName="training_tag" referencedTableName="hr_training" baseColumnNames="training_id" baseTableName="hr_training_competency" referencedColumnNames="training_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_attribute_type">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_attribute_type" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_attribute_type"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_attribute_type table
 		</comment>
-		<createTable tableName="hr_staff_attribute_type" schemaName="openmrs">
+		<createTable tableName="hr_staff_attribute_type">
 		<column name="staff_attribute_type_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"><constraints nullable="false"/></column>
 		<column name="description" type="TEXT"></column>
@@ -860,29 +860,29 @@
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		<column name="sort_weight" type="DOUBLE" defaultValue="NULL"></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff_attribute_type" schemaName="openmrs" columnNames="staff_attribute_type_id"/>
-		<addAutoIncrement tableName="hr_staff_attribute_type" schemaName="openmrs" columnName="staff_attribute_type_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="attribute_is_searchable"><column name="searchable"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="name_of_attribute"><column name="name"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_changer"><column name="changed_by"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="staff_attribute_type_creator"><column name="creator"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="user_who_retired_staff_attribute_type"><column name="retired_by"></column></createIndex>
-		<createIndex tableName="hr_staff_attribute_type" schemaName="openmrs" indexName="privilege_which_can_edit_staff_attribute_type"><column name="edit_privilege"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="user_who_retired_staff_attribute_type" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="hr_staff_attribute_type" columnNames="staff_attribute_type_id"/>
+		<addAutoIncrement tableName="hr_staff_attribute_type" columnName="staff_attribute_type_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_staff_attribute_type" indexName="staff_attribute_type_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="attribute_is_searchable"><column name="searchable"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="name_of_attribute"><column name="name"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="staff_attribute_type_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="staff_attribute_type_changer"><column name="changed_by"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="staff_attribute_type_creator"><column name="creator"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="user_who_retired_staff_attribute_type"><column name="retired_by"></column></createIndex>
+		<createIndex tableName="hr_staff_attribute_type" indexName="privilege_which_can_edit_staff_attribute_type"><column name="edit_privilege"></column></createIndex>
+		<addForeignKeyConstraint constraintName="staff_attribute_type_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_attribute_type_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="user_who_retired_staff_attribute_type" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_staff_attribute_type" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_staff_attribute">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_staff_attribute" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_staff_attribute"/></not>
 		</preConditions>
 		<comment>
 			Creating the staff_attribute table
 		</comment>
-		<createTable tableName="hr_staff_attribute" schemaName="openmrs">
+		<createTable tableName="hr_staff_attribute">
 		<column name="staff_attribute_id" type="int(11)"></column>
 		<column name="staff_id" type="int(11)" defaultValue="0"></column>
 		<column name="value" type="varchar(50)" defaultValue=""></column>
@@ -897,29 +897,29 @@
 		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_staff_attribute" schemaName="openmrs" columnNames="staff_attribute_id"/>
-		<addAutoIncrement tableName="hr_staff_attribute" schemaName="openmrs" columnName="staff_attribute_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_type"><column name="staff_attribute_id"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_staff"><column name="staff_id"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_staff_attribute" schemaName="openmrs" indexName="staff_attribute_voider"><column name="voided_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_type_ref" referencedTableName="hr_staff_attribute_type" baseColumnNames="staff_attribute_type_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_attribute_type_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="staff_attribute_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+		<addPrimaryKey tableName="hr_staff_attribute" columnNames="staff_attribute_id"/>
+		<addAutoIncrement tableName="hr_staff_attribute" columnName="staff_attribute_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_type"><column name="staff_attribute_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_staff"><column name="staff_id"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_staff_attribute" indexName="staff_attribute_voider"><column name="voided_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="staff_attribute_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_attribute_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_attribute_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_attribute" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="staff_attribute_type_ref" referencedTableName="hr_staff_attribute_type" baseColumnNames="staff_attribute_type_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_attribute_type_id"/>
+		<addForeignKeyConstraint constraintName="staff_attribute_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_attribute" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
 	
 	<!-- <changeSet author="saimanohar" id="humanresource_location_tag">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="location_tag" schemaName="openmrs"/></not>
+			<not><tableExists tableName="location_tag"/></not>
 		</preConditions>
 		<comment>
 			Creating the location_tag table
 		</comment>
-		<createTable tableName="location_tag" schemaName="openmrs">
+		<createTable tableName="location_tag">
 		<column name="location_tag_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="name" type="varchar(50)"></column>
 		<column name="description" type="TEXT"></column>
@@ -931,40 +931,40 @@
 		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="location_tag" schemaName="openmrs" columnNames="location_tag_id"/>
-		<addAutoIncrement tableName="location_tag" schemaName="openmrs" columnName="location_tag_id" columnDataType="int(11)"/>
-		<createIndex tableName="location_tag" schemaName="openmrs" indexName="location_tag_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="location_tag" schemaName="openmrs" indexName="location_tag_creator"><column name="creator"></column></createIndex>
-		<createIndex tableName="location_tag" schemaName="openmrs" indexName="location_tag_retired_by"><column name="retired_by"></column></createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="location_tag_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="location_tag" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="location_tag_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="location_tag" referencedColumnNames="user_id"/>
+		<addPrimaryKey tableName="location_tag" columnNames="location_tag_id"/>
+		<addAutoIncrement tableName="location_tag" columnName="location_tag_id" columnDataType="int(11)"/>
+		<createIndex tableName="location_tag" indexName="location_tag_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="location_tag" indexName="location_tag_creator"><column name="creator"></column></createIndex>
+		<createIndex tableName="location_tag" indexName="location_tag_retired_by"><column name="retired_by"></column></createIndex>
+		<addForeignKeyConstraint constraintName="location_tag_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="location_tag" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="location_tag_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="location_tag" referencedColumnNames="user_id"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_location_tag_map">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="location_tag_map" schemaName="openmrs"/></not>
+			<not><tableExists tableName="location_tag_map"/></not>
 		</preConditions>
 		<comment>
 			Creating the location_tag_map table
 		</comment>
-		<createTable tableName="location_tag_map" schemaName="openmrs">
+		<createTable tableName="location_tag_map">
 		<column name="location_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="location_tag_id" type="int(11)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="location_tag_map" schemaName="openmrs" columnNames="location_id,location_tag_id"/>
-		<createIndex tableName="location_tag_map" schemaName="openmrs" indexName="location_tag_map_tag"><column name="location_tag_id"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="location_tag_map_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location_tag_map" referencedColumnNames="location_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="location_tag_map_tag" referencedTableName="location_tag" baseColumnNames="location_tag_id" baseTableName="location_tag_map" referencedColumnNames="location_tag_id"/>
+		<addPrimaryKey tableName="location_tag_map" columnNames="location_id,location_tag_id"/>
+		<createIndex tableName="location_tag_map" indexName="location_tag_map_tag"><column name="location_tag_id"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="location_tag_map_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location_tag_map" referencedColumnNames="location_id"/>
+		<addForeignKeyConstraint constraintName="location_tag_map_tag" referencedTableName="location_tag" baseColumnNames="location_tag_id" baseTableName="location_tag_map" referencedColumnNames="location_tag_id"/>
 		</changeSet> -->
 		
 	<changeSet author="saimanohar" id="humanresource_leave">
 		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="hr_leave" schemaName="openmrs"/></not>
+			<not><tableExists tableName="hr_leave"/></not>
 		</preConditions>
 		<comment>
 			Creating the leave table
 		</comment>
-		<createTable tableName="hr_leave" schemaName="openmrs">
+		<createTable tableName="hr_leave">
 		<column name="leave_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="post_history_id" type="int(11)"><constraints nullable="false"/></column>
 		<column name="start_date" type="DATETIME"><constraints nullable="false"/></column>
@@ -981,20 +981,20 @@
 		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
 		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
 		</createTable>
-		<addPrimaryKey tableName="hr_leave" schemaName="openmrs" columnNames="leave_id"/>
-		<addAutoIncrement tableName="hr_leave" schemaName="openmrs" columnName="leave_id" columnDataType="int(11)"/>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="post_id"><column name="post_history_id"></column></createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="end_start"><column name="end_date"></column><column name="start_date"></column></createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="subpost_retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_type_concept"><column name="leave_type"></column></createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_changer"><column name="changed_by"></column> </createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_creator"><column name="creator"></column> </createIndex>
-		<createIndex tableName="hr_leave" schemaName="openmrs" indexName="leave_retired_by"><column name="retired_by"></column> </createIndex>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_leave" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_leave" referencedColumnNames="post_history_ID"/>
-		<addForeignKeyConstraint baseTableSchemaName="openmrs" referencedTableSchemaName="openmrs" constraintName="leave_type_concept" referencedTableName="concept" baseColumnNames="leave_type" baseTableName="hr_leave" referencedColumnNames="concept_id"/>
+		<addPrimaryKey tableName="hr_leave" columnNames="leave_id"/>
+		<addAutoIncrement tableName="hr_leave" columnName="leave_id" columnDataType="int(11)"/>
+		<createIndex tableName="hr_leave" indexName="leave_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+		<createIndex tableName="hr_leave" indexName="post_id"><column name="post_history_id"></column></createIndex>
+		<createIndex tableName="hr_leave" indexName="end_start"><column name="end_date"></column><column name="start_date"></column></createIndex>
+		<createIndex tableName="hr_leave" indexName="subpost_retired_status"><column name="retired"></column></createIndex>
+		<createIndex tableName="hr_leave" indexName="leave_type_concept"><column name="leave_type"></column></createIndex>
+		<createIndex tableName="hr_leave" indexName="leave_changer"><column name="changed_by"></column> </createIndex>
+		<createIndex tableName="hr_leave" indexName="leave_creator"><column name="creator"></column> </createIndex>
+		<createIndex tableName="hr_leave" indexName="leave_retired_by"><column name="retired_by"></column> </createIndex>
+		<addForeignKeyConstraint constraintName="leave_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="leave_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_leave" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="leave_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_leave" referencedColumnNames="user_id"/>
+		<addForeignKeyConstraint constraintName="leave_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_leave" referencedColumnNames="post_history_ID"/>
+		<addForeignKeyConstraint constraintName="leave_type_concept" referencedTableName="concept" baseColumnNames="leave_type" baseTableName="hr_leave" referencedColumnNames="concept_id"/>
 		</changeSet>
 </databaseChangeLog>
