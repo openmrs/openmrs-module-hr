@@ -49,9 +49,9 @@ public interface HRService {
 	
 	public void unretirePost(HrPost post);
 	
-	public Map<String,String> getCurrentJobLocationForStaff(int id);
+	public Map<String,Object> getCurrentJobLocationForStaff(int id);
 	
-	public List<HrStaff> getAllStaff();
+	public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations);
 	
 	public HrStaff getStaffById( int id);
 }

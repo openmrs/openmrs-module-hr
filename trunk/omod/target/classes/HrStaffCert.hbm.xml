@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrStaffCert" table="hr_staff_cert" catalog="openmrs">
+        <id name="staffCertId" type="int">
+            <column name="staff_cert_id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="hrCertificate" class="org.openmrs.module.hr.HrCertificate" fetch="select">
+            <column name="certificate_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="staff_id" not-null="true" />
+        </many-to-one>
+        <property name="level" type="string">
+            <column name="level" length="50" not-null="true" />
+        </property>
+        <property name="initialCertDate" type="timestamp">
+            <column name="initial_cert_date" length="19" />
+        </property>
+        <property name="currentCertDate" type="timestamp">
+            <column name="current_cert_date" length="19" not-null="true" />
+        </property>
+        <property name="certExpirationDate" type="timestamp">
+            <column name="cert_expiration_date" length="19" />
+        </property>
+        <property name="certCancel" type="string">
+            <column name="cert_cancel" length="50" />
+        </property>
+        <property name="cancelDate" type="timestamp">
+            <column name="cancel_date" length="19" />
+        </property>
+        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+		<property name="dateChanged" type="java.util.Date" column="date_changed" />		
+		<property name="voided" type="java.lang.Boolean" length="1" not-null="true" column="voided"/>
+		<many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
+		<property name="dateVoided" type="java.util.Date" column="date_voided" />	
+		<property name="voidReason" type="string" column="void_reason" />
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

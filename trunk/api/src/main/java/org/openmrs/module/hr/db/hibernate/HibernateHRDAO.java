@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -13,12 +14,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Concept;
+import org.openmrs.Location;
 import org.openmrs.Person;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
@@ -731,10 +738,31 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
-    public List<HrStaff> getAllStaff() {
+    public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations) {
     	log.debug("getting all Staff");
+    	List<HrStaff> staffList=null;
+    	Criteria criteria=sessionFactory.getCurrentSession().createCriteria(HrStaff.class);
+    	LocationService locService=Context.getLocationService();
+    	ConceptService conceptService=Context.getConceptService();
+    	List<Location> hrManagedLocations=locService.getLocationsByTag(locService.getLocationTagByName("HR Managed"));
+    	List<Concept> staffStatusCurrent=conceptService.getConceptsByMapping("Staff status current", "HR Module");
         try {
-            List<HrStaff> staffList=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).list();
+           	if(!includeAllStaff)
+        		criteria.add(Restrictions.in("staffStatus",staffStatusCurrent));
+           	staffList=criteria.list();
+           	if(!includeAllLocations){
+           		List<HrStaff> removableStaff=new ArrayList<HrStaff>();
+        		for(HrStaff staff:staffList){
+        			Location loc=(Location)(getCurrentJobLocationForStaff(staff.getId())).get("Location");
+        			if(!hrManagedLocations.contains(loc))
+        				removableStaff.add(staff);
+        		}
+        		for(HrStaff staff:removableStaff){
+        				staffList.remove(staff);
+        		}
+           	   	
+        	}
+        	
             if (staffList==null) {
                 log.debug("get successful, no staff found");
             }
@@ -1170,18 +1198,18 @@ public class HibernateHRDAO implements HRDAO {
 
 	}
 
-	public Map<String, String> getCurrentJobLocationForStaff(int id) {
-		Map<String,String> jlMap=null;
+	public Map<String, Object> getCurrentJobLocationForStaff(int id) {
+		Map<String,Object> jlMap=null;
 		List results=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph1").setProjection(Projections.max("ph1.startDate")).list();
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
 			List rowList=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrPost.postId"),"postId")).list();
 			int postId = (Integer) rowList.get(0);
-			List details=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", postId)).createAlias("hrJobTitle","job").createAlias("location", "loc").setProjection(Projections.projectionList().add(Projections.property("job.title")).add(Projections.property("loc.name"))).list();
-			jlMap=new HashMap<String, String>();
+			List details=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", postId)).setProjection(Projections.projectionList().add(Projections.property("hrJobTitle")).add(Projections.property("location"))).list();
+			jlMap=new HashMap<String, Object>();
 			Object[] result = (Object[]) details.get(0);
-			jlMap.put("JobTitle",(String)result[0]);
-			jlMap.put("LocationName",(String)result[1]);
+			jlMap.put("JobTitle",(HrJobTitle)result[0]);
+			jlMap.put("Location",(Location)result[1]);
 		}
 		return jlMap;
 	}

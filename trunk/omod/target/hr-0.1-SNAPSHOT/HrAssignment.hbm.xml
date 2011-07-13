@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrAssignment" table="hr_assignment" catalog="openmrs">
+        <id name="assignmentId" type="int">
+            <column name="assignment_id" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="hrPostHistory" class="org.openmrs.module.hr.HrPostHistory" fetch="select">
+            <column name="post_history_id" not-null="true" />
+        </many-to-one>
+        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+            <column name="supervisor_id" />
+        </many-to-one>
+        <many-to-one name="location" class="org.openmrs.Location">
+            <column name="location_id" />
+        </many-to-one>
+        <property name="assignment" type="string">
+            <column name="assignment" />
+        </property>
+        <property name="timeBasis" type="string">
+            <column name="time_basis" length="45" />
+        </property>
+        <many-to-one name="workSchedule" class="org.openmrs.Concept" >
+            <column name="work_schedule" />
+        </many-to-one>
+        <property name="startDate" type="timestamp">
+            <column name="start_date" length="19" />
+        </property>
+        <property name="endDate" type="timestamp">
+            <column name="end_date" length="19" />
+        </property>
+        <property name="endReason" type="string">
+            <column name="end_reason" length="10" />
+        </property>
+        <property name="endReasonOther" type="string">
+            <column name="end_reason_other" length="252" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" />
+        </property>
+        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+		<property name="dateChanged" type="java.util.Date" column="date_changed" />		
+		<property name="voided" type="java.lang.Boolean" length="1" not-null="true" column="voided"/>
+		<many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
+		<property name="dateVoided" type="java.util.Date" column="date_voided" />	
+		<property name="voidReason" type="string" column="void_reason" />
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
