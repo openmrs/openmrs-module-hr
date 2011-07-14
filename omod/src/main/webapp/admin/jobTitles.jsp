@@ -12,7 +12,7 @@
 	})
 </script>
 <h2><spring:message code="Manage jobs" /></h2>
-<a href="job.form"><spring:message code="Add New Job"/></a>
+<a href="jobTitle.form"><spring:message code="Add New Job"/></a>
 <br/>
 <br/>
 <b class="boxHeader">
@@ -32,15 +32,15 @@
 			<th> <spring:message code="Cadre" /> </th>
 			<th> <spring:message code="Grades" /> </th>
 		</tr>
-		<c:forEach var="job" items="${JobList}" varStatus="rowStatus">
-			<tr <c:if test="${job.retired}">class="retired ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!job.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> >
+		<c:forEach var="jobTitle" items="${JobList}" varStatus="rowStatus">
+			<tr <c:if test="${jobTitle.retired}">class="retired ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!jobTitle.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> >
 				<td valign="top" width="10%">
-					<a href="job.form?jobId=${job.jobId}">${job.title}</a>
+					<a href="jobTitle.form?jobId=${jobTitle.jobId}">${jobTitle.title}</a>
 				</td>
-				<td valign="top" width="20%">${job.hrIscoCodes.title}</td>
-				<td valign="top" width="50%">${job.description}	</td>
-				<td valign="top" width="10%">${job.cadre.name}</td>
-				<td valign="top" width="10%">${job.grades}</td>
+				<td valign="top" width="20%">${jobTitle.hrIscoCodes.title}</td>
+				<td valign="top" width="50%">${jobTitle.description}	</td>
+				<td valign="top" width="10%">${jobTitle.cadre.name}</td>
+				<td valign="top" width="10%">${jobTitle.grades}</td>
 			</tr>
 		</c:forEach>
 	</table>

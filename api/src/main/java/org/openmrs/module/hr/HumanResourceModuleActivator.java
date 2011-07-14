@@ -21,6 +21,7 @@ import java.util.Set;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Role;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Activator;
 import org.openmrs.util.OpenmrsConstants;
@@ -36,28 +37,23 @@ public class HumanResourceModuleActivator implements Activator {
 	 * @see org.openmrs.module.Activator#startup()
 	 */
 	public void startup() {
-		Role humanResourceManager=null;
-		Role humanResourceClerk=null;
 		Set<Role> inheritedRoleSet=new HashSet<Role>();
 		inheritedRoleSet.add(Context.getUserService().getRole(OpenmrsConstants.AUTHENTICATED_ROLE));
-		List<Role> AllRoles=Context.getUserService().getAllRoles();
-		for(Role r:AllRoles)
-		{
-			if(r.getName().equals("Human Resource Manager"))
-				humanResourceManager=r;
-			if(r.getName().equals("Human Resource Clerk"))
-			humanResourceClerk=r;
-		}
-		if(humanResourceManager==null){
-			humanResourceManager=new Role("Human Resource Manager","HR manager");
+		UserService us = Context.getUserService();
+		Role humanResourceManager = us.getRole("Human Resource Manager");
+		// Create role if it doesn't exist
+		if (humanResourceManager == null){
+			humanResourceManager=new Role("Human Resource Manager", "HR Role");
 			humanResourceManager.setInheritedRoles(inheritedRoleSet);
-			Context.getUserService().saveRole(humanResourceManager);
+			us.saveRole(humanResourceManager); 
 		}
-		if(humanResourceClerk==null){
-			humanResourceClerk=new Role("Human Resource Clerk","HR Clerk");
-			humanResourceClerk.setInheritedRoles(inheritedRoleSet);
-			Context.getUserService().saveRole(humanResourceClerk);
-		}
+		Role humanResourceClerk=us.getRole("Human Resource Clerk");
+		// Create role if it doesn't exist
+		if (humanResourceClerk == null ){
+		 humanResourceClerk=new Role("Human Resource Clerk", "HR Role");
+		 humanResourceClerk.setInheritedRoles(inheritedRoleSet);
+		 us.saveRole(humanResourceClerk);
+		 } 
 		log.info("Starting Human Resource Module");
 	}
 	
@@ -65,23 +61,14 @@ public class HumanResourceModuleActivator implements Activator {
 	 * @see org.openmrs.module.Activator#shutdown()
 	 */
 	public void shutdown() {
-		Role humanResourceManager=null;
-		Role humanResourceClerk=null;
-		Set<Role> inheritedRoleSet=new HashSet<Role>();
-		inheritedRoleSet.add(Context.getUserService().getRole(OpenmrsConstants.AUTHENTICATED_ROLE));
-		List<Role> AllRoles=Context.getUserService().getAllRoles();
-		for(Role r:AllRoles)
-		{
-			if(r.getName().equals("Human Resource Manager"))
-				humanResourceManager=r;
-			if(r.getName().equals("Human Resource Clerk"));
-			humanResourceClerk=r;
-		}
+		UserService us = Context.getUserService();
+		Role humanResourceManager = us.getRole("Human Resource Manager");
+		Role humanResourceClerk=us.getRole("Human Resource Clerk");
 		if(humanResourceManager!=null){
-			Context.getUserService().purgeRole(humanResourceManager);
+			us.purgeRole(humanResourceManager);
 		}
 		if(humanResourceClerk!=null){
-			Context.getUserService().purgeRole(humanResourceClerk);
+			us.purgeRole(humanResourceClerk);
 		}
 		log.info("Shutting down Human Resource Module");
 	}
