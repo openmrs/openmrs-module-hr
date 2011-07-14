@@ -50,11 +50,11 @@ public class JobTitleController{
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	/** Success list view name */
-	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/jobs";
+	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/jobTitles";
 	/** Success form view name */
-	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/job";
+	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/jobTitle";
 
-	@RequestMapping(value = "module/hr/admin/jobs.list")
+	@RequestMapping(value = "module/hr/admin/jobTitles.list")
 	public String showList(ModelMap model){
 		HRService hrService=Context.getService(HRService.class);
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
@@ -63,7 +63,7 @@ public class JobTitleController{
 	}
 	
 	@ModelAttribute("job")
-	@RequestMapping(value="module/hr/admin/job.form")
+	@RequestMapping(value="module/hr/admin/jobTitle.form")
 	public HrJobTitle showForm(ModelMap model,@RequestParam(value="jobId",required=false) Integer jobId)
 	{
 		HRService hrService=Context.getService(HRService.class);
@@ -89,7 +89,7 @@ public class JobTitleController{
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(value="module/hr/admin/job.form",method = RequestMethod.POST)
+	@RequestMapping(value="module/hr/admin/jobTitle.form",method = RequestMethod.POST)
 	public ModelAndView onSubmit(HttpServletRequest request,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
