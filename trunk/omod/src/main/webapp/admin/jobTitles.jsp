@@ -12,7 +12,7 @@
 	})
 </script>
 <h2><spring:message code="Manage jobs" /></h2>
-<a href="jobTitle.form"><spring:message code="Add New Job"/></a>
+<a href="jobTitle.form"><spring:message code="Add New Job Title"/></a>
 <br/>
 <br/>
 <b class="boxHeader">
