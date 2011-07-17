@@ -100,6 +100,7 @@ public class HibernateHRDAO implements HRDAO {
         try {
         	List<HrAssignment> assignmentList=sessionFactory.getCurrentSession().createCriteria(HrAssignment.class).add(Restrictions.eq("hrPostHistory", postHistory)).list();
             if (assignmentList==null) {
+            	assignmentList=new ArrayList<HrAssignment>();
                 log.debug("get successful, no instance found");
             }
             else {
@@ -116,8 +117,11 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding HrAssignment instance by example");
         try {
             List<HrAssignment> results =sessionFactory.getCurrentSession().createCriteria(HrAssignment.class).add(Example.create(assignment)).list();
+            if(results!=null){
             log.debug("find by example successful, result size: " + results.size());
             return results;
+            }
+            return new ArrayList<HrAssignment>();
         }
         catch (RuntimeException re) {
             log.error("find by example failed", re);
@@ -169,6 +173,7 @@ public class HibernateHRDAO implements HRDAO {
         try {
             List<HrCertificate> certificateList = sessionFactory.getCurrentSession().createCriteria(HrCertificate.class).list();
             if (certificateList==null) {
+            	certificateList=new ArrayList<HrCertificate>();
                 log.debug("get successful, no certificates found");
             }
             else {
@@ -186,7 +191,12 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Certificates by example");
         try {
             List<HrCertificate> results = sessionFactory.getCurrentSession().createCriteria(HrCertificate.class).add(Example.create(certificate)).list();
+            if(results!=null){
             log.debug("find by example successful, result size: " + results.size());
+            }
+            else {
+				results=new ArrayList<HrCertificate>();
+			}
             return results;
         }
         catch (RuntimeException re) {
@@ -238,6 +248,7 @@ public class HibernateHRDAO implements HRDAO {
          try {
              List<HrCompetency> competencyList=sessionFactory.getCurrentSession().createCriteria(HrCompetency.class).list();
              if (competencyList==null) {
+            	 competencyList=new ArrayList<HrCompetency>();
                  log.debug("get successful, no competencies found");
              }
              else {
@@ -256,7 +267,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding competencies by example");
         try {
             List<HrCompetency> results = sessionFactory.getCurrentSession().createCriteria(HrCompetency.class).add(Example.create(competency)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrCompetency>();
             return results;
         }
         catch (RuntimeException re) {
@@ -307,7 +321,10 @@ public class HibernateHRDAO implements HRDAO {
     	log.debug("getting Education for staff");
         try {
             List<HrEducation> educationList=sessionFactory.getCurrentSession().createCriteria(HrEducation.class).add(Restrictions.eq("hrStaff", staff)).list();
+            if(educationList!=null)
             log.debug("get successful");
+            else 
+			educationList=new ArrayList<HrEducation>();
             return educationList;
         }
         catch (RuntimeException re) {
@@ -319,7 +336,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding educations by example");
         try {
             List<HrEducation> results = sessionFactory.getCurrentSession().createCriteria(HrEducation.class).add(Example.create(education)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrEducation>();
             return results;
         }
         catch (RuntimeException re) {
@@ -370,7 +390,10 @@ public class HibernateHRDAO implements HRDAO {
     	log.debug("getting evaluation for staff and competency");
         try {
             List<HrEvaluation> evaluationList=sessionFactory.getCurrentSession().createCriteria(HrEducation.class).add(Restrictions.eq("hrStaff", staff)).add(Restrictions.eq("hrCompetency", competency)).list();
+            if(evaluationList!=null)
             log.debug("get successful");
+            else
+            	evaluationList=new ArrayList<HrEvaluation>();
             return evaluationList;
         }
         catch (RuntimeException re) {
@@ -382,7 +405,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding evaluations by example");
         try {
             List<HrEvaluation> results = sessionFactory.getCurrentSession().createCriteria(HrEvaluation.class).add(Example.create(evaluation)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrEvaluation>();
             return results;
         }
         catch (RuntimeException re) {
@@ -430,6 +456,7 @@ public class HibernateHRDAO implements HRDAO {
     		try {
             List<HrIscoCodes> iscoCodeList=sessionFactory.getCurrentSession().createCriteria(HrIscoCodes.class).list();
             if (iscoCodeList==null) {
+            	iscoCodeList=new ArrayList<HrIscoCodes>();
                 log.debug("get successful, no isco codes found");
             }
             else {
@@ -471,6 +498,7 @@ public class HibernateHRDAO implements HRDAO {
         try {
             List<HrJobTitle> jobTitleList=sessionFactory.getCurrentSession().createCriteria(HrJobTitle.class).list();
             if (jobTitleList==null) {
+            	jobTitleList=new ArrayList<HrJobTitle>();
                 log.debug("get successful, no job titles found");
             }
             else {
@@ -488,7 +516,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Job Titles by example");
         try {
             List<HrJobTitle> results = sessionFactory.getCurrentSession().createCriteria(HrJobTitle.class).add(Example.create(jobTitle)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            results=new ArrayList<HrJobTitle>();
             return results;
         }
         catch (RuntimeException re) {
@@ -540,7 +571,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding leaves by example");
         try {
             List<HrLeave> results = sessionFactory.getCurrentSession().createCriteria(HrLeave.class).add(Example.create(leave)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrLeave>();
             return results;
         }
         catch (RuntimeException re) {
@@ -591,7 +625,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding post histories by example");
         try {
             List<HrPostHistory> results = sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Example.create(postHistory)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrPostHistory>();
             return results;
         }
         catch (RuntimeException re) {
@@ -643,7 +680,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding post by example");
         try {
             List<HrPost> results = sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Example.create(post)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrPost>();
             return results;
         }
         catch (RuntimeException re) {
@@ -667,6 +707,7 @@ public class HibernateHRDAO implements HRDAO {
            	}
            	postList=criteria.list();
             if (postList==null) {
+            	postList=new ArrayList<HrPost>();
                 log.debug("get successful, no posts found");
             }
             else {
@@ -724,7 +765,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding staff by example");
         try {
             List<HrStaff> results = sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Example.create(staff)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrStaff>();
             return results;
         }
         catch (RuntimeException re) {
@@ -775,6 +819,7 @@ public class HibernateHRDAO implements HRDAO {
         	}
         	
             if (staffList==null) {
+            	staffList=new ArrayList<HrStaff>();
                 log.debug("get successful, no staff found");
             }
             else {
@@ -815,7 +860,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding staff attribute by example");
         try {
             List<HrStaffAttribute> results = sessionFactory.getCurrentSession().createCriteria(HrStaffAttribute.class).add(Example.create(staffAttribute)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrStaffAttribute>();
             return results;
         }
         catch (RuntimeException re) {
@@ -866,7 +914,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding staffAttributeType by example");
         try {
             List<HrStaffAttributeType> results = sessionFactory.getCurrentSession().createCriteria(HrStaffAttributeType.class).add(Example.create(staffAttributeType)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrStaffAttributeType>();
             return results;
         }
         catch (RuntimeException re) {
@@ -896,6 +947,7 @@ public class HibernateHRDAO implements HRDAO {
         try {
             List<HrStaffAttributeType> staffAttributeTypeList=sessionFactory.getCurrentSession().createCriteria(HrStaffAttributeType.class).list();
             if (staffAttributeTypeList==null) {
+            	staffAttributeTypeList=new ArrayList<HrStaffAttributeType>();
                 log.debug("get successful, no staff attribute types found");
             }
             else {
@@ -936,7 +988,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Staff Certificates by example");
         try {
             List<HrStaffCert> results = sessionFactory.getCurrentSession().createCriteria(HrStaffCert.class).add(Example.create(staffCert)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrStaffCert>();
             return results;
         }
         catch (RuntimeException re) {
@@ -987,7 +1042,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Staff Notes by example");
         try {
             List<HrStaffNote> results = sessionFactory.getCurrentSession().createCriteria(HrStaffNote.class).add(Example.create(staffCert)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrStaffNote>();
             return results;
         }
         catch (RuntimeException re) {
@@ -1000,6 +1058,7 @@ public class HibernateHRDAO implements HRDAO {
         try {
             List<HrStaffNote> staffNoteList=sessionFactory.getCurrentSession().createCriteria(HrStaffNote.class).list();
             if (staffNoteList==null) {
+            	staffNoteList=new ArrayList<HrStaffNote>();
                 log.debug("get successful, no staff notes found");
             }
             else {
@@ -1057,7 +1116,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Training by example");
         try {
             List<HrTraining> results = sessionFactory.getCurrentSession().createCriteria(HrTraining.class).add(Example.create(training)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrTraining>();
             return results;
         }
         catch (RuntimeException re) {
@@ -1108,7 +1170,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding training class by example");
         try {
             List<HrTrainingClass> results = sessionFactory.getCurrentSession().createCriteria(HrTrainingClass.class).add(Example.create(trainingClass)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrTrainingClass>();
             return results;
         }
         catch (RuntimeException re) {
@@ -1159,7 +1224,10 @@ public class HibernateHRDAO implements HRDAO {
         log.debug("finding Train Person by example");
         try {
             List<HrTrainPerson> results = sessionFactory.getCurrentSession().createCriteria(HrTrainPerson.class).add(Example.create(trainPerson)).list();
+            if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
+            else
+            	results=null;
             return results;
         }
         catch (RuntimeException re) {
@@ -1190,6 +1258,7 @@ public class HibernateHRDAO implements HRDAO {
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
 			List rowList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrStaff.staffId"),"staffId").add(Projections.property("ph2.endDate"),"endDate")).list();
+			if(rowList!=null){
 			Object[] result = (Object[]) rowList.get(0);
 			int staffId = (Integer)result[0];
 			Date endDate=null;
@@ -1205,6 +1274,7 @@ public class HibernateHRDAO implements HRDAO {
 				personName=person.getGivenName()+" "+person.getFamilyName();
 			return personName;
 		}
+		}
 		return null;
 
 	}
@@ -1215,12 +1285,20 @@ public class HibernateHRDAO implements HRDAO {
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
 			List rowList=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrPost.postId"),"postId")).list();
+			if(rowList!=null){
 			int postId = (Integer) rowList.get(0);
 			List details=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", postId)).setProjection(Projections.projectionList().add(Projections.property("hrJobTitle")).add(Projections.property("location"))).list();
 			jlMap=new HashMap<String, Object>();
+			if(details!=null){
 			Object[] result = (Object[]) details.get(0);
 			jlMap.put("JobTitle",(HrJobTitle)result[0]);
 			jlMap.put("Location",(Location)result[1]);
+			}
+			else {
+				jlMap.put("JobTitle",new HrJobTitle());
+				jlMap.put("Location",new Location());
+			}
+		}
 		}
 		return jlMap;
 	}
