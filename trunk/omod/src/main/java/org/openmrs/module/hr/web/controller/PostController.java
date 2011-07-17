@@ -63,15 +63,23 @@ public class PostController {
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();
 		Concept postStatus=cs.getConceptByMapping("Post Status","HR Module");
-		Collection<ConceptAnswer> postStatusAnswers=postStatus.getAnswers();
+		Collection<ConceptAnswer> postStatusAnswers;
+		if(postStatus!=null)
+		postStatusAnswers=postStatus.getAnswers();
+		else {
+			postStatusAnswers=new ArrayList<ConceptAnswer>();
+		}
 		LocationService ls=Context.getLocationService();
 		List<Location> locationList=ls.getAllLocations();
 		model.addAttribute("JobList",jobList);
 		model.addAttribute("LocationList", locationList);
 		model.addAttribute("PostStatusAnswers", postStatusAnswers);
 		HrPost post;
-		if(postId!=null)
+		if(postId!=null){
 		post=hrService.getPostById(postId);
+		if(post==null)
+			post=new HrPost();
+		}
 		else{
 		post=new HrPost();
 		}
@@ -91,7 +99,12 @@ public class PostController {
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();
 		Concept postStatus=cs.getConceptByMapping("Post Status","HR Module");
-		Collection<ConceptAnswer> postStatusAnswers=postStatus.getAnswers();
+		Collection<ConceptAnswer> postStatusAnswers;
+		if(postStatus!=null)
+		postStatusAnswers=postStatus.getAnswers();
+		else {
+			postStatusAnswers=new ArrayList<ConceptAnswer>();
+		}
 		LocationService ls=Context.getLocationService();
 		List<Location> locationList=ls.getAllLocations();
 		model.addAttribute("JobList",jobList);

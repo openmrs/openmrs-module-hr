@@ -14,6 +14,7 @@
 package org.openmrs.module.hr.web.controller;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -70,12 +71,19 @@ public class JobTitleController{
 		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
 		ConceptService cs=Context.getConceptService();
 		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
-		Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+		Collection<ConceptAnswer> cadreAnswers;
+		if(cadre!=null)
+			cadreAnswers=cadre.getAnswers();
+		else
+			cadreAnswers=new ArrayList<ConceptAnswer>();
 		model.addAttribute("IscoCodeList",iscoCodeList);
 		model.addAttribute("CadreAnswers", cadreAnswers);
 		HrJobTitle jobTitle;
-		if(jobId!=null)
+		if(jobId!=null){
 		jobTitle=hrService.getJobTitleById(jobId);
+		if(jobTitle==null)
+			jobTitle=new HrJobTitle();
+		}
 		else{
 		jobTitle=new HrJobTitle();
 		}
@@ -95,7 +103,11 @@ public class JobTitleController{
 		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
 		ConceptService cs=Context.getConceptService();
 		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
-		Collection<ConceptAnswer> cadreAnswers=cadre.getAnswers();
+		Collection<ConceptAnswer> cadreAnswers;
+		if(cadre!=null)
+			cadreAnswers=cadre.getAnswers();
+		else
+			cadreAnswers=new ArrayList<ConceptAnswer>();
 		ModelAndView formView=new ModelAndView(SUCCESS_FORM_VIEW);
 		formView.addObject("IscoCodeList", iscoCodeList);
 		formView.addObject("CadreAnswers", cadreAnswers);
