@@ -85,21 +85,7 @@ dojo.addOnLoad( function() {
 		</table>
 	</table>
 </form>
-<div id="pager" class="pager" align="right">
-	
-		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/first.png" class="first"/>
-		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/prev.png" class="prev"/>
-		<input type="text" style="width:25px" readonly="readonly" class="pagedisplay"/>
-		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/next.png" class="next"/>
-		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/last.png" class="last"/>
-		<select class="pagesize">
-			<option selected="selected"  value="10">10</option>
-			<option value="20">20</option>
-			<option value="30">30</option>
-			<option  value="40">40</option>
-		</select>
 
-</div>
 <br/>
 <br/>
 <br/>
