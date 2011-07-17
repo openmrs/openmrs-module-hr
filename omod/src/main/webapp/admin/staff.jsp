@@ -307,14 +307,14 @@ function removeBlankData() {
 				<c:forEach var="name" items="${person.names}" varStatus="varStatus">
 					<spring:nestedPath path="person.names[${varStatus.index}]">
 						<div id="name${varStatus.index}Data" class="tabBox">
-							<openmrs:portlet url="nameLayout" id="namePortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=false|layoutHideVoidOption=${(name.personNameId == null)}" />
+							<openmrs:portlet url="nameLayout" id="namePortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=${(name.personNameId == null)}" />
 							<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisName"/>'/><br/> --> <br/>
 						</div>
 					</spring:nestedPath>
 				</c:forEach>
 				<div id="nameData" class="tabBox">
 					<spring:nestedPath path="emptyName">
-						<openmrs:portlet url="nameLayout" id="namePortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=false|layoutHideVoidOption=true" />
+						<openmrs:portlet url="nameLayout" id="namePortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=true" />
 						<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisName"/>'/><br/> --> <br/>
 					</spring:nestedPath>
 				</div>
@@ -339,14 +339,14 @@ function removeBlankData() {
 				<c:forEach var="address" items="${person.addresses}" varStatus="varStatus">
 					<spring:nestedPath path="person.addresses[${varStatus.index}]">
 						<div id="address${varStatus.index}Data" class="tabBox">
-							<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=false|layoutHideVoidOption=${(address.personAddressId == null)}" />
+							<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=${(address.personAddressId == null)}" />
 							<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisAddress"/>'/><br/> --> <br/>
 						</div>
 					</spring:nestedPath>
 				</c:forEach>
 				<div id="addressData" class="tabBox">
 					<spring:nestedPath path="emptyAddress">
-						<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=false|layoutHideVoidOption=true" />
+						<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=true" />
 						<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisAddress"/>'/><br/> --> <br/>
 					</spring:nestedPath>
 				</div>
@@ -354,7 +354,7 @@ function removeBlankData() {
 		</div>
 	
 	<br/> 
-<%-- 	 <h3><spring:message code="Staff Information"/></h3>
+	 <h3><spring:message code="Staff Information"/></h3>
 		<div class="tabBox" id="pInformationBox">
 			<div class="tabBoxes">
 				<table>
@@ -365,7 +365,7 @@ function removeBlankData() {
 			</div>
 		</div>	
 
-	<br />  --%>
+	<br /> 
 	<spring:bind path="person.personId">
 		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 	</spring:bind>
