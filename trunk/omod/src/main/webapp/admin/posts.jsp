@@ -3,20 +3,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Manage Posts" /></h2>
-<a href="post.form"><spring:message code="Add New Post"/></a>
-<br/>
-<br/>
-<input name="allposts" id="allposts" value="" type="checkbox" <c:if test="${param.allposts}">checked</c:if> onclick="updateList()">Include non current posts
-&nbsp;&nbsp;&nbsp;&nbsp;<input name="alllocations" id="alllocations" value="" type="checkbox" <c:if test="${param.alllocations}">checked</c:if> onclick="updateList()">Show all locations
-<br/>
-<br/>
-<b class="boxHeader">
-	<a style="display: block; float: right" href="#">
-		<spring:message code="general.toggle.retired" />
-	</a>
-	<spring:message code="Current Posts"/>
-</b>
+<openmrs:htmlInclude file="/scripts/dojoConfig.js" />
+<openmrs:htmlInclude file="/scripts/dojo/dojo.js" />
 <script type="text/javascript">
 function hideShowDetails(jobid,locationid)
 {
@@ -36,6 +24,9 @@ function updateList() {
 	url += "&alllocations="+document.getElementById('alllocations').checked;
 	document.location = url;
 }
+dojo.addOnLoad( function() {
+	toggleRowVisibilityForClass("PostsTable", "retired", false);
+})
 </script>
 <style type="text/css">
 
@@ -50,8 +41,23 @@ function updateList() {
 	background-color: white;
 }
 </style>
+<h2><spring:message code="Manage Posts" /></h2>
+<a href="post.form"><spring:message code="Add New Post"/></a>
+<br/>
+<br/>
+<input name="allposts" id="allposts" value="" type="checkbox" <c:if test="${param.allposts}">checked</c:if> onclick="updateList()">Include non current posts
+&nbsp;&nbsp;&nbsp;&nbsp;<input name="alllocations" id="alllocations" value="" type="checkbox" <c:if test="${param.alllocations}">checked</c:if> onclick="updateList()">Show all locations
+<br/>
+<br/>
+<b class="boxHeader">
+	<a style="display: block; float: right" href="#" onClick="return toggleRowVisibilityForClass('PostsTable', 'retired', false);">
+		<spring:message code="general.toggle.retired" />
+	</a>
+	<spring:message code="Current Posts"/>
+</b>
+
 <form method="post" class="box">
-<table id="PostsTable" width="80%">
+<table id="PostsTable" width="80%" class="tablesorter">
 		<tr>
 			<th> </th>
 			<th> <spring:message code="Job Title" /> </th>
@@ -79,6 +85,21 @@ function updateList() {
 		</table>
 	</table>
 </form>
+<div id="pager" class="pager" align="right">
+	
+		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/first.png" class="first"/>
+		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/prev.png" class="prev"/>
+		<input type="text" style="width:25px" readonly="readonly" class="pagedisplay"/>
+		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/next.png" class="next"/>
+		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/last.png" class="last"/>
+		<select class="pagesize">
+			<option selected="selected"  value="10">10</option>
+			<option value="20">20</option>
+			<option value="30">30</option>
+			<option  value="40">40</option>
+		</select>
+
+</div>
 <br/>
 <br/>
 <br/>
