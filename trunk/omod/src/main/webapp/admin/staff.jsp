@@ -57,18 +57,6 @@ function voidedBoxClicked(chk) {
 	else
 		removeClass(tab, 'voided');
 }
-function preferredBoxClick(obj) {
-	var inputs = document.getElementsByTagName("input");
-	if (obj.checked == true) {
-		for (var i=0; i<inputs.length; i++) {
-			var input = inputs[i];
-			if (input.type == "checkbox")
-				if (input.alt == obj.alt && input != obj)
-					input.checked = false;
-		}
-	}
-}
-
 function addNew(type) {
 	var newData = document.getElementById(type + "Data");
 	if (newData != null) {
@@ -165,6 +153,17 @@ function removeBlankData() {
 	if (obj != null)
 		obj.parentNode.removeChild(obj);
 }
+function preferredBoxClick(obj) {
+	var inputs = document.getElementsByTagName("input");
+	if (obj.checked == true) {
+		for (var i=0; i<inputs.length; i++) {
+			var input = inputs[i];
+			if (input.type == "checkbox")
+				if (input.alt == obj.alt && input != obj)
+					input.checked = false;
+		}
+	}
+}
 </script>
 <style type="text/css">
 	.tabBar {
@@ -207,7 +206,7 @@ function removeBlankData() {
 	
 </style>
 <c:set var="errorsFromPreviousSubmit" value="false"/>
-<spring:hasBindErrors name="person">
+<spring:hasBindErrors name="staff">
 	<c:set var="errorsFromPreviousSubmit" value="true"/>
 </spring:hasBindErrors>
 <c:choose>
@@ -256,13 +255,13 @@ function removeBlankData() {
 	</div>
 	</c:if>
 
-	<c:if test="${person.dead}">
+	<c:if test="${staff.dead}">
 	<div id="staffFormDeceased" class="retiredMessage">
 		<div><spring:message code="This person is deceased"/></div>
 	</div>
 	</c:if>
 
-	<spring:hasBindErrors name="person">
+	<spring:hasBindErrors name="staff">
 	<spring:message code="fix.error"/>
 	<div class="error">
 		<c:forEach items="${errors.allErrors}" var="error">
@@ -278,34 +277,21 @@ function removeBlankData() {
 	<c:if test="${createNewPerson}">
 		<input type="hidden" name="createNewPerson" value="true"/>
 	</c:if>
-	
-	<%-- <spring:nestedPath path="patient">
-	<c:if test="${status.value != null}">
-		<tr>
-			<td><spring:message code="general.createdBy" /></td>
-			<td>
-				${status.value.personName} -
-				<openmrs:formatDate path="dateCreated" type="long" />
-			</td>
-		</tr>
-	</c:if>
-	</spring:nestedPath> --%>
-
 	<h3><spring:message code="Staff Names"/></h3>
-		<spring:hasBindErrors name="person.names">
+		<spring:hasBindErrors name="staff.names">
 			<span class="error">${error.errorMessage}</span><br/>
 		</spring:hasBindErrors>
 		<div id="pNames">
 			<div class="tabBar" id="pNameTabBar">
-				<c:forEach var="name" items="${person.names}" varStatus="varStatus">
+				<c:forEach var="name" items="${staff.names}" varStatus="varStatus">
 					<a href="javascript:return false;" onClick="return selectTab(this, 'name');" id="name${varStatus.index}" <c:if test="${name.voided}">class='voided'</c:if>><span>${name.givenName}</span>&nbsp;<span>${name.familyName}</span></a>
 				</c:forEach>
 				<a href="javascript:return false;" onClick="return selectTab(this, 'name');" id="nameTab" style="display: none"><span></span>&nbsp;<span></span></a>
 				<input type="button" onClick="return addNew('name');" class="addNew" id="name" value='<spring:message code="Add New Name"/>'/>
 			</div>
 			<div class="tabBoxes" id="nameDataBoxes">
-				<c:forEach var="name" items="${person.names}" varStatus="varStatus">
-					<spring:nestedPath path="person.names[${varStatus.index}]">
+				<c:forEach var="name" items="${staff.names}" varStatus="varStatus">
+					<spring:nestedPath path="staff.names[${varStatus.index}]">
 						<div id="name${varStatus.index}Data" class="tabBox">
 							<openmrs:portlet url="nameLayout" id="namePortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=${(name.personNameId == null)}" />
 							<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisName"/>'/><br/> --> <br/>
@@ -324,20 +310,20 @@ function removeBlankData() {
 	<br style="clear: both" />
 	
 	<h3><spring:message code="Staff Addresses"/></h3>
-		<spring:hasBindErrors name="person.addresses">
+		<spring:hasBindErrors name="staff.addresses">
 			<span class="error">${error.errorMessage}</span><br/>
 		</spring:hasBindErrors>
 		<div id="pAddresses">
 			<div class="tabBar" id="pAddressesTabBar">
-				<c:forEach var="address" items="${person.addresses}" varStatus="varStatus">
+				<c:forEach var="address" items="${staff.addresses}" varStatus="varStatus">
 					<a href="javascript:return false;" onClick="return selectTab(this, 'address');" id="address${varStatus.index}" <c:if test="${address.voided}">class='voided'</c:if>><span>${address.cityVillage}</span>&nbsp;</a>
 				</c:forEach>
 				<a href="javascript:return false;" onClick="return selectTab(this, 'address');" id="addressTab" style="display: none"><span></span>&nbsp;</a>
 				<input type="button" onClick="return addNew('address');" class="addNew" id="address" value='<spring:message code="Add New Address"/>'/>			
 			</div>
 			<div class="tabBoxes" id="addressDataBoxes">
-				<c:forEach var="address" items="${person.addresses}" varStatus="varStatus">
-					<spring:nestedPath path="person.addresses[${varStatus.index}]">
+				<c:forEach var="address" items="${staff.addresses}" varStatus="varStatus">
+					<spring:nestedPath path="staff.addresses[${varStatus.index}]">
 						<div id="address${varStatus.index}Data" class="tabBox">
 							<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=${(address.personAddressId == null)}" />
 							<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisAddress"/>'/><br/> --> <br/>
@@ -358,7 +344,7 @@ function removeBlankData() {
 		<div class="tabBox" id="pInformationBox">
 			<div class="tabBoxes">
 				<table>
-					<spring:nestedPath path="person">
+					<spring:nestedPath path="staff">
 						<%@ include file="/WEB-INF/view/admin/person/include/editPersonInfo.jsp" %>
 					</spring:nestedPath>
 				</table>
