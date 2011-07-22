@@ -12,7 +12,11 @@ public class HrAssignment extends BaseOpenmrsData implements java.io.Serializabl
 
     // Fields    
 
-     private int assignmentId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int assignmentId;
      private HrPostHistory hrPostHistory;
      private HrStaff hrStaff;
      private Location location;

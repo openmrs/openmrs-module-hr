@@ -10,7 +10,11 @@ public class HrLeave extends BaseOpenmrsMetadata implements java.io.Serializable
 
     // Fields    
 
-     private int leaveId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int leaveId;
      private HrPostHistory hrPostHistory;
      private Date startDate;
      private Date endDate;

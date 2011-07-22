@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,14 +11,18 @@ public class HrCompetency extends BaseOpenmrsMetadata  implements java.io.Serial
 
     // Fields    
 
-     private int competencyId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int competencyId;
      private Integer nationalId;
      private String category;
      private String levels;
      private String editPrivilege;
      private String uuid;
      private Double sortWeight;
-     private Set hrEvaluations = new HashSet(0);
+     private Set<HrEvaluation> hrEvaluations = new HashSet<HrEvaluation>(0);
 
 
     // Constructors
@@ -37,7 +40,7 @@ public class HrCompetency extends BaseOpenmrsMetadata  implements java.io.Serial
     }
     
     /** full constructor */
-    public HrCompetency(int competencyId, Integer nationalId, String category, String name, String levels, String editPrivilege, String uuid, Double sortWeight, Set hrEvaluations) {
+    public HrCompetency(int competencyId, Integer nationalId, String category, String name, String levels, String editPrivilege, String uuid, Double sortWeight, Set<HrEvaluation> hrEvaluations) {
         this.competencyId = competencyId;
         this.nationalId = nationalId;
         this.category = category;
@@ -107,11 +110,11 @@ public class HrCompetency extends BaseOpenmrsMetadata  implements java.io.Serial
     public void setSortWeight(Double sortWeight) {
         this.sortWeight = sortWeight;
     }
-    public Set getHrEvaluations() {
+    public Set<HrEvaluation> getHrEvaluations() {
         return this.hrEvaluations;
     }
     
-    public void setHrEvaluations(Set hrEvaluations) {
+    public void setHrEvaluations(Set<HrEvaluation> hrEvaluations) {
         this.hrEvaluations = hrEvaluations;
     }
 

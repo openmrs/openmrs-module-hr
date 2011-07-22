@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,14 +10,18 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
 
     // Fields    
 
-     private int staffAttributeTypeId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int staffAttributeTypeId;
      private String format;
      private Integer foreignKey;
      private Boolean searchable=false;
      private String editPrivilege;
      private String uuid;
      private Double sortWeight;
-     private Set hrStaffAttributes = new HashSet(0);
+     private Set<HrStaffAttribute> hrStaffAttributes = new HashSet<HrStaffAttribute>(0);
 
 
     // Constructors
@@ -28,7 +31,7 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
     }
 
  
-    public HrStaffAttributeType(int staffAttributeTypeId, String format,Integer foreignKey, Boolean searchable, String editPrivilege,String uuid, Double sortWeight, Set hrStaffAttributes) {
+    public HrStaffAttributeType(int staffAttributeTypeId, String format,Integer foreignKey, Boolean searchable, String editPrivilege,String uuid, Double sortWeight, Set<HrStaffAttribute> hrStaffAttributes) {
 		this.staffAttributeTypeId = staffAttributeTypeId;
 		this.format = format;
 		this.foreignKey = foreignKey;
@@ -103,11 +106,11 @@ public class HrStaffAttributeType extends BaseOpenmrsMetadata implements java.io
         this.sortWeight = sortWeight;
     }
 
-    public Set getHrStaffAttributes() {
+    public Set<HrStaffAttribute> getHrStaffAttributes() {
         return this.hrStaffAttributes;
     }
     
-    public void setHrStaffAttributes(Set hrStaffAttributes) {
+    public void setHrStaffAttributes(Set<HrStaffAttribute> hrStaffAttributes) {
         this.hrStaffAttributes = hrStaffAttributes;
     }
 

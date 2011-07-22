@@ -11,7 +11,11 @@ public class HrStaffCert extends BaseOpenmrsData implements java.io.Serializable
 
     // Fields    
 
-     private int staffCertId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int staffCertId;
      private HrCertificate hrCertificate;
      private HrStaff hrStaff;
      private String level;

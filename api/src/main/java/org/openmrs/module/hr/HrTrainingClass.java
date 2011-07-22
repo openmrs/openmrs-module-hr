@@ -32,7 +32,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
      private float costPerdiem;
      private String uuid;
      private Double sortWeight;
-     private Set hrTrainPersons = new HashSet(0);
+     private Set<HrTrainPerson> hrTrainPersons = new HashSet<HrTrainPerson>(0);
 
 
     // Constructors
@@ -60,7 +60,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
     }
     
     /** full constructor */
-    public HrTrainingClass(int trainClassId, HrTraining hrTraining, Date startDate, float duration, float ceunits, String location, String instructor, String organization, String fundingSource, float costCourse, float costRegister, float costTravel, float costPerdiem, String uuid, Double sortWeight, Set hrTrainPersons) {
+    public HrTrainingClass(int trainClassId, HrTraining hrTraining, Date startDate, float duration, float ceunits, String location, String instructor, String organization, String fundingSource, float costCourse, float costRegister, float costTravel, float costPerdiem, String uuid, Double sortWeight, Set<HrTrainPerson> hrTrainPersons) {
         this.trainClassId = trainClassId;
         this.hrTraining = hrTraining;
         this.startDate = startDate;
@@ -204,11 +204,11 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
         this.sortWeight = sortWeight;
     }
 
-    public Set getHrTrainPersons() {
+    public Set<HrTrainPerson> getHrTrainPersons() {
         return this.hrTrainPersons;
     }
     
-    public void setHrTrainPersons(Set hrTrainPersons) {
+    public void setHrTrainPersons(Set<HrTrainPerson> hrTrainPersons) {
         this.hrTrainPersons = hrTrainPersons;
     }
 

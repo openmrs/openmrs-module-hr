@@ -14,7 +14,11 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
 
     // Fields    
 
-     private int postHistoryId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int postHistoryId;
      private HrStaff hrStaff;
      private HrPost hrPost;
      private Date startDate;
@@ -23,8 +27,8 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
      private Concept endReason;
      private String endReasonOther;
      private String uuid;
-     private Set hrAssignments = new HashSet(0);
-     private Set hrLeaves = new HashSet(0);
+     private Set<HrAssignment> hrAssignments = new HashSet<HrAssignment>(0);
+     private Set<HrLeave> hrLeaves = new HashSet<HrLeave>(0);
 
 
     // Constructors
@@ -43,7 +47,7 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
     }
     
     /** full constructor */
-    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String grade, Date endDate, Concept endReason, String endReasonOther,  String uuid, Set hrAssignments, Set hrLeaves) {
+    public HrPostHistory(int postHistoryId, HrStaff hrStaff, HrPost hrPost, Date startDate, String grade, Date endDate, Concept endReason, String endReasonOther,  String uuid, Set<HrAssignment> hrAssignments, Set<HrLeave> hrLeaves) {
         this.postHistoryId = postHistoryId;
         this.hrStaff = hrStaff;
         this.hrPost = hrPost;
@@ -133,19 +137,19 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
         this.uuid = uuid;
     }
 
-    public Set getHrAssignments() {
+    public Set<HrAssignment> getHrAssignments() {
         return this.hrAssignments;
     }
     
-    public void setHrAssignments(Set hrAssignments) {
+    public void setHrAssignments(Set<HrAssignment> hrAssignments) {
         this.hrAssignments = hrAssignments;
     }
 
-    public Set getHrLeaves() {
+    public Set<HrLeave> getHrLeaves() {
         return this.hrLeaves;
     }
     
-    public void setHrLeaves(Set hrLeaves) {
+    public void setHrLeaves(Set<HrLeave> hrLeaves) {
         this.hrLeaves = hrLeaves;
     }
 

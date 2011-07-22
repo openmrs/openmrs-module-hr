@@ -1,7 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
-
 import org.openmrs.BaseOpenmrsData;
 
 
@@ -10,7 +8,11 @@ public class HrEducation extends BaseOpenmrsData implements java.io.Serializable
 
     // Fields    
 
-     private int educationId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int educationId;
      private HrStaff hrStaff;
      private String degree;
      private String institution;

@@ -1,7 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
-
 import org.openmrs.BaseOpenmrsData;
 
 
@@ -11,7 +9,11 @@ public class HrStaffAttribute extends BaseOpenmrsData implements java.io.Seriali
 
     // Fields    
 
-     private int staffAttributeId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int staffAttributeId;
      private HrStaffAttributeType hrStaffAttributeType;
      private HrStaff hrStaff;
      private String value;

@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,13 +12,17 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
 
     // Fields    
 
-     private int certificateId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int certificateId;
      private Integer nationalId;
      private String agency;
      private String certificate;
      private String levels;
      private String uuid;
-     private Set hrStaffCerts = new HashSet(0);
+     private Set<HrStaffCert> hrStaffCerts = new HashSet<HrStaffCert>(0);
 
 
     // Constructors
@@ -38,7 +41,7 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
     }
     
     /** full constructor */
-    public HrCertificate(int certificateId, Integer nationalId, String agency, String certificate, String levels, String uuid, Set hrStaffCerts) {
+    public HrCertificate(int certificateId, Integer nationalId, String agency, String certificate, String levels, String uuid, Set<HrStaffCert> hrStaffCerts) {
         this.certificateId = certificateId;
         this.nationalId = nationalId;
         this.agency = agency;
@@ -100,11 +103,11 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
         this.uuid = uuid;
     }
 
-    public Set getHrStaffCerts() {
+    public Set<HrStaffCert> getHrStaffCerts() {
         return this.hrStaffCerts;
     }
     
-    public void setHrStaffCerts(Set hrStaffCerts) {
+    public void setHrStaffCerts(Set<HrStaffCert> hrStaffCerts) {
         this.hrStaffCerts = hrStaffCerts;
     }
 

@@ -8,7 +8,11 @@ public class HrProvider  implements java.io.Serializable {
 
     // Fields    
 
-     private int providerId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int providerId;
 
 
     // Constructors

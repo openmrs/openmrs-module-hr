@@ -1257,7 +1257,7 @@ public class HibernateHRDAO implements HRDAO {
 		List results=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph1").setProjection(Projections.max("ph1.startDate")).list();
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
-			List rowList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).setProjection(Projections.projectionList().add(Projections.property("ph2.hrStaff.staffId"),"staffId").add(Projections.property("ph2.endDate"),"endDate")).list();
+			List rowList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", id)).createAlias("hrPostHistories", "ph2").add(Restrictions.eq("ph2.startDate", maxDate)).createAlias("ph2.hrStaff", "staff").setProjection(Projections.projectionList().add(Projections.property("staff.staffId"),"staffId").add(Projections.property("ph2.endDate"),"endDate")).list();
 			if(rowList!=null){
 			Object[] result = (Object[]) rowList.get(0);
 			int staffId = (Integer)result[0];
@@ -1280,7 +1280,7 @@ public class HibernateHRDAO implements HRDAO {
 	}
 
 	public Map<String, Object> getCurrentJobLocationForStaff(int id) {
-		Map<String,Object> jlMap=null;
+		Map<String,Object> jlMap=new HashMap<String, Object>();;
 		List results=sessionFactory.getCurrentSession().createCriteria(HrStaff.class).add(Restrictions.eq("staffId", id)).createAlias("hrPostHistories", "ph1").setProjection(Projections.max("ph1.startDate")).list();
 		if(results.get(0)!=null){
 			Date maxDate=new Date(((Timestamp)results.get(0)).getTime());
@@ -1288,7 +1288,6 @@ public class HibernateHRDAO implements HRDAO {
 			if(rowList!=null){
 			int postId = (Integer) rowList.get(0);
 			List details=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("postId", postId)).setProjection(Projections.projectionList().add(Projections.property("hrJobTitle")).add(Projections.property("location"))).list();
-			jlMap=new HashMap<String, Object>();
 			if(details!=null){
 			Object[] result = (Object[]) details.get(0);
 			jlMap.put("JobTitle",(HrJobTitle)result[0]);
