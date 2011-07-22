@@ -10,14 +10,18 @@ public class HrIscoCodes  implements java.io.Serializable {
 
     // Fields    
 
-     private String codeIsco;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String codeIsco;
      private String title;
      private String definition;
      private String tasksInclude;
      private String includedOccupations;
      private String excludedOccupations;
      private String notes;
-     private Set hrJobTitles = new HashSet(0);
+     private Set<HrJobTitle> hrJobTitles = new HashSet<HrJobTitle>(0);
 
 
     // Constructors
@@ -33,7 +37,7 @@ public class HrIscoCodes  implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrIscoCodes(String codeIsco, String title, String definition, String tasksInclude, String includedOccupations, String excludedOccupations, String notes, Set hrJobTitles) {
+    public HrIscoCodes(String codeIsco, String title, String definition, String tasksInclude, String includedOccupations, String excludedOccupations, String notes, Set<HrJobTitle> hrJobTitles) {
         this.codeIsco = codeIsco;
         this.title = title;
         this.definition = definition;
@@ -103,11 +107,11 @@ public class HrIscoCodes  implements java.io.Serializable {
         this.notes = notes;
     }
 
-    public Set getHrJobTitles() {
+    public Set<HrJobTitle> getHrJobTitles() {
         return this.hrJobTitles;
     }
     
-    public void setHrJobTitles(Set hrJobTitles) {
+    public void setHrJobTitles(Set<HrJobTitle> hrJobTitles) {
         this.hrJobTitles = hrJobTitles;
     }
    

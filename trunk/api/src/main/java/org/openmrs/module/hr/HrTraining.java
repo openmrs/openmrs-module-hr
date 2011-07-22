@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,12 +11,16 @@ public class HrTraining extends BaseOpenmrsMetadata implements java.io.Serializa
 
     // Fields    
 
-     private int trainingId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int trainingId;
      private Integer nationalId;
      private String category;
      private String uuid;
      private Double sortWeight;
-     private Set hrTrainingClasses = new HashSet(0);
+     private Set<HrTrainingClass> hrTrainingClasses = new HashSet<HrTrainingClass>(0);
 
 
 
@@ -35,7 +38,7 @@ public class HrTraining extends BaseOpenmrsMetadata implements java.io.Serializa
     }
     
     /** full constructor */
-    public HrTraining(int trainingId, Integer nationalId, String category,  String uuid, Double sortWeight, Set hrTrainingClasses) {
+    public HrTraining(int trainingId, Integer nationalId, String category,  String uuid, Double sortWeight, Set<HrTrainingClass> hrTrainingClasses) {
         this.trainingId = trainingId;
         this.nationalId = nationalId;
         this.category = category;
@@ -88,11 +91,11 @@ public class HrTraining extends BaseOpenmrsMetadata implements java.io.Serializa
         this.sortWeight = sortWeight;
     }
 
-    public Set getHrTrainingClasses() {
+    public Set<HrTrainingClass> getHrTrainingClasses() {
         return this.hrTrainingClasses;
     }
     
-    public void setHrTrainingClasses(Set hrTrainingClasses) {
+    public void setHrTrainingClasses(Set<HrTrainingClass> hrTrainingClasses) {
         this.hrTrainingClasses = hrTrainingClasses;
     }
 

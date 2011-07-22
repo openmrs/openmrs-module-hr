@@ -1,9 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.openmrs.BaseOpenmrsMetadata;
 
 
@@ -13,7 +9,11 @@ public class HrStaffTag extends BaseOpenmrsMetadata implements java.io.Serializa
 
     // Fields    
 
-     private int staffTagId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int staffTagId;
      private String uuid;
 
 

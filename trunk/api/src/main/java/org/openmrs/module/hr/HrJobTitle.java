@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,14 +12,18 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
 
     // Fields    
 
-     private int jobId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int jobId;
      private HrIscoCodes hrIscoCodes;
      private Integer nationalId;
      private String title;
      private Concept cadre;
      private String grades;
      private String uuid;
-     private Set hrPosts = new HashSet(0);
+     private Set<HrPost> hrPosts = new HashSet<HrPost>(0);
 
 
     // Constructors
@@ -39,7 +42,7 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
     }
     
     /** full constructor */
-    public HrJobTitle(int jobId, HrIscoCodes hrIscoCodes, Integer nationalId, String title, Concept cadre, String grades, String uuid, Set hrPosts) {
+    public HrJobTitle(int jobId, HrIscoCodes hrIscoCodes, Integer nationalId, String title, Concept cadre, String grades, String uuid, Set<HrPost> hrPosts) {
         this.jobId = jobId;
         this.hrIscoCodes = hrIscoCodes;
         this.nationalId = nationalId;
@@ -110,11 +113,11 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
         this.uuid = uuid;
     }
 
-    public Set getHrPosts() {
+    public Set<HrPost> getHrPosts() {
         return this.hrPosts;
     }
     
-    public void setHrPosts(Set hrPosts) {
+    public void setHrPosts(Set<HrPost> hrPosts) {
         this.hrPosts = hrPosts;
     }
 

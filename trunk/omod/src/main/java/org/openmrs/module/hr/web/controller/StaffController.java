@@ -2,28 +2,31 @@ package org.openmrs.module.hr.web.controller;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
+import org.openmrs.Obs;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.listItem.StaffListItem;
-import org.openmrs.module.hr.validator.StaffValidator;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openmrs.module.hr.validator.PersonValidator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -32,7 +35,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.SimpleFormController;
+
 
 
 @Controller
@@ -61,7 +64,7 @@ public class StaffController {
 		return SUCCESS_LIST_VIEW;
 	}
 	@ModelAttribute("person")
-	public Person showForm(@RequestParam(required = false, value = "personId") Integer personId,@RequestParam(required = false, value = "createNewPerson") String createNewPerson)
+	public Person showForm(ModelMap model,@RequestParam(required = false, value = "personId") Integer personId)
 	{
 		Person person=null;
 		if(personId!=null){
@@ -70,6 +73,16 @@ public class StaffController {
 		else {
 			person=new Person();
 		}
+		if (person.getNames().size() < 1)
+			person.addName(new PersonName());
+		
+		if (person.getAddresses().size() < 1){
+			person.addAddress(new PersonAddress());
+			
+		}
+	
+		model.addAttribute("emptyName",new PersonName());
+		model.addAttribute("emptyAddress",new PersonAddress());
 		return person;
 	}
 	
@@ -84,16 +97,13 @@ public class StaffController {
 		{
 			staff=new HrStaff();
 		}
-		if (staff.getNames().size() < 1)
-			staff.addName(new PersonName());
-		
-		if (staff.getAddresses().size() < 1)
-			staff.addAddress(new PersonAddress());
 		if (createNewPerson != null)
 			model.addAttribute("createNewPerson", createNewPerson);
-		model.addAttribute("emptyName",new PersonName());
-		model.addAttribute("emptyAddress",new PersonAddress());
 		return staff;
+	}
+	@ModelAttribute("staffAttributeTypes")
+	public List<HrStaffAttributeType> getSatffAttributeTypes(){
+		return Context.getService(HRService.class).getAllStaffAttributeTypes();
 	}
 	/**
 	 * All the parameters are optional based on the necessity  
@@ -103,11 +113,124 @@ public class StaffController {
 	 * @param errors
 	 * @return
 	 */
-	@RequestMapping(method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,@ModelAttribute("staff") HrStaff staff, BindingResult errors) {
+	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.POST)
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("person") Person person, BindingResult errors) {
 		HRService hrService=Context.getService(HRService.class);
 		if (Context.isAuthenticated()) {
-		hrService.saveStaff(staff);
+		HrStaff staff=new HrStaff();
+		staff.setStaffId(person.getPersonId());
+		Concept EmployeeConcept=null;
+		ConceptService cs=Context.getConceptService();
+		Concept c=cs.getConceptByMapping("Staff status","HR Module");
+		if(c!=null){
+		Collection<ConceptAnswer> staffStatusAnswers=c.getAnswers();
+		if(!staffStatusAnswers.isEmpty()){
+		Iterator<ConceptAnswer> staffStatusIterator=staffStatusAnswers.iterator();
+		while(staffStatusIterator.hasNext())
+			if(((EmployeeConcept=staffStatusIterator.next().getAnswerConcept()).getName().getName().equals("Employee")))
+					break;
+		}
+		}
+		staff.setStaffStatus(EmployeeConcept);
+		if(staff.getInitialHireDate()==null)
+			staff.setInitialHireDate(new Date());
+		//hrService.saveStaff(staff);
+		if (person.getDead()) {
+			log.debug("Person is dead, so let's make sure there's an Obs for it");
+			// need to make sure there is an Obs that represents the person's cause of death, if applicable
+			
+			String causeOfDeathConceptId = Context.getAdministrationService().getGlobalProperty(
+			    "concept.causeOfDeath");
+			Concept causeOfDeath = Context.getConceptService().getConcept(causeOfDeathConceptId);
+			
+			if (causeOfDeath != null) {
+				List<Obs> obssDeath = Context.getObsService().getObservationsByPersonAndConcept(person,causeOfDeath);
+				if (obssDeath != null) {
+					if (obssDeath.size() > 1) {
+						log.error("Multiple causes of death (" + obssDeath.size() + ")?  Shouldn't be...");
+					} else {
+						Obs obsDeath = null;
+						if (obssDeath.size() == 1) {
+							// already has a cause of death - let's edit it.
+							log.debug("Already has a cause of death, so changing it");
+							
+							obsDeath = obssDeath.iterator().next();
+							
+						} else {
+							// no cause of death obs yet, so let's make one
+							log.debug("No cause of death yet, let's create one.");
+							
+							obsDeath = new Obs();
+							obsDeath.setPerson(person);
+							obsDeath.setConcept(causeOfDeath);
+							Location location = Context.getLocationService().getDefaultLocation();
+							// TODO person healthcenter //if ( loc == null ) loc = person.getHealthCenter();
+							if (location != null)
+								obsDeath.setLocation(location);
+							else
+								log.error("Could not find a suitable location for which to create this new Obs");
+						}
+						
+						// put the right concept and (maybe) text in this obs
+						Concept currCause = person.getCauseOfDeath();
+						if (currCause == null) {
+							// set to NONE
+							log.debug("Current cause is null, attempting to set to NONE");
+							String noneConcept = Context.getAdministrationService()
+							        .getGlobalProperty("concept.none");
+							currCause = Context.getConceptService().getConcept(noneConcept);
+						}
+						
+						if (currCause != null) {
+							log.debug("Current cause is not null, setting to value_coded");
+							obsDeath.setValueCoded(currCause);
+							obsDeath.setValueCodedName(currCause.getName()); // ABKTODO: presume current locale?
+							
+							Date dateDeath = person.getDeathDate();
+							if (dateDeath == null)
+								dateDeath = new Date();
+							obsDeath.setObsDatetime(dateDeath);
+							
+							// check if this is an "other" concept - if so, then we need to add value_text
+							String otherConcept = Context.getAdministrationService().getGlobalProperty(
+							    "concept.otherNonCoded");
+							Concept conceptOther = Context.getConceptService().getConcept(otherConcept);
+							boolean deathReasonChanged = false;
+							if (conceptOther != null) {
+								String otherInfo = ServletRequestUtils.getStringParameter(request,
+								    "causeOfDeath_other", "");
+								if (conceptOther.equals(currCause)) {
+									// seems like this is an other concept - let's try to get the "other" field info
+									deathReasonChanged = !otherInfo.equals(obsDeath.getValueText());
+									log.debug("Setting value_text as " + otherInfo);
+									obsDeath.setValueText(otherInfo);
+								} else {
+									// non empty text value implies concept changed from OTHER NON CODED to NONE
+									deathReasonChanged = !otherInfo.equals("");
+									log.debug("New concept is NOT the OTHER concept, so setting to blank");
+									obsDeath.setValueText("");
+								}
+							} else {
+								log.debug("Don't seem to know about an OTHER concept, so deleting value_text");
+								obsDeath.setValueText("");
+							}
+							boolean shouldSaveObs = (null == obsDeath.getId()) || deathReasonChanged;
+							if (shouldSaveObs) {
+								if (null == obsDeath.getVoidReason())
+									obsDeath.setVoidReason("Changed in demographics editor");
+								Context.getObsService().saveObs(obsDeath, obsDeath.getVoidReason());
+							}
+						} else {
+							log.debug("Current cause is still null - aborting mission");
+						}
+					}
+				}
+			} else {
+				log
+				        .debug("Cause of death is null - should not have gotten here without throwing an error on the form.");
+			}
+			
+		}
 		Object[] objs = null;
 		String[] add1s = ServletRequestUtils.getStringParameters(request, "address1");
 		String[] add2s = ServletRequestUtils.getStringParameters(request, "address2");
@@ -201,10 +324,10 @@ public class StaffController {
 				if (add4s.length >= i + 1)
 					pa.setAddress4(add4s[i]);
 				
-				staff.addAddress(pa);
+				person.addAddress(pa);
 				//}
 			}
-			Iterator<PersonAddress> addresses = staff.getAddresses().iterator();
+			Iterator<PersonAddress> addresses = person.getAddresses().iterator();
 			PersonAddress currentAddress = null;
 			PersonAddress preferredAddress = null;
 			while (addresses.hasNext()) {
@@ -221,12 +344,12 @@ public class StaffController {
 			}
 		}
 		
-		// Patient Names
+		// Person Names
 		
-		objs = staff.getNames().toArray();
+		objs = person.getNames().toArray();
 		for (int i = 0; i < objs.length; i++) {
 			if (request.getParameter("names[" + i + "].givenName") == null)
-				staff.removeName((PersonName) objs[i]);
+				person.removeName((PersonName) objs[i]);
 		}
 		
 		//String[] prefs = request.getParameterValues("preferred");  (unreliable form info)
@@ -259,10 +382,10 @@ public class StaffController {
 						pn.setFamilyNameSuffix(fNameSuffixes[i]);
 					if (degrees.length >= i + 1)
 						pn.setDegree(degrees[i]);
-					staff.addName(pn);
+					person.addName(pn);
 				}
 			}
-			Iterator<PersonName> names = staff.getNames().iterator();
+			Iterator<PersonName> names = person.getNames().iterator();
 			PersonName currentName = null;
 			PersonName preferredName = null;
 			while (names.hasNext()) {
@@ -279,11 +402,12 @@ public class StaffController {
 			}
 			
 		}
-		new StaffValidator().validate(staff, errors);
+		new PersonValidator().validate(person, errors);
 		}
 		if (errors.hasErrors()) {
-			// return error view
+			return SUCCESS_FORM_VIEW;
 		}
-		return SUCCESS_FORM_VIEW+"?personId="+staff.getStaffId();
+		Context.getPersonService().savePerson(person);
+		return SUCCESS_FORM_VIEW;
 	}
 }

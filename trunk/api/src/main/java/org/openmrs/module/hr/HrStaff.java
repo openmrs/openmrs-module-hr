@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Concept;
-import org.openmrs.Person;
+
 
 
 public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
@@ -14,17 +14,21 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 
     // Fields    
 
-     private int staffId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int staffId;
      private Concept staffStatus;
      private Date initialHireDate;
      private String uuid;
-     private Set hrAssignments = new HashSet(0);
-     private Set hrStaffNotes = new HashSet(0);
-     private Set hrStaffAttributes = new HashSet(0);
-     private Set hrEducations = new HashSet(0);
-     private Set hrEvaluations = new HashSet(0);
-     private Set hrStaffCerts = new HashSet(0);
-     private Set hrPostHistories = new HashSet(0);
+     private Set<HrAssignment> hrAssignments = new HashSet<HrAssignment>(0);
+     private Set<HrStaffNote> hrStaffNotes = new HashSet<HrStaffNote>(0);
+     private Set<HrStaffAttribute> hrStaffAttributes = new HashSet<HrStaffAttribute>(0);
+     private Set<HrEducation> hrEducations = new HashSet<HrEducation>(0);
+     private Set<HrEvaluation> hrEvaluations = new HashSet<HrEvaluation>(0);
+     private Set<HrStaffCert> hrStaffCerts = new HashSet<HrStaffCert>(0);
+     private Set<HrPostHistory> hrPostHistories = new HashSet<HrPostHistory>(0);
 
 
     // Constructors
@@ -40,7 +44,7 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
     }
     
     /** full constructor */
-    public HrStaff(int staffId, Concept staffStatus, Date initialHireDate,String uuid, Set hrAssignments, Set hrStaffNotes, Set hrStaffAttributes, Set hrEducations, Set hrEvaluations, Set hrStaffCerts, Set hrPostHistories) {
+    public HrStaff(int staffId, Concept staffStatus, Date initialHireDate,String uuid, Set<HrAssignment> hrAssignments,Set<HrStaffNote> hrStaffNotes, Set<HrStaffAttribute> hrStaffAttributes, Set<HrEducation> hrEducations, Set<HrEvaluation> hrEvaluations, Set<HrStaffCert> hrStaffCerts, Set<HrPostHistory> hrPostHistories) {
         this.staffId = staffId;
         this.staffStatus = staffStatus;
         this.initialHireDate = initialHireDate;
@@ -91,59 +95,59 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
         this.uuid = uuid;
     }
 
-    public Set getHrAssignments() {
+    public Set<HrAssignment> getHrAssignments() {
         return this.hrAssignments;
     }
     
-    public void setHrAssignments(Set hrAssignments) {
+    public void setHrAssignments(Set<HrAssignment> hrAssignments) {
         this.hrAssignments = hrAssignments;
     }
 
-     public Set getHrStaffNotes() {
+     public Set<HrStaffNote> getHrStaffNotes() {
         return this.hrStaffNotes;
     }
     
-    public void setHrStaffNotes(Set hrStaffNotes) {
+    public void setHrStaffNotes(Set<HrStaffNote> hrStaffNotes) {
         this.hrStaffNotes = hrStaffNotes;
     }
 
-    public Set getHrStaffAttributes() {
+    public Set<HrStaffAttribute> getHrStaffAttributes() {
         return this.hrStaffAttributes;
     }
     
-    public void setHrStaffAttributes(Set hrStaffAttributes) {
+    public void setHrStaffAttributes(Set<HrStaffAttribute> hrStaffAttributes) {
         this.hrStaffAttributes = hrStaffAttributes;
     }
 
-    public Set getHrEducations() {
+    public Set<HrEducation> getHrEducations() {
         return this.hrEducations;
     }
     
-    public void setHrEducations(Set hrEducations) {
+    public void setHrEducations(Set<HrEducation> hrEducations) {
         this.hrEducations = hrEducations;
     }
 
-    public Set getHrEvaluations() {
+    public Set<HrEvaluation> getHrEvaluations() {
         return this.hrEvaluations;
     }
     
-    public void setHrEvaluations(Set hrEvaluations) {
+    public void setHrEvaluations(Set<HrEvaluation> hrEvaluations) {
         this.hrEvaluations = hrEvaluations;
     }
 
-    public Set getHrStaffCerts() {
+    public Set<HrStaffCert> getHrStaffCerts() {
         return this.hrStaffCerts;
     }
     
-    public void setHrStaffCerts(Set hrStaffCerts) {
+    public void setHrStaffCerts(Set<HrStaffCert> hrStaffCerts) {
         this.hrStaffCerts = hrStaffCerts;
     }
 
-    public Set getHrPostHistories() {
+    public Set<HrPostHistory> getHrPostHistories() {
         return this.hrPostHistories;
     }
     
-    public void setHrPostHistories(Set hrPostHistories) {
+    public void setHrPostHistories(Set<HrPostHistory> hrPostHistories) {
         this.hrPostHistories = hrPostHistories;
     }
 

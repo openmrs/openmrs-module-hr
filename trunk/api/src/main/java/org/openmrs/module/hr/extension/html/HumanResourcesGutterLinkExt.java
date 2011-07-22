@@ -6,7 +6,7 @@ public class HumanResourcesGutterLinkExt extends LinkExt {
 
 	@Override
 	public String getLabel() {
-		return "Human Resource";
+		return "Manage Human Resources";
 		
 	}
 
@@ -17,7 +17,7 @@ public class HumanResourcesGutterLinkExt extends LinkExt {
 
 	@Override
 	public String getUrl() {
-		return "module/hr/gutterIndexPage.form";
+		return "module/hr/manager/findStaff.list";
 	}
 
 }

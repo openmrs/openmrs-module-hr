@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,7 +9,11 @@ import org.openmrs.BaseOpenmrsData;
 public class HrStaffNote extends BaseOpenmrsData implements java.io.Serializable {
 
 
-    // Fields    
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// Fields    
 
      private int staffNoteId;
      private HrStaff hrStaff;
@@ -19,7 +22,7 @@ public class HrStaffNote extends BaseOpenmrsData implements java.io.Serializable
      private String text;
      private Integer priority;
      private String uuid;
-     private Set hrStaffNotes = new HashSet(0);
+     private Set<HrStaffNote> hrStaffNotes = new HashSet<HrStaffNote>(0);
 
 
     // Constructors
@@ -36,7 +39,7 @@ public class HrStaffNote extends BaseOpenmrsData implements java.io.Serializable
     }
     
     /** full constructor */
-    public HrStaffNote(int staffNoteId, HrStaff hrStaff, HrStaffNote hrStaffNote, String staffNoteType, String text, Integer priority, String uuid, Set hrStaffNotes) {
+    public HrStaffNote(int staffNoteId, HrStaff hrStaff, HrStaffNote hrStaffNote, String staffNoteType, String text, Integer priority, String uuid, Set<HrStaffNote> hrStaffNotes) {
         this.staffNoteId = staffNoteId;
         this.hrStaff = hrStaff;
         this.hrStaffNote = hrStaffNote;
@@ -107,11 +110,11 @@ public class HrStaffNote extends BaseOpenmrsData implements java.io.Serializable
         this.uuid = uuid;
     }
 
-    public Set getHrStaffNotes() {
+    public Set<HrStaffNote> getHrStaffNotes() {
         return this.hrStaffNotes;
     }
     
-    public void setHrStaffNotes(Set hrStaffNotes) {
+    public void setHrStaffNotes(Set<HrStaffNote> hrStaffNotes) {
         this.hrStaffNotes = hrStaffNotes;
     }
 

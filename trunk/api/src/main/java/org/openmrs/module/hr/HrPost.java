@@ -1,6 +1,5 @@
 package org.openmrs.module.hr;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,11 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
 
     // Fields    
 
-     private int postId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int postId;
      private HrJobTitle hrJobTitle;
      private Integer nationalId;
      private Location location;
@@ -22,7 +25,7 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
      private Concept status;
      private String fundingSource;
      private String uuid;
-     private Set hrPostHistories = new HashSet(0);
+     private Set<HrPostHistory> hrPostHistories = new HashSet<HrPostHistory>(0);
 
 
     // Constructors
@@ -40,7 +43,7 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
     }
     
     /** full constructor */
-    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, Location location, String timeBasis, Concept status, String fundingSource, String uuid, Set hrPostHistories) {
+    public HrPost(int postId, HrJobTitle hrJobTitle, Integer nationalId, Location location, String timeBasis, Concept status, String fundingSource, String uuid, Set<HrPostHistory> hrPostHistories) {
         this.postId = postId;
         this.hrJobTitle = hrJobTitle;
         this.nationalId = nationalId;
@@ -120,11 +123,11 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
         this.uuid = uuid;
     }
 
-    public Set getHrPostHistories() {
+    public Set<HrPostHistory> getHrPostHistories() {
         return this.hrPostHistories;
     }
     
-    public void setHrPostHistories(Set hrPostHistories) {
+    public void setHrPostHistories(Set<HrPostHistory> hrPostHistories) {
         this.hrPostHistories = hrPostHistories;
     }
 

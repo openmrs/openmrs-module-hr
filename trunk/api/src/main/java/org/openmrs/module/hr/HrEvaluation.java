@@ -11,7 +11,11 @@ public class HrEvaluation extends BaseOpenmrsData implements java.io.Serializabl
 
     // Fields    
 
-     private int evaluationId;
+     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int evaluationId;
      private HrStaff hrStaff;
      private HrCompetency hrCompetency;
      private Person evaluator;
