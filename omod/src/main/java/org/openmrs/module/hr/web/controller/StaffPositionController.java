@@ -22,7 +22,7 @@ public class StaffPositionController {
 	
 	private final String SUCCESS_LIST_VIEW = "/module/hr/manager/staffPosition";
 	
-	@RequestMapping(value = "module/hr/admin/staffPosition.list",method = RequestMethod.GET)
+	@RequestMapping(value = "module/hr/manager/staffPosition.list",method = RequestMethod.GET)
 	public String showList(ModelMap model){
 		
 		return SUCCESS_LIST_VIEW;
