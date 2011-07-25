@@ -662,7 +662,7 @@
 		<column name="work_schedule" type="int(11)"></column>
 		<column name="start_date" type="DATETIME"></column>
 		<column name="end_date" type="DATETIME"></column>
-		<column name="end_reason" type="varchar(10)"></column>
+		<column name="end_reason" type="int(11)"></column>
 		<column name="end_reason_other" type="varchar(252)"></column>
 		<column name="note" type="varchar(255)"></column>
 		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
@@ -694,6 +694,7 @@
 		<addForeignKeyConstraint  constraintName="assignment_post_history" referencedTableName="hr_post_history" baseColumnNames="post_history_id" baseTableName="hr_assignment" referencedColumnNames="post_history_ID"/>
 		<addForeignKeyConstraint  constraintName="assignment_supervisor" referencedTableName="hr_staff" baseColumnNames="supervisor_id" baseTableName="hr_assignment" referencedColumnNames="staff_id"/>
 		<addForeignKeyConstraint  constraintName="work_schedule_concept" referencedTableName="concept" baseColumnNames="work_schedule" baseTableName="hr_assignment" referencedColumnNames="concept_id"/>
+		<addForeignKeyConstraint constraintName="assignment_end_reason_concept" referencedTableName="concept" baseColumnNames="end_reason" baseTableName="hr_assignment" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 	</changeSet>
 	
 	<changeSet author="saimanohar" id="humanresource_training">

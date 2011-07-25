@@ -30,16 +30,14 @@ dojo.addOnLoad( function() {
 </script>
 <style type="text/css">
 
-#postsUnder tr:hover {
+#postsUnder tbody tr:hover {
 	cursor:pointer;
 	background-color: #F0E68C;
 }
 #postsUnder tr td.nobg {
 	background-color: white;
 }
-#postsUnder tr.nobg {
-	background-color: white;
-}
+
 </style>
 <h2><spring:message code="Manage Posts" /></h2>
 <a href="post.form"><spring:message code="Add New Post"/></a>
@@ -69,13 +67,13 @@ dojo.addOnLoad( function() {
 		<c:forEach var="postList" items="${PostListItemList}" varStatus="rowStatus">
 			<c:choose>
 			<c:when test="${(prevJobTitle != postList.post.hrJobTitle.title) or  (prevLocation != postList.post.location.name)}">
-			<c:if test="${prevJobTitle!='' and prevLocation!=''}"><%out.print("</table></td></tr>"); %></c:if>
+			<c:if test="${prevJobTitle!='' and prevLocation!=''}"><%out.print("</tbody></table></td></tr>"); %></c:if>
 			<c:set var="prevJobTitle" value="${postList.post.hrJobTitle.title}"/>
 			<c:set var="prevLocation" value="${postList.post.location.name}"/>
 			<tr><td align="left" width="5%"><label id="hideShowLabel${postList.post.hrJobTitle.jobId}${postList.post.location.id}" style="cursor:pointer;" onclick="hideShowDetails('${postList.post.hrJobTitle.jobId}','${postList.post.location.id}')">+</label></td><td width="30%" align="left">${postList.post.hrJobTitle.title}</td><td align="left" width="50%">${postList.post.location.name }</td><td></td><td></td></tr>
 			<tr id="detailsRow${postList.post.hrJobTitle.jobId}${postList.post.location.id}" style="display:none;"><td colspan="5"><table id="postsUnder" width="80%">
-			<tr class="nobg"><th width="5%"></th><th align="left" width="20%"> <spring:message code="Time Basis" /></th><th align="left" width="5%"> <spring:message code="Status" /></th> <th align="left" width="20%"><spring:message code="Funding Source" /></th><th align="left" width="20%"> <spring:message code="Most recent"/></th></tr>
-			<tr <c:if test="${postList.post.retired}">class="retired  ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!postList.post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> onclick="document.location.href='post.form?postId=${postList.post.postId}'"><td width="5%" class="nobg"></td><td width="20%">${postList.post.timeBasis}</td><td width="5%">${postList.post.status.name.name}</td><td width="20%">${postList.post.fundingSource}</td><td width="20%">${postList.mostRecentIncumbent}</td></tr>
+			<thead><tr><th width="5%"></th><th align="left" width="20%"> <spring:message code="Time Basis" /></th><th align="left" width="5%"> <spring:message code="Status" /></th> <th align="left" width="20%"><spring:message code="Funding Source" /></th><th align="left" width="20%"> <spring:message code="Most recent"/></th></tr></thead>
+			<tbody><tr <c:if test="${postList.post.retired}">class="retired  ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!postList.post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> onclick="document.location.href='post.form?postId=${postList.post.postId}'"><td width="5%" class="nobg"></td><td width="20%">${postList.post.timeBasis}</td><td width="5%">${postList.post.status.name.name}</td><td width="20%">${postList.post.fundingSource}</td><td width="20%">${postList.mostRecentIncumbent}</td></tr>
 			</c:when>
 			<c:otherwise>
 			<tr <c:if test="${postList.post.retired}">class="retired  ${rowStatus.index % 2 == 0 ? 'evenRow' : 'oddRow' }"</c:if>  <c:if test="${!postList.post.retired}">class='${rowStatus.index % 2 == 0 ? "evenRow" : "oddRow" }'</c:if> onclick="document.location.href='post.form?postId=${postList.post.postId}'"><td width="5%" class="nobg"></td><td width="20%">${postList.post.timeBasis}</td><td width="5%">${postList.post.status.name.name}</td><td width="20%">${postList.post.fundingSource}</td><td width="20%">${postList.mostRecentIncumbent}</td></tr>

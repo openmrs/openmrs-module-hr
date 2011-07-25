@@ -10,7 +10,7 @@
         <many-to-one name="hrPostHistory" class="org.openmrs.module.hr.HrPostHistory" fetch="select">
             <column name="post_history_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+        <many-to-one name="supervisor" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="supervisor_id" />
         </many-to-one>
         <many-to-one name="location" class="org.openmrs.Location">
@@ -31,9 +31,9 @@
         <property name="endDate" type="timestamp">
             <column name="end_date" length="19" />
         </property>
-        <property name="endReason" type="string">
-            <column name="end_reason" length="10" />
-        </property>
+       <many-to-one name="endReason" class="org.openmrs.Concept" >
+            <column name="end_reason"/>
+		</many-to-one>      
         <property name="endReasonOther" type="string">
             <column name="end_reason_other" length="252" />
         </property>

@@ -636,6 +636,21 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     } 
+	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff) {
+        log.debug("finding post histories by staff");
+        try {
+            List<HrPostHistory> results = sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Restrictions.eq("hrStaff",staff)).list();
+            if(results!=null)
+            log.debug("get successful, result size: " + results.size());
+            else
+            	results=new ArrayList<HrPostHistory>();
+            return results;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    } 
     public HrPostHistory getPostHistoryById( int id) {
         log.debug("getting HrPostHistory instance with id: " + id);
         try {

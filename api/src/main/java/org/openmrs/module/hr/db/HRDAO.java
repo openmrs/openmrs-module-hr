@@ -188,4 +188,6 @@ public interface HRDAO {
 	public String getMostRecentIncumbentForPostbyId(int id);
 	
 	public Map<String,Object> getCurrentJobLocationForStaff(int id);
+	
+	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff); 
 }

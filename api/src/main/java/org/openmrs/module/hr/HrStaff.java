@@ -3,9 +3,16 @@ package org.openmrs.module.hr;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Concept;
+import org.openmrs.PersonAddress;
+import org.openmrs.PersonName;
+import org.openmrs.api.context.Context;
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 
 
 
@@ -157,5 +164,111 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 
 	public void setId(Integer id) {
 		setStaffId(id);
+	}
+
+	public String getGender() {
+		return Context.getPersonService().getPerson(staffId).getGender();
+		
+	}
+	
+
+	public void setGender(String gender) {
+		Context.getPersonService().getPerson(staffId).setGender(gender);
+	}
+
+	public Date getBirthdate() {
+		return Context.getPersonService().getPerson(staffId).getBirthdate();
+	}
+
+	public void setBirthdate(Date birthdate) {
+		Context.getPersonService().getPerson(staffId).setBirthdate(birthdate);
+	}
+
+	public Boolean isBirthdateEstimated() {
+		// if (this.birthdateEstimated == null) {
+		// return new Boolean(false);
+		// }
+		return Context.getPersonService().getPerson(staffId).getBirthdateEstimated();
+	}
+
+	public Boolean getBirthdateEstimated() {
+		return isBirthdateEstimated();
+	}
+	
+
+	public void setBirthdateEstimated(Boolean birthdateEstimated) {
+		Context.getPersonService().getPerson(staffId).setBirthdateEstimated(birthdateEstimated);
+	}
+	
+
+	public Boolean isDead() {
+		return Context.getPersonService().getPerson(staffId).getDead();
+	}
+
+	public Boolean getDead() {
+		return isDead();
+	}
+	
+
+	public void setDead(Boolean dead) {
+		Context.getPersonService().getPerson(staffId).setDead(dead);
+	}
+
+	public Date getDeathDate() {
+		return Context.getPersonService().getPerson(staffId).getDeathDate();
+	}
+
+	public void setDeathDate(Date deathDate) {
+		Context.getPersonService().getPerson(staffId).getDeathDate();
+	}
+	
+
+	public Concept getCauseOfDeath() {
+		return Context.getPersonService().getPerson(staffId).getCauseOfDeath();
+	}
+
+	public void setCauseOfDeath(Concept causeOfDeath) {
+		Context.getPersonService().getPerson(staffId).setCauseOfDeath(causeOfDeath);
+	}
+	
+
+	public Set<PersonAddress> getAddresses() {
+		Set<PersonAddress> addresses=Context.getPersonService().getPerson(staffId).getAddresses();
+		if (addresses == null)
+			addresses = new TreeSet<PersonAddress>();
+		return addresses;
+	}
+	
+	
+	public void setAddresses(Set<PersonAddress> addresses) {
+		Context.getPersonService().getPerson(staffId).setAddresses(addresses);
+	}
+	
+
+	public Set<PersonName> getNames() {
+		Set<PersonName> names=Context.getPersonService().getPerson(staffId).getNames();
+		if (names == null)
+			names = new TreeSet<PersonName>();
+		return names;
+	}
+	
+	public void setNames(Set<PersonName> names) {
+		Context.getPersonService().getPerson(staffId).setNames(names);
+	}
+	public PersonName getPersonName() {
+		// normally the DAO layer returns these in the correct order, i.e. preferred and non-voided first, but it's possible that someone
+		// has fetched a Person, changed their names around, and then calls this method, so we have to be careful.
+		if (getNames() != null && getNames().size() > 0) {
+			for (PersonName name : getNames()) {
+				if (name.isPreferred() && !name.isVoided())
+					return name;
+			}
+			for (PersonName name : getNames()) {
+				if (!name.isVoided())
+					return name;
+			}
+			return null;
+		}
+		return null;
 	}
 }

@@ -56,7 +56,7 @@
 <br/>
 
 <div id="staffDemographicsEdit">
-	<a href="${pageContext.request.contextPath}/module/hr/admin/staff.form?staffId=${model.person.personId}"><spring:message code="Edit this Staff"/></a> 
+	<a href="${pageContext.request.contextPath}/module/hr/admin/staff.form?staffId=${person.personId}"><spring:message code="Edit this Staff"/></a> 
 </div>
 
 
