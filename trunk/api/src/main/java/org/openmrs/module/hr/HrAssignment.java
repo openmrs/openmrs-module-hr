@@ -18,14 +18,14 @@ public class HrAssignment extends BaseOpenmrsData implements java.io.Serializabl
 	private static final long serialVersionUID = 1L;
 	private int assignmentId;
      private HrPostHistory hrPostHistory;
-     private HrStaff hrStaff;
+     private HrStaff supervisor;
      private Location location;
      private String assignment;
      private String timeBasis;
      private Concept workSchedule;
      private Date startDate;
      private Date endDate;
-     private String endReason;
+     private Concept endReason;
      private String endReasonOther;
      private String note;;
      private String uuid;
@@ -46,12 +46,12 @@ public class HrAssignment extends BaseOpenmrsData implements java.io.Serializabl
     }
     
     /** full constructor */
-    public HrAssignment(int assignmentId, HrPostHistory hrPostHistory, HrStaff hrStaff, Location location, String assignment, String timeBasis, Concept workSchedule, Date startDate, Date endDate, String endReason, String endReasonOther, String note, String uuid) {
+    public HrAssignment(int assignmentId, HrPostHistory hrPostHistory, HrStaff supervisor, Location location, String assignment, String timeBasis, Concept workSchedule, Date startDate, Date endDate, Concept endReason, String endReasonOther, String note, String uuid) {
         this.assignmentId = assignmentId;
         this.hrPostHistory = hrPostHistory;
         this.location=location;
         this.workSchedule=workSchedule;
-        this.hrStaff = hrStaff;
+        this.supervisor = supervisor;
         this.assignment = assignment;
         this.timeBasis = timeBasis;
         this.startDate = startDate;
@@ -82,12 +82,12 @@ public class HrAssignment extends BaseOpenmrsData implements java.io.Serializabl
         this.hrPostHistory = hrPostHistory;
     }
 
-    public HrStaff getHrStaff() {
-        return this.hrStaff;
+    public HrStaff getSupervisor() {
+        return this.supervisor;
     }
     
-    public void setHrStaff(HrStaff hrStaff) {
-        this.hrStaff = hrStaff;
+    public void setSupervisor(HrStaff supervisor) {
+        this.supervisor = supervisor;
     }
 
     public String getAssignment() {
@@ -137,11 +137,11 @@ public class HrAssignment extends BaseOpenmrsData implements java.io.Serializabl
         this.endDate = endDate;
     }
 
-    public String getEndReason() {
+    public Concept getEndReason() {
         return this.endReason;
     }
     
-    public void setEndReason(String endReason) {
+    public void setEndReason(Concept endReason) {
         this.endReason = endReason;
     }
 

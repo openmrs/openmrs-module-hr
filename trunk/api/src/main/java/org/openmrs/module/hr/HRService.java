@@ -53,4 +53,10 @@ public interface HRService {
 	public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations);
 	
 	public HrStaff getStaffById( int id);
+	
+	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff);
+	
+	public HrAssignment getAssignmentById( int id);
+	
+	public HrPostHistory getPostHistoryById( int id);
 }

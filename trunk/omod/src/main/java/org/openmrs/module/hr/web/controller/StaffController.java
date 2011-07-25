@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.web.controller;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -27,10 +28,16 @@ import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.listItem.StaffListItem;
 import org.openmrs.module.hr.validator.PersonValidator;
+import org.openmrs.propertyeditor.ConceptEditor;
+import org.openmrs.propertyeditor.LocationEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.ServletRequestUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,6 +53,16 @@ public class StaffController {
 	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/staffList";
 	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/staff";
 
+
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		NumberFormat nf = NumberFormat.getInstance(Context.getLocale());
+		binder.registerCustomEditor(java.lang.Integer.class, new CustomNumberEditor(java.lang.Integer.class, nf, true));
+		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
+		binder.registerCustomEditor(Concept.class, "civilStatus", new ConceptEditor());
+		binder.registerCustomEditor(Concept.class, "causeOfDeath", new ConceptEditor());
+		binder.registerCustomEditor(Location.class, new LocationEditor());
+	}
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name

@@ -7,9 +7,11 @@ import java.util.Map;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.db.HRDAO;
@@ -101,4 +103,14 @@ public class HRServiceImpl implements HRService{
 	public HrStaff getStaffById( int id){
 		return dao.getStaffById(id);
 	}
+	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff) {
+		return dao.getPostHistoriesForStaff(staff);
+	}
+	public HrAssignment getAssignmentById( int id){
+	    return dao.getAssignmentById(id);
+	}
+	public HrPostHistory getPostHistoryById(int id) {
+		return dao.getPostHistoryById(id);
+	}
+	
 }
