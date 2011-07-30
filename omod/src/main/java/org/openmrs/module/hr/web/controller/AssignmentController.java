@@ -1,18 +1,32 @@
 package org.openmrs.module.hr.web.controller;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
+import org.openmrs.LocationTag;
+import org.openmrs.api.ConceptService;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HRManagerService;
+import org.openmrs.module.hr.HrAssignment;
+import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
-import org.openmrs.propertyeditor.LocationEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -37,9 +51,66 @@ public class AssignmentController {
 	}
 	
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.GET)
-	public String showList(ModelMap model,@RequestParam(required=false,value="assignmentId") Integer assignmentId,@ModelAttribute("staff") HrStaff staff){
-		HRService hrService=Context.getService(HRService.class);
-		model.addAttribute("assignment", hrService.getAssignmentById(assignmentId));
+	@ModelAttribute("assignment")
+	public HrAssignment showForm(ModelMap model,@RequestParam(required=false,value="assignmentId") Integer assignmentId,@RequestParam(required=false,value="addprev") boolean addprev,@ModelAttribute("staff") HrStaff staff){
+		return prepareModel(assignmentId,model,staff,addprev);
+		
+	}
+	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.POST)
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors) {
+		System.out.println(request.getParameter("action"));
 		return SUCCESS_FORM_VIEW;
+	}
+	private HrAssignment prepareModel(Integer assignmentId,ModelMap model,HrStaff staff,boolean addprev){
+		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HrAssignment assignment;
+		if(assignmentId==null){
+			LocationService locService=Context.getLocationService();
+			List<Location> locationList=new ArrayList<Location>();
+			LocationTag HrManagedLocations=locService.getLocationTagByName("HR Managed");
+			if(HrManagedLocations!=null){
+				locationList=locService.getLocationsByTag(HrManagedLocations);
+			}
+			model.addAttribute("locationList",locationList);
+			ConceptService cs=Context.getConceptService();
+			Concept workSchedule=cs.getConceptByMapping("Work Schedule","HR Module");
+			Collection<ConceptAnswer> workScheduleAnswers;
+			if(workSchedule!=null)
+				workScheduleAnswers=workSchedule.getAnswers();
+			else {
+				workScheduleAnswers=new ArrayList<ConceptAnswer>();
+			}
+			model.addAttribute("workScheduleAnswers",workScheduleAnswers);
+			if(addprev!=true){
+				model.addAttribute("createNew",true);	
+				HrPostHistory postHistory= hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+				model.addAttribute("currentPost",postHistory);
+			}
+			else{
+				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
+				Collection<ConceptAnswer> postHistoryEndReasons;
+				if(endReason!=null)
+					postHistoryEndReasons=endReason.getAnswers();
+				else {
+					postHistoryEndReasons=new ArrayList<ConceptAnswer>();
+				}
+				model.addAttribute("EndReasons",postHistoryEndReasons);
+			}
+				
+			assignment=new HrAssignment();
+		}
+		else {
+			assignment= hrManagerService.getAssignmentById(assignmentId);
+			ConceptService cs=Context.getConceptService();
+			Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
+			Collection<ConceptAnswer> postHistoryEndReasons;
+			if(endReason!=null)
+				postHistoryEndReasons=endReason.getAnswers();
+			else {
+				postHistoryEndReasons=new ArrayList<ConceptAnswer>();
+			}
+			model.addAttribute("EndReasons",postHistoryEndReasons);
+		}
+		return assignment;
 	}
 }

@@ -190,4 +190,8 @@ public interface HRDAO {
 	public Map<String,Object> getCurrentJobLocationForStaff(int id);
 	
 	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff); 
+	
+	public HrPostHistory getCurrentPostForStaff(int staffId);
+	
+	public List<HrPost> getOpenPostByJobTitle();
 }

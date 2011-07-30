@@ -1,12 +1,10 @@
 package org.openmrs.module.hr.db.hibernate;
 
-import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -17,13 +15,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Property;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.Person;
+import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
@@ -1242,7 +1240,7 @@ public class HibernateHRDAO implements HRDAO {
             if(results!=null)
             log.debug("find by example successful, result size: " + results.size());
             else
-            	results=null;
+            	results=new ArrayList<HrTrainPerson>();
             return results;
         }
         catch (RuntimeException re) {
@@ -1316,6 +1314,36 @@ public class HibernateHRDAO implements HRDAO {
 		}
 		return jlMap;
 	}
+	public HrPostHistory getCurrentPostForStaff(int staffId){
+		List<HrPostHistory> postHistoryList=sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).createAlias("hrStaff","staff").add(Restrictions.eq("staff.staffId", staffId)).add(Restrictions.isNull("endDate")).list();
+		if(postHistoryList==null)
+			return null;
+		if(postHistoryList.size()!=1)
+			throw new APIException("Multiple current posts found");
+		return postHistoryList.get(0);
+	}
+	@SuppressWarnings("unchecked")
+	public List<HrPost> getOpenPostByJobTitle(){
+		List<HrPost> postList=new ArrayList<HrPost>();
+		ConceptService cs=Context.getConceptService();
+		List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+		Concept openPost=null;
+		if(concepts!=null){
+		Iterator<Concept> caliter=concepts.iterator();
+		while(caliter.hasNext())
+			if((openPost=caliter.next()).getName().getName().equals("Open"))
+				break;
+		}
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("status",openPost)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		List<Object[]> objectList=crit.list();
+		Iterator<Object[]> iter=objectList.iterator();
+		List<Integer> posts=new ArrayList<Integer>();
+		while (iter.hasNext()) {
+			posts.add((Integer)iter.next()[1]);
+		}
+		if(openPost!=null)
+		postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
 
-	
+		return postList;
+	}
 }

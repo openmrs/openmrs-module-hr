@@ -17,7 +17,7 @@
 		<tbody>
 			<tr>
 				<td valign="top">
-					<c:forEach var="name" items="${person.names}" varStatus="status">
+					<c:forEach var="name" items="${staff.names}" varStatus="status">
 						<c:if test="${!name.voided}">
 						<% request.setAttribute("name", pageContext.getAttribute("name")); %>
 							<spring:nestedPath path="name">
@@ -40,7 +40,7 @@
 			<openmrs:portlet url="addressLayout" id="addressPortlet" size="columnHeaders" parameters="layoutShowTable=false|layoutShowExtended=true" />
 		</thead>
 		<tbody>
-			<c:forEach var="address" items="${person.addresses}" varStatus="status">
+			<c:forEach var="address" items="${staff.addresses}" varStatus="status">
 				<c:if test="${!address.voided}">
 				<% request.setAttribute("address", pageContext.getAttribute("address")); %>
 				<spring:nestedPath path="address">
