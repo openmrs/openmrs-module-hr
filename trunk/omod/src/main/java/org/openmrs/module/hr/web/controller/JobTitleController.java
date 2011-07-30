@@ -14,6 +14,7 @@
 package org.openmrs.module.hr.web.controller;
 
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,17 +24,24 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
+import org.openmrs.propertyeditor.ConceptEditor;
+import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -54,6 +62,15 @@ public class JobTitleController{
 	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/jobTitles";
 	/** Success form view name */
 	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/jobTitle";
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		NumberFormat nf = NumberFormat.getInstance(Context.getLocale());
+		binder.registerCustomEditor(java.lang.Integer.class, new CustomNumberEditor(java.lang.Integer.class, nf, true));
+		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
+		binder.registerCustomEditor(org.openmrs.Concept.class, new ConceptEditor());
+		binder.registerCustomEditor(Location.class, new LocationEditor());
+	}
 
 	@RequestMapping(value = "module/hr/admin/jobTitles.list")
 	public String showList(ModelMap model){
