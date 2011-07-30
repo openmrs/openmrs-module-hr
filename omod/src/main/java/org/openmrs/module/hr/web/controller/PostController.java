@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.web.controller;
 
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,10 +20,16 @@ import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.listItem.PostListItem;
+import org.openmrs.propertyeditor.ConceptEditor;
+import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -39,6 +46,14 @@ public class PostController {
 	private final String SUCCESS_LIST_VIEW = "/module/hr/admin/posts";
 	private final String SUCCESS_FORM_VIEW = "/module/hr/admin/post";
 	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		NumberFormat nf = NumberFormat.getInstance(Context.getLocale());
+		binder.registerCustomEditor(java.lang.Integer.class, new CustomNumberEditor(java.lang.Integer.class, nf, true));
+		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
+		binder.registerCustomEditor(org.openmrs.Concept.class, new ConceptEditor());
+		binder.registerCustomEditor(Location.class, new LocationEditor());
+	}
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
 	 * @return String form view name

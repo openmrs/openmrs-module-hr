@@ -3,7 +3,6 @@ package org.openmrs.module.hr.web.controller;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,9 +18,10 @@ import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRManagerService;
 import org.openmrs.module.hr.HrAssignment;
-import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.propertyeditor.ConceptEditor;
+import org.openmrs.propertyeditor.LocationEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
@@ -48,6 +48,8 @@ public class AssignmentController {
 		NumberFormat nf = NumberFormat.getInstance(Context.getLocale());
 		binder.registerCustomEditor(java.lang.Integer.class, new CustomNumberEditor(java.lang.Integer.class, nf, true));
 		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
+		binder.registerCustomEditor(org.openmrs.Concept.class, new ConceptEditor());
+		binder.registerCustomEditor(Location.class, new LocationEditor());
 	}
 	
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.GET)
@@ -57,14 +59,19 @@ public class AssignmentController {
 		
 	}
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors) {
-		System.out.println(request.getParameter("action"));
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("assignment") HrAssignment assignment,@ModelAttribute("staff") HrStaff staff, BindingResult errors) {
+		String action=request.getParameter("action");
+		System.out.println(action);
+		boolean addprev=false;
+		if(action.equals("addprev"))
+		addprev=true;
+		prepareModel(assignment.getAssignmentId(), model, staff, addprev);
 		return SUCCESS_FORM_VIEW;
 	}
 	private HrAssignment prepareModel(Integer assignmentId,ModelMap model,HrStaff staff,boolean addprev){
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
 		HrAssignment assignment;
-		if(assignmentId==null){
+		if(assignmentId==null||assignmentId==0){
 			LocationService locService=Context.getLocationService();
 			List<Location> locationList=new ArrayList<Location>();
 			LocationTag HrManagedLocations=locService.getLocationTagByName("HR Managed");
@@ -87,6 +94,7 @@ public class AssignmentController {
 				model.addAttribute("currentPost",postHistory);
 			}
 			else{
+				model.addAttribute("addprev",true);
 				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 				Collection<ConceptAnswer> postHistoryEndReasons;
 				if(endReason!=null)
@@ -110,6 +118,14 @@ public class AssignmentController {
 				postHistoryEndReasons=new ArrayList<ConceptAnswer>();
 			}
 			model.addAttribute("EndReasons",postHistoryEndReasons);
+			Concept workSchedule=cs.getConceptByMapping("Work Schedule","HR Module");
+			Collection<ConceptAnswer> workScheduleAnswers;
+			if(workSchedule!=null)
+				workScheduleAnswers=workSchedule.getAnswers();
+			else {
+				workScheduleAnswers=new ArrayList<ConceptAnswer>();
+			}
+			model.addAttribute("workScheduleAnswers",workScheduleAnswers);
 		}
 		return assignment;
 	}
