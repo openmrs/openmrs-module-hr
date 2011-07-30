@@ -7,7 +7,7 @@
             <column name="post_id" />
             <generator class="native" />
         </id>
-        <many-to-one name="hrJobTitle" class="org.openmrs.module.hr.HrJobTitle" fetch="select">
+        <many-to-one name="hrJobTitle" class="org.openmrs.module.hr.HrJobTitle" lazy="false" fetch="select">
             <column name="job_id" not-null="true" />
         </many-to-one>
         <property name="nationalId" type="java.lang.Integer">

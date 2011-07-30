@@ -25,7 +25,7 @@ trs[i].className = "evenRow";
 
 </style>
 <table width="100%">
-<tr><td width="72%"><input type="button" value="Move to a new position"/>&nbsp;&nbsp;<input type="button" value="Terminate Employment"/>&nbsp;&nbsp;<input type="button" value="Add a Current Assignment"/></td><td><input type="button" value="Add a previous position"/><input type="button" value="Add a previous assigment"/></td></tr>
+<tr><td width="72%"><input type="button" value="Move to a new position"/>&nbsp;&nbsp;<input type="button" value="Terminate Employment"/>&nbsp;&nbsp;<input type="button" value="Add a Current Assignment" onclick="document.location.href='assignment.form'"/></td><td><input type="button" value="Add a previous position"/><input type="button" value="Add a previous assigment" onclick="document.location.href='assignment.form?addprev=true'"/></td></tr>
 </table>
 <br/>
 <b class="boxHeader">

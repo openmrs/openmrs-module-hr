@@ -10,7 +10,7 @@
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" fetch="select">
+        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" lazy="false" fetch="select">
             <column name="post_id" not-null="true" />
         </many-to-one>
         <property name="startDate" type="timestamp">

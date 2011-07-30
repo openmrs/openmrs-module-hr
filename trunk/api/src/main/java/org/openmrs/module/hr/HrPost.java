@@ -13,7 +13,7 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
 
     // Fields    
 
-     /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -58,8 +58,9 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
 
    
     // Property accessors
+	
 
-    public int getPostId() {
+	public int getPostId() {
         return this.postId;
     }
     
@@ -138,5 +139,16 @@ public class HrPost extends BaseOpenmrsMetadata implements java.io.Serializable 
 	public void setId(Integer id) {
 		setPostId(id);
 	}
-
+    
+	public boolean hasSameJobTitle(Object obj) {
+		if (obj == null)
+			return false;
+		HrPost other = (HrPost) obj;
+		if (hrJobTitle == null) {
+			if (other.hrJobTitle != null)
+				return false;
+		} else if (!hrJobTitle.equals(other.hrJobTitle))
+			return false;
+		return true;
+	}
 }

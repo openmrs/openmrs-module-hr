@@ -103,14 +103,6 @@ public class HRServiceImpl implements HRService{
 	public HrStaff getStaffById( int id){
 		return dao.getStaffById(id);
 	}
-	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff) {
-		return dao.getPostHistoriesForStaff(staff);
-	}
-	public HrAssignment getAssignmentById( int id){
-	    return dao.getAssignmentById(id);
-	}
-	public HrPostHistory getPostHistoryById(int id) {
-		return dao.getPostHistoryById(id);
-	}
+
 	
 }

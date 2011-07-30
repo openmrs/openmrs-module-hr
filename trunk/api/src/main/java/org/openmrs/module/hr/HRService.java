@@ -54,9 +54,5 @@ public interface HRService {
 	
 	public HrStaff getStaffById( int id);
 	
-	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff);
 	
-	public HrAssignment getAssignmentById( int id);
-	
-	public HrPostHistory getPostHistoryById( int id);
 }

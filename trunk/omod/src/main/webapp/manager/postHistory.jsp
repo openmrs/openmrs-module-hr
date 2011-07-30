@@ -8,32 +8,63 @@
 	<spring:message code="fix.error"/>
 	<br />
 </spring:hasBindErrors>
+<c:choose>
+<c:when test="${not empty param.addprev}">
+<h2><spring:message code="Add a previous position" /></h2>
+</c:when>
+<c:when test="${createNew==true}">
+<h2><spring:message code="Create Position" /></h2>
+</c:when>
+<c:when test="${assignment.endReason==null}">
+<h2><spring:message code="End Position" /></h2>
+</c:when>
+<c:otherwise>
+<h2><spring:message code="Position" /></h2>
+</c:otherwise>
+</c:choose>
 <form method="post">
 <fieldset>
 <table>
 	<tr>
 		<th align="left" valign="top"><spring:message code="Location"/></th>
 		<td>
-			<spring:bind path="postHistory.hrPost.location">	
+			<spring:bind path="postHistory.hrPost.location">
+			<c:choose>
+				<c:when test='${createNew==true || param.addprev==true}'>
+				<select name="location" id="${status.expression}">
+					<c:forEach items="${locationList}" var="location" varStatus="status">
+						<option value="${location.id}">${location.name}</option>
+					</c:forEach>
+     			</select> 
+				</c:when>
+				<c:otherwise>
+				<label>${postHistory.hrPost.location.name}</label>
+				</c:otherwise>
+				</c:choose>	
 				<%-- <select name="job" id="${status.expression}">
 					<c:forEach items="${JobList}" var="job" varStatus="status">
 						<option value="${job.id}" <c:if test="${ post.hrJobTitle.title == job.title}">selected</c:if>>${job.title}</option>
 					</c:forEach>
      		</select>  --%>
-     		<label>${postHistory.location.name}</label>
-			</spring:bind>
+     		</spring:bind>
 		</td>
 	</tr>
 	<tr>
 		<th align="left" valign="top"><spring:message code="Post"/></th>
 		<td>
-			<spring:bind path="postHistory.hrPost.hrJobTitle.title">	
-				<%-- <select name="location" id="${status.expression}">
-					<c:forEach items="${LocationList}" var="location" varStatus="status">
-						<option value="${location.id}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
+			<spring:bind path="postHistory.hrPost">	
+			<c:choose>
+				<c:when test='${createNew==true || param.addprev==true}'>
+				<select name="post" id="${status.expression}">
+					<c:forEach items="${postList}" var="post" varStatus="status">
+						<option value="${post}">${post.hrJobTitle.title}</option>
 					</c:forEach>
-     		</select>  --%>
+     			</select> 
+     			</c:when>
+     			<c:otherwise>
      		<label>${postHistory.hrPost.hrJobTitle.title}</label>
+     		</c:otherwise>
+     		</c:choose>
 			</spring:bind>
 		</td>
 	</tr>
@@ -41,7 +72,15 @@
 		<th align="left" valign="top"><spring:message code="Grade"/></th>
 		<td>
 			<spring:bind path="postHistory.grade">	
+			<c:choose>
+				<c:when test='${createNew==true || param.addprev==true}'>
+				<input type="text" name="${status.expression}" size="40"  value="${status.value}" />
+				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+				</c:when>
+				<c:therwise>
 				<label>${status.value}</label>
+				</c:therwise>
+			</c:choose>
 			</spring:bind>
 		</td>
 	</tr>

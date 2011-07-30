@@ -1,11 +1,18 @@
 package org.openmrs.module.hr.web.controller;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Location;
+import org.openmrs.LocationTag;
+import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HRManagerService;
+import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -34,9 +41,25 @@ public class PostHistoryController {
 	}
 	
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.GET)
-	public String showList(ModelMap model,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
-		HRService hrService=Context.getService(HRService.class);
-		model.addAttribute("postHistory",hrService.getPostHistoryById(postHistoryId));
-		return SUCCESS_FORM_VIEW;
+	@ModelAttribute("postHistory")
+	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="includeAllLocations") boolean includeAllLocations,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
+		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HrPostHistory postHistory=hrManagerService.getPostHistoryById(postHistoryId);
+		LocationService locService=Context.getLocationService();
+		List<Location> locationList=new ArrayList<Location>();
+		if(!includeAllLocations){
+		LocationTag HrManagedLocations=locService.getLocationTagByName("HR Managed");
+		if(HrManagedLocations!=null){
+			locationList=locService.getLocationsByTag(HrManagedLocations);
+		}
+		}
+		else {
+			locationList=locService.getAllLocations();
+		}
+		model.addAttribute("locationList",locationList);
+		List<HrPost> postList=hrManagerService.getOpenPostByJobTitle();
+		model.addAttribute("postList",postList);
+		
+		return postHistory;
 	}
 }

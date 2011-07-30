@@ -13,7 +13,7 @@
         <property name="nationalId" type="java.lang.Integer">
             <column name="national_id" />
         </property>
-        <property name="title" type="string">
+        <property name="title" lazy="false" type="string">
             <column name="title" not-null="true" />
         </property>
         <many-to-one name="cadre" class="org.openmrs.Concept">
