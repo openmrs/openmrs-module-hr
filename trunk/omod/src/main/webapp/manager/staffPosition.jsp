@@ -24,8 +24,11 @@ trs[i].className = "evenRow";
 }
 
 </style>
+	<c:forEach var="postHistory" items="${PostHistories}" varStatus="rowStatus">
+			<c:if test='${postHistory.endDate!=null}'><c:set var="prevExists" value="true"/></c:if>
+	</c:forEach>
 <table width="100%">
-<tr><td width="72%"><input type="button" value="Move to a new position"/>&nbsp;&nbsp;<input type="button" value="Terminate Employment"/>&nbsp;&nbsp;<input type="button" value="Add a Current Assignment" onclick="document.location.href='assignment.form'"/></td><td><input type="button" value="Add a previous position"/><input type="button" value="Add a previous assigment" onclick="document.location.href='assignment.form?addprev=true'"/></td></tr>
+<tr><td width="72%"><input type="button" value="Move to a new position" onclick="document.location.href='postHistory.form'"/>&nbsp;&nbsp;<input type="button" value="Terminate Employment"/>&nbsp;&nbsp;<input type="button" value="Add a Current Assignment" onclick="document.location.href='assignment.form'"/></td><td align="right"><input type="button" value="Add a previous position" onclick="document.location.href='postHistory.form?addprev=true'"/><c:if test="${prevExists}"><input type="button" value="Add a previous assigment" onclick="document.location.href='assignment.form?addprev=true'"/></c:if></td></tr>
 </table>
 <br/>
 <b class="boxHeader">

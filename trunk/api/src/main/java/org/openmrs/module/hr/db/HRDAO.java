@@ -194,4 +194,6 @@ public interface HRDAO {
 	public HrPostHistory getCurrentPostForStaff(int staffId);
 	
 	public List<HrPost> getOpenPostByJobTitle();
+	
+	public List<HrPost> getPostsByJobTitle();
 }

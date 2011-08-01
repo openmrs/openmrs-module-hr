@@ -2,15 +2,21 @@ package org.openmrs.module.hr.web.controller;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRManagerService;
+import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
@@ -42,9 +48,15 @@ public class PostHistoryController {
 	
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.GET)
 	@ModelAttribute("postHistory")
-	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="includeAllLocations") boolean includeAllLocations,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
+	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
+		return prepareModel(postHistoryId,model,staff,addprev,includeAllLocations);
+		
+	}
+	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,boolean includeAllLocations){
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
-		HrPostHistory postHistory=hrManagerService.getPostHistoryById(postHistoryId);
+		ConceptService cs=Context.getConceptService();
+		HrPostHistory postHistory;
+		if(postHistoryId==null||postHistoryId==0){
 		LocationService locService=Context.getLocationService();
 		List<Location> locationList=new ArrayList<Location>();
 		if(!includeAllLocations){
@@ -57,9 +69,32 @@ public class PostHistoryController {
 			locationList=locService.getAllLocations();
 		}
 		model.addAttribute("locationList",locationList);
+		if(addprev==false){
+		model.addAttribute("createNew",true);
 		List<HrPost> postList=hrManagerService.getOpenPostByJobTitle();
 		model.addAttribute("postList",postList);
-		
+		}
+		else
+		{
+			model.addAttribute("addprev",true);
+			List<HrPost> postList=hrManagerService.getPostsByJobTitle();
+			model.addAttribute("postList",postList);
+			
+		}
+		postHistory=new HrPostHistory();
+		}
+		else {
+			postHistory=hrManagerService.getPostHistoryById(postHistoryId);
+		}
+		Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
+		Collection<ConceptAnswer> postHistoryEndReasons;
+		if(endReason!=null)
+			postHistoryEndReasons=endReason.getAnswers();
+		else {
+			postHistoryEndReasons=new ArrayList<ConceptAnswer>();
+		}
+		model.addAttribute("EndReasons",postHistoryEndReasons);
 		return postHistory;
+		
 	}
 }

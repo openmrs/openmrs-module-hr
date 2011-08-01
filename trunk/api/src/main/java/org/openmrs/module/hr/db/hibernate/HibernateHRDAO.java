@@ -1346,4 +1346,16 @@ public class HibernateHRDAO implements HRDAO {
 
 		return postList;
 	}
+	public List<HrPost> getPostsByJobTitle(){
+		List<HrPost> postList=new ArrayList<HrPost>();
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		List<Object[]> objectList=crit.list();
+		Iterator<Object[]> iter=objectList.iterator();
+		List<Integer> posts=new ArrayList<Integer>();
+		while (iter.hasNext()) {
+			posts.add((Integer)iter.next()[1]);
+		}
+		postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
+		return postList;
+	}
 }
