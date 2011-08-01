@@ -3,6 +3,7 @@ package org.openmrs.module.hr.web.controller;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -88,13 +89,21 @@ public class AssignmentController {
 				workScheduleAnswers=new ArrayList<ConceptAnswer>();
 			}
 			model.addAttribute("workScheduleAnswers",workScheduleAnswers);
-			if(addprev!=true){
+			if(addprev==false){
 				model.addAttribute("createNew",true);	
 				HrPostHistory postHistory= hrManagerService.getCurrentPostForStaff(staff.getStaffId());
 				model.addAttribute("currentPost",postHistory);
 			}
 			else{
 				model.addAttribute("addprev",true);
+				List<HrPostHistory> postHistories=hrManagerService.getPostHistoriesForStaff(staff);
+				HrPostHistory postHistorytobedel=null;
+				Iterator<HrPostHistory> iter=postHistories.iterator();
+				while(iter.hasNext())
+					if((postHistorytobedel=iter.next()).getEndDate()==null)
+						break;
+				postHistories.remove(postHistorytobedel);
+				model.addAttribute("postHistories",postHistories);
 				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 				Collection<ConceptAnswer> postHistoryEndReasons;
 				if(endReason!=null)

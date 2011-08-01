@@ -6,15 +6,15 @@
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 
 <script type="text/javascript">
-function toggleReasonText(reason)
+function toggleReasonText()
 {
 var index=document.getElementById("endReason").selectedIndex;
 var options=document.getElementById("endReason").options;
 	
 if(options[index].text.match(":$")==":")	
-	endReasonDiv.style.display="";
+	document.getElementById("endReasonText").style.display="";
 else
-	endReasonDiv.style.display="none";
+	document.getElementById("endReasonText").style.display="none";
 }
 </script>
 
@@ -44,14 +44,14 @@ else
 		<td>
 				
 				<c:choose>
-				<c:when test='${createNew==true or param.addprev==true}'>
+				<c:when test='${createNew==true or addprev==true}'>
 				<spring:bind path="assignment.location">
 				<select name="location" id="${status.expression}">
 					<c:forEach items="${locationList}" var="location" varStatus="status">
 						<option value="${location.id}">${location.name}</option>
 					</c:forEach>
-					<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-     			</select>
+				</select>
+				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
      			</spring:bind> 
      			</c:when>
      			<c:otherwise>
@@ -68,8 +68,15 @@ else
 		<th align="left" valign="top"><spring:message code="Post"/></th>
 		<td>
 			<c:choose>
-			<c:when test='${createNew==true or param.addprev==true}'>
+			<c:when test='${createNew==true}'>
 				<label>${currentPost.hrPost.hrJobTitle.title}</label>
+     		</c:when>
+     		<c:when test='${addprev==true}'>
+     		<select name="postHistory" id="postHistory">
+					<c:forEach items="${postHistories}" var="postHistory">
+						<option value="${postHistory}">${postHistory.hrPost.hrJobTitle.title}&nbsp;&nbsp;&nbsp;&nbsp;<openmrs:formatDate date="${postHistory.startDate}" type="medium" /> to <openmrs:formatDate date="${postHistory.endDate}" type="medium" /></option>
+					</c:forEach>
+     		</select>
      		</c:when>
      		<c:otherwise>
      		<spring:bind path="assignment.hrPostHistory.hrPost.hrJobTitle.title">
@@ -87,7 +94,7 @@ else
 		
 			<spring:bind path="assignment.assignment">	
 			<c:choose>
-			<c:when test='${createNew==true or param.addprev==true}'>
+			<c:when test='${createNew==true or addprev==true}'>
 				<input type="text" name="${status.expression}" size="40"  value="${status.value}" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
@@ -104,7 +111,7 @@ else
 		<td>
 			<spring:bind path="assignment.timeBasis">
 			<c:choose>
-			<c:when test='${createNew==true or param.addprev==true}'>
+			<c:when test='${createNew==true or addprev==true}'>
 				<input type="text" name="${status.expression}" size="40"  value="${status.value}" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
@@ -121,7 +128,7 @@ else
 		<td>
 			<spring:bind path="assignment.note">
 			<c:choose>
-			<c:when test='${createNew==true or param.addprev==true}'>
+			<c:when test='${createNew==true or addprev==true}'>
 				<input type="text" name="${status.expression}" size="40"  value="${status.value}" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
@@ -137,7 +144,7 @@ else
 		<th align="left" valign="top"><spring:message code="Work Schedule"/></th>
 		<td>
 			<spring:bind path="assignment.workSchedule">
-			<c:if test='${not empty assignment.workSchedule}'>
+			<c:if test='${not empty assignment.workSchedule or createNew==true or addprev==true}'>
 			<select name="${status.expression}" id="${status.expression}" <c:if test='${empty createNew and empty addprev}'>disabled="disabled"</c:if>>
 					<c:forEach items="${workScheduleAnswers}" var="workSchedule">
 						<option value="${workSchedule.answerConcept}" <c:if test='${workSchedule.answerConcept.id == status.value}'>selected="selected"</c:if>>${workSchedule.answerConcept.name.name}</option>
@@ -171,7 +178,7 @@ else
 			</spring:bind>
 		</td>
 	</tr>
-	<c:if test='${createNew!=true or param.addprev==true}'>
+	<c:if test='${createNew!=true or addprev==true}'>
 	<tr>
 		<th align="left" valign="top"><spring:message code="End Date"/></th>
 		<td>
@@ -215,7 +222,7 @@ else
 			</c:choose>
 		</td>
 	</tr>
-	<tr id="endReasonDiv" <c:if test='${!fn:endsWith(assignment.endReason.name.name,":")}'>style="display:none" </c:if>>
+	<tr id="endReasonText" <c:if test='${!fn:endsWith(assignment.endReason.name.name,":")}'>style="display:none" </c:if>>
 		<th align="left" valign="top"><spring:message code="End Reason Text"/></th>
 		<td>
 		<spring:bind path="assignment.endReasonOther">	
@@ -247,7 +254,7 @@ else
 <input type="hidden" name="action" value="endAssignment"/>
 </c:when>
 </c:choose>
-<c:if test='${createNew==true or assignment.endReason==null or param.addprev==true}'>
+<c:if test='${createNew==true or assignment.endReason==null or addprev==true}'>
 <input type="submit" value="<spring:message code="Save Assignment"/>" name="save">
 </c:if>
 </fieldset>

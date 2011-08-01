@@ -33,4 +33,7 @@ public class HRManagerServiceImpl implements HRManagerService{
 	public List<HrPost> getOpenPostByJobTitle(){
 		return dao.getOpenPostByJobTitle();
 	}
+	public List<HrPost> getPostsByJobTitle(){
+		return dao.getPostsByJobTitle();
+	}
 }
