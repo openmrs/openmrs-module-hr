@@ -2,12 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.openmrs.module.hr.HrPost" table="hr_post" catalog="openmrs">
+    <class name="org.openmrs.module.hr.HrPost" table="hr_post">
         <id name="postId" type="int">
             <column name="post_id" />
             <generator class="native" />
         </id>
-        <many-to-one name="hrJobTitle" class="org.openmrs.module.hr.HrJobTitle" lazy="false" fetch="select">
+        <many-to-one name="hrJobTitle" class="org.openmrs.module.hr.HrJobTitle" fetch="select">
             <column name="job_id" not-null="true" />
         </many-to-one>
         <property name="nationalId" type="java.lang.Integer">

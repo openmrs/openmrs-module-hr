@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.openmrs.module.hr.HrStaffNote" table="hr_staff_note" catalog="openmrs">
+    <class name="org.openmrs.module.hr.HrStaffNote" table="hr_staff_note">
         <id name="staffNoteId" type="int">
             <column name="staff_note_id" />
             <generator class="native" />
