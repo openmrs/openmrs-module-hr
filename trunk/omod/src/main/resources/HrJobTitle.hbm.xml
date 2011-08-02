@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.openmrs.module.hr.HrJobTitle" table="hr_job_title" catalog="openmrs">
+    <class name="org.openmrs.module.hr.HrJobTitle" table="hr_job_title">
         <id name="jobId" type="int">
             <column name="job_id" />
             <generator class="native" />
@@ -13,7 +13,7 @@
         <property name="nationalId" type="java.lang.Integer">
             <column name="national_id" />
         </property>
-        <property name="title" lazy="false" type="string">
+        <property name="title" type="string">
             <column name="title" not-null="true" />
         </property>
         <many-to-one name="cadre" class="org.openmrs.Concept">

@@ -2,7 +2,7 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.openmrs.module.hr.HrPostHistory" table="hr_post_history" catalog="openmrs">
+    <class name="org.openmrs.module.hr.HrPostHistory" table="hr_post_history">
         <id name="postHistoryId" type="int">
             <column name="post_history_ID" />
             <generator class="native" />
@@ -10,7 +10,7 @@
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" lazy="false" fetch="select">
+        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" fetch="select">
             <column name="post_id" not-null="true" />
         </many-to-one>
         <property name="startDate" type="timestamp">
