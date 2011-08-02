@@ -637,7 +637,7 @@ public class HibernateHRDAO implements HRDAO {
 	public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff) {
         log.debug("finding post histories by staff");
         try {
-            List<HrPostHistory> results = sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Restrictions.eq("hrStaff",staff)).list();
+            List<HrPostHistory> results = sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Restrictions.eq("hrStaff",staff)).addOrder(Order.desc("startDate")).list();
             if(results!=null)
             log.debug("get successful, result size: " + results.size());
             else
@@ -1318,9 +1318,13 @@ public class HibernateHRDAO implements HRDAO {
 		List<HrPostHistory> postHistoryList=sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).createAlias("hrStaff","staff").add(Restrictions.eq("staff.staffId", staffId)).add(Restrictions.isNull("endDate")).list();
 		if(postHistoryList==null)
 			return null;
-		if(postHistoryList.size()!=1)
+		if(postHistoryList.size()>1)
 			throw new APIException("Multiple current posts found");
+		if(postHistoryList.size()==1)
 		return postHistoryList.get(0);
+		else {
+			return null;
+		}
 	}
 	@SuppressWarnings("unchecked")
 	public List<HrPost> getOpenPostByJobTitle(){

@@ -11,7 +11,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function() {
     $("#StaffTable")
-      .tablesorter({debug: false,widthFixed: true, headers: {5: { sorter: false }}})
+      .tablesorter({sortList:[[0,0]],debug: false,widthFixed: true, headers: {5: { sorter: false }}})
       .tablesorterFilter({filterContainer: $("#filter-box"),
                           filterColumns: [0],
                           filterCaseSensitive: false})

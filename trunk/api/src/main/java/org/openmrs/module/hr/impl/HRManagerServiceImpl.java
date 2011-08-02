@@ -36,4 +36,13 @@ public class HRManagerServiceImpl implements HRManagerService{
 	public List<HrPost> getPostsByJobTitle(){
 		return dao.getPostsByJobTitle();
 	}
+	public void saveAssignment(HrAssignment assignment) {
+		dao.saveAssignment(assignment);
+	}
+	public void savePostHistory(HrPostHistory postHistory){
+		dao.savePostHistory(postHistory);
+	}
+	public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory){
+		return dao.getAssignmentsForPostHistory(postHistory);
+	}
 }
