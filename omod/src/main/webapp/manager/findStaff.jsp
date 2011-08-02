@@ -11,7 +11,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function() {
     $("#StaffTable")
-      .tablesorter({textExtraction: staffTextExtraction,debug: false,widthFixed: true, headers: {5: { sorter: false }}})
+      .tablesorter({textExtraction: staffTextExtraction,sortList:[[0,0]],debug: false,widthFixed: true, headers: {5: { sorter: false }}})
       .tablesorterFilter({filterContainer: $("#filter-box"),
                           filterColumns: [0],
                           filterCaseSensitive: false})
@@ -21,7 +21,7 @@
     });
   });
   function updateList() {
-		var url = "staff.list?";
+		var url = "findStaff.list?";
 		url += "allstaff=" + document.getElementById('allstaff').checked;
 		url += "&alllocations="+document.getElementById('alllocations').checked;
 		document.location = url;
@@ -29,7 +29,8 @@
   var staffTextExtraction = function(node)  
   {  
 	  if(node.getElementsByTagName("a")[0]!=undefined){
-		  return node.getElementsByTagName("a")[0].innerHTML;
+		 var name=node.getElementsByTagName("a")[0].innerHTML.split(" ");
+		 return name[name.length-1];
 	  }
    	  else{
    	  	   return node.innerHTML;

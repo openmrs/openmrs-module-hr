@@ -42,7 +42,7 @@ public class HumanResourcesController {
 			PersonService ps=Context.getPersonService();
 			for(HrStaff staff:staffList){
 				Map<String,Object> jlMap=hrService.getCurrentJobLocationForStaff(staff.getId());
-				staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
+				staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location")))==null?"":((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle"))==null?"":((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
 			}
 			model.addAttribute("StaffListItemList",staffListItemList);
 			return SUCCESS_LIST_VIEW;

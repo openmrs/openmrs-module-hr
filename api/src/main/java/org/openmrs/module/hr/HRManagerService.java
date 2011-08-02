@@ -18,4 +18,10 @@ public interface HRManagerService {
 	public List<HrPost> getOpenPostByJobTitle();
 	
 	public List<HrPost> getPostsByJobTitle();
+	
+	public void saveAssignment(HrAssignment assignment);
+	
+	public void savePostHistory(HrPostHistory postHistory);
+	
+	public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory);
 }

@@ -21,13 +21,17 @@ import org.openmrs.module.hr.HRManagerService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.propertyEditor.HrPostHistoryEditor;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
+import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.web.WebConstants;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,6 +55,7 @@ public class AssignmentController {
 		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
 		binder.registerCustomEditor(org.openmrs.Concept.class, new ConceptEditor());
 		binder.registerCustomEditor(Location.class, new LocationEditor());
+		binder.registerCustomEditor(HrPostHistory.class, new HrPostHistoryEditor());
 	}
 	
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.GET)
@@ -60,14 +65,63 @@ public class AssignmentController {
 		
 	}
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("assignment") HrAssignment assignment,@ModelAttribute("staff") HrStaff staff, BindingResult errors) {
-		String action=request.getParameter("action");
-		System.out.println(action);
-		boolean addprev=false;
-		if(action.equals("addprev"))
-		addprev=true;
-		prepareModel(assignment.getAssignmentId(), model, staff, addprev);
-		return SUCCESS_FORM_VIEW;
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("assignment") HrAssignment assignment,BindingResult errors,@ModelAttribute("staff") HrStaff staff) {
+		String actionString=request.getParameter("actionString");
+		HRManagerService hrManagerService=Context.getService(HRManagerService.class);		
+		if(actionString.equals("createNew"))
+		{
+			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			assignment.setHrPostHistory(currentPosthistory);
+			if(assignment.getStartDate()==null)
+				assignment.setStartDate(currentPosthistory.getStartDate());
+			hrManagerService.saveAssignment(assignment);
+		}
+		else if(actionString.equals("addprev"))
+		{
+			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
+			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
+			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
+			if(assignment.getEndReason()!=null){
+			if(assignment.getEndReason().getName().getName().endsWith(":"))
+				if(assignment.getEndReasonOther()==null)
+					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
+			}
+			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
+			if(assignment.getStartDate().after(assignment.getEndDate()));
+			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			}
+			if(errors.hasErrors())
+			{
+				prepareModel(assignment.getAssignmentId(), model, staff, true);
+				return SUCCESS_FORM_VIEW;
+			}
+			hrManagerService.saveAssignment(assignment);
+		}
+		else if(actionString.equals("endAssignment"))
+		{
+			HrAssignment assignmentInstance=hrManagerService.getAssignmentById(assignment.getId());
+			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
+			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
+			if(assignment.getEndReason()!=null){
+			if(assignment.getEndReason().getName().getName().endsWith(":"))
+				if(assignment.getEndReasonOther()==null)
+					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
+			}
+			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
+				if(assignment.getStartDate().after(assignment.getEndDate()));
+				ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			}
+			if(errors.hasErrors()){
+				prepareModel(assignment.getAssignmentId(), model, staff, false);
+				return SUCCESS_FORM_VIEW;
+			}
+			assignmentInstance.setEndDate(assignment.getEndDate());
+			assignmentInstance.setEndReason(assignment.getEndReason());
+			assignmentInstance.setEndReasonOther(assignment.getEndReasonOther());
+			hrManagerService.saveAssignment(assignmentInstance);
+		}
+		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Assignment saved successfully");
+		return "redirect:/module/hr/manager/staffPosition.list";
 	}
 	private HrAssignment prepareModel(Integer assignmentId,ModelMap model,HrStaff staff,boolean addprev){
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
@@ -99,9 +153,12 @@ public class AssignmentController {
 				List<HrPostHistory> postHistories=hrManagerService.getPostHistoriesForStaff(staff);
 				HrPostHistory postHistorytobedel=null;
 				Iterator<HrPostHistory> iter=postHistories.iterator();
-				while(iter.hasNext())
-					if((postHistorytobedel=iter.next()).getEndDate()==null)
+				while(iter.hasNext()){
+					HrPostHistory ph;
+					if((ph=iter.next()).getEndDate()==null)
+						postHistorytobedel=ph;
 						break;
+				}
 				postHistories.remove(postHistorytobedel);
 				model.addAttribute("postHistories",postHistories);
 				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");

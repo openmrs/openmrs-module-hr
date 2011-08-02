@@ -26,8 +26,11 @@ function updateLocations(addprev) {
 }
 </script>
 <spring:hasBindErrors name="postHistory">
+<c:set var="errorExist" value="true"/>
 	<spring:message code="fix.error"/>
-	<br />
+<c:forEach items="${errors.allErrors}" var="error">
+	<c:if test="${error.code == 'vacateEndDate' or error.code == 'vacateEndReason' or error.code == 'vacateEndReasonText'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+</c:forEach>
 </spring:hasBindErrors>
 <form method="post">
 <c:if test='${createNew==true}'>
@@ -89,9 +92,9 @@ function updateLocations(addprev) {
 					</c:forEach>
 	   			</select>
 	   			<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+	   			</spring:bind> 
      			<input name="alllocations" id="alllocations" value="" type="checkbox" <c:if test="${param.alllocations}">checked</c:if> onclick="updateLocations('${addprev}')">Show all locations
-     			</spring:bind> 
-     			</c:when>
+       			</c:when>
      			<c:otherwise>
      			<spring:bind path="postHistory.hrPost.location.name">
      			<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly"/>
@@ -109,20 +112,22 @@ function updateLocations(addprev) {
 			<c:choose>
 				<c:when test='${createNew==true || addprev==true}'>
 				<spring:bind path="postHistory.hrPost">
-				<select name="post" id="${status.expression}">
+				<select name="${status.expression}" id="${status.expression}">
 					<c:forEach items="${postList}" var="post" varStatus="status">
-						<option value="${post}">${post.hrJobTitle.title}</option>
+						<option value="${post.id}">${post.hrJobTitle.title}</option>
 					</c:forEach>
      			</select>
+     			<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
      			</spring:bind> 
      			</c:when>
      		<c:otherwise>
-     		<spring:bind path="postHistory.hrPost.hrJobTitle.title">
+     		<spring:bind path="postHistory.hrPost.hrJobTitle.title"> 
      			<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly"/>
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</spring:bind>
      		</c:otherwise>
      		</c:choose>
+     		
 			
 		</td>
 	</tr>
@@ -148,21 +153,21 @@ function updateLocations(addprev) {
 		<td>
 			<spring:bind path="postHistory.startDate">	
 			<c:choose>
-			<c:when test="${postHistory.endReason==null and postHistory.startDate==null}">
+			<c:when test="${postHistory.endReason==null and postHistory.startDate==null or errorExist}">
 			<input type="text" name="${status.expression}" size="10" 
 					   value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
 			<c:otherwise>
-				<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly" />
+				<input type="text" name="${status.expression}" size="10"  value="${status.value}" style="border: none" readonly="readonly" />(<spring:message code="general.format"/>: <openmrs:datePattern />)
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:otherwise>
 			</c:choose> 
 			</spring:bind>
 		</td>
 	</tr>
-	
+	<c:if test='${createNew!=true or addprev==true}'>
 	<tr>
 		<th width="18%" align="left" valign="top"><spring:message code="End Date"/></th>
 		<td>
@@ -175,7 +180,7 @@ function updateLocations(addprev) {
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
 			<c:otherwise>
-				<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly" />
+				<input type="text" name="${status.expression}" size="10"  value="${status.value}" style="border: none" readonly="readonly" />(<spring:message code="general.format"/>: <openmrs:datePattern />)
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:otherwise>
 			</c:choose>	
@@ -194,6 +199,7 @@ function updateLocations(addprev) {
 						<option value="${endReason.answerConcept}">${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>
+     		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
      		</spring:bind>
      		</c:when>
      		<c:otherwise>
@@ -223,17 +229,18 @@ function updateLocations(addprev) {
 			</spring:bind>
 		</td>
 	</tr>
+	</c:if>
 </table>
 <br />
 <c:choose>
 <c:when test="${addprev==true}">
-<input type="hidden" name="action" value="addprev"/>
+<input type="hidden" name="actionString" value="addprev"/>
 </c:when>
 <c:when test="${createNew==true}">
-<input type="hidden" name="action" value="movetonew"/>
+<input type="hidden" name="actionString" value="createNew"/>
 </c:when>
 <c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
-<input type="hidden" name="action" value="endPostHistory"/>
+<input type="hidden" name="actionString" value="endPostHistory"/>
 </c:when>
 </c:choose>
 <c:if test='${createNew==true or postHistory.endReason==null or addprev==true}'>

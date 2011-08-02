@@ -39,7 +39,7 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" />
         </property>
-        <set name="hrAssignments" inverse="true">
+        <set name="hrAssignments" order-by="start_date desc" inverse="true">
             <key>
                 <column name="post_history_id" not-null="true" />
             </key>
