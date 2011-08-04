@@ -70,11 +70,23 @@ public class AssignmentController {
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);		
 		if(actionString.equals("createNew"))
 		{
+			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
 			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			if(assignment.getStartDate()!=null){
+				if(currentPosthistory!=null){
+				if(assignment.getStartDate().before(currentPosthistory.getStartDate()))
+					errors.reject("startDateInvalid","Start Date cannot be before post start date");
+				}
+			}
+			if(errors.hasErrors()){
+				prepareModel(assignment.getAssignmentId(), model, staff, true);
+				return SUCCESS_FORM_VIEW;
+			}
+			if(currentPosthistory!=null){
 			assignment.setHrPostHistory(currentPosthistory);
-			if(assignment.getStartDate()==null)
-				assignment.setStartDate(currentPosthistory.getStartDate());
+			assignment.setStartDate(currentPosthistory.getStartDate());
 			hrManagerService.saveAssignment(assignment);
+			}
 		}
 		else if(actionString.equals("addprev"))
 		{
@@ -87,8 +99,11 @@ public class AssignmentController {
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
-			if(assignment.getStartDate().after(assignment.getEndDate()));
+			if(assignment.getStartDate().after(assignment.getEndDate()))
 			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			HrPostHistory thisPostHistory=hrManagerService.getPostHistoryById(assignment.getHrPostHistory().getPostHistoryId());
+			if(!((thisPostHistory.getStartDate().before(assignment.getStartDate())||thisPostHistory.getStartDate().equals(assignment.getStartDate())) && (thisPostHistory.getEndDate().after(assignment.getEndDate()) || thisPostHistory.getEndDate().equals(assignment.getEndDate()))))
+				errors.reject("startEnd","Start and end Date of assignment invalid for this post");
 			}
 			if(errors.hasErrors())
 			{
@@ -108,7 +123,7 @@ public class AssignmentController {
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
-				if(assignment.getStartDate().after(assignment.getEndDate()));
+				if(assignment.getStartDate().after(assignment.getEndDate()))
 				ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
 			}
 			if(errors.hasErrors()){

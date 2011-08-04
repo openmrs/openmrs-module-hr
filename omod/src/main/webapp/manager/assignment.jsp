@@ -172,6 +172,11 @@ else
 					   value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
+				<spring:hasBindErrors name="assignment">
+				<c:forEach items="${errors.allErrors}" var="error">
+					<c:if test="${error.code == 'startDateInvalid'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+				</c:forEach>
+				</spring:hasBindErrors>
 			</c:when>
 			<c:otherwise>
 				<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly" />
