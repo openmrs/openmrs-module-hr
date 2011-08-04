@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.Concept;
+import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRManagerService;
 import org.openmrs.module.hr.HRService;
@@ -30,7 +32,14 @@ public class StaffPositionController {
 	public String showList(ModelMap model,@ModelAttribute("staff") HrStaff staff){
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
 		List<HrPostHistory> postHistoryList=hrManagerService.getPostHistoriesForStaff(staff);
-		model.addAttribute("PostHistories", postHistoryList);	
+		model.addAttribute("PostHistories", postHistoryList);
+		ConceptService cs=Context.getConceptService();
+		List<Concept> staffStatusCurrent=cs.getConceptsByMapping("Staff status current","HR Module");
+		if(!staffStatusCurrent.contains(staff.getStaffStatus()))
+			model.addAttribute("current",false);
+		else {
+			model.addAttribute("current",true);
+		}
 		return SUCCESS_LIST_VIEW;
 	}
 }

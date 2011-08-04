@@ -66,6 +66,10 @@ public class AssignmentController {
 	}
 	@RequestMapping(value = "module/hr/manager/assignment.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("assignment") HrAssignment assignment,BindingResult errors,@ModelAttribute("staff") HrStaff staff) {
+		if(request.getParameter("submit").equals("Cancel"))
+		{
+			return "redirect:/module/hr/manager/staffPosition.list";
+		}
 		String actionString=request.getParameter("actionString");
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);		
 		if(actionString.equals("createNew"))
@@ -100,7 +104,7 @@ public class AssignmentController {
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
 			if(assignment.getStartDate().after(assignment.getEndDate()))
-			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			errors.reject("endBeforeStart","End Date cannot be before start date");
 			HrPostHistory thisPostHistory=hrManagerService.getPostHistoryById(assignment.getHrPostHistory().getPostHistoryId());
 			if(!((thisPostHistory.getStartDate().before(assignment.getStartDate())||thisPostHistory.getStartDate().equals(assignment.getStartDate())) && (thisPostHistory.getEndDate().after(assignment.getEndDate()) || thisPostHistory.getEndDate().equals(assignment.getEndDate()))))
 				errors.reject("startEnd","Start and end Date of assignment invalid for this post");
@@ -124,7 +128,7 @@ public class AssignmentController {
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
 				if(assignment.getStartDate().after(assignment.getEndDate()))
-				ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+				errors.reject("endBeforeStart","End Date cannot be before start date");
 			}
 			if(errors.hasErrors()){
 				prepareModel(assignment.getAssignmentId(), model, staff, false);

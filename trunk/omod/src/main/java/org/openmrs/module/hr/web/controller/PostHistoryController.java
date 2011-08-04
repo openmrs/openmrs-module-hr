@@ -70,6 +70,10 @@ public class PostHistoryController {
 	}
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("postHistory") HrPostHistory postHistory,BindingResult errors,@ModelAttribute("staff") HrStaff staff) throws ParseException {
+		if(request.getParameter("submit").equals("Cancel"))
+		{
+			return "redirect:/module/hr/manager/staffPosition.list";
+		}
 		String actionString=request.getParameter("actionString");
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
 		boolean allLocations=Boolean.getBoolean(request.getParameter("alllocations"));
@@ -169,7 +173,7 @@ public class PostHistoryController {
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
 			if(postHistory.getStartDate().after(postHistory.getEndDate()))
-			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			errors.reject("startBeforeEnd","End Date cannot be before start date");
 			}
 			List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
 			Iterator<HrPostHistory> phiter=allPostHistories.iterator();
@@ -205,7 +209,7 @@ public class PostHistoryController {
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
 			if(postHistory.getStartDate().after(postHistory.getEndDate()))
-			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
+			errors.reject("startBeforeEnd","End Date cannot be before start date");
 			}
 			if(errors.hasErrors()){
 				prepareModel(postHistory.getPostHistoryId(), model, staff, false,false,allLocations);
