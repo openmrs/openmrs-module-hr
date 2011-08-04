@@ -64,8 +64,8 @@ public class PostHistoryController {
 	
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.GET)
 	@ModelAttribute("postHistory")
-	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
-		return prepareModel(postHistoryId,model,staff,addprev,includeAllLocations);
+	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="currentExists") boolean currentExists,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@ModelAttribute("staff") HrStaff staff){
+		return prepareModel(postHistoryId,model,staff,addprev,currentExists,includeAllLocations);
 		
 	}
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.POST)
@@ -76,6 +76,9 @@ public class PostHistoryController {
 		if(actionString.equals("createNew"))
 		{
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
+			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			if(currentPosthistory!=null)
+			{
 			String vacateDateString=request.getParameter("vacateEndDate");
 			Date vacateEndDate=null;
 			if(vacateDateString!=""){
@@ -96,39 +99,62 @@ public class PostHistoryController {
 					if(vacateEndReasonText==null)
 						errors.reject("vacateEndReasonText", "enter a valid vacate end reason text");
 			}
-			if(errors.hasErrors()){
-				prepareModel(postHistory.getPostHistoryId(), model, staff, false,allLocations);
-				return SUCCESS_FORM_VIEW;
+			if(vacateEndDate.after(postHistory.getStartDate()))
+				errors.reject("startBeforeVacate","A new post cannot start before vacating date of the current post");
+			
+				if(vacateEndDate.before(currentPosthistory.getStartDate()))
+					errors.reject("vacateStartEnd","Vacating date cannot be before its start date");
+				if(errors.hasErrors()){
+					boolean currentExists=Boolean.getBoolean(request.getParameter("currentExists"));
+					prepareModel(postHistory.getPostHistoryId(), model, staff, false,currentExists,allLocations);
+					return SUCCESS_FORM_VIEW;
+				}
+				List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
+				Iterator<HrAssignment> iter=assignmentsUnder.iterator();
+				while(iter.hasNext())
+				{
+					HrAssignment assignment=iter.next();
+					assignment.setEndDate(vacateEndDate);
+					assignment.setEndReason(vacateEndReason);
+					assignment.setEndReasonOther(vacateEndReasonText);
+					hrManagerService.saveAssignment(assignment);
+				}
+				HrPost post=currentPosthistory.getHrPost();
+				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+				Concept openPost=null;
+				if(concepts!=null){
+				Iterator<Concept> caliter=concepts.iterator();
+				while(caliter.hasNext())
+					if((openPost=caliter.next()).getName().getName().equals("Open"))
+						break;
+				}
+				post.setStatus(openPost);
+				Context.getService(HRService.class).savePost(post);
+				currentPosthistory.setEndDate(vacateEndDate);
+				currentPosthistory.setEndReason(vacateEndReason);
+				currentPosthistory.setEndReasonOther(vacateEndReasonText);
+				hrManagerService.savePostHistory(currentPosthistory);
 			}
+			else {
+				List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
+				Iterator<HrPostHistory> phiter=allPostHistories.iterator();
+				Date maxEndDate=phiter.next().getEndDate();
+				while(phiter.hasNext())
+				{	Date d;
+					if(maxEndDate.before((d=phiter.next().getEndDate())))
+							maxEndDate=d;
+				}
+				if(postHistory.getStartDate()!=null){
+				if(postHistory.getStartDate().before(maxEndDate))
+					errors.reject("newPostOverlap","New post should start after the old post.");
+				}
+				if(errors.hasErrors()){
+					boolean currentExists=Boolean.getBoolean(request.getParameter("currentExists"));
+					prepareModel(postHistory.getPostHistoryId(), model, staff, false,currentExists,allLocations);
+					return SUCCESS_FORM_VIEW;
+				}
+			}	
 			postHistory.setHrStaff(staff);
-			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
-			if(currentPosthistory!=null){
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
-			Iterator<HrAssignment> iter=assignmentsUnder.iterator();
-			while(iter.hasNext())
-			{
-				HrAssignment assignment=iter.next();
-				assignment.setEndDate(vacateEndDate);
-				assignment.setEndReason(vacateEndReason);
-				assignment.setEndReasonOther(vacateEndReasonText);
-				hrManagerService.saveAssignment(assignment);
-			}
-			HrPost post=currentPosthistory.getHrPost();
-			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
-			Concept openPost=null;
-			if(concepts!=null){
-			Iterator<Concept> caliter=concepts.iterator();
-			while(caliter.hasNext())
-				if((openPost=caliter.next()).getName().getName().equals("Open"))
-					break;
-			}
-			post.setStatus(openPost);
-			Context.getService(HRService.class).savePost(post);
-			currentPosthistory.setEndDate(vacateEndDate);
-			currentPosthistory.setEndReason(vacateEndReason);
-			currentPosthistory.setEndReasonOther(vacateEndReasonText);
-			hrManagerService.savePostHistory(currentPosthistory);
-			}
 			hrManagerService.savePostHistory(postHistory);
 		}
 		else if(actionString.equals("addprev"))
@@ -142,11 +168,25 @@ public class PostHistoryController {
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
-			if(postHistory.getStartDate().after(postHistory.getEndDate()));
+			if(postHistory.getStartDate().after(postHistory.getEndDate()))
 			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
 			}
+			List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
+			Iterator<HrPostHistory> phiter=allPostHistories.iterator();
+			while (phiter.hasNext()) {
+				HrPostHistory temp=phiter.next();
+				if((postHistory.getEndDate().after(temp.getStartDate()))&&(postHistory.getStartDate().before(temp.getEndDate()))){
+					errors.reject("Overlap","This post overlaps with other exisitng posts");
+					break;
+				}
+			}
+			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			if(currentPosthistory!=null){
+				if(postHistory.getStartDate().after(currentPosthistory.getStartDate()))
+					errors.reject("NotPrevious","Post should be previous to the current post");
+			}
 			if(errors.hasErrors()){
-				prepareModel(postHistory.getPostHistoryId(), model, staff, true,allLocations);
+				prepareModel(postHistory.getPostHistoryId(), model, staff, true,false,allLocations);
 				return SUCCESS_FORM_VIEW;
 			}
 			postHistory.setHrStaff(staff);
@@ -164,11 +204,11 @@ public class PostHistoryController {
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
-			if(postHistory.getStartDate().after(postHistory.getEndDate()));
+			if(postHistory.getStartDate().after(postHistory.getEndDate()))
 			ValidationUtils.rejectIfEmpty(errors,"endDate","End Date cannot be before start date");
 			}
 			if(errors.hasErrors()){
-				prepareModel(postHistory.getPostHistoryId(), model, staff, false,allLocations);
+				prepareModel(postHistory.getPostHistoryId(), model, staff, false,false,allLocations);
 				return SUCCESS_FORM_VIEW;
 			}
 			postHistoryInstance.setEndDate(postHistory.getEndDate());
@@ -202,8 +242,9 @@ public class PostHistoryController {
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Position saved successfully");
 		return "redirect:/module/hr/manager/staffPosition.list";
 	}
-	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,boolean includeAllLocations){
+	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,boolean currentExists,boolean includeAllLocations){
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		model.addAttribute("currentExists",currentExists);
 		ConceptService cs=Context.getConceptService();
 		HrPostHistory postHistory;
 		if(postHistoryId==null||postHistoryId==0){

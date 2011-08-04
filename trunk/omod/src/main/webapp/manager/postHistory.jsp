@@ -29,11 +29,11 @@ function updateLocations(addprev) {
 <c:set var="errorExist" value="true"/>
 	<spring:message code="fix.error"/>
 <c:forEach items="${errors.allErrors}" var="error">
-	<c:if test="${error.code == 'vacateEndDate' or error.code == 'vacateEndReason' or error.code == 'vacateEndReasonText'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+	<c:if test="${error.code == 'vacateEndDate' or error.code == 'vacateEndReason' or error.code == 'vacateEndReasonText' or error.code == 'startBeforeVacate' or error.code == 'vacateStartEnd' or error.code == 'newPostOverlap' or error.code == 'Overlap' error.code == 'NotPrevious'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
 </c:forEach>
 </spring:hasBindErrors>
 <form method="post">
-<c:if test='${createNew==true}'>
+<c:if test='${createNew==true && currentExists==true}'>
 <h2><spring:message code="Vacate current position" /></h2>
 
 <fieldset>
@@ -173,7 +173,7 @@ function updateLocations(addprev) {
 		<td>
 			<spring:bind path="postHistory.endDate">
 			<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
+			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
 			<input type="text" name="${status.expression}" size="10" 
 					   value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
@@ -191,7 +191,7 @@ function updateLocations(addprev) {
 		<th width="18%" align="left" valign="top"><spring:message code="End Reason"/></th>
 		<td>
 			<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
+			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
 			<spring:bind path="postHistory.endReason">
 			<select name="endReason" id="${status.expression}" onchange="toggleReasonText(this.id,'endReasonText');">
 				<option value=""></option>
@@ -217,7 +217,7 @@ function updateLocations(addprev) {
 		<td>
 		<spring:bind path="postHistory.endReasonOther">	
 		<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
+			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
 				<input type="text" name="${status.expression}" size="40" value="" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
@@ -238,6 +238,7 @@ function updateLocations(addprev) {
 </c:when>
 <c:when test="${createNew==true}">
 <input type="hidden" name="actionString" value="createNew"/>
+<input type="hidden" name="currentExists" value="${currentExists}"/>
 </c:when>
 <c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
 <input type="hidden" name="actionString" value="endPostHistory"/>
