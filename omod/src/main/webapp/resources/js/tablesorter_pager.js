@@ -33,12 +33,26 @@
 				var c = table.config;
 				c.page = 0;
 				moveToPage(table);
+				var trs = table.getElementsByTagName("tr"); 
+				for (i=2; i < trs.length ; i++) { 
+				if (i % 2 == 1) 
+				trs[i].className = "oddRow"; 
+				else
+				trs[i].className = "evenRow"; 	
+				}
 			}
 			
 			function moveToLastPage(table) {
 				var c = table.config;
 				c.page = (c.totalPages-1);
 				moveToPage(table);
+				var trs = table.getElementsByTagName("tr"); 
+				for (i=2; i < trs.length ; i++) { 
+				if (i % 2 == 1) 
+				trs[i].className = "oddRow"; 
+				else
+				trs[i].className = "evenRow"; 	
+				}
 			}
 			
 			function moveToNextPage(table) {
@@ -48,6 +62,13 @@
 					c.page = (c.totalPages-1);
 				}
 				moveToPage(table);
+				var trs = table.getElementsByTagName("tr"); 
+				for (i=2; i < trs.length ; i++) { 
+				if (i % 2 == 1) 
+				trs[i].className = "oddRow"; 
+				else
+				trs[i].className = "evenRow"; 	
+				}
 			}
 			
 			function moveToPrevPage(table) {
@@ -57,6 +78,13 @@
 					c.page = 0;
 				}
 				moveToPage(table);
+				var trs = table.getElementsByTagName("tr"); 
+				for (i=2; i < trs.length ; i++) { 
+				if (i % 2 == 1) 
+				trs[i].className = "oddRow"; 
+				else
+				trs[i].className = "evenRow"; 	
+				}
 			}
 						
 			
@@ -108,6 +136,13 @@
 				}
 				
 				updatePageDisplay(c);
+				var trs = table.getElementsByTagName("tr"); 
+				for (i=2; i < trs.length ; i++) { 
+				if (i % 2 == 1) 
+				trs[i].className = "oddRow"; 
+				else
+				trs[i].className = "evenRow"; 	
+				}
 			}
 			
 			this.appender = function(table,rows) {

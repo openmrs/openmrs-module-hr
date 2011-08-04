@@ -28,9 +28,11 @@ trs[i].className = "evenRow";
 			<c:if test='${postHistory.endDate!=null}'><c:set var="prevExists" value="true"/></c:if>
 			<c:choose><c:when test='${postHistory.endDate==null}'><c:set var="currentExists" value="true"/></c:when><c:otherwise><c:set var="currentExists" value="false"/></c:otherwise></c:choose>
 	</c:forEach>
+<c:if test='${current==true}'>
 <table width="100%">
 <tr><td width="72%"><input type="button" value="Move to a new position" onclick="document.location.href='postHistory.form?currentExists=${currentExists}'"/>&nbsp;&nbsp;<input type="button" value="Terminate Employment" onclick="document.location.href='terminateStaff.form'"/>&nbsp;&nbsp;<c:if test="${currentExists}"><input type="button" value="Add a Current Assignment" onclick="document.location.href='assignment.form'"/></c:if></td><td align="right"><input type="button" value="Add a previous position" onclick="document.location.href='postHistory.form?addprev=true'"/><c:if test="${prevExists}"><input type="button" value="Add a previous assigment" onclick="document.location.href='assignment.form?addprev=true'"/></c:if></td></tr>
 </table>
+</c:if>
 <br/>
 <b class="boxHeader">
 <spring:message code="Post History"/>

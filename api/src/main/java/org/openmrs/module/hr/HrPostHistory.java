@@ -15,7 +15,7 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
 
     // Fields    
 
-     /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -160,5 +160,9 @@ public class HrPostHistory extends BaseOpenmrsData implements java.io.Serializab
 
 	public void setId(Integer id) {
 		setPostHistoryId(id);
+	}
+	 @Override
+	 public String toString() {
+		 return getId()+"";
 	}
 }

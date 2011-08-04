@@ -16,8 +16,14 @@ else
 	document.getElementById(trid).style.display="none";
 }
 </script>
-<form:form method="post">
-<h2><spring:message code="Vacate current position" /></h2>
+<spring:hasBindErrors name="postHistory">
+<c:set var="errorExist" value="true"/>
+<c:forEach items="${errors.allErrors}" var="error">
+	<c:if test="${error.code == 'startBeforeEnd'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+</c:forEach>
+</spring:hasBindErrors>
+<form method="post">
+<h2><spring:message code="Terminate Employment" /></h2>
 
 <fieldset>
 <table>
@@ -83,6 +89,9 @@ else
 		</td>
 	</tr>
 </table>
+<input type="submit" value="<spring:message code="Terminate"/>" name="submit">
+
+<input type="submit" value='<spring:message code="general.cancel"/>' name="submit">
 </fieldset>
-</form:form>
+</form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>
