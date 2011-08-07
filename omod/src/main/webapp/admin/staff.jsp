@@ -326,6 +326,7 @@ function preferredBoxClick(obj) {
 					<spring:nestedPath path="person.addresses[${varStatus.index}]">
 						<div id="address${varStatus.index}Data" class="tabBox">
 							<openmrs:portlet url="addressLayout" id="addressPortlet" size="full" parameters="layoutShowTable=true|layoutShowExtended=true|layoutHideVoidOption=${(address.personAddressId == null)}" />
+							<%-- @ include file="include/editPersonAddress.jsp" --%>
 							<!-- <input type="button" onClick="return removeTab(this, 'name');" class="removeTab" value='<spring:message code="Patient.removeThisAddress"/>'/><br/> --> <br/>
 						</div>
 					</spring:nestedPath>
@@ -355,13 +356,11 @@ function preferredBoxClick(obj) {
 	<spring:bind path="person.personId">
 		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 	</spring:bind>
-	
+	<input type="hidden" name="managerEdit" id="editingRole" value="${managerEdit}"/> 
 	<input type="submit" name="action" id="saveButton" value='<spring:message code="Save Staff"/>' />
 </form>
 	<br/>
-	</c:otherwise>
-	</c:choose>
-<script>
+	<script>
 
 	var array = new Array(2);
 	array[0] = "name";
@@ -377,4 +376,7 @@ function preferredBoxClick(obj) {
 	}
 
 </script>
+	</c:otherwise>
+	</c:choose>
+
 <%@ include file="/WEB-INF/template/footer.jsp"%>

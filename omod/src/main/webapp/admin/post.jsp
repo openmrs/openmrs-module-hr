@@ -20,6 +20,9 @@
 </c:if>
 <spring:hasBindErrors name="post">
 	<spring:message code="fix.error"/>
+	<c:forEach items="${errors.allErrors}" var="error">
+	<c:if test="${error.code == 'statusChange'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+</c:forEach>
 	<br />
 </spring:hasBindErrors>
 <form method="post">
@@ -43,7 +46,7 @@
 			<spring:bind path="post.location.id">	
 				<select name="location" id="${status.expression}">
 					<c:forEach items="${LocationList}" var="location" varStatus="status">
-						<option value="${location.id}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
+				 		<option value="${location.id}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
 					</c:forEach>
      		</select> 
 			</spring:bind>
@@ -54,8 +57,8 @@
 		<td>
 			<spring:bind path="post.status">	
 				<select name="${status.expression}" id="${status.expression}">
-					<c:forEach items="${PostStatusAnswers}" var="answer" varStatus="status">
-						<option value="${answer.answerConcept}" <c:if test="${ post.status.conceptId == answer.answerConcept.conceptId}">selected</c:if>>${answer.answerConcept.name.name}</option>
+					<c:forEach items="${PostStatusAnswers}" var="answer">
+						<option value="${answer.answerConcept}" <c:if test="${ status.value == answer.answerConcept.conceptId}">selected</c:if>>${answer.answerConcept.name.name}</option>
 					</c:forEach>
      		</select> 
 			</spring:bind>
@@ -81,7 +84,6 @@
 	</tr>
 </table>
 <br />
-
 <input type="submit" value="<spring:message code="Save Post"/>" name="save">
 
 </fieldset>

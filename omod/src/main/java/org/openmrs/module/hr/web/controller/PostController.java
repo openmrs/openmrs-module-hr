@@ -144,7 +144,7 @@ public class PostController {
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
 				}
-				else{
+				else{	
 				post.setHrJobTitle(hrService.getJobTitleById(Integer.parseInt(request.getParameter("job"))));
 				post.setLocation(ls.getLocation(Integer.parseInt(request.getParameter("location"))));
 				hrService.savePost(post);
