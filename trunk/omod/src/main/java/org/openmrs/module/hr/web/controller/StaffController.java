@@ -89,15 +89,14 @@ public class StaffController {
 		}
 		else {
 			person=new Person();
-		}
-		if (person.getNames().size() < 1)
-			person.addName(new PersonName());
-		
-		if (person.getAddresses().size() < 1){
-			person.addAddress(new PersonAddress());
+			if (person.getNames().size() < 1)
+				person.addName(new PersonName());
 			
+			if (person.getAddresses().size() < 1){
+				person.addAddress(new PersonAddress());
+				
+			}
 		}
-	
 		model.addAttribute("emptyName",new PersonName());
 		model.addAttribute("emptyAddress",new PersonAddress());
 		return person;
@@ -105,7 +104,7 @@ public class StaffController {
 	
 	@ModelAttribute("staff")
 	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.GET)
-	public HrStaff getStaff(ModelMap model,@RequestParam(required = false, value = "personId") Integer personId,@RequestParam(required = false, value = "createNewPerson") String createNewPerson) {
+	public HrStaff getStaff(ModelMap model,@RequestParam(required = false, value = "personId") Integer personId,@RequestParam(required = false, value = "managerEdit") boolean managerEdit,@RequestParam(required = false, value = "createNewPerson") String createNewPerson) {
 		HrStaff staff=null;
 		HRService hrService=Context.getService(HRService.class);
 		if(personId!=null)
@@ -114,6 +113,7 @@ public class StaffController {
 		{
 			staff=new HrStaff();
 		}
+		model.addAttribute("managerEdit",managerEdit);
 		if (createNewPerson != null)
 			model.addAttribute("createNewPerson", createNewPerson);
 		return staff;
@@ -134,8 +134,6 @@ public class StaffController {
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("person") Person person, BindingResult errors) {
 		HRService hrService=Context.getService(HRService.class);
 		if (Context.isAuthenticated()) {
-		HrStaff staff=new HrStaff();
-		staff.setStaffId(person.getPersonId());
 		Concept EmployeeConcept=null;
 		ConceptService cs=Context.getConceptService();
 		Concept c=cs.getConceptByMapping("Staff status","HR Module");
@@ -148,9 +146,6 @@ public class StaffController {
 					break;
 		}
 		}
-		staff.setStaffStatus(EmployeeConcept);
-		if(staff.getInitialHireDate()==null)
-			staff.setInitialHireDate(new Date());
 		//hrService.saveStaff(staff);
 		if (person.getDead()) {
 			log.debug("Person is dead, so let's make sure there's an Obs for it");
@@ -420,11 +415,20 @@ public class StaffController {
 			
 		}
 		new PersonValidator().validate(person, errors);
-		}
 		if (errors.hasErrors()) {
 			return SUCCESS_FORM_VIEW;
 		}
 		Context.getPersonService().savePerson(person);
-		return SUCCESS_FORM_VIEW;
+		HrStaff staff=new HrStaff();
+		staff.setStaffId(person.getPersonId());
+		staff.setStaffStatus(EmployeeConcept);
+		if(staff.getInitialHireDate()==null)
+			staff.setInitialHireDate(new Date());
+		hrService.saveStaff(staff);
+		if(Boolean.valueOf(request.getParameter("managerEdit")).booleanValue())
+			return "redirect:/module/hr/manager/staffDemographics.htm?staffId="+staff.getStaffId();
+		}
+		
+		return "redirect:/module/hr/admin/staff.list";
 	}
 }

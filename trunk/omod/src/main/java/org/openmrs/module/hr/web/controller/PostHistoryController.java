@@ -74,6 +74,7 @@ public class PostHistoryController {
 		{
 			return "redirect:/module/hr/manager/staffPosition.list";
 		}
+		ConceptService cs=Context.getConceptService();
 		String actionString=request.getParameter("actionString");
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
 		ValidationUtils.rejectIfEmpty(errors,"hrPost","error.null");
@@ -88,7 +89,6 @@ public class PostHistoryController {
 			if(vacateDateString!=""){
 			vacateEndDate=(new SimpleDateFormat("dd/MM/yyyy")).parse(vacateDateString);
 			}
-			ConceptService cs=Context.getConceptService();
 			String vacateEndReasonString=request.getParameter("vacateEndReason");
 			Concept vacateEndReason=null;
 			if(vacateEndReasonString!="")
@@ -116,7 +116,7 @@ public class PostHistoryController {
 					Integer locationId=null;
 					if((locationString=request.getParameter("locationId"))!=null)
 						locationId=Integer.parseInt(locationString);
-					boolean allLocations=Boolean.getBoolean(request.getParameter("alllocations"));
+					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
 					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
 					return SUCCESS_FORM_VIEW;
 				}
@@ -164,13 +164,24 @@ public class PostHistoryController {
 					Integer locationId=null;
 					if((locationString=request.getParameter("locationId"))!=null)
 						locationId=Integer.parseInt(locationString);
-					boolean allLocations=Boolean.getBoolean(request.getParameter("alllocations"));
+					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
 					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
 					return SUCCESS_FORM_VIEW;
 				}
 			}	
 			postHistory.setHrStaff(staff);
 			hrManagerService.savePostHistory(postHistory);
+			HrPost post=postHistory.getHrPost();
+			Concept filledPost=null;
+			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+			if(concepts!=null){
+			Iterator<Concept> caliter=concepts.iterator();
+			while(caliter.hasNext())
+				if((filledPost=caliter.next()).getName().getName().equals("Filled"))
+					break;
+			}
+			post.setStatus(filledPost);
+			Context.getService(HRService.class).savePost(post);
 		}
 		else if(actionString.equals("addprev"))
 		{
@@ -209,7 +220,7 @@ public class PostHistoryController {
 				Integer locationId=null;
 				if((locationString=request.getParameter("locationId"))!=null)
 					locationId=Integer.parseInt(locationString);
-				boolean allLocations=Boolean.getBoolean(request.getParameter("alllocations"));
+				boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
 				prepareModel(postHistory.getPostHistoryId(), model, staff, true,locationId,allLocations);
 				return SUCCESS_FORM_VIEW;
 			}
@@ -236,7 +247,7 @@ public class PostHistoryController {
 				Integer locationId=null;
 				if((locationString=request.getParameter("locationId"))!=null)
 					locationId=Integer.parseInt(locationString);
-				boolean allLocations=Boolean.getBoolean(request.getParameter("alllocations"));
+				boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
 				prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
 				return SUCCESS_FORM_VIEW;
 			}

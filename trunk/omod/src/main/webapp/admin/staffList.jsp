@@ -11,7 +11,7 @@
 <script type="text/javascript">
   jQuery(document).ready(function() {
     $("#StaffTable")
-      .tablesorter({sortList:[[0,0]],debug: false,widthFixed: true, headers: {5: { sorter: false }}})
+      .tablesorter({textExtraction: staffTextExtraction,sortList:[[0,0]],debug: false,widthFixed: true, headers: {5: { sorter: false }}})
       .tablesorterFilter({filterContainer: $("#filter-box"),
                           filterColumns: [0],
                           filterCaseSensitive: false})
@@ -26,6 +26,17 @@
 		url += "&alllocations="+document.getElementById('alllocations').checked;
 		document.location = url;
 	}
+  var staffTextExtraction = function(node)  
+  {  
+	  if(node.getElementsByTagName("a")[0]!=undefined){
+		 var name=node.getElementsByTagName("a")[0].innerHTML.split(" ");
+		 return name[name.length-1];
+	  }
+   	  else{
+   	  	   return node.innerHTML;
+   	  }
+	  
+  }
 </script>
 <h2><spring:message code="Manage Staff" /></h2>
 <a href="staff.form"><spring:message code="Add New staff"/></a>
@@ -54,7 +65,7 @@ Filter by name : <input name="filter" id="filter-box" value="" maxlength="30" si
 			<tr>
 				<td valign="top">
 				<c:forEach var="name" items="${staffListItem.person.names}" varStatus="varStatus">
-					<c:if test="${name.preferred}">${name.givenName} ${name.familyName}</c:if>
+					<a id="anchor" href="staff.form?personId=${staffListItem.staff.staffId}" value="<c:if test='${name.preferred}'>${name.givenName} ${name.familyName}</c:if>"><c:if test="${name.preferred}">${name.givenName} ${name.familyName}</c:if></a>
 				</c:forEach>
 				</td>
 				<td valign="top">${staffListItem.locationName}</td>
