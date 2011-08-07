@@ -10,7 +10,7 @@
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" not-null="true" />
         </many-to-one>
-        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" fetch="select">
+        <many-to-one name="hrPost" class="org.openmrs.module.hr.HrPost" fetch="select" lazy="false">
             <column name="post_id" not-null="true" />
         </many-to-one>
         <property name="startDate" type="timestamp">
@@ -39,13 +39,13 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" />
         </property>
-        <set name="hrAssignments" order-by="start_date desc" inverse="true">
+        <set name="hrAssignments" order-by="start_date desc" inverse="true" lazy="false">
             <key>
                 <column name="post_history_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrAssignment" />
         </set>
-        <set name="hrLeaves" inverse="true">
+        <set name="hrLeaves" inverse="true" lazy="false">
             <key>
                 <column name="post_history_id" not-null="true" />
             </key>

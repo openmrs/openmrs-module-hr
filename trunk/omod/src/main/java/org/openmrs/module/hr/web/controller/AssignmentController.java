@@ -83,7 +83,7 @@ public class AssignmentController {
 				}
 			}
 			if(errors.hasErrors()){
-				prepareModel(assignment.getAssignmentId(), model, staff, true);
+				prepareModel(assignment.getAssignmentId(), model, staff, false);
 				return SUCCESS_FORM_VIEW;
 			}
 			if(currentPosthistory!=null){
@@ -94,6 +94,7 @@ public class AssignmentController {
 		}
 		else if(actionString.equals("addprev"))
 		{
+			ValidationUtils.rejectIfEmptyOrWhitespace(errors,"hrPostHistory","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
@@ -105,9 +106,13 @@ public class AssignmentController {
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
 			if(assignment.getStartDate().after(assignment.getEndDate()))
 			errors.reject("endBeforeStart","End Date cannot be before start date");
+			if(assignment.getHrPostHistory()!=null){
 			HrPostHistory thisPostHistory=hrManagerService.getPostHistoryById(assignment.getHrPostHistory().getPostHistoryId());
+			if(thisPostHistory!=null){
 			if(!((thisPostHistory.getStartDate().before(assignment.getStartDate())||thisPostHistory.getStartDate().equals(assignment.getStartDate())) && (thisPostHistory.getEndDate().after(assignment.getEndDate()) || thisPostHistory.getEndDate().equals(assignment.getEndDate()))))
 				errors.reject("startEnd","Start and end Date of assignment invalid for this post");
+			}
+			}
 			}
 			if(errors.hasErrors())
 			{

@@ -30,11 +30,11 @@ public class HRManagerServiceImpl implements HRManagerService{
 	public HrPostHistory getCurrentPostForStaff(int staffId){
 		return dao.getCurrentPostForStaff(staffId);
 	}
-	public List<HrPost> getOpenPostByJobTitle(){
-		return dao.getOpenPostByJobTitle();
+	public List<HrPost> getOpenPostByJobTitle(Integer locationId){
+		return dao.getOpenPostByJobTitle(locationId);
 	}
-	public List<HrPost> getPostsByJobTitle(){
-		return dao.getPostsByJobTitle();
+	public List<HrPost> getPostsByJobTitle(Integer locationId){
+		return dao.getPostsByJobTitle(locationId);
 	}
 	public void saveAssignment(HrAssignment assignment) {
 		dao.saveAssignment(assignment);
