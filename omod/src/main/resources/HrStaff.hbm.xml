@@ -24,43 +24,43 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" />
         </property>
-        <set name="hrAssignments" inverse="true">
+        <set name="hrAssignments" inverse="true" lazy="false">
             <key>
                 <column name="supervisor_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrAssignment" />
         </set>
-        <set name="hrStaffNotes" inverse="true">
+        <set name="hrStaffNotes" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffNote" />
         </set>
-        <set name="hrStaffAttributes" inverse="true">
+        <set name="hrStaffAttributes" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffAttribute" />
         </set>
-        <set name="hrEducations" inverse="true">
+        <set name="hrEducations" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrEducation" />
         </set>
-        <set name="hrEvaluations" inverse="true">
+        <set name="hrEvaluations" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrEvaluation" />
         </set>
-        <set name="hrStaffCerts" inverse="true">
+        <set name="hrStaffCerts" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffCert" />
         </set>
-        <set name="hrPostHistories" inverse="true">
+        <set name="hrPostHistories" inverse="true" lazy="false">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>

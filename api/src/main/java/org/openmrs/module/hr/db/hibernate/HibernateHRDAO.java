@@ -755,6 +755,7 @@ public class HibernateHRDAO implements HRDAO {
     public void saveStaff(HrStaff staff) {
         log.debug("saving HRStaff instance");
         try {
+        	sessionFactory.getCurrentSession().clear();
             sessionFactory.getCurrentSession().saveOrUpdate(staff);
             log.debug("save successful");
         }
@@ -1327,7 +1328,7 @@ public class HibernateHRDAO implements HRDAO {
 		}
 	}
 	@SuppressWarnings("unchecked")
-	public List<HrPost> getOpenPostByJobTitle(){
+	public List<HrPost> getOpenPostByJobTitle(Integer locationId){
 		List<HrPost> postList=new ArrayList<HrPost>();
 		ConceptService cs=Context.getConceptService();
 		List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
@@ -1338,27 +1339,28 @@ public class HibernateHRDAO implements HRDAO {
 			if((openPost=caliter.next()).getName().getName().equals("Open"))
 				break;
 		}
-		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("status",openPost)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("status",openPost)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
 		List<Object[]> objectList=crit.list();
 		Iterator<Object[]> iter=objectList.iterator();
 		List<Integer> posts=new ArrayList<Integer>();
 		while (iter.hasNext()) {
 			posts.add((Integer)iter.next()[1]);
 		}
-		if(openPost!=null)
+		if(openPost!=null && posts.size()>0)
 		postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
 
 		return postList;
 	}
-	public List<HrPost> getPostsByJobTitle(){
+	public List<HrPost> getPostsByJobTitle(Integer locationId){
 		List<HrPost> postList=new ArrayList<HrPost>();
-		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
 		List<Object[]> objectList=crit.list();
 		Iterator<Object[]> iter=objectList.iterator();
 		List<Integer> posts=new ArrayList<Integer>();
 		while (iter.hasNext()) {
 			posts.add((Integer)iter.next()[1]);
 		}
+		if(posts.size()>0)
 		postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
 		return postList;
 	}

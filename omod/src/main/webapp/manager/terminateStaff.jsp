@@ -18,6 +18,7 @@ else
 </script>
 <spring:hasBindErrors name="postHistory">
 <c:set var="errorExist" value="true"/>
+<spring:message code="fix.error"/>
 <c:forEach items="${errors.allErrors}" var="error">
 	<c:if test="${error.code == 'startBeforeEnd'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
 </c:forEach>
@@ -26,7 +27,7 @@ else
 <h2><spring:message code="Terminate Employment" /></h2>
 
 <fieldset>
-<table>
+<table width="70%">
 	<tr>
 		<th width="18%" align="left" valign="top"><spring:message code="End Date"/></th>
 		<td>
@@ -90,7 +91,6 @@ else
 	</tr>
 </table>
 <input type="submit" value="<spring:message code="Terminate"/>" name="submit">
-
 <input type="submit" value='<spring:message code="general.cancel"/>' name="submit">
 </fieldset>
 </form>

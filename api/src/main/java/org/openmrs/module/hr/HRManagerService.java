@@ -15,9 +15,9 @@ public interface HRManagerService {
 	
 	public HrPostHistory getCurrentPostForStaff(int staffId);
 	
-	public List<HrPost> getOpenPostByJobTitle();
+	public List<HrPost> getOpenPostByJobTitle(Integer locationId);
 	
-	public List<HrPost> getPostsByJobTitle();
+	public List<HrPost> getPostsByJobTitle(Integer locationId);
 	
 	public void saveAssignment(HrAssignment assignment);
 	

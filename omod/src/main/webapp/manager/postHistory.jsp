@@ -17,7 +17,10 @@ else
 }
 function updateLocations(addprev) {
 	var url = "postHistory.form?";
+	select=document.getElementById('hrPost.location');
+	option=select.options[select.selectedIndex];
 	url += "alllocations="+document.getElementById('alllocations').checked;
+	url += "&locationId="+option.value;
 	if(addprev=="true")
 	url += "&addprev="+addprev;
 	else
@@ -33,7 +36,7 @@ function updateLocations(addprev) {
 </c:forEach>
 </spring:hasBindErrors>
 <form method="post">
-<c:if test='${createNew==true && currentExists==true}'>
+<c:if test='${createNew==true}'>
 <h2><spring:message code="Vacate current position" /></h2>
 
 <fieldset>
@@ -69,9 +72,6 @@ function updateLocations(addprev) {
 <c:when test="${createNew==true}">
 <h2><spring:message code="Create Position" /></h2>
 </c:when>
-<c:when test="${postHistory.endReason==null}">
-<h2><spring:message code="End Position" /></h2>
-</c:when>
 <c:otherwise>
 <h2><spring:message code="Position" /></h2>
 </c:otherwise>
@@ -85,9 +85,9 @@ function updateLocations(addprev) {
 				<c:choose>
 				<c:when test='${createNew==true or addprev==true}'>
 				<spring:bind path="postHistory.hrPost.location">
-				<select name="location" id="${status.expression}">
+				<select name="location" id="${status.expression}" onchange="updateLocations('${addprev}')">
 					<c:forEach items="${locationList}" var="location">
-						<option value="${location.id}" <c:if test='${location.id == status.value}'>selected="selected"</c:if>>${location.name}</option>
+						<option value="${location.id}" <c:if test='${location.id == status.value or location.id==selectedLocation}'>selected="selected"</c:if>>${location.name}</option>
 					</c:forEach>
 	   			</select>
 	   			<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
@@ -111,9 +111,10 @@ function updateLocations(addprev) {
 			<c:choose>
 				<c:when test='${createNew==true || addprev==true}'>
 				<spring:bind path="postHistory.hrPost">
-				<select name="${status.expression}" id="${status.expression}">
+				<select name="${status.expression}" id="${status.expression}" style="width:250px">
+					<option value="" selected="selected"> </option>
 					<c:forEach items="${postList}" var="post">
-						<option value="${post.id}" <c:if test='${postHistory.id == status.value}'>selected="selected"</c:if>>${post.hrJobTitle.title}</option>
+						<option value="${post.id}" <c:if test='${post.id == status.value}'>selected="selected"</c:if>>${post.hrJobTitle.title}</option>
 					</c:forEach>
      			</select>
      			<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
@@ -166,13 +167,13 @@ function updateLocations(addprev) {
 			</spring:bind>
 		</td>
 	</tr>
-	<c:if test='${createNew!=true or addprev==true}'>
+	<c:if test='${postHistory.endReason!=null or not empty postHistory.endReason or addprev==true}'>
 	<tr>
 		<th width="18%" align="left" valign="top"><spring:message code="End Date"/></th>
 		<td>
 			<spring:bind path="postHistory.endDate">
 			<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
+			<c:when test="${addprev==true}">
 			<input type="text" name="${status.expression}" size="10" 
 					   value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
@@ -190,7 +191,7 @@ function updateLocations(addprev) {
 		<th width="18%" align="left" valign="top"><spring:message code="End Reason"/></th>
 		<td>
 			<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
+			<c:when test="${addprev==true}">
 			<spring:bind path="postHistory.endReason">
 			<select name="endReason" id="${status.expression}" onchange="toggleReasonText(this.id,'endReasonText');">
 				<option value=""></option>
@@ -202,10 +203,7 @@ function updateLocations(addprev) {
      		</spring:bind>
      		</c:when>
      		<c:otherwise>
-			<spring:bind path="postHistory.endReason.name.name">
-				<input type="text" name="${status.expression}" size="40"  value="${status.value}" style="border: none" readonly="readonly" />
-				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-			</spring:bind>
+     		<input type="text" name="" size="40"  value="${postHistory.endReason.name.name}" style="border: none" readonly="readonly" />
 			</c:otherwise>
 			</c:choose>
 			
@@ -216,7 +214,7 @@ function updateLocations(addprev) {
 		<td>
 		<spring:bind path="postHistory.endReasonOther">	
 		<c:choose>
-			<c:when test="${postHistory.endReason==null or empty postHistory.endReason or errorExist}">
+			<c:when test="${addprev==true}">
 				<input type="text" name="${status.expression}" size="40" value="" />
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</c:when>
@@ -237,13 +235,9 @@ function updateLocations(addprev) {
 </c:when>
 <c:when test="${createNew==true}">
 <input type="hidden" name="actionString" value="createNew"/>
-<input type="hidden" name="currentExists" value="${currentExists}"/>
-</c:when>
-<c:when test="${postHistory.endReason==null or empty postHistory.endReason}">
-<input type="hidden" name="actionString" value="endPostHistory"/>
 </c:when>
 </c:choose>
-<c:if test='${createNew==true or postHistory.endReason==null or addprev==true}'>
+<c:if test='${createNew==true or addprev==true}'>
 <input type="submit" value="<spring:message code="Save Post History"/>" name="submit">
 </c:if>
 <input type="submit" value='<spring:message code="general.cancel"/>' name="submit">

@@ -78,10 +78,12 @@ else
      		<c:when test='${addprev==true}'>
      		<spring:bind path="assignment.hrPostHistory">
      		<select name="${status.expression}" id="${status.expression}">
+					<option value=""></option>
 					<c:forEach items="${postHistories}" var="postHistory">
 						<option value="${postHistory.id}" <c:if test='${postHistory.id == status.value}'>selected="selected"</c:if>>${postHistory.hrPost.hrJobTitle.title}&nbsp;&nbsp;&nbsp;&nbsp;<openmrs:formatDate date="${postHistory.startDate}" type="medium" /> to <openmrs:formatDate date="${postHistory.endDate}" type="medium" /></option>
 					</c:forEach>
      		</select>
+     		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
      		</spring:bind>
      		</c:when>
      		<c:otherwise>
