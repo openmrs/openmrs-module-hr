@@ -119,6 +119,9 @@ public class PostHistoryController {
 					if((locationString=request.getParameter("locationId"))!=null)
 						locationId=Integer.parseInt(locationString);
 					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
+					model.addAttribute("vacateEndDate",vacateEndDate);
+					model.addAttribute("vacateEndReason",vacateEndReason);
+					model.addAttribute("vacateEndReasonText",vacateEndReasonText);	
 					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
 					return SUCCESS_FORM_VIEW;
 				}
