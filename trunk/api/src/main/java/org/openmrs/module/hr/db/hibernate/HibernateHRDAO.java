@@ -669,6 +669,9 @@ public class HibernateHRDAO implements HRDAO {
     public void savePost(HrPost post) {
         log.debug("saving HrPost instance");
         try {
+        	if(post.getId()!=null)
+        		sessionFactory.getCurrentSession().merge(post);
+        	else
         	sessionFactory.getCurrentSession().saveOrUpdate(post);
             log.debug("save successful");
         }

@@ -21,6 +21,15 @@ function updateLocations(addprev) {
 	option=select.options[select.selectedIndex];
 	url += "alllocations="+document.getElementById('alllocations').checked;
 	url += "&locationId="+option.value;
+	var vacateEndDate=document.getElementById("vacateEndDate");
+	var vacateEndReason=document.getElementById("vacateEndReason");
+	var vacateEndReasonText=document.getElementById("vacateEndReasonText");
+	if(vacateEndDate.value!="")
+		url+="&ved="+vacateEndDate.value;
+	if(vacateEndReason.options[vacateEndReason.selectedIndex].value!="")
+		url+="&ver="+vacateEndReason.options[vacateEndReason.selectedIndex].value;
+	if(vacateEndReasonText.value!=""&&vacateEndReasonText.value!=undefined)
+		url+="&vert="+vacateEndReasonText.value;
 	if(addprev=="true")
 	url += "&addprev="+addprev;
 	else
@@ -45,20 +54,20 @@ function updateLocations(addprev) {
 	<th nowrap="nowrap" align="left" valign="top"><spring:message code="End Date"/></th>
 		<td nowrap="nowrap">
 			<input type="text" name="vacateEndDate" size="10" 
-					   value="" onClick="showCalendar(this)" id="vacateEndDate" />
+					   value="${vacateEndDate}" onClick="showCalendar(this)" id="vacateEndDate" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
 		</td>
 		<th nowrap="nowrap" align="left" valign="top"><spring:message code="End Reason"/></th>
 		<td nowrap="nowrap"> 
 			<select name="vacateEndReason" id="vacateEndReason" onchange="toggleReasonText(this.id,'vacateEndReasonText');">
 				<option value=""></option>
-					<c:forEach items="${EndReasons}" var="endReason" varStatus="status">
-						<option value="${endReason.answerConcept}">${endReason.answerConcept.name.name}</option>
+					<c:forEach items="${EndReasons}" var="endReason">
+						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == vacateEndReason}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>
      	<span id="vacateEndReasonText" style="display:none">
 			<b><spring:message code="End Reason Text"/></b>
-			<input type="text" name="vacateEndReasonText" size="40" value="" />
+			<input type="text" name="vacateEndReasonText" size="40" value="${vacateEndReasonText}" />
 		</span>
 		</td>
 	</tr>
