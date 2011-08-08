@@ -100,6 +100,18 @@ public class PostController {
 		}
 		return post;
 	}
+	@ModelAttribute("status")
+	public Concept getStatus(@RequestParam(value="postId",required=false) Integer postId){
+		HRService hrService=Context.getService(HRService.class);
+		if(postId!=null)
+		{
+			HrPost post=hrService.getPostById(postId);
+			return post!=null?post.getStatus():null;
+		}
+		else
+			return null;
+		
+	}
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
@@ -109,7 +121,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "module/hr/admin/post.form",method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors) {
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors,@ModelAttribute("status") Concept prevStatus) {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();
@@ -141,6 +153,16 @@ public class PostController {
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post Unretired Successfully");
 				return showList(model,false,false);
 			} else {
+				if(prevStatus!=null)
+				{
+					if(prevStatus.getName().getName().equals("Filled")||prevStatus.getName().getName().equals("Open"))
+						if(!prevStatus.getId().equals(post.getStatus().getId()))
+							errors.reject("statusChange","Cannot change status to the specified one.");
+				}
+				else {
+					if(post.getStatus().getName().getName().equals("Filled")||post.getStatus().getName().getName().equals("Open"))
+						errors.reject("statusChange","Cannot change status to the specified one.");
+				}
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
 				}

@@ -64,9 +64,11 @@ public class PostHistoryController {
 	
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.GET)
 	@ModelAttribute("postHistory")
-	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@RequestParam(required=false,value="locationId") Integer locationId,@ModelAttribute("staff") HrStaff staff){
+	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@RequestParam(required=false,value="locationId") Integer locationId,@ModelAttribute("staff") HrStaff staff,@RequestParam(required=false,value="ved") String vacateEndDate,@RequestParam(required=false,value="ver") String vacateEndReason,@RequestParam(required=false,value="vert") String vacateEndReasonText){
+		model.addAttribute("vacateEndDate",vacateEndDate);
+		model.addAttribute("vacateEndReason",vacateEndReason);
+		model.addAttribute("vacateEndReasonText",vacateEndReasonText);	
 		return prepareModel(postHistoryId,model,staff,addprev,locationId,includeAllLocations);
-		
 	}
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("postHistory") HrPostHistory postHistory,BindingResult errors,@ModelAttribute("staff") HrStaff staff) throws ParseException {
