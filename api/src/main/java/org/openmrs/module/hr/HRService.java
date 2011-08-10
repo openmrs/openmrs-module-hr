@@ -54,5 +54,6 @@ public interface HRService {
 	
 	public HrStaff getStaffById( int id);
 	
+	public HrStaffAttributeType getStaffAttributeTypeByName(String name) ;
 	
 }

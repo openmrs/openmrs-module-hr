@@ -103,6 +103,10 @@ public class HRServiceImpl implements HRService{
 	public HrStaff getStaffById( int id){
 		return dao.getStaffById(id);
 	}
+	public HrStaffAttributeType getStaffAttributeTypeByName(String name) 
+	{
+		return dao.getStaffAttributeTypeByName(name);
+	}
 
 	
 }

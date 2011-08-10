@@ -196,4 +196,6 @@ public interface HRDAO {
 	public List<HrPost> getOpenPostByJobTitle(Integer locationId);
 	
 	public List<HrPost> getPostsByJobTitle(Integer locationId);
+	
+	public HrStaffAttributeType getStaffAttributeTypeByName(String name) ;
 }

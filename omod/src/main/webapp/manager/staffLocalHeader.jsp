@@ -2,7 +2,7 @@
 <br/>
 <table width="100%">
 <tr>
-	<td><font size="3"><b>${staff.personName}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender} &nbsp;&nbsp;&nbsp;<openmrs:formatDate date="${staff.birthdate}" type="medium" />&nbsp;&nbsp;&nbsp;Staff Status: ${staff.staffStatus.name.name}&nbsp;&nbsp;Initial Employment:<openmrs:formatDate date="${staff.initialHireDate}" type="medium" /></td>
+	<td><font size="3"><b>${staff.personName}</b></font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${staff.gender} &nbsp;&nbsp;&nbsp;<openmrs:formatDate date="${staff.birthdate}" type="medium" />&nbsp;&nbsp;&nbsp;Staff Status: ${staff.staffStatus.name.name}&nbsp;&nbsp;Initial Employment:<openmrs:formatDate date="${staff.initialHireDate}" type="medium" />&nbsp;&nbsp;&nbsp;${AttributeToDisplay}</td>
 </tr>
 </table>
 <br/>
