@@ -427,7 +427,10 @@ public class StaffController {
 		
 		if (errors.hasErrors()) {
 			model.addAttribute("modelStatus",statusConcept);
+			if(person.getPersonId()!=null)
 			prepareModel(model,hrService.getStaffById(person.getPersonId()));
+			else
+			prepareModel(model,null);
 			return SUCCESS_FORM_VIEW;
 		}
 		Context.getPersonService().savePerson(person);
