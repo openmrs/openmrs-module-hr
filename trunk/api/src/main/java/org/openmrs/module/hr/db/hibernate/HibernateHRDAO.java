@@ -963,6 +963,30 @@ public class HibernateHRDAO implements HRDAO {
             throw re;
         }
     }
+    public HrStaffAttributeType getStaffAttributeTypeByName(String name) {
+        log.debug("getting HrStaffAttributeType instance with nane: " + name);
+        try {
+            List<HrStaffAttributeType> results=sessionFactory.getCurrentSession().createCriteria(HrStaffAttributeType.class).add(Restrictions.eq("name",name)).list();
+            HrStaffAttributeType instance=null;
+            if(results.size()>1){
+            	throw new APIException("Multiple attribute types with same name found");	
+            }
+            else if (results.size()==1) {
+            	instance=results.get(0);
+			}
+            if (instance==null) {
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return instance;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
     public List<HrStaffAttributeType> getAllStaffAttributeTypes() {
     	log.debug("getting all Staff attribute types");
         try {
