@@ -24,43 +24,45 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" />
         </property>
-        <set name="hrAssignments" inverse="true" lazy="false">
+        <set name="hrAssignments" inverse="true" lazy="false" batch-size="1000">
             <key>
                 <column name="supervisor_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrAssignment" />
         </set>
-        <set name="hrStaffNotes" inverse="true" lazy="false">
+        <set name="hrStaffNotes" inverse="true" lazy="false" batch-size="1000">
             <key>
                 <column name="staff_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffNote" />
         </set>
-        <set name="hrStaffAttributes" inverse="true" lazy="false">
+        <set name="hrStaffAttributes" inverse="true" lazy="false" batch-size="1000"
+			cascade="all-delete-orphan" sort="natural"
+			order-by="voided asc, date_created desc">
             <key>
                 <column name="staff_id" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffAttribute" />
         </set>
-        <set name="hrEducations" inverse="true" lazy="false">
+        <set name="hrEducations" inverse="true" lazy="false" batch-size="1000">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrEducation" />
         </set>
-        <set name="hrEvaluations" inverse="true" lazy="false">
+        <set name="hrEvaluations" inverse="true" lazy="false" batch-size="1000">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrEvaluation" />
         </set>
-        <set name="hrStaffCerts" inverse="true" lazy="false">
+        <set name="hrStaffCerts" inverse="true" lazy="false" batch-size="1000"> 
             <key>
                 <column name="staff_id" not-null="true" />
             </key>
             <one-to-many class="org.openmrs.module.hr.HrStaffCert" />
         </set>
-        <set name="hrPostHistories" inverse="true" lazy="false">
+        <set name="hrPostHistories" inverse="true" lazy="false" batch-size="1000">
             <key>
                 <column name="staff_id" not-null="true" />
             </key>

@@ -5,6 +5,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.listItem.StaffListItem;
 import org.openmrs.module.hr.validator.PersonValidator;
@@ -61,6 +63,7 @@ public class StaffController {
 		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
 		binder.registerCustomEditor(Concept.class, "civilStatus", new ConceptEditor());
 		binder.registerCustomEditor(Concept.class, "causeOfDeath", new ConceptEditor());
+		binder.registerCustomEditor(Concept.class, "staffStatus", new ConceptEditor());
 		binder.registerCustomEditor(Location.class, new LocationEditor());
 	}
 	/**
@@ -109,19 +112,32 @@ public class StaffController {
 		HRService hrService=Context.getService(HRService.class);
 		if(personId!=null)
 		staff=hrService.getStaffById(personId);
+		model.addAttribute("managerEdit",managerEdit);
+		if (createNewPerson != null)
+			model.addAttribute("createNewPerson", createNewPerson);
+		ConceptService cs=Context.getConceptService();
+		Concept staffStatusQuestion=cs.getConceptByMapping("Staff status","HR Module");
+		Collection<ConceptAnswer> statusAnswers;
+			if(staffStatusQuestion!=null)
+			    statusAnswers=staffStatusQuestion.getAnswers();
+			else
+				statusAnswers=new ArrayList<ConceptAnswer>();
+		model.addAttribute("StatusAnswers",statusAnswers);
+		model.addAttribute("attrTypes",hrService.getAllStaffAttributeTypes());
+		Map<String,HrStaffAttribute> attributeMap=new HashMap<String, HrStaffAttribute>();
+		if(staff!=null){
+		for (HrStaffAttribute attribute : staff.getActiveAttributes()) {
+			attributeMap.put(attribute.getHrStaffAttributeType().getName(), attribute);
+		}
+		}
+		model.addAttribute("attributeMap",attributeMap);
 		if(staff==null)
 		{
 			staff=new HrStaff();
 		}
-		model.addAttribute("managerEdit",managerEdit);
-		if (createNewPerson != null)
-			model.addAttribute("createNewPerson", createNewPerson);
 		return staff;
 	}
-	@ModelAttribute("staffAttributeTypes")
-	public List<HrStaffAttributeType> getSatffAttributeTypes(){
-		return Context.getService(HRService.class).getAllStaffAttributeTypes();
-	}
+
 	/**
 	 * All the parameters are optional based on the necessity  
 	 * 
@@ -129,25 +145,15 @@ public class StaffController {
 	 * @param anyRequestObject
 	 * @param errors
 	 * @return
+	 * @throws ClassNotFoundException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
 	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("person") Person person, BindingResult errors) {
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("person") Person person, BindingResult errors) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		HRService hrService=Context.getService(HRService.class);
 		if (Context.isAuthenticated()) {
-		Concept EmployeeConcept=null;
-		ConceptService cs=Context.getConceptService();
-		Concept c=cs.getConceptByMapping("Staff status","HR Module");
-		if(c!=null){
-		Collection<ConceptAnswer> staffStatusAnswers=c.getAnswers();
-		if(!staffStatusAnswers.isEmpty()){
-		Iterator<ConceptAnswer> staffStatusIterator=staffStatusAnswers.iterator();
-		while(staffStatusIterator.hasNext())
-			if(((EmployeeConcept=staffStatusIterator.next().getAnswerConcept()).getName().getName().equals("Employee")))
-					break;
-		}
-		}
-		//hrService.saveStaff(staff);
-		if (person.getDead()) {
+			if (person.getDead()) {
 			log.debug("Person is dead, so let's make sure there's an Obs for it");
 			// need to make sure there is an Obs that represents the person's cause of death, if applicable
 			
@@ -415,20 +421,54 @@ public class StaffController {
 			
 		}
 		new PersonValidator().validate(person, errors);
+		Concept statusConcept=null;
+		if(!request.getParameter("staffStatus").equals(""))
+			statusConcept=Context.getConceptService().getConcept(Integer.parseInt(request.getParameter("staffStatus")));
+		
 		if (errors.hasErrors()) {
+			model.addAttribute("modelStatus",statusConcept);
+			prepareModel(model,hrService.getStaffById(person.getPersonId()));
 			return SUCCESS_FORM_VIEW;
 		}
 		Context.getPersonService().savePerson(person);
 		HrStaff staff=new HrStaff();
 		staff.setStaffId(person.getPersonId());
-		staff.setStaffStatus(EmployeeConcept);
+		staff.setStaffStatus(statusConcept);
 		if(staff.getInitialHireDate()==null)
 			staff.setInitialHireDate(new Date());
+		List<HrStaffAttributeType> allsat=hrService.getAllStaffAttributeTypes();
+		for(HrStaffAttributeType sat:allsat)
+		{
+			String attr=request.getParameter("staffAttrType."+sat.getStaffAttributeTypeId());
+			if(attr!=null && attr!=null){
+			HrStaffAttribute newAttribute=new HrStaffAttribute(sat, attr);
+			staff.addAttribute(newAttribute);
+			}
+		}
 		hrService.saveStaff(staff);
 		if(Boolean.valueOf(request.getParameter("managerEdit")).booleanValue())
 			return "redirect:/module/hr/manager/staffDemographics.htm?staffId="+staff.getStaffId();
 		}
 		
 		return "redirect:/module/hr/admin/staff.list";
+	}
+	private void prepareModel(ModelMap model,HrStaff staff){
+		HRService hrService=Context.getService(HRService.class);
+		ConceptService cs=Context.getConceptService();
+		Concept staffStatusQuestion=cs.getConceptByMapping("Staff status","HR Module");
+		Collection<ConceptAnswer> statusAnswers;
+			if(staffStatusQuestion!=null)
+			    statusAnswers=staffStatusQuestion.getAnswers();
+			else
+				statusAnswers=new ArrayList<ConceptAnswer>();
+		model.addAttribute("StatusAnswers",statusAnswers);
+		model.addAttribute("attrTypes",hrService.getAllStaffAttributeTypes());
+		Map<String,HrStaffAttribute> attributeMap=new HashMap<String, HrStaffAttribute>();
+		if(staff!=null){
+		for (HrStaffAttribute attribute : staff.getActiveAttributes()) {
+			attributeMap.put(attribute.getHrStaffAttributeType().getName(), attribute);
+		}
+		}
+		model.addAttribute("attributeMap",attributeMap);
 	}
 }

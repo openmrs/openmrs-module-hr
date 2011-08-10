@@ -2,17 +2,18 @@ package org.openmrs.module.hr;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Vector;
 
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Concept;
 import org.openmrs.PersonAddress;
 import org.openmrs.PersonName;
 import org.openmrs.api.context.Context;
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
+import org.openmrs.util.OpenmrsUtil;
+import org.springframework.util.StringUtils;
 
 
 
@@ -45,9 +46,9 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
     }
 
 	/** minimal constructor */
-    public HrStaff(int staffId, String uuid) {
+    public HrStaff(int staffId, Date initialHireDate) {
         this.staffId = staffId;
-        this.uuid = uuid;
+        this.initialHireDate = initialHireDate;
     }
     
     /** full constructor */
@@ -64,10 +65,6 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
         this.hrStaffCerts = hrStaffCerts;
         this.hrPostHistories = hrPostHistories;
     }
-    
-
-   
-    // Property accessors
 
     public int getStaffId() {
         return this.staffId;
@@ -171,7 +168,6 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 		
 	}
 	
-
 	public void setGender(String gender) {
 		Context.getPersonService().getPerson(staffId).setGender(gender);
 	}
@@ -185,9 +181,6 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 	}
 
 	public Boolean isBirthdateEstimated() {
-		// if (this.birthdateEstimated == null) {
-		// return new Boolean(false);
-		// }
 		return Context.getPersonService().getPerson(staffId).getBirthdateEstimated();
 	}
 
@@ -271,4 +264,118 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 		}
 		return null;
 	}
+
+	public Set<HrStaffAttribute> getAttributes() {
+		if (hrStaffAttributes == null)
+			hrStaffAttributes = new TreeSet<HrStaffAttribute>();
+		return this.hrStaffAttributes;
+	}
+	
+	public List<HrStaffAttribute> getActiveAttributes() {
+		List<HrStaffAttribute> attrs = new Vector<HrStaffAttribute>();
+		for (HrStaffAttribute attr : getAttributes()) {
+			if (!attr.isVoided())
+				attrs.add(attr);
+		}
+		return attrs;
+	}
+	
+	
+	public void setAttributes(Set<HrStaffAttribute> hrStaffAttributes) {
+		this.hrStaffAttributes = hrStaffAttributes;
+	}
+	
+	public void addAttribute(HrStaffAttribute newAttribute) {
+		newAttribute.setHrStaff(this);
+		boolean newIsNull = !StringUtils.hasText(newAttribute.getValue());
+		
+		for (HrStaffAttribute currentAttribute : getActiveAttributes()) {
+			if (currentAttribute.equals(newAttribute))
+				return; // if we have the same HrStaffAttributeId, don't add the new attribute
+			else if (currentAttribute.getHrStaffAttributeType().equals(newAttribute.getHrStaffAttributeType())) {
+				if (currentAttribute.getValue() != null && currentAttribute.getValue().equals(newAttribute.getValue()))
+					// this person already has this attribute
+					return;
+				
+				// if the to-be-added attribute isn't already voided itself
+				// and if we have the same type, different value
+				if (newAttribute.isVoided() == false || newIsNull) {
+					if (currentAttribute.getCreator() != null)
+						currentAttribute.voidAttribute("New value: " + newAttribute.getValue());
+					else
+						// remove the attribute if it was just temporary (didn't have a creator
+						// attached to it yet)
+						removeAttribute(currentAttribute);
+				}
+			}
+		}
+		if (!OpenmrsUtil.collectionContains(hrStaffAttributes, newAttribute) && !newIsNull)
+			hrStaffAttributes.add(newAttribute);
+	}
+	public void removeAttribute(HrStaffAttribute attribute) {
+		if (hrStaffAttributes != null)
+			hrStaffAttributes.remove(attribute);
+			
+	}
+	public HrStaffAttribute getAttribute(HrStaffAttributeType sat) {
+		if (sat != null)
+			for (HrStaffAttribute attribute : getAttributes()) {
+				if (sat.equals(attribute.getHrStaffAttributeType()) && !attribute.isVoided()) {
+					return attribute;
+				}
+			}
+		return null;
+	}
+	public HrStaffAttribute getAttribute(String attributeName) {
+		if (attributeName != null)
+			for (HrStaffAttribute attribute : getAttributes()) {
+				HrStaffAttributeType type = attribute.getHrStaffAttributeType();
+				if (type != null && attributeName.equals(type.getName()) && !attribute.isVoided()) {
+					return attribute;
+				}
+			}
+		
+		return null;
+	}
+	public HrStaffAttribute getAttribute(Integer attributeTypeId) {
+		for (HrStaffAttribute attribute : getActiveAttributes()) {
+			if (attributeTypeId.equals(attribute.getHrStaffAttributeType().getStaffAttributeTypeId()) && !attribute.isVoided()) {
+				return attribute;
+			}
+		}
+		return null;
+	}
+	public List<HrStaffAttribute> getAttributes(String attributeName) {
+		List<HrStaffAttribute> ret = new Vector<HrStaffAttribute>();
+		
+		for (HrStaffAttribute attribute : getActiveAttributes()) {
+			HrStaffAttributeType type = attribute.getHrStaffAttributeType();
+			if (type != null && attributeName.equals(type.getName()) && !attribute.isVoided()) {
+				ret.add(attribute);
+			}
+		}
+		
+		return ret;
+	}
+	public List<HrStaffAttribute> getAttributes(Integer attributeTypeId) {
+		List<HrStaffAttribute> ret = new Vector<HrStaffAttribute>();
+		
+		for (HrStaffAttribute attribute : getActiveAttributes()) {
+			if (attributeTypeId.equals(attribute.getHrStaffAttributeType().getStaffAttributeTypeId()) && !attribute.isVoided()) {
+				ret.add(attribute);
+			}
+		}
+		
+		return ret;
+	}
+	public List<HrStaffAttribute> getAttributes(HrStaffAttributeType hrStaffAttributeType) {
+		List<HrStaffAttribute> ret = new Vector<HrStaffAttribute>();
+		for (HrStaffAttribute attribute : getAttributes()) {
+			if (hrStaffAttributeType.equals(attribute.getHrStaffAttributeType()) && !attribute.isVoided()) {
+				ret.add(attribute);
+			}
+		}
+		return ret;
+	}
+	
 }

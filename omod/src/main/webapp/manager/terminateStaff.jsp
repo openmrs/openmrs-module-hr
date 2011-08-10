@@ -55,7 +55,7 @@ else
 			<spring:bind path="postHistory.endReason">
 			<select name="endReason" id="${status.expression}" onchange="toggleReasonText(this.id,'endReasonText');">
 				<option value=""></option>
-					<c:forEach items="${EndReasons}" var="endReason" varStatus="status">
+					<c:forEach items="${EndReasons}" var="endReason" varStatus="varStatus">
 						<option value="${endReason.answerConcept}">${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>

@@ -758,8 +758,12 @@ public class HibernateHRDAO implements HRDAO {
     public void saveStaff(HrStaff staff) {
         log.debug("saving HRStaff instance");
         try {
-        	sessionFactory.getCurrentSession().clear();
-            sessionFactory.getCurrentSession().saveOrUpdate(staff);
+        	if(getStaffById(staff.getId())!=null){
+        		sessionFactory.getCurrentSession().merge(staff);
+        	}
+        	else{
+                sessionFactory.getCurrentSession().saveOrUpdate(staff);
+        	}
             log.debug("save successful");
         }
         catch (RuntimeException re) {
