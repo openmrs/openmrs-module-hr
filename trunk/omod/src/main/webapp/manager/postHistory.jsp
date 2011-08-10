@@ -24,12 +24,14 @@ function updateLocations(addprev) {
 	var vacateEndDate=document.getElementById("vacateEndDate");
 	var vacateEndReason=document.getElementById("vacateEndReason");
 	var vacateEndReasonText=document.getElementById("vacateEndReasonText");
+	if(vacateEndDate!=null){
 	if(vacateEndDate.value!="")
 		url+="&ved="+vacateEndDate.value;
 	if(vacateEndReason.options[vacateEndReason.selectedIndex].value!="")
 		url+="&ver="+vacateEndReason.options[vacateEndReason.selectedIndex].value;
 	if(vacateEndReasonText.value!=""&&vacateEndReasonText.value!=undefined)
 		url+="&vert="+vacateEndReasonText.value;
+	}
 	if(addprev=="true")
 	url += "&addprev="+addprev;
 	else
