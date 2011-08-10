@@ -195,7 +195,7 @@ public class PostHistoryController {
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(postHistory.getEndReason()!=null){
 			if(postHistory.getEndReason().getName().getName().endsWith(":"))
-				if(postHistory.getEndReasonOther()==null)
+				if(postHistory.getEndReasonOther().equals(""))
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
@@ -240,7 +240,7 @@ public class PostHistoryController {
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(postHistory.getEndReason()!=null){
 			if(postHistory.getEndReason().getName().getName().endsWith(":"))
-				if(postHistory.getEndReasonOther()==null)
+				if(postHistory.getEndReasonOther().equals(""))
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){

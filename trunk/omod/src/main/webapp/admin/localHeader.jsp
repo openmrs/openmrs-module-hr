@@ -5,7 +5,7 @@
 
 		<li <c:if test='<%= request.getRequestURI().contains("job") %>'>class="active"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/admin/jobTitles.list">
-				<spring:message code="Manage Jobs"/>
+				<spring:message code="Manage Job Titles"/>
 			</a>
 		</li>
 		

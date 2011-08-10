@@ -100,7 +100,7 @@ public class AssignmentController {
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(assignment.getEndReason()!=null){
 			if(assignment.getEndReason().getName().getName().endsWith(":"))
-				if(assignment.getEndReasonOther()==null)
+				if(assignment.getEndReasonOther().equals(""))
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){
@@ -128,7 +128,7 @@ public class AssignmentController {
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(assignment.getEndReason()!=null){
 			if(assignment.getEndReason().getName().getName().endsWith(":"))
-				if(assignment.getEndReasonOther()==null)
+				if(assignment.getEndReasonOther().equals(""))
 					ValidationUtils.rejectIfEmpty(errors,"endReasonOther","error.null");
 			}
 			if(assignment.getStartDate()!=null && assignment.getEndDate()!=null){

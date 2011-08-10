@@ -11,7 +11,7 @@
 		toggleRowVisibilityForClass("JobsTable", "retired", false);
 	})
 </script>
-<h2><spring:message code="Manage jobs" /></h2>
+<h2><spring:message code="Manage job titles" /></h2>
 <a href="jobTitle.form"><spring:message code="Add New Job Title"/></a>
 <br/>
 <br/>
@@ -21,7 +21,7 @@
 		onClick="return toggleRowVisibilityForClass('JobsTable', 'retired', false);">
 		<spring:message code="general.toggle.retired" />
 	</a>
-	<spring:message code="Current Jobs"/>
+	<spring:message code="Current Job Titles"/>
 </b>
 <form method="post" class="box">
 <table id="JobsTable" width="100%">

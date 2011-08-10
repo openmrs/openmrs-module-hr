@@ -249,7 +249,7 @@ function preferredBoxClick(obj) {
 	<openmrs:htmlInclude file="/scripts/validation.js" />
 
 	<h2><spring:message code="Add Staff"/></h2>
-  	<c:if test="${staff.staffId==person.personId}">
+  	<c:if test="${staff.staffId==person.personId and not empty person.personId}">
 	<div id="staffExists" class="retiredMessage">
 		<div><spring:message code="Person already exists as staff"/></div>
 	</div>
@@ -348,7 +348,51 @@ function preferredBoxClick(obj) {
 					<spring:nestedPath path="person">
 						<%@ include file="/WEB-INF/view/admin/person/include/editPersonInfo.jsp" %>
 					</spring:nestedPath>
-				</table>
+					 <tr>
+					<td><spring:message code="Staff Status"/></td>
+					<td>
+					<select name="staffStatus" id="staffStatus">
+					<option value=""></option>
+					<c:forEach items="${StatusAnswers}" var="staffStatus">
+						<option value="${staffStatus.answerConcept}" <c:if test='${staffStatus.answerConcept.id == staff.staffStatus.id or staffStatus.answerConcept.id == modelStatus.id}'>selected="selected"</c:if>>${staffStatus.answerConcept.name.name}</option>
+					</c:forEach>
+	   				</select>
+					</td>
+					</tr>
+						<c:forEach items="${attrTypes}" var="attrType">
+							<c:set var="authorized" value="false" />
+							<c:choose>
+								<c:when test="${not empty attrType.editPrivilege}">
+									<openmrs:hasPrivilege privilege="${attrType.editPrivilege.privilege}">
+										<c:set var="authorized" value="true" />
+									</openmrs:hasPrivilege>
+								</c:when>
+								<c:otherwise>
+									<c:set var="authorized" value="true" />
+								</c:otherwise>
+							</c:choose>
+							<c:choose>
+								<c:when test="${attrType.retired == true}"></c:when>
+								<c:otherwise>
+									<tr>
+										<td><spring:message	code="${attrType.name}"/>
+										</td>
+										<td>
+										<c:choose>
+											<c:when test="${authorized == true}">
+												<openmrs:fieldGen type="${attrType.format}"	formFieldName="staffAttrType.${attrType.staffAttributeTypeId}" val="${attributeMap[attrType.name].hydratedObject}" parameters="optionHeader=[blank]|showAnswers=${attrType.foreignKey}|isNullable=false" />
+														<%-- isNullable=false so booleans don't have 'unknown' radiobox --%>
+												</c:when>
+												<c:otherwise>
+													${attributeMap[attrType.name]}
+												</c:otherwise>
+											</c:choose>
+										</td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+					</table>
 			</div>
 		</div>	
 
