@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-
+<openmrs:require privilege="View Positions,View Assignments" otherwise="/login.htm" redirect="/module/hr/manager/staffPosition.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 
