@@ -352,7 +352,6 @@ function preferredBoxClick(obj) {
 					<td><spring:message code="Staff Status"/></td>
 					<td>
 					<select name="staffStatus" id="staffStatus">
-					<option value=""></option>
 					<c:forEach items="${StatusAnswers}" var="staffStatus">
 						<option value="${staffStatus.answerConcept}" <c:if test='${staffStatus.answerConcept.id == staff.staffStatus.id or staffStatus.answerConcept.id == modelStatus.id}'>selected="selected"</c:if>>${staffStatus.answerConcept.name.name}</option>
 					</c:forEach>
