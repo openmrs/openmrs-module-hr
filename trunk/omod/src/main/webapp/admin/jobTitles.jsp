@@ -1,5 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
+
+<openmrs:require privilege="Manage Job Titles" otherwise="/login.htm" redirect="/module/hr/admin/jobTitles.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
@@ -11,9 +13,11 @@
 		toggleRowVisibilityForClass("JobsTable", "retired", false);
 	})
 </script>
+
 <h2><spring:message code="Manage job titles" /></h2>
 <a href="jobTitle.form"><spring:message code="Add New Job Title"/></a>
 <br/>
+
 <br/>
 <b class="boxHeader">
 	<a style="display: block; float: right"

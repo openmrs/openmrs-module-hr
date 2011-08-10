@@ -1,3 +1,4 @@
+<openmrs:hasPrivilege privilege="View Administration Functions">
 <ul id="menu">
 	<li class="first">
 		<a href="${pageContext.request.contextPath}/admin"><spring:message code="admin.title.short"/></a>
@@ -27,3 +28,4 @@
 			</a>
 		</li>
 </ul>
+</openmrs:hasPrivilege>

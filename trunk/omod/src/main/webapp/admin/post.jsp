@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-
+<openmrs:require privilege="Manage Posts" otherwise="/login.htm" redirect="/module/hr/admin/post.form"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
@@ -34,7 +34,9 @@
 			<spring:bind path="post.hrJobTitle.id">	
 				<select name="job" id="${status.expression}">
 					<c:forEach items="${JobList}" var="job" varStatus="status">
+						<c:if test='${job.retired==false}'>
 						<option value="${job.id}" <c:if test="${ post.hrJobTitle.title == job.title}">selected</c:if>>${job.title}</option>
+						</c:if>
 					</c:forEach>
      		</select> 
 			</spring:bind>
