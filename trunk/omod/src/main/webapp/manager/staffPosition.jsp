@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="View Positions,View Assignments" otherwise="/login.htm" redirect="/module/hr/manager/staffPosition.list"/>
+<openmrs:require privilege="View Posts" otherwise="/login.htm" redirect="/module/hr/manager/findStaff.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 
@@ -24,9 +24,10 @@ trs[i].className = "evenRow";
 }
 
 </style>
+<c:set var="currentExists" value="false"/>
 	<c:forEach var="postHistory" items="${PostHistories}" varStatus="rowStatus">
 			<c:if test='${postHistory.endDate!=null}'><c:set var="prevExists" value="true"/></c:if>
-			<c:choose><c:when test='${postHistory.endDate==null}'><c:set var="currentExists" value="true"/></c:when><c:otherwise><c:set var="currentExists" value="false"/></c:otherwise></c:choose>
+			<c:if test='${postHistory.endDate==null}'><c:set var="currentExists" value="true"/></c:if>
 	</c:forEach>
 <c:if test='${current==true}'>
 <table width="100%">

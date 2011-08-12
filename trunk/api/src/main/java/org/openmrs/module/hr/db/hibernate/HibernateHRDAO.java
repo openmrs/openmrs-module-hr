@@ -1370,7 +1370,7 @@ public class HibernateHRDAO implements HRDAO {
 			if((openPost=caliter.next()).getName().getName().equals("Open"))
 				break;
 		}
-		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("status",openPost)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("status",openPost)).add(Restrictions.eq("retired", false)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
 		List<Object[]> objectList=crit.list();
 		Iterator<Object[]> iter=objectList.iterator();
 		List<Integer> posts=new ArrayList<Integer>();
@@ -1384,7 +1384,7 @@ public class HibernateHRDAO implements HRDAO {
 	}
 	public List<HrPost> getPostsByJobTitle(Integer locationId){
 		List<HrPost> postList=new ArrayList<HrPost>();
-		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+		Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("retired",false)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
 		List<Object[]> objectList=crit.list();
 		Iterator<Object[]> iter=objectList.iterator();
 		List<Integer> posts=new ArrayList<Integer>();

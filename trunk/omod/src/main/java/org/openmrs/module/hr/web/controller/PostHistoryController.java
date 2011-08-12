@@ -130,9 +130,11 @@ public class PostHistoryController {
 				while(iter.hasNext())
 				{
 					HrAssignment assignment=iter.next();
+					if(assignment.getEndDate()==null){
 					assignment.setEndDate(vacateEndDate);
 					assignment.setEndReason(vacateEndReason);
 					assignment.setEndReasonOther(vacateEndReasonText);
+					}
 					hrManagerService.saveAssignment(assignment);
 				}
 				HrPost post=currentPosthistory.getHrPost();

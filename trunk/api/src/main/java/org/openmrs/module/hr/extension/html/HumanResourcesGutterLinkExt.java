@@ -12,7 +12,7 @@ public class HumanResourcesGutterLinkExt extends LinkExt {
 
 	@Override
 	public String getRequiredPrivilege() {
-		return null;
+		return "Find Human Resources";
 	}
 
 	@Override

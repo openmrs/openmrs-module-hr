@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
-<openmrs:require privilege="Manage Job Titles" otherwise="/login.htm" redirect="/module/hr/admin/jobTitle.form"/>
+<openmrs:require privilege="Manage Job Titles" otherwise="/login.htm" redirect="/module/hr/admin/jobTitles.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <%@ include file="localHeader.jsp" %>
 

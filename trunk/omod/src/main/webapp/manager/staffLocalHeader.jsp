@@ -8,15 +8,18 @@
 <br/>
 
 <ul id="menu">
+		<openmrs:hasPrivilege privilege="View Staff">
 		<li <c:if test='<%= request.getRequestURI().contains("Demographics") %>'>class="active first"</c:if> <c:if test='<%= !request.getRequestURI().contains("Demographics") %>'>class="first"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/manager/staffDemographics.htm">
 				<spring:message code="Personal"/>
 			</a>
 		</li>
-		
+		</openmrs:hasPrivilege>
+		<openmrs:hasPrivilege privilege="Add Post">
 		<li <c:if test='<%= request.getRequestURI().contains("Position") %>'>class="active"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/manager/staffPosition.list">
 				<spring:message code="Position"/>
 			</a>
 		</li>
+		</openmrs:hasPrivilege>
 </ul>
