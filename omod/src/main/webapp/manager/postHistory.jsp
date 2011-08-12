@@ -43,7 +43,7 @@ function updateLocations(addprev) {
 <c:set var="errorExist" value="true"/>
 	<spring:message code="fix.error"/>
 <c:forEach items="${errors.allErrors}" var="error">
-	<c:if test="${error.code == 'vacateEndDate' or error.code == 'vacateEndReason' or error.code == 'vacateEndReasonText' or error.code == 'startBeforeVacate' or error.code == 'vacateStartEnd' or error.code == 'newPostOverlap' or error.code == 'Overlap' or error.code == 'NotPrevious' or error.code == 'startBeforeEnd'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+	<c:if test="${error.code == 'vacateEndDate' or error.code == 'vacateEndReason' or error.code == 'vacateEndReasonText' or error.code == 'startBeforeVacate' or error.code == 'vacateStartEnd' or error.code == 'newPostOverlap' or error.code == 'Overlap' or error.code == 'NotPrevious' or error.code == 'startBeforeEnd' or error.code == 'afterAssignment'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
 </c:forEach>
 </spring:hasBindErrors>
 <form method="post">
@@ -64,7 +64,7 @@ function updateLocations(addprev) {
 			<select name="vacateEndReason" id="vacateEndReason" onchange="toggleReasonText(this.id,'vacateEndReasonText');">
 				<option value=""></option>
 					<c:forEach items="${EndReasons}" var="endReason">
-						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == vacateEndReason}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
+						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == vacateEndReason.id}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>
      	<span id="vacateEndReasonText" style="display:none">

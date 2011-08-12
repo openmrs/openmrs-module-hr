@@ -112,6 +112,16 @@ public class PostHistoryController {
 			}
 			if(vacateEndDate.before(currentPosthistory.getStartDate()))
 			errors.reject("vacateStartEnd","Vacating date cannot be before its start date");
+			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
+			for(HrAssignment each:assignmentsUnder)
+			{
+				if(each.getEndDate()!=null){
+				if(each.getEndDate().after(vacateEndDate)){
+					errors.reject("afterAssignment","Cannot vacate post before assignment ends");
+					break;
+				}
+				}
+			}
 			}
 				if(errors.hasErrors()){
 					String locationString;
@@ -119,13 +129,12 @@ public class PostHistoryController {
 					if((locationString=request.getParameter("locationId"))!=null)
 						locationId=Integer.parseInt(locationString);
 					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
-					model.addAttribute("vacateEndDate",vacateEndDate);
+					model.addAttribute("vacateEndDate",vacateDateString);
 					model.addAttribute("vacateEndReason",vacateEndReason);
 					model.addAttribute("vacateEndReasonText",vacateEndReasonText);	
 					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
 					return SUCCESS_FORM_VIEW;
 				}
-				List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
 				Iterator<HrAssignment> iter=assignmentsUnder.iterator();
 				while(iter.hasNext())
 				{

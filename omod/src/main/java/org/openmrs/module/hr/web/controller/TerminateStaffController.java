@@ -90,6 +90,15 @@ public class TerminateStaffController {
 			if(postHistoryInstance.getStartDate().after(postHistory.getEndDate()))
 			errors.reject("startBeforeEnd","End Date cannot be before start date");
 			}
+			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(postHistoryInstance);
+			for(HrAssignment each:assignmentsUnder){
+			if(each.getEndDate()!=null && postHistory.getEndDate()!=null){
+			if(postHistory.getEndDate().before(each.getEndDate())){
+				errors.reject("afterAssignment","Cannot vacate post before assignment ends");
+				break;
+			}
+			}
+			}
 			if(errors.hasErrors()){
 				ConceptService cs=Context.getConceptService();
 				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
@@ -106,14 +115,15 @@ public class TerminateStaffController {
 			postHistoryInstance.setEndReason(postHistory.getEndReason());
 			postHistoryInstance.setEndReasonOther(postHistory.getEndReasonOther());
 			hrManagerService.savePostHistory(postHistoryInstance);
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(postHistoryInstance);
 			Iterator<HrAssignment> iter=assignmentsUnder.iterator();
 			while(iter.hasNext())
 			{
 				HrAssignment assignment=iter.next();
+				if(assignment.getEndDate()==null){
 				assignment.setEndDate(postHistory.getEndDate());
 				assignment.setEndReason(postHistory.getEndReason());
 				assignment.setEndReasonOther(postHistory.getEndReasonOther());
+				}
 				hrManagerService.saveAssignment(assignment);
 			}
 			HrPost post=Context.getService(HRService.class).getPostById(postHistoryInstance.getHrPost().getPostId());
