@@ -20,7 +20,7 @@ else
 <c:set var="errorExist" value="true"/>
 <spring:message code="fix.error"/>
 <c:forEach items="${errors.allErrors}" var="error">
-	<c:if test="${error.code == 'startBeforeEnd'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+	<c:if test="${error.code == 'startBeforeEnd' or error.code == 'afterAssignment'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
 </c:forEach>
 </spring:hasBindErrors>
 <form method="post">
@@ -56,7 +56,7 @@ else
 			<select name="endReason" id="${status.expression}" onchange="toggleReasonText(this.id,'endReasonText');">
 				<option value=""></option>
 					<c:forEach items="${EndReasons}" var="endReason" varStatus="varStatus">
-						<option value="${endReason.answerConcept}">${endReason.answerConcept.name.name}</option>
+						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == status.value}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>
      		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
