@@ -100,7 +100,7 @@ public class PostController {
 		}
 		return post;
 	}
-	@ModelAttribute("status")
+	@ModelAttribute("prevStatus")
 	public Concept getStatus(@RequestParam(value="postId",required=false) Integer postId){
 		HRService hrService=Context.getService(HRService.class);
 		if(postId!=null)
@@ -121,7 +121,7 @@ public class PostController {
 	 * @return
 	 */
 	@RequestMapping(value = "module/hr/admin/post.form",method = RequestMethod.POST)
-	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors,@ModelAttribute("status") Concept prevStatus) {
+	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors,@ModelAttribute("prevStatus") Concept prevStatus) {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrJobTitle> jobList= hrService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();

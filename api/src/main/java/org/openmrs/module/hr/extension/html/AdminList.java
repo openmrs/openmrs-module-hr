@@ -53,5 +53,9 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("module/hr/admin/staffAttributeTypes.list", "Manage Staff Attribute Types");
 		return map;
 	}
-	
+	@Override
+	public String getRequiredPrivilege() {
+		return "Manage Human Resources";
+	}
+
 }

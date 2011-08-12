@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="Manage Posts" otherwise="/login.htm" redirect="/module/hr/admin/post.form"/>
+<openmrs:require privilege="Manage Posts" otherwise="/login.htm" redirect="/module/hr/admin/posts.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
@@ -91,7 +91,8 @@
 </fieldset>
 <br/>
 <br/>
-<c:if test="${not post.retired && post.postId!=0}">
+
+<c:if test="${not post.retired && post.postId!=0 && prevStatus.name.name!='Filled'}">
 	<fieldset>
 			<h4><spring:message code="Retire Post"/></h4>
 			

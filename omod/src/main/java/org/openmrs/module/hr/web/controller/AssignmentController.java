@@ -88,7 +88,6 @@ public class AssignmentController {
 			}
 			if(currentPosthistory!=null){
 			assignment.setHrPostHistory(currentPosthistory);
-			assignment.setStartDate(currentPosthistory.getStartDate());
 			hrManagerService.saveAssignment(assignment);
 			}
 		}

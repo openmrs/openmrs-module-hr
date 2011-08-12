@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="Manage Staff Attribute Types" otherwise="/login.htm" redirect="/module/hr/admin/staffAttributeTypes.form"/>
+<openmrs:require privilege="Manage Staff Attribute Types" otherwise="/login.htm" redirect="/module/hr/admin/staffAttributeTypes.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
