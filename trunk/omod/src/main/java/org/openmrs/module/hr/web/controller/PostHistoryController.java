@@ -105,6 +105,7 @@ public class PostHistoryController {
 					if(vacateEndReasonText==null)
 						errors.reject("vacateEndReasonText", "enter a valid vacate end reason text");
 			}
+			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
 			if(vacateEndDate!=null){
 			if(postHistory.getStartDate()!=null){
 			if(vacateEndDate.after(postHistory.getStartDate()))
@@ -112,7 +113,6 @@ public class PostHistoryController {
 			}
 			if(vacateEndDate.before(currentPosthistory.getStartDate()))
 			errors.reject("vacateStartEnd","Vacating date cannot be before its start date");
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
 			for(HrAssignment each:assignmentsUnder)
 			{
 				if(each.getEndDate()!=null){
