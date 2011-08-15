@@ -31,4 +31,3 @@
 		</li>
 		</openmrs:hasPrivilege>
 </ul>
-</openmrs:hasPrivilege>
