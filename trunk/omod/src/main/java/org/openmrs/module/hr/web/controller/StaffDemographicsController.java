@@ -1,5 +1,8 @@
 package org.openmrs.module.hr.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Person;
@@ -17,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
-@SessionAttributes({"staff","AttributeToDisplay"})
+@SessionAttributes({"staff","AttributeToDisplay","attrTypes","attributeMap","person"})
 public class StaffDemographicsController {
 	/** Logger for this class and subclasses */
 	protected static final Log log = LogFactory.getLog(StaffController.class);
@@ -29,6 +32,13 @@ public class StaffDemographicsController {
 		HRService hrService=Context.getService(HRService.class);
 		if(staffId!=null){
 		model.addAttribute("staff",hrService.getStaffById(staffId));
+		model.addAttribute("person",Context.getPersonService().getPerson(staffId));
+		model.addAttribute("attrTypes",hrService.getAllStaffAttributeTypes());
+		Map<String,HrStaffAttribute> attributeMap=new HashMap<String, HrStaffAttribute>();
+		for (HrStaffAttribute attribute : hrService.getStaffById(staffId).getActiveAttributes()) {
+			attributeMap.put(attribute.getHrStaffAttributeType().getName(), attribute);
+		}
+		model.addAttribute("attributeMap",attributeMap);
 		String property=Context.getAdministrationService().getGlobalProperty("HR.Staff_Attribute_to_display");
 		HrStaffAttribute AttributeToDisplay=null;
 		HrStaffAttributeType sat=null;
