@@ -443,7 +443,7 @@ public class StaffController {
 		for(HrStaffAttributeType sat:allsat)
 		{
 			String attr=request.getParameter("staffAttrType."+sat.getStaffAttributeTypeId());
-			if(attr!=null && attr!=null){
+			if(attr!=null && attr!=""){
 			HrStaffAttribute newAttribute=new HrStaffAttribute(sat, attr);
 			staff.addAttribute(newAttribute);
 			}

@@ -30,13 +30,13 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
      private Concept staffStatus;
      private Date initialHireDate;
      private String uuid;
-     private Set<HrAssignment> hrAssignments = new HashSet<HrAssignment>(0);
-     private Set<HrStaffNote> hrStaffNotes = new HashSet<HrStaffNote>(0);
-     private Set<HrStaffAttribute> hrStaffAttributes = new HashSet<HrStaffAttribute>(0);
-     private Set<HrEducation> hrEducations = new HashSet<HrEducation>(0);
-     private Set<HrEvaluation> hrEvaluations = new HashSet<HrEvaluation>(0);
-     private Set<HrStaffCert> hrStaffCerts = new HashSet<HrStaffCert>(0);
-     private Set<HrPostHistory> hrPostHistories = new HashSet<HrPostHistory>(0);
+     private Set<HrAssignment> hrAssignments;
+     private Set<HrStaffNote> hrStaffNotes;
+     private Set<HrStaffAttribute> hrStaffAttributes = new TreeSet<HrStaffAttribute>();
+     private Set<HrEducation> hrEducations;
+     private Set<HrEvaluation> hrEvaluations;
+     private Set<HrStaffCert> hrStaffCerts;
+     private Set<HrPostHistory> hrPostHistories;
 
 
     // Constructors
@@ -294,7 +294,7 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 				return; // if we have the same HrStaffAttributeId, don't add the new attribute
 			else if (currentAttribute.getHrStaffAttributeType().equals(newAttribute.getHrStaffAttributeType())) {
 				if (currentAttribute.getValue() != null && currentAttribute.getValue().equals(newAttribute.getValue()))
-					// this person already has this attribute
+					// this staff already has this attribute
 					return;
 				
 				// if the to-be-added attribute isn't already voided itself

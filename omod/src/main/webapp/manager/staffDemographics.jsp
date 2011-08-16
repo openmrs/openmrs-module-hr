@@ -52,7 +52,45 @@
 		</tbody>
 	</table>
 </div>
-
+<c:if test='${not empty person.attributes}'>
+<br/>
+<div class="boxHeader"><spring:message code="Attributes"/></div>
+<div class="box">
+<table>
+<openmrs:forEachDisplayAttributeType personType="" displayType="all" var="attrType">
+	<c:choose>
+	<c:when test="${attrType.retired == true and person.attributeMap[attrType.name]!=''}"></c:when>
+	<c:otherwise>
+	<tr>
+		<td><spring:message code="PersonAttributeType.${fn:replace(attrType.name, ' ', '')}" text="${attrType.name}"/></td>
+		<td>${person.attributeMap[attrType.name]}</td>
+	</tr>
+	</c:otherwise>
+	</c:choose>
+</openmrs:forEachDisplayAttributeType>
+</table>
+</div>
+</c:if>
+<c:if test='${not empty staff.attributes}'>
+<br/>
+<div class="boxHeader"><spring:message code="Staff Attributes"/></div>
+<div class="box">
+<table>
+	<c:forEach items="${attrTypes}" var="attrType">
+		<c:choose>
+			<c:when test="${attrType.retired == true}"></c:when>
+			<c:otherwise>
+				<tr>
+					<td><spring:message code="${attrType.name}" />
+					</td>
+					<td>${attributeMap[attrType.name]}</td>
+				</tr>
+		</c:otherwise>
+	</c:choose>
+	</c:forEach>
+</table>
+	</div>
+</c:if>
 <br/>
 <br/>
 
