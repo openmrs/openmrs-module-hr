@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Post Summary" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="AsOf" class="java.util.Date">
+		<defaultValueExpression><![CDATA[new Date("2010/08/08 00:00:00")]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select l.`name` as loc,j.title,sum(if(f.n!=0,1,0)) as pFilled,
+    sum(if((f.post_id is null and p.`status`=7777728) or (f.n=0 and f.nbefore!=0 and f.nafter!=0),1,0)) as pOpen,
+    sum(if((f.post_id is null and p.`status`=7777727) or (f.n=0 and f.nbefore=0 and f.nafter!=0),1,0)) as pUnapproved,
+    sum(if((f.post_id is null and p.`status`=7777730) or (f.n=0 and f.nbefore!=0 and f.nafter=0),1,0)) as pClosed
+from (((hr_post as p inner join location as l on p.location_id=l.location_id)
+    inner join hr_job_title as j on p.job_id=j.job_id)
+    left join location_tag_map as t on l.location_id=t.location_id)
+    left join
+    (select h.post_id,sum(if(h.start_date<$P{AsOf},1,0)) as nbefore,
+      sum(if(h.start_date>$P{AsOf},1,0)) as nafter,
+      sum(if(h.start_date<=$P{AsOf} and (h.end_date>=$P{AsOf} or h.end_date is null),1,0)) as n
+      from hr_post_history as h
+      group by h.post_id
+    ) as f on p.post_id=f.post_id
+where t.location_tag_id=7777701
+group by l.name,j.title
+order by l.name,j.title;]]>
+	</queryString>
+	<field name="loc" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="title" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pFilled" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pOpen" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pUnapproved" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pClosed" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="5" width="495" height="30"/>
+				<textElement textAlignment="Center">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Post Summary]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="200" height="20"/>
+				<textElement/>
+				<text><![CDATA[Location]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="167" height="20"/>
+				<textElement/>
+				<text><![CDATA[Job Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="367" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Filled]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Open]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Unapp]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="463" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Closed]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="200" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{loc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="0" width="167" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="367" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pFilled}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="399" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pOpen}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="431" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pUnapproved}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="463" y="0" width="32" height="20"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{pClosed}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<staticText>
+				<reportElement x="368" y="25" width="31" height="20"/>
+				<textElement/>
+				<text><![CDATA[As of]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="399" y="25" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression class="java.util.Date"><![CDATA[$P{AsOf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

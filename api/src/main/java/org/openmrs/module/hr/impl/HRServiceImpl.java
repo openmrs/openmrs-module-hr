@@ -6,12 +6,14 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
+import org.openmrs.module.hr.HrReport;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.db.HRDAO;
@@ -107,6 +109,10 @@ public class HRServiceImpl implements HRService{
 	{
 		return dao.getStaffAttributeTypeByName(name);
 	}
-
-	
+	public List<HrReport> getHrReports() throws DAOException {
+		return dao.getHrReports();
+	}
+	public HrReport getHrReport(Integer reportId) throws DAOException{
+		return dao.getHrReport(reportId);
+	}
 }

@@ -3,6 +3,7 @@ package org.openmrs.module.hr;
 import java.util.List;
 import java.util.Map;
 
+import org.openmrs.api.db.DAOException;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
@@ -56,4 +57,7 @@ public interface HRService {
 	
 	public HrStaffAttributeType getStaffAttributeTypeByName(String name) ;
 	
+	public List<HrReport> getHrReports() throws DAOException;
+	
+	public HrReport getHrReport(Integer reportId) throws DAOException;
 }

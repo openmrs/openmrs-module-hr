@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.hr">
+
+	<class name="HrReport" table="hr_report">
+
+		<id name="reportId" type="int" column="report_id">
+			<generator class="native" />
+		</id>
+
+		<property name="name" type="java.lang.String" column="name" length="45" not-null="true" />
+
+		<property name="description" type="string" column="description" />
+
+		<property name="fileName" type="java.lang.String" column="file_name" length="50" not-null="true" />
+
+
+		<list name="parameters" lazy="false" cascade="all,delete-orphan" table="hr_report_parameters" >
+			<key not-null="true">
+				<column name="reportId" />
+			</key>
+			 <list-index column="parameter_id"/>
+			<composite-element class="HrReportParameter">
+				<property name="displayName" type="string" column="display_name" />
+				<property name="name" type="string" column="name" not-null="true" />
+				<property name="valueClass" type="class" column="class" not-null="true" />
+				<property name="mappedClass" type="class" column="mapped_class" />
+				<property name="default_value" type="string" column="default_value" />
+				<property name="visible" type="boolean" column="visible" />
+			</composite-element>
+		</list>
+	</class>
+
+</hibernate-mapping>

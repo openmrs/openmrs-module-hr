@@ -130,6 +130,7 @@
 		HrTrainingClass.hbm.xml
 		HrTrainPerson.hbm.xml
 		HrStaffTag.hbm.xml
+		HrReport.hbm.xml
 	</mappingFiles>
 </module>
 
