@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
@@ -15,6 +16,7 @@ import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrLeave;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
+import org.openmrs.module.hr.HrReport;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
@@ -198,4 +200,8 @@ public interface HRDAO {
 	public List<HrPost> getPostsByJobTitle(Integer locationId);
 	
 	public HrStaffAttributeType getStaffAttributeTypeByName(String name) ;
+	
+	public List<HrReport> getHrReports() throws DAOException;
+	
+	public HrReport getHrReport(Integer reportId) throws DAOException;
 }

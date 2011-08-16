@@ -25,6 +25,7 @@ import org.openmrs.api.APIException;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrCompetency;
@@ -35,6 +36,7 @@ import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrLeave;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
+import org.openmrs.module.hr.HrReport;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
@@ -1394,5 +1396,21 @@ public class HibernateHRDAO implements HRDAO {
 		if(posts.size()>0)
 		postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
 		return postList;
+	}
+	public HrReport getHrReport(Integer reportId) throws DAOException {
+		HrReport hrReport = (HrReport) sessionFactory.getCurrentSession().get(HrReport.class, reportId);
+		if(hrReport!=null)
+		hrReport.initParamsFromLoad();
+		return hrReport;
+	}
+
+	public List<HrReport> getHrReports() throws DAOException {
+		List<HrReport> reports = sessionFactory.getCurrentSession().createCriteria(HrReport.class).list();
+		if(reports!=null){
+		for (HrReport hrReport : reports) {
+			hrReport.initParamsFromLoad();
+		}
+		}
+		return reports;
 	}
 }
