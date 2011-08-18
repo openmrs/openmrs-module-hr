@@ -11,11 +11,11 @@
 			<generator class="native" />
 		</id>
 
-		<property name="name" type="java.lang.String" column="name" length="45" not-null="true" />
+		<property name="name" lazy="false" type="java.lang.String" column="name" length="45" not-null="true" />
 
 		<property name="description" type="string" column="description" />
 
-		<property name="fileName" type="java.lang.String" column="file_name" length="50" not-null="true" />
+		<property name="fileName" lazy="false" type="java.lang.String" column="file_name" length="50" not-null="true" />
 
 
 		<list name="parameters" lazy="false" cascade="all,delete-orphan" table="hr_report_parameters" >

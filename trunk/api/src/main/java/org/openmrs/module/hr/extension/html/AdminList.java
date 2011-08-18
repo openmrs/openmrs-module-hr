@@ -51,6 +51,7 @@ public class AdminList extends AdministrationSectionExt {
 		map.put("module/hr/admin/posts.list", "Manage Posts");
 		map.put("module/hr/admin/staff.list", "Manage Staff");
 		map.put("module/hr/admin/staffAttributeTypes.list", "Manage Staff Attribute Types");
+		map.put("/module/hr/admin/reportSelection.list","Reports");
 		return map;
 	}
 	@Override

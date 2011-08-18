@@ -4,8 +4,7 @@
 	<property name="ireport.x" value="117"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
-		<![CDATA[
-select s.staff_id, concat(pn.family_name,', ', if(pn.given_name is null,'',concat(pn.given_name,' ')), if(pn.middle_name is null,'',pn.middle_name)) as fullname,
+		<![CDATA[select s.staff_id, concat(pn.family_name,', ', if(pn.given_name is null,'',concat(pn.given_name,' ')), if(pn.middle_name is null,'',pn.middle_name)) as fullname,
     pp.gender, pp.birthdate, s.initial_hire_date, cn.`name` as sstatus, sa.`value` as empno
   from (((hr_staff as s inner join person as pp on s.staff_id=pp.person_id)
     inner join person_name as pn on pn.person_id=s.staff_id)
@@ -53,7 +52,7 @@ select s.staff_id, concat(pn.family_name,', ', if(pn.given_name is null,'',conca
 		</band>
 	</pageHeader>
 	<columnHeader>
-		<band height="31" splitType="Stretch">
+		<band height="22" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="61" height="20"/>
 				<textElement/>
@@ -78,6 +77,11 @@ select s.staff_id, concat(pn.family_name,', ', if(pn.given_name is null,'',conca
 				<reportElement x="324" y="0" width="68" height="20"/>
 				<textElement textAlignment="Center"/>
 				<text><![CDATA[Initial Hire]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="393" y="0" width="82" height="20"/>
+				<textElement/>
+				<text><![CDATA[Status]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -119,9 +123,9 @@ select s.staff_id, concat(pn.family_name,', ', if(pn.given_name is null,'',conca
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="6" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</pageFooter>
 	<summary>
-		<band height="42" splitType="Stretch"/>
+		<band splitType="Stretch"/>
 	</summary>
 </jasperReport>
