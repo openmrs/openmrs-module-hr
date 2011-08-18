@@ -24,6 +24,12 @@
 <fieldset>
 <table>
 	<tr>
+		<td><spring:message code="Attribute To Display"/></td>
+		<td>
+			<input type="checkbox" name="toBeDisplayed" <c:if test='${checked}'>checked='true'</c:if>/>
+		</td>
+	</tr>
+	<tr>
 		<td><spring:message code="general.name"/></td>
 		<td>
 			<spring:bind path="staffAttributeType.name">

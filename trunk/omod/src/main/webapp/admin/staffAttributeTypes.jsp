@@ -3,7 +3,6 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-
 <h2><spring:message code="Manage Staff Attribute Types" /></h2>
 <a href="staffAttributeType.form"><spring:message code="Add New Staff Attribute Type"/></a>
 <br /><br />
@@ -15,6 +14,7 @@
 		<tr>
 			<th> <spring:message code="general.name"/> </th>
 			<th> <spring:message code="general.description"/> </th>
+			<th> <spring:message code="Attribute to be Displayed"/> </th>
 		</tr>
 		<c:forEach var="staffAttributeType" items="${StaffAttributeTypeList}">
 			<tr>
@@ -31,10 +31,10 @@
 					</a>
 				</td>
 				<td valign="top">${staffAttributeType.description}</td>
+				<td valign="top" align="center"><c:if test='${toBeDisplayed==staffAttributeType.name}'><img src="${pageContext.request.contextPath}/moduleResources/hr/images/tick.gif"></c:if></td>
 			</tr>
 		</c:forEach>
 	</table>
 </form>
-
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>
