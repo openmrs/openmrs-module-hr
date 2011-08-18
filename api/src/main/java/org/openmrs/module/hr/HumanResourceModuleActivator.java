@@ -22,19 +22,44 @@ import org.openmrs.Role;
 import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Activator;
+import org.openmrs.module.ModuleActivator;
 import org.openmrs.util.OpenmrsConstants;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class HumanResourceModuleActivator implements Activator {
+public class HumanResourceModuleActivator implements ModuleActivator {
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	/**
-	 * @see org.openmrs.module.Activator#startup()
-	 */
-	public void startup() {
+	public void contextRefreshed() {
+			
+	}
+
+	public void started() {
+		
+	}
+
+	public void stopped() {
+		UserService us = Context.getUserService();
+		Role humanResourceManager = us.getRole("Human Resource Manager");
+		Role humanResourceClerk=us.getRole("Human Resource Clerk");
+		if(humanResourceManager!=null){
+			us.purgeRole(humanResourceManager);
+		}
+		if(humanResourceClerk!=null){
+			us.purgeRole(humanResourceClerk);
+		}
+		log.info("Shutting down Human Resource Module");
+		
+	}
+
+	public void willRefreshContext() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void willStart() {
 		Set<Role> inheritedRoleSet=new HashSet<Role>();
 		inheritedRoleSet.add(Context.getUserService().getRole(OpenmrsConstants.AUTHENTICATED_ROLE));
 		UserService us = Context.getUserService();
@@ -53,22 +78,12 @@ public class HumanResourceModuleActivator implements Activator {
 		 us.saveRole(humanResourceClerk);
 		 } 
 		log.info("Starting Human Resource Module");
+		
 	}
-	
-	/**
-	 * @see org.openmrs.module.Activator#shutdown()
-	 */
-	public void shutdown() {
-		UserService us = Context.getUserService();
-		Role humanResourceManager = us.getRole("Human Resource Manager");
-		Role humanResourceClerk=us.getRole("Human Resource Clerk");
-		if(humanResourceManager!=null){
-			us.purgeRole(humanResourceManager);
-		}
-		if(humanResourceClerk!=null){
-			us.purgeRole(humanResourceClerk);
-		}
-		log.info("Shutting down Human Resource Module");
+
+	public void willStop() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

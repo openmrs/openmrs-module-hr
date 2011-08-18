@@ -106,6 +106,11 @@
 		<name>Add Assignments</name>
 		<description>Able to Add Assignments</description>
 	</privilege>
+	
+	<privilege>
+		<name>View Reports</name>
+		<description>Able to view reports</description>
+	</privilege>
 
 	<!-- /Required Privileges -->
 	<!-- mappings -->
