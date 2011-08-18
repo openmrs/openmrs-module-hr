@@ -145,7 +145,20 @@ public class HrReportParameter implements java.io.Serializable {
 			// Date, String, or Integer
 			return valueObj;
 	}
-
+	public void setValue(Object valueObj) {
+		
+		if (getInterfaceClass() == Location.class) {
+			this.valueLocation=(Location)valueObj;
+		} else if (getInterfaceClass() == Concept.class) {
+			this.valueConcept=(Concept)valueObj;
+		} else if (getInterfaceClass() == Boolean.class) {
+			this.valueBoolean=(Boolean)valueObj;
+		} else if (getInterfaceClass()== Date.class)
+			this.valueDate=(Date)valueObj;
+		else
+			setDefault_value((String)valueObj);
+			
+	}
 	public Boolean getValueBoolean() {
 		return valueBoolean;
 	}
