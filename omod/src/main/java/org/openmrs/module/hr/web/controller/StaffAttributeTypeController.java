@@ -7,8 +7,10 @@ import java.util.TreeSet;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.GlobalProperty;
 import org.openmrs.Privilege;
 import org.openmrs.api.APIException;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrStaffAttributeType;
@@ -46,6 +48,8 @@ public class StaffAttributeTypeController {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrStaffAttributeType> staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 		model.addAttribute("StaffAttributeTypeList",staffAttributeTypeList);
+		String property=Context.getAdministrationService().getGlobalProperty("HR.Staff_Attribute_to_display");
+		model.addAttribute("toBeDisplayed",property);
 		return SUCCESS_LIST_VIEW;
 	}
 	@ModelAttribute("staffAttributeType")	
@@ -54,8 +58,17 @@ public class StaffAttributeTypeController {
 	{
 		HRService hrService=Context.getService(HRService.class);
 		HrStaffAttributeType staffAttributeType;
-		if(staffAttributeTypeId!=null)
+		if(staffAttributeTypeId!=null){
 			staffAttributeType=hrService.getStaffAttributeTypeById(staffAttributeTypeId);
+			if(staffAttributeType!=null){
+			AdministrationService as=Context.getAdministrationService();
+			GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
+			if(gp!=null){
+			if(staffAttributeType.getName().equals(gp.getPropertyValue()))
+				model.addAttribute("checked",true);
+			}
+		  }
+		}
 			else{
 			staffAttributeType=new HrStaffAttributeType();
 			}
@@ -70,6 +83,7 @@ public class StaffAttributeTypeController {
 		formats.add("java.lang.Boolean");
 		model.addAttribute("privileges",privileges);
 		model.addAttribute("formats",formats);
+		
 		return staffAttributeType;
 	}
 	/**
@@ -92,31 +106,47 @@ public class StaffAttributeTypeController {
 		formats.add("java.lang.Integer");
 		formats.add("java.lang.Float");
 		formats.add("java.lang.Boolean");
+		String tbd=request.getParameter("toBeDisplayed");
+		boolean toBeDisplayed=false;
+		if(tbd==null)
+		toBeDisplayed=false;
+		else if (tbd.equals("on"))
+			toBeDisplayed=true;
 		ModelAndView formView=new ModelAndView(SUCCESS_FORM_VIEW);
 		formView.addObject("privileges", privileges);
 		formView.addObject("formats", formats);
+		formView.addObject("checked", toBeDisplayed);
 		List<HrStaffAttributeType> staffAttributeTypeList=null;
+		AdministrationService as=Context.getAdministrationService();
+		GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
 		if (Context.isAuthenticated()) {
 			ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
 			if (request.getParameter("purge") != null) {
 				try {
 					HrStaffAttributeType sat=hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId());
 					hrService.purgeStaffAttributeType(sat);
+					if(gp!=null && gp.getPropertyValue().equals(staffAttributeType.getName())){
+						gp.setPropertyValue("");
+						as.saveGlobalProperty(gp);
+					}
 					request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type purged successfully");
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+					listView.addObject("toBeDisplayed",gp.getPropertyValue());
 					return listView;
 				}
 				catch (DataIntegrityViolationException e) {
 					request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "error.object.inuse.cannot.purge");
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+					listView.addObject("toBeDisplayed",gp.getPropertyValue());
 					return listView;
 				}
 				catch (APIException e) {
 					request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "error.general: " + e.getLocalizedMessage());
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+					listView.addObject("toBeDisplayed",gp.getPropertyValue());
 					return listView;
 				}
 			}
@@ -128,21 +158,23 @@ public class StaffAttributeTypeController {
 					return formView;
 				}
 				hrService.retireStaffAttributeType(hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()), retireReason);
+				if(gp!=null && gp.getPropertyValue().equals(staffAttributeType.getName())){
+					gp.setPropertyValue("");
+					as.saveGlobalProperty(gp);
+				}
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type retired scuccessfully");
 				staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 				listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+				listView.addObject("toBeDisplayed",gp.getPropertyValue());
 				return listView;
 			}
-
-			// if the user is purging the StaffAttributeType
-			
-
 			else if (request.getParameter("unretire") != null) {
 				try {
 					hrService.unretireStaffAttributeType(hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()));
 					request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type unretired successfully");
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+					listView.addObject("toBeDisplayed",gp.getPropertyValue());
 					return listView;
 				}
 				catch (APIException e) {
@@ -157,9 +189,18 @@ public class StaffAttributeTypeController {
 				}
 				else {
 					hrService.saveStaffAttributeType(staffAttributeType);
+					if(toBeDisplayed && gp!=null){
+						gp.setPropertyValue(staffAttributeType.getName());
+						as.saveGlobalProperty(gp);
+					}
+					else if(!toBeDisplayed && gp!=null && gp.getPropertyValue().equals(staffAttributeType.getName())){
+						gp.setPropertyValue("");
+						as.saveGlobalProperty(gp);
+					}
 					request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type saved Successfully");
 					staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 					listView.addObject("StaffAttributeTypeList", staffAttributeTypeList);
+					listView.addObject("toBeDisplayed",gp.getPropertyValue());
 					return listView;
 				}
 				
@@ -169,5 +210,20 @@ public class StaffAttributeTypeController {
 		}
 		return formView;
 	}
-	
+/*	@RequestMapping(value="module/hr/admin/staffAttributeType.list",method = RequestMethod.POST)
+	public ModelAndView onListSubmit(HttpServletRequest request,@ModelAttribute("staffAttributeType") HrStaffAttributeType staffAttributeType, BindingResult errors) {
+		String value=request.getParameter("toBeDisplayed");
+		AdministrationService as=Context.getAdministrationService();
+		GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
+		gp.setPropertyValue(value);
+		as.saveGlobalProperty(gp);
+		ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
+		HRService hrService=Context.getService(HRService.class);
+		HrStaffAttributeType sat=hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId());
+		hrService.purgeStaffAttributeType(sat);
+		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type purged successfully");
+		listView.addObject("StaffAttributeTypeList", hrService.getAllStaffAttributeTypes());
+		listView.addObject("toBeDisplayed",value);
+		return listView;
+	}*/
 }
