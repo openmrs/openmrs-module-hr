@@ -54,6 +54,7 @@ public class ReportGenerator {
 	Map<String,Object> map=new HashMap<String, Object>();
 	for(HrReportParameter reportParameter:report.getParameters()){
 		if(reportParameter!=null)
+			if(reportParameter.getName()!=null)
 		map.put(reportParameter.getName(),reportParameter.getValue());
 	}
 	log.debug("Report parameter map: " + map);

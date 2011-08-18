@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ import org.openmrs.Location;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrReport;
+import org.openmrs.module.hr.HrReportParameter;
 import org.openmrs.module.hr.ReportGenerator;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
@@ -72,6 +75,20 @@ public class ReportController {
 		HRService hrService=Context.getService(HRService.class);
 		String outputFormat=request.getParameter("outputFormat");
 		HrReport hrReport=hrService.getHrReport(report.getReportId());
+		int i=0;
+		List<HrReportParameter> parameterList=report.getParameters();
+		for(HrReportParameter p:parameterList)
+		{
+			if(p!=null)
+				if(parameterList.get(i)!=null && p.getValue()!=null){
+					p.setValueClass(hrReport.getParameters().get(i).getValueClass());
+					p.setMappedClass(hrReport.getParameters().get(i).getValueClass());
+					p.setName(hrReport.getParameters().get(i).getName());
+				}
+			i++;
+			
+		}
+		hrReport.setParameters(parameterList);
 		String jrxmlUrl=request.getRequestURL().toString().replace(request.getRequestURI(), request.getContextPath())+"/moduleResources/hr/jrxmls/"+hrReport.getFileName();
 		File generatedReport=ReportGenerator.generate(hrReport, outputFormat, jrxmlUrl);
 		FileInputStream fis=new FileInputStream(generatedReport);
