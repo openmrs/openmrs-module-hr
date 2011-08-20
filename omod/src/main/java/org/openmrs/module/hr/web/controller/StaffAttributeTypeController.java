@@ -48,7 +48,7 @@ public class StaffAttributeTypeController {
 		HRService hrService=Context.getService(HRService.class);
 		List<HrStaffAttributeType> staffAttributeTypeList= hrService.getAllStaffAttributeTypes();
 		model.addAttribute("StaffAttributeTypeList",staffAttributeTypeList);
-		String property=Context.getAdministrationService().getGlobalProperty("HR.Staff_Attribute_to_display");
+		String property=Context.getAdministrationService().getGlobalProperty("hr.Staff_Attribute_to_display");
 		model.addAttribute("toBeDisplayed",property);
 		return SUCCESS_LIST_VIEW;
 	}
@@ -62,7 +62,7 @@ public class StaffAttributeTypeController {
 			staffAttributeType=hrService.getStaffAttributeTypeById(staffAttributeTypeId);
 			if(staffAttributeType!=null){
 			AdministrationService as=Context.getAdministrationService();
-			GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
+			GlobalProperty gp=as.getGlobalPropertyObject("hr.Staff_Attribute_to_display");
 			if(gp!=null){
 			if(staffAttributeType.getName().equals(gp.getPropertyValue()))
 				model.addAttribute("checked",true);
@@ -118,7 +118,7 @@ public class StaffAttributeTypeController {
 		formView.addObject("checked", toBeDisplayed);
 		List<HrStaffAttributeType> staffAttributeTypeList=null;
 		AdministrationService as=Context.getAdministrationService();
-		GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.Staff_Attribute_to_display");
 		if (Context.isAuthenticated()) {
 			ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
 			if (request.getParameter("purge") != null) {
@@ -214,7 +214,7 @@ public class StaffAttributeTypeController {
 	public ModelAndView onListSubmit(HttpServletRequest request,@ModelAttribute("staffAttributeType") HrStaffAttributeType staffAttributeType, BindingResult errors) {
 		String value=request.getParameter("toBeDisplayed");
 		AdministrationService as=Context.getAdministrationService();
-		GlobalProperty gp=as.getGlobalPropertyObject("HR.Staff_Attribute_to_display");
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.Staff_Attribute_to_display");
 		gp.setPropertyValue(value);
 		as.saveGlobalProperty(gp);
 		ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");

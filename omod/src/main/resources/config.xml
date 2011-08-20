@@ -47,6 +47,7 @@
 		<lang>es</lang>
 		<file>messages_es.properties</file>
 	</messages>
+	<!-- /Internationalization -->
 	<servlet>
 		<servlet-name>AttributePopulator</servlet-name>
 		<servlet-class>org.openmrs.module.hr.web.servlet.AttributePopulator</servlet-class>
@@ -55,7 +56,6 @@
 		<servlet-name>AttributePopulator</servlet-name>
 		<url-pattern>/AttributePopulator</url-pattern>
 	</servlet-mapping>
-	<!-- /Internationalization -->
 	<!-- Required Privileges -->
 	<privilege>
 		<name>Manage Posts</name>
@@ -113,6 +113,23 @@
 	</privilege>
 
 	<!-- /Required Privileges -->
+	<!-- Global Properties -->
+	<globalProperty>
+		<property>@MODULE_ID@.Staff_Attribute_to_display</property>
+		<defaultValue></defaultValue>
+		<description>
+			Name of Staff_Attribute to display in Staff header
+		</description>
+	</globalProperty>
+		
+	<globalProperty>
+		<property>@MODULE_ID@.PersonCentric(0)-PostCentric(1)</property>
+		<defaultValue>1</defaultValue>
+		<description>
+			Value which says whether the system is person-centric or post-centric.
+		</description>
+	</globalProperty>
+	<!-- /Global Properties -->
 	<!-- mappings -->
 	<mappingFiles>
 		HrAssignment.hbm.xml

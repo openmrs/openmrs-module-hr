@@ -64,7 +64,7 @@ function updateLocations(addprev) {
 			<select name="vacateEndReason" id="vacateEndReason" onchange="toggleReasonText(this.id,'vacateEndReasonText');">
 				<option value=""></option>
 					<c:forEach items="${EndReasons}" var="endReason">
-						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == vacateEndReason.id}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
+						<option value="${endReason.answerConcept}" <c:if test='${endReason.answerConcept.id == vacateEndReason}'>selected="selected"</c:if>>${endReason.answerConcept.name.name}</option>
 					</c:forEach>
      		</select>
      	<span id="vacateEndReasonText" style="display:none">
@@ -96,7 +96,7 @@ function updateLocations(addprev) {
 				<c:choose>
 				<c:when test='${createNew==true or addprev==true}'>
 				<spring:bind path="postHistory.hrPost.location">
-				<select name="location" id="${status.expression}" onchange="updateLocations('${addprev}')">
+				<select name="location" id="${status.expression}" <c:if test='${!isPersonCentric}'>onchange="updateLocations('${addprev}')"</c:if>>
 					<c:forEach items="${locationList}" var="location">
 						<option value="${location.id}" <c:if test='${location.id == status.value or location.id==selectedLocation}'>selected="selected"</c:if>>${location.name}</option>
 					</c:forEach>
@@ -121,6 +121,8 @@ function updateLocations(addprev) {
 				
 			<c:choose>
 				<c:when test='${createNew==true || addprev==true}'>
+				<c:choose>
+				<c:when test='${!isPersonCentric}'>
 				<spring:bind path="postHistory.hrPost">
 				<select name="${status.expression}" id="${status.expression}" style="width:250px">
 					<option value="" selected="selected"> </option>
@@ -129,7 +131,16 @@ function updateLocations(addprev) {
 					</c:forEach>
      			</select>
      			<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
-     			</spring:bind> 
+     			</spring:bind>
+     			</c:when>
+     			<c:otherwise>
+     			<select name="jobId" id="jobId" style="width:250px">
+					<c:forEach items="${jobList}" var="jobTitle">
+						<option value="${jobTitle.id}" <c:if test='${jobTitle.id == selectedJobTitle}'>selected="selected"</c:if>>${jobTitle.title}</option>
+					</c:forEach>
+     			</select>
+     			</c:otherwise>
+     			</c:choose> 
      			</c:when>
      		<c:otherwise>
      		<spring:bind path="postHistory.hrPost.hrJobTitle.title"> 

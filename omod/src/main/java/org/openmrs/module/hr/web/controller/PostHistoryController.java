@@ -15,8 +15,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
 import org.openmrs.LocationTag;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
@@ -27,7 +29,6 @@ import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.propertyEditor.HrPostEditor;
-import org.openmrs.module.hr.propertyEditor.HrPostHistoryEditor;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
@@ -64,11 +65,11 @@ public class PostHistoryController {
 	
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.GET)
 	@ModelAttribute("postHistory")
-	public HrPostHistory showList(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@RequestParam(required=false,value="locationId") Integer locationId,@ModelAttribute("staff") HrStaff staff,@RequestParam(required=false,value="ved") String vacateEndDate,@RequestParam(required=false,value="ver") String vacateEndReason,@RequestParam(required=false,value="vert") String vacateEndReasonText){
+	public HrPostHistory showForm(ModelMap model,@RequestParam(required=false,value="alllocations") boolean includeAllLocations,@RequestParam(required=false,value="addprev") boolean addprev,@RequestParam(required=false,value="postHistoryId") Integer postHistoryId,@RequestParam(required=false,value="locationId") Integer locationId,@ModelAttribute("staff") HrStaff staff,@RequestParam(required=false,value="ved") String vacateEndDate,@RequestParam(required=false,value="ver") String vacateEndReason,@RequestParam(required=false,value="vert") String vacateEndReasonText,@RequestParam(required=false,value="location") String location){
 		model.addAttribute("vacateEndDate",vacateEndDate);
 		model.addAttribute("vacateEndReason",vacateEndReason);
 		model.addAttribute("vacateEndReasonText",vacateEndReasonText);	
-		return prepareModel(postHistoryId,model,staff,addprev,locationId,includeAllLocations);
+		return prepareModel(postHistoryId,model,staff,addprev,locationId,includeAllLocations,location);
 	}
 	@RequestMapping(value = "module/hr/manager/postHistory.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("postHistory") HrPostHistory postHistory,BindingResult errors,@ModelAttribute("staff") HrStaff staff) throws ParseException {
@@ -76,10 +77,18 @@ public class PostHistoryController {
 		{
 			return "redirect:/module/hr/manager/staffPosition.list";
 		}
+		AdministrationService as=Context.getAdministrationService();
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+		boolean isPersonCentric=false;
+		if(gp.getPropertyValue().equals("0")){
+			isPersonCentric=true;
+		}
 		ConceptService cs=Context.getConceptService();
 		String actionString=request.getParameter("actionString");
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		if(!isPersonCentric){
 		ValidationUtils.rejectIfEmpty(errors,"hrPost","error.null");
+		}
 		if(actionString.equals("createNew"))
 		{
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
@@ -130,9 +139,10 @@ public class PostHistoryController {
 						locationId=Integer.parseInt(locationString);
 					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
 					model.addAttribute("vacateEndDate",vacateDateString);
-					model.addAttribute("vacateEndReason",vacateEndReason);
-					model.addAttribute("vacateEndReasonText",vacateEndReasonText);	
-					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
+					model.addAttribute("vacateEndReason",vacateEndReasonString);
+					model.addAttribute("vacateEndReasonText",vacateEndReasonText);
+					String selJob=request.getParameter("jobId");
+					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations,selJob);
 					return SUCCESS_FORM_VIEW;
 				}
 				Iterator<HrAssignment> iter=assignmentsUnder.iterator();
@@ -147,15 +157,32 @@ public class PostHistoryController {
 					hrManagerService.saveAssignment(assignment);
 				}
 				HrPost post=currentPosthistory.getHrPost();
-				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
-				Concept openPost=null;
-				if(concepts!=null){
-				Iterator<Concept> caliter=concepts.iterator();
-				while(caliter.hasNext())
-					if((openPost=caliter.next()).getName().getName().equals("Open"))
-						break;
-				}
-				post.setStatus(openPost);
+				if(!isPersonCentric){
+					List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+					Concept openPost=null;
+					if(concepts!=null){
+					Iterator<Concept> caliter=concepts.iterator();
+					while(caliter.hasNext())
+						if((openPost=caliter.next()).getName().getName().equals("Open"))
+							break;
+					}
+					post.setStatus(openPost);
+					}
+					else{
+						Concept concept=cs.getConceptByMapping("Post status","HR Module");
+						Concept closedPost=null;
+						if(concept!=null){
+						Iterator<ConceptAnswer> caliter=concept.getAnswers().iterator();
+						while(caliter.hasNext()){
+							Concept temp;
+							if((temp=caliter.next().getAnswerConcept()).getName().getName().equals("Closed")){
+								closedPost=temp;
+								break;
+							}
+						}
+						}
+						post.setStatus(closedPost);
+					}
 				Context.getService(HRService.class).savePost(post);
 				currentPosthistory.setEndDate(vacateEndDate);
 				currentPosthistory.setEndReason(vacateEndReason);
@@ -181,13 +208,12 @@ public class PostHistoryController {
 					if((locationString=request.getParameter("locationId"))!=null)
 						locationId=Integer.parseInt(locationString);
 					boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
-					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations);
+					String selJob=request.getParameter("jobId");
+					prepareModel(postHistory.getPostHistoryId(), model, staff, false,locationId,allLocations,selJob);
 					return SUCCESS_FORM_VIEW;
 				}
 			}	
 			postHistory.setHrStaff(staff);
-			hrManagerService.savePostHistory(postHistory);
-			HrPost post=postHistory.getHrPost();
 			Concept filledPost=null;
 			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
 			if(concepts!=null){
@@ -196,8 +222,28 @@ public class PostHistoryController {
 				if((filledPost=caliter.next()).getName().getName().equals("Filled"))
 					break;
 			}
+			if(isPersonCentric)
+			{
+				HrPost newPost=new HrPost();
+				String locationString;
+				int locationId=0;
+				String jobTitle;
+				int jobId=0;
+				if((locationString=request.getParameter("location"))!=null)
+					locationId=Integer.parseInt(locationString);
+				if((jobTitle=request.getParameter("jobId"))!=null)
+					jobId=Integer.parseInt(jobTitle);
+				newPost.setLocation(Context.getLocationService().getLocation(locationId));
+				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				newPost.setStatus(filledPost);
+				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+			}
+			hrManagerService.savePostHistory(postHistory);
+			if(!isPersonCentric){
+			HrPost post=postHistory.getHrPost();
 			post.setStatus(filledPost);
 			Context.getService(HRService.class).savePost(post);
+			}
 		}
 		else if(actionString.equals("addprev"))
 		{
@@ -217,7 +263,7 @@ public class PostHistoryController {
 			Iterator<HrPostHistory> phiter=allPostHistories.iterator();
 			while (phiter.hasNext()) {
 				HrPostHistory temp=phiter.next();
-				if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
+				if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null && temp.getEndDate()!=null){
 				if((postHistory.getEndDate().after(temp.getStartDate()))&&(postHistory.getStartDate().before(temp.getEndDate()))){
 					errors.reject("Overlap","This post overlaps with other exisitng posts");
 					break;
@@ -237,8 +283,34 @@ public class PostHistoryController {
 				if((locationString=request.getParameter("locationId"))!=null)
 					locationId=Integer.parseInt(locationString);
 				boolean allLocations=Boolean.valueOf(request.getParameter("alllocations")).booleanValue();
-				prepareModel(postHistory.getPostHistoryId(), model, staff, true,locationId,allLocations);
+				String selJob=request.getParameter("jobId");
+				prepareModel(postHistory.getPostHistoryId(), model, staff, true,locationId,allLocations,selJob);
 				return SUCCESS_FORM_VIEW;
+			}
+			if(isPersonCentric)
+			{
+				HrPost newPost=new HrPost();
+				String locationString;
+				int locationId=0;
+				String jobTitle;
+				int jobId=0;
+				if((locationString=request.getParameter("location"))!=null)
+					locationId=Integer.parseInt(locationString);
+				if((jobTitle=request.getParameter("jobId"))!=null)
+					jobId=Integer.parseInt(jobTitle);
+				newPost.setLocation(Context.getLocationService().getLocation(locationId));
+				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				Concept filledPost=null;
+				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+				if(concepts!=null){
+				Iterator<Concept> caliter=concepts.iterator();
+				while(caliter.hasNext())
+					if((filledPost=caliter.next()).getName().getName().equals("Filled"))
+						break;
+				}
+				newPost.setStatus(filledPost);
+				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+				
 			}
 			postHistory.setHrStaff(staff);
 			hrManagerService.savePostHistory(postHistory);
@@ -298,7 +370,16 @@ public class PostHistoryController {
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Position saved successfully");
 		return "redirect:/module/hr/manager/staffPosition.list";
 	}
-	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,Integer locationId,boolean includeAllLocations){
+	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,Integer locationId,boolean includeAllLocations,String selJob){
+		AdministrationService as=Context.getAdministrationService();
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+		boolean isPersonCentric=false;
+		if(gp.getPropertyValue().equals("0")){
+			isPersonCentric=true;
+			model.addAttribute("isPersonCentric",true);
+		}
+		else
+			model.addAttribute("isPersonCentric",false);
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
 		model.addAttribute("selectedLocation", locationId);
 		ConceptService cs=Context.getConceptService();
@@ -316,26 +397,25 @@ public class PostHistoryController {
 			locationList=locService.getAllLocations();
 		}
 		model.addAttribute("locationList",locationList);
-		if(addprev==false){
-		model.addAttribute("createNew",true);
-		List<HrPost> postList;
-		if(locationId==null)
-			postList=hrManagerService.getOpenPostByJobTitle(locationList.get(0).getId());
-		else
-			postList=hrManagerService.getOpenPostByJobTitle(locationId);
-		model.addAttribute("postList",postList);
-		}
-		else
-		{
-			model.addAttribute("addprev",true);
+			
+			if(addprev==false)
+				model.addAttribute("createNew",true);
+			else
+				model.addAttribute("addprev",true);
+			if(!isPersonCentric){			
 			List<HrPost> postList;
 			if(locationId==null)
 				postList=hrManagerService.getPostsByJobTitle(locationList.get(0).getId());
 			else 
 			postList=hrManagerService.getPostsByJobTitle(locationId);
 			model.addAttribute("postList",postList);
+			}
+			else
+			{
+			model.addAttribute("selectedJobTitle",selJob);
+			model.addAttribute("jobList",Context.getService(HRService.class).getAllJobTitles());
+			}
 			
-		}
 		postHistory=new HrPostHistory();
 		}
 		else {
