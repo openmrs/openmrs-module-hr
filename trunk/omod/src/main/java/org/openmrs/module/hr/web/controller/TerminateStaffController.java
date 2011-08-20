@@ -12,7 +12,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
+import org.openmrs.GlobalProperty;
 import org.openmrs.Location;
+import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HRManagerService;
@@ -126,8 +128,15 @@ public class TerminateStaffController {
 				}
 				hrManagerService.saveAssignment(assignment);
 			}
+			AdministrationService as=Context.getAdministrationService();
+			GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+			boolean isPersonCentric=false;
+			if(gp.getPropertyValue().equals("0")){
+				isPersonCentric=true;
+			}
 			HrPost post=Context.getService(HRService.class).getPostById(postHistoryInstance.getHrPost().getPostId());
 			ConceptService cs=Context.getConceptService();
+			if(!isPersonCentric){
 			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
 			Concept openPost=null;
 			if(concepts!=null){
@@ -137,7 +146,23 @@ public class TerminateStaffController {
 					break;
 			}
 			post.setStatus(openPost);
-			Context.getService(HRService.class).savePost(post);
+			}
+			else{
+				Concept concept=cs.getConceptByMapping("Post status","HR Module");
+				Concept closedPost=null;
+				if(concept!=null){
+				Iterator<ConceptAnswer> caliter=concept.getAnswers().iterator();
+				while(caliter.hasNext()){
+					Concept temp;
+					if((temp=caliter.next().getAnswerConcept()).getName().getName().equals("Closed")){
+						closedPost=temp;
+						break;
+					}
+				}
+				}
+				post.setStatus(closedPost);
+			}
+			Context.getService(HRService.class).savePost(post);	
 			Concept staffStatusQuestion=cs.getConceptByMapping("Staff status","HR Module");
 			Concept former=null;
 			if(staffStatusQuestion!=null){

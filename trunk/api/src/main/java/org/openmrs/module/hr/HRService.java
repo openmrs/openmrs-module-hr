@@ -13,7 +13,7 @@ public interface HRService {
 	
 	public void saveJobTitle(HrJobTitle jobTitle);
 	
-	public void savePost(HrPost post);
+	public HrPost savePost(HrPost post);
 	
 	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 	

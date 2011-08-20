@@ -39,7 +39,7 @@ public class StaffDemographicsController {
 			attributeMap.put(attribute.getHrStaffAttributeType().getName(), attribute);
 		}
 		model.addAttribute("attributeMap",attributeMap);
-		String property=Context.getAdministrationService().getGlobalProperty("HR.Staff_Attribute_to_display");
+		String property=Context.getAdministrationService().getGlobalProperty("hr.Staff_Attribute_to_display");
 		HrStaffAttribute AttributeToDisplay=null;
 		HrStaffAttributeType sat=null;
 		if(property!=null)

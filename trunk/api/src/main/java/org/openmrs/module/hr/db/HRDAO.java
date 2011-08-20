@@ -103,7 +103,7 @@ public interface HRDAO {
 	
 	public HrPostHistory getPostHistoryById( int id);
 	
-	public void savePost(HrPost post);
+	public HrPost savePost(HrPost post);
 	
 	public void deletePost(HrPost post);
 	

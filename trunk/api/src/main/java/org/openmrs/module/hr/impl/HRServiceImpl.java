@@ -34,8 +34,8 @@ public class HRServiceImpl implements HRService{
 		dao.saveJobTitle(jobTitle);
 		
 	}
-	public void savePost(HrPost post) {
-		dao.savePost(post);
+	public HrPost savePost(HrPost post) {
+		return dao.savePost(post);
 		
 	}
 	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations) {
