@@ -59,7 +59,7 @@
 <table>
 <openmrs:forEachDisplayAttributeType personType="" displayType="all" var="attrType">
 	<c:choose>
-	<c:when test="${attrType.retired == true and person.attributeMap[attrType.name]!=''}"></c:when>
+	<c:when test="${attrType.retired == true or empty person.attributeMap[attrType.name]}"></c:when>
 	<c:otherwise>
 	<tr>
 		<td><spring:message code="PersonAttributeType.${fn:replace(attrType.name, ' ', '')}" text="${attrType.name}"/></td>
@@ -78,7 +78,7 @@
 <table>
 	<c:forEach items="${attrTypes}" var="attrType">
 		<c:choose>
-			<c:when test="${attrType.retired == true}"></c:when>
+			<c:when test="${attrType.retired == true or empty attributeMap[attrType.name]}"></c:when>
 			<c:otherwise>
 				<tr>
 					<td><spring:message code="${attrType.name}" />
