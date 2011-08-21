@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.impl;
 
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -115,4 +116,5 @@ public class HRServiceImpl implements HRService{
 	public HrReport getHrReport(Integer reportId) throws DAOException{
 		return dao.getHrReport(reportId);
 	}
+	
 }

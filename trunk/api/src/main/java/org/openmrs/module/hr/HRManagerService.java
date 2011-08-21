@@ -1,5 +1,6 @@
 package org.openmrs.module.hr;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -24,4 +25,7 @@ public interface HRManagerService {
 	public void savePostHistory(HrPostHistory postHistory);
 	
 	public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory);
+	
+	public HrPost wasPostOpen(HrPost post,Date start,Date end);
+	
 }

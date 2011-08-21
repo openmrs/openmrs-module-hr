@@ -2,6 +2,7 @@ package org.openmrs.module.hr.db;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -204,4 +205,6 @@ public interface HRDAO {
 	public List<HrReport> getHrReports() throws DAOException;
 	
 	public HrReport getHrReport(Integer reportId) throws DAOException;
+	
+	public HrPost wasPostOpen(HrPost post,Date start,Date end);
 }

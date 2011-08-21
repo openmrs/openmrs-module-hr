@@ -277,6 +277,18 @@ public class PostHistoryController {
 					errors.reject("NotPrevious","Post should be previous to the current post");
 				}
 			}
+			if(!isPersonCentric)
+			{
+			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
+				if(!postHistory.getStartDate().after(postHistory.getEndDate())){
+					HrPost wasOpenPost=hrManagerService.wasPostOpen(postHistory.getHrPost(),postHistory.getStartDate(),postHistory.getEndDate());
+					if(wasOpenPost==null)
+						errors.reject("NoPostOpen","No open posts for this job title during the specified period");
+					else
+						postHistory.setHrPost(wasOpenPost);
+					}
+				}
+			}
 			if(errors.hasErrors()){
 				String locationString;
 				Integer locationId=null;
