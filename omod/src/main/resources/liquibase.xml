@@ -351,7 +351,42 @@
 		<createIndex tableName="location" indexName="parent_location"><column name="parent_location"></column></createIndex>
 		<addForeignKeyConstraint constraintName="parent_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location" referencedColumnNames="parent_location"/>
 		</changeSet> -->
-		
+	<changeSet author="saimanohar" id="humanresource_report">
+		<preConditions onFail="MARK_RAN">
+			<not><tableExists tableName="hr_report"/></not>
+		</preConditions>
+		<comment>
+			Creating the hr_report table
+		</comment>
+		<createTable tableName="hr_report">
+		<column name="report_id" type="int(11)"><constraints nullable="false"/></column>
+		<column name="name" type="varchar(45)"><constraints nullable="false"/></column>
+		<column name="description" type="TEXT"></column>
+		<column name="file_name" type="varchar(50)"><constraints nullable="false"/></column>
+		</createTable>
+		<addPrimaryKey tableName="hr_report" columnNames="report_id"/>
+	</changeSet>	
+	<changeSet author="saimanohar" id="humanresource_report_parameters">
+		<preConditions onFail="MARK_RAN">
+			<not><tableExists tableName="hr_report_parameters"/></not>
+		</preConditions>
+		<comment>
+			Creating the hr_report_parameters table
+		</comment>
+		<createTable tableName="hr_report_parameters">
+		<column name="parameter_id"><constraints nullable="false"/></column>
+		<column name="display_name"></column>
+		<column name="name"><constraints nullable="false"/></column>
+		<column name="class"></column>
+		<column name="mapped_class"></column>
+		<column name="reportId"><constraints nullable="false"/></column>
+		<column name="default_value"></column>
+		<column name="visible"><constraints nullable="false"/></column>
+		</createTable>
+		<addPrimaryKey tableName="hr_report_parameters" columnNames="parameter_id"/>
+		<createIndex tableName="hr_report_parameters" indexName="report"><column name="reportId"></column></createIndex>
+		<addForeignKeyConstraint constraintName="hr_report" referencedTableName="hr_report" baseColumnNames="reportId" baseTableName="hr_report_parameters" referencedColumnNames="report_id"/>
+	</changeSet>	 
 	<changeSet author="saimanohar" id="humanresource_staff_note">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="hr_staff_note"/></not>
