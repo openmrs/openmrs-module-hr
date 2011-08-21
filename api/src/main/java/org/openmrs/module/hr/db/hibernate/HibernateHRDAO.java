@@ -1414,4 +1414,39 @@ public class HibernateHRDAO implements HRDAO {
 		}
 		return reports;
 	}
+	public HrPost wasPostOpen(HrPost post,Date start,Date end){
+		List<HrPost> criteriaPosts=null;
+		if(post!=null && start!=null && end!=null){
+		criteriaPosts=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("location",post.getLocation())).add(Restrictions.eq("hrJobTitle",post.getHrJobTitle())).list();
+		List<HrPostHistory> postHistories=sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Restrictions.in("hrPost",criteriaPosts)).list();
+		List<HrPost> occupiedPosts=new ArrayList<HrPost>();
+		for(HrPostHistory postHistory:postHistories)
+		{
+			if(postHistory.getStartDate()!=null)
+			{
+				if(postHistory.getEndDate()==null){
+					if(!(start.before(postHistory.getStartDate()))){
+						HrPost thispost=getPostById(postHistory.getHrPost().getId());	
+						if(!occupiedPosts.contains(thispost))
+								occupiedPosts.add(thispost);
+					}
+				}
+				else{
+					if((end.after(postHistory.getStartDate()))&&(start.before(postHistory.getEndDate()))){
+						HrPost thispost=getPostById(postHistory.getHrPost().getId());	
+						if(!occupiedPosts.contains(thispost))
+								occupiedPosts.add(thispost);
+					}
+				}
+					
+			}
+		}
+		criteriaPosts.removeAll(occupiedPosts);
+		}
+		if(criteriaPosts!=null && criteriaPosts.size()>=1)
+		return criteriaPosts.get(0);
+		else
+			return null;
+	}
+	
 }

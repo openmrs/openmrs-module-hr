@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -45,4 +46,8 @@ public class HRManagerServiceImpl implements HRManagerService{
 	public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory){
 		return dao.getAssignmentsForPostHistory(postHistory);
 	}
+	public HrPost wasPostOpen(HrPost post,Date start,Date end){
+		return dao.wasPostOpen(post, start, end);
+	}
+	
 }

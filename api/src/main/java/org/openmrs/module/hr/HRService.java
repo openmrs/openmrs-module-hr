@@ -1,5 +1,6 @@
 package org.openmrs.module.hr;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -60,4 +61,5 @@ public interface HRService {
 	public List<HrReport> getHrReports() throws DAOException;
 	
 	public HrReport getHrReport(Integer reportId) throws DAOException;
+	
 }
