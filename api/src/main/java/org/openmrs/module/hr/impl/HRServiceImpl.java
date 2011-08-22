@@ -16,6 +16,7 @@ import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrReport;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.db.HRDAO;
 

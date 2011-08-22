@@ -33,7 +33,7 @@ else
 <c:when test="${createNew==true}">
 <h2><spring:message code="Create Assignment" /></h2>
 </c:when>
-<c:when test="${assignment.endReason==null}">
+<c:when test='${assignment.endReason==null or (fn:endsWith(assignment.endReason.name.name,":") and empty assignment.endReasonOther )}'>
 <h2><spring:message code="End Assignment" /></h2>
 </c:when>
 <c:otherwise>
@@ -173,7 +173,7 @@ else
 		<td>
 			<spring:bind path="assignment.startDate">	
 			<c:choose>
-			<c:when test="${assignment.startDate==null or errorExist==true}">
+			<c:when test="${createNew==true or addprev==true}">
 			<input type="text" name="${status.expression}" size="10" 
 					   value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
 				(<spring:message code="general.format"/>: <openmrs:datePattern />)
@@ -265,11 +265,11 @@ else
 <c:when test="${createNew==true}">
 <input type="hidden" name="actionString" value="createNew"/>
 </c:when>
-<c:when test="${assignment.endReason==null or empty assignment.endReason}">
+<c:when test='${assignment.endReason==null or empty assignment.endReason or (fn:endsWith(assignment.endReason.name.name,":") and empty assignment.endReasonOther )}'>
 <input type="hidden" name="actionString" value="endAssignment"/>
 </c:when>
 </c:choose>
-<c:if test='${createNew==true or assignment.endReason==null or addprev==true}'>
+<c:if test='${createNew==true or assignment.endReason==null or addprev==true or (fn:endsWith(assignment.endReason.name.name,":") and empty assignment.endReasonOther )}'>
 <input type="submit" value="<spring:message code="Save Assignment"/>" name="submit"/>
 </c:if>
 <input type="submit" value='<spring:message code="general.cancel"/>' name="submit"/>

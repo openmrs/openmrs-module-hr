@@ -207,4 +207,5 @@ public interface HRDAO {
 	public HrReport getHrReport(Integer reportId) throws DAOException;
 	
 	public HrPost wasPostOpen(HrPost post,Date start,Date end);
+	
 }

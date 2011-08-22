@@ -90,13 +90,13 @@ public class TerminateStaffController {
 			}
 			if(postHistoryInstance.getStartDate()!=null && postHistory.getEndDate()!=null){
 			if(postHistoryInstance.getStartDate().after(postHistory.getEndDate()))
-			errors.reject("startBeforeEnd","End Date cannot be before start date");
+			errors.reject("startBeforeEnd","Termination date cannot be before a posts start date");
 			}
 			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(postHistoryInstance);
 			for(HrAssignment each:assignmentsUnder){
 			if(each.getEndDate()!=null && postHistory.getEndDate()!=null){
 			if(postHistory.getEndDate().before(each.getEndDate())){
-				errors.reject("afterAssignment","Cannot vacate post before assignment ends");
+				errors.reject("afterAssignment","Cannot terminate before one of the assignment ends");
 				break;
 			}
 			}
@@ -129,9 +129,9 @@ public class TerminateStaffController {
 				hrManagerService.saveAssignment(assignment);
 			}
 			AdministrationService as=Context.getAdministrationService();
-			GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+			GlobalProperty gp=as.getGlobalPropertyObject("hr.Centric");
 			boolean isPersonCentric=false;
-			if(gp.getPropertyValue().equals("0")){
+			if(gp.getPropertyValue().equals("person")){
 				isPersonCentric=true;
 			}
 			HrPost post=Context.getService(HRService.class).getPostById(postHistoryInstance.getHrPost().getPostId());

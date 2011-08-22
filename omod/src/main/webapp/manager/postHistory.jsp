@@ -47,7 +47,7 @@ function updateLocations(addprev) {
 </c:forEach>
 </spring:hasBindErrors>
 <form method="post">
-<c:if test='${createNew==true}'>
+<c:if test='${createNew==true && currentExists==true}'>
 <h2><spring:message code="Vacate current position" /></h2>
 
 <fieldset>
