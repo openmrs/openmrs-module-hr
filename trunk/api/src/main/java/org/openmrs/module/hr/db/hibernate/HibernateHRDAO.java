@@ -1425,7 +1425,7 @@ public class HibernateHRDAO implements HRDAO {
 			if(postHistory.getStartDate()!=null)
 			{
 				if(postHistory.getEndDate()==null){
-					if(!(start.before(postHistory.getStartDate()))){
+					if(!((start.before(postHistory.getStartDate())||start.compareTo(postHistory.getStartDate())==0 )&& (end.before(postHistory.getEndDate()) || end.compareTo(postHistory.getStartDate())==0))){
 						HrPost thispost=getPostById(postHistory.getHrPost().getId());	
 						if(!occupiedPosts.contains(thispost))
 								occupiedPosts.add(thispost);
