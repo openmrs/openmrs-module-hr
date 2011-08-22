@@ -49,7 +49,6 @@ function updateLocations(addprev) {
 <form method="post">
 <c:if test='${createNew==true && currentExists==true}'>
 <h2><spring:message code="Vacate current position" /></h2>
-
 <fieldset>
 <table>
 	<tr>
@@ -135,10 +134,16 @@ function updateLocations(addprev) {
      			</c:when>
      			<c:otherwise>
      			<select name="jobId" id="jobId" style="width:250px">
+					<option value="" selected="selected"> </option>
 					<c:forEach items="${jobList}" var="jobTitle">
 						<option value="${jobTitle.id}" <c:if test='${jobTitle.id == selectedJobTitle}'>selected="selected"</c:if>>${jobTitle.title}</option>
 					</c:forEach>
-     			</select>
+				</select>
+					<spring:hasBindErrors name="postHistory">
+					<c:forEach items="${errors.allErrors}" var="error">
+					<c:if test="${error.code == 'jobIdNull'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span></c:if>
+					</c:forEach>
+					</spring:hasBindErrors>
      			</c:otherwise>
      			</c:choose> 
      			</c:when>

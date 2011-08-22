@@ -249,7 +249,7 @@ function preferredBoxClick(obj) {
 	<openmrs:htmlInclude file="/scripts/validation.js" />
 
 	<h2><spring:message code="Add Staff"/></h2>
-  	<c:if test="${staff.staffId==person.personId and not empty person.personId}">
+  	<c:if test="${thisStaff.staffId==person.personId and not empty person.personId}">
 	<div id="staffExists" class="retiredMessage">
 		<div><spring:message code="Person already exists as staff"/></div>
 	</div>
@@ -353,7 +353,7 @@ function preferredBoxClick(obj) {
 					<td>
 					<select name="staffStatus" id="staffStatus">
 					<c:forEach items="${StatusAnswers}" var="staffStatus">
-						<option value="${staffStatus.answerConcept}" <c:if test='${staffStatus.answerConcept.id == staff.staffStatus.id or staffStatus.answerConcept.id == modelStatus.id}'>selected="selected"</c:if>>${staffStatus.answerConcept.name.name}</option>
+						<option value="${staffStatus.answerConcept}" <c:if test='${staffStatus.answerConcept.id == thisStaff.staffStatus.id or staffStatus.answerConcept.id == modelStatus.id}'>selected="selected"</c:if>>${staffStatus.answerConcept.name.name}</option>
 					</c:forEach>
 	   				</select>
 					</td>

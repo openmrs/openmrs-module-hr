@@ -89,8 +89,37 @@ public class PostHistoryController {
 		if(!isPersonCentric){
 		ValidationUtils.rejectIfEmpty(errors,"hrPost","error.null");
 		}
+		
 		if(actionString.equals("createNew"))
 		{
+			Concept filledPost=null;
+			List<Concept> conceptsmapping=cs.getConceptsByMapping("Post status current","HR Module");
+			if(conceptsmapping!=null){
+			Iterator<Concept> caliter=conceptsmapping.iterator();
+			while(caliter.hasNext())
+				if((filledPost=caliter.next()).getName().getName().equals("Filled"))
+					break;
+			}
+			if(isPersonCentric)
+			{
+				HrPost newPost=new HrPost();
+				String locationString;
+				int locationId=0;
+				String jobTitle;
+				int jobId=0;
+				if((locationString=request.getParameter("location"))!=null)
+					locationId=Integer.parseInt(locationString);
+				if((jobTitle=request.getParameter("jobId"))!=null && !(jobTitle=request.getParameter("jobId")).equals(""))
+					jobId=Integer.parseInt(jobTitle);
+				else
+					errors.reject("jobIdNull","error.null");
+				if(locationId!=0 && jobId!=0){
+				newPost.setLocation(Context.getLocationService().getLocation(locationId));
+				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				newPost.setStatus(filledPost);
+				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+				}
+			}
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
 			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
 			if(currentPosthistory!=null)
@@ -132,7 +161,7 @@ public class PostHistoryController {
 				}
 			}
 			}
-				if(errors.hasErrors()){
+			if(errors.hasErrors()){
 					String locationString;
 					Integer locationId=null;
 					if((locationString=request.getParameter("locationId"))!=null)
@@ -216,30 +245,6 @@ public class PostHistoryController {
 				}
 			}	
 			postHistory.setHrStaff(staff);
-			Concept filledPost=null;
-			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
-			if(concepts!=null){
-			Iterator<Concept> caliter=concepts.iterator();
-			while(caliter.hasNext())
-				if((filledPost=caliter.next()).getName().getName().equals("Filled"))
-					break;
-			}
-			if(isPersonCentric)
-			{
-				HrPost newPost=new HrPost();
-				String locationString;
-				int locationId=0;
-				String jobTitle;
-				int jobId=0;
-				if((locationString=request.getParameter("location"))!=null)
-					locationId=Integer.parseInt(locationString);
-				if((jobTitle=request.getParameter("jobId"))!=null)
-					jobId=Integer.parseInt(jobTitle);
-				newPost.setLocation(Context.getLocationService().getLocation(locationId));
-				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
-				newPost.setStatus(filledPost);
-				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
-			}
 			hrManagerService.savePostHistory(postHistory);
 			if(!isPersonCentric){
 			HrPost post=postHistory.getHrPost();
@@ -249,6 +254,34 @@ public class PostHistoryController {
 		}
 		else if(actionString.equals("addprev"))
 		{
+			if(isPersonCentric)
+			{
+				HrPost newPost=new HrPost();
+				String locationString;
+				int locationId=0;
+				String jobTitle;
+				int jobId=0;
+				if((locationString=request.getParameter("location"))!=null)
+					locationId=Integer.parseInt(locationString);
+				if((jobTitle=request.getParameter("jobId"))!=null && !(jobTitle=request.getParameter("jobId")).equals("") )
+					jobId=Integer.parseInt(jobTitle);
+				else
+					errors.reject("jobIdNull","error.null");
+				if(locationId!=0 && jobId!=0){
+				newPost.setLocation(Context.getLocationService().getLocation(locationId));
+				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				Concept filledPost=null;
+				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+				if(concepts!=null){
+				Iterator<Concept> caliter=concepts.iterator();
+				while(caliter.hasNext())
+					if((filledPost=caliter.next()).getName().getName().equals("Filled"))
+						break;
+				}
+				newPost.setStatus(filledPost);
+				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+				}
+			}
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
@@ -309,31 +342,7 @@ public class PostHistoryController {
 				prepareModel(postHistory.getPostHistoryId(), model, staff, true,locationId,allLocations,selJob);
 				return SUCCESS_FORM_VIEW;
 			}
-			if(isPersonCentric)
-			{
-				HrPost newPost=new HrPost();
-				String locationString;
-				int locationId=0;
-				String jobTitle;
-				int jobId=0;
-				if((locationString=request.getParameter("location"))!=null)
-					locationId=Integer.parseInt(locationString);
-				if((jobTitle=request.getParameter("jobId"))!=null)
-					jobId=Integer.parseInt(jobTitle);
-				newPost.setLocation(Context.getLocationService().getLocation(locationId));
-				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
-				Concept filledPost=null;
-				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
-				if(concepts!=null){
-				Iterator<Concept> caliter=concepts.iterator();
-				while(caliter.hasNext())
-					if((filledPost=caliter.next()).getName().getName().equals("Filled"))
-						break;
-				}
-				newPost.setStatus(filledPost);
-				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
-				
-			}
+		
 			postHistory.setHrStaff(staff);
 			hrManagerService.savePostHistory(postHistory);
 			
