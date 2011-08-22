@@ -20,6 +20,7 @@ import org.openmrs.module.hr.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.listItem.PostListItem;
+import org.openmrs.module.hr.propertyEditor.HrJobTitleEditor;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
@@ -53,6 +54,7 @@ public class PostController {
 		binder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(Context.getDateFormat(), true, 10));
 		binder.registerCustomEditor(org.openmrs.Concept.class, new ConceptEditor());
 		binder.registerCustomEditor(Location.class, new LocationEditor());
+		binder.registerCustomEditor(HrJobTitle.class,new HrJobTitleEditor());
 	}
 	/**
 	 * Initially called after the formBackingObject method to get the landing form name  
@@ -155,20 +157,17 @@ public class PostController {
 			} else {
 				if(prevStatus!=null)
 				{
-					if(prevStatus.getName().getName().equals("Filled")||prevStatus.getName().getName().equals("Open"))
+					if(prevStatus.getName().getName().equals("Filled"))
 						if(!prevStatus.getId().equals(post.getStatus().getId()))
 							errors.reject("statusChange","Cannot change status to the specified one.");
-				}
-				else {
-					if(post.getStatus().getName().getName().equals("Filled")||post.getStatus().getName().getName().equals("Open"))
-						errors.reject("statusChange","Cannot change status to the specified one.");
+					if(prevStatus.getName().getName().equals("Open"))
+						if(post.getStatus().getName().getName().equals("Filled"))
+							errors.reject("statusChange","Cannot change status to the specified one.");
 				}
 				if (errors.hasErrors()) {
 					return SUCCESS_FORM_VIEW;
 				}
 				else{	
-				post.setHrJobTitle(hrService.getJobTitleById(Integer.parseInt(request.getParameter("job"))));
-				post.setLocation(ls.getLocation(Integer.parseInt(request.getParameter("location"))));
 				hrService.savePost(post);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post saved Successfully");
 				return showList(model,false,false);
