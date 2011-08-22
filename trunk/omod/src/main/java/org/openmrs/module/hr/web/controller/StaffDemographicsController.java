@@ -51,7 +51,10 @@ public class StaffDemographicsController {
 		}
 		if(sat!=null && AttributeToDisplay!=null)
 		model.addAttribute("AttributeToDisplay",sat.getName()+":"+AttributeToDisplay.getValue());
+		else
+			model.addAttribute("AttributeToDisplay","");	
 		}
+		
 		return SUCCESS_VIEW;
 	}
 }

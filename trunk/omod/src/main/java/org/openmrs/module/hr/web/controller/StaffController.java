@@ -423,6 +423,14 @@ public class StaffController {
 			
 		}
 		new PersonValidator().validate(person, errors);
+		HrStaff staff;
+		if(person.getPersonId()!=null)
+		{
+			staff=hrService.getStaffById(person.getPersonId());
+		}
+		else{
+			staff=new HrStaff();
+		}
 		Concept statusConcept=null;
 		if(!request.getParameter("staffStatus").equals(""))
 			statusConcept=Context.getConceptService().getConcept(Integer.parseInt(request.getParameter("staffStatus")));
@@ -447,7 +455,6 @@ public class StaffController {
 			}
 		}
 		Context.getPersonService().savePerson(person);
-		HrStaff staff=new HrStaff();
 		staff.setStaffId(person.getPersonId());
 		staff.setStaffStatus(statusConcept);
 		if(staff.getInitialHireDate()==null)

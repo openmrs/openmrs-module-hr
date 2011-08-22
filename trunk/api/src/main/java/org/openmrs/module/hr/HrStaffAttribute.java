@@ -9,10 +9,11 @@ import org.openmrs.Attributable;
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.api.context.Context;
 import org.openmrs.util.OpenmrsClassLoader;
+import org.openmrs.util.OpenmrsUtil;
 
 
 
-public class HrStaffAttribute extends BaseOpenmrsData implements java.io.Serializable {
+public class HrStaffAttribute extends BaseOpenmrsData implements java.io.Serializable,Comparable<HrStaffAttribute> {
 
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +41,7 @@ public class HrStaffAttribute extends BaseOpenmrsData implements java.io.Seriali
     public boolean equals(Object obj) {
 		if (obj instanceof HrStaffAttribute) {
 			HrStaffAttribute attr = (HrStaffAttribute) obj;
-			if (attr.getId() != null && getId() != null)
+			if (attr.getId() != 0 && getId() != 0)
 				return attr.getId().equals(getId());
 			
 		}
@@ -54,7 +55,21 @@ public class HrStaffAttribute extends BaseOpenmrsData implements java.io.Seriali
 		hash += 29 * hash + this.getId().hashCode();
 		return hash;
 	}
-
+	public int compareTo(HrStaffAttribute other) {
+		int retValue = 0;
+		retValue = isVoided().compareTo(other.isVoided());
+		if (retValue == 0)
+			retValue = OpenmrsUtil.compareWithNullAsLatest(getDateCreated(), other.getDateCreated());
+		if (retValue == 0)
+			retValue = getHrStaffAttributeType().getId().compareTo(
+			    other.getHrStaffAttributeType().getId());
+		if (retValue == 0)
+			retValue = OpenmrsUtil.compareWithNullAsGreatest(getValue(), other.getValue());
+		if (retValue == 0)
+			retValue = OpenmrsUtil.compareWithNullAsGreatest(getId(), other.getId());
+		
+		return retValue;
+	}
 
     public int getStaffAttributeId() {
         return this.staffAttributeId;
