@@ -123,10 +123,10 @@
 	</globalProperty>
 		
 	<globalProperty>
-		<property>@MODULE_ID@.PersonCentric(0)-PostCentric(1)</property>
-		<defaultValue>1</defaultValue>
+		<property>@MODULE_ID@.Centric</property>
+		<defaultValue>post</defaultValue>
 		<description>
-			Value which says whether the system is person-centric or post-centric.
+			Value "person" for person-centric and "post" for post-centric.
 		</description>
 	</globalProperty>
 	<!-- /Global Properties -->

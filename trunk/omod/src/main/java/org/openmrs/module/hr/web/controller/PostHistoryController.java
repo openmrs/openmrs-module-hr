@@ -78,9 +78,9 @@ public class PostHistoryController {
 			return "redirect:/module/hr/manager/staffPosition.list";
 		}
 		AdministrationService as=Context.getAdministrationService();
-		GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.Centric");
 		boolean isPersonCentric=false;
-		if(gp.getPropertyValue().equals("0")){
+		if(gp.getPropertyValue().equals("person")){
 			isPersonCentric=true;
 		}
 		ConceptService cs=Context.getConceptService();
@@ -191,6 +191,7 @@ public class PostHistoryController {
 			}
 			else {
 				List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
+				if(!allPostHistories.isEmpty()){
 				Iterator<HrPostHistory> phiter=allPostHistories.iterator();
 				Date maxEndDate=phiter.next().getEndDate();
 				while(phiter.hasNext())
@@ -201,6 +202,7 @@ public class PostHistoryController {
 				if(postHistory.getStartDate()!=null){
 				if(postHistory.getStartDate().before(maxEndDate))
 					errors.reject("newPostOverlap","New post should start after the old post.");
+				}
 				}
 				if(errors.hasErrors()){
 					String locationString;
@@ -263,10 +265,18 @@ public class PostHistoryController {
 			Iterator<HrPostHistory> phiter=allPostHistories.iterator();
 			while (phiter.hasNext()) {
 				HrPostHistory temp=phiter.next();
-				if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null && temp.getEndDate()!=null){
+				if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
+				if(temp.getEndDate()==null){
+					if((postHistory.getEndDate().after(temp.getStartDate()))||(postHistory.getStartDate().after(temp.getStartDate()))){
+						errors.reject("Overlap","This post overlaps with other exisitng posts");
+						break;
+					}	
+				}
+				else{
 				if((postHistory.getEndDate().after(temp.getStartDate()))&&(postHistory.getStartDate().before(temp.getEndDate()))){
 					errors.reject("Overlap","This post overlaps with other exisitng posts");
 					break;
+				}
 				}
 				}
 			}
@@ -384,9 +394,9 @@ public class PostHistoryController {
 	}
 	private HrPostHistory prepareModel(Integer postHistoryId,ModelMap model,HrStaff staff,boolean addprev,Integer locationId,boolean includeAllLocations,String selJob){
 		AdministrationService as=Context.getAdministrationService();
-		GlobalProperty gp=as.getGlobalPropertyObject("hr.PersonCentric(0)-PostCentric(1)");
+		GlobalProperty gp=as.getGlobalPropertyObject("hr.Centric");
 		boolean isPersonCentric=false;
-		if(gp.getPropertyValue().equals("0")){
+		if(gp.getPropertyValue().equals("person")){
 			isPersonCentric=true;
 			model.addAttribute("isPersonCentric",true);
 		}
@@ -433,6 +443,8 @@ public class PostHistoryController {
 		else {
 			postHistory=hrManagerService.getPostHistoryById(postHistoryId);
 		}
+		HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+		if(currentPosthistory!=null)model.addAttribute("currentExists",true);
 		Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 		Collection<ConceptAnswer> postHistoryEndReasons;
 		if(endReason!=null)

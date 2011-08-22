@@ -19,6 +19,8 @@ import org.openmrs.Location;
 import org.openmrs.Obs;
 import org.openmrs.Person;
 import org.openmrs.PersonAddress;
+import org.openmrs.PersonAttribute;
+import org.openmrs.PersonAttributeType;
 import org.openmrs.PersonName;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.PersonService;
@@ -427,11 +429,22 @@ public class StaffController {
 		
 		if (errors.hasErrors()) {
 			model.addAttribute("modelStatus",statusConcept);
-			if(person.getPersonId()!=null)
-			prepareModel(model,hrService.getStaffById(person.getPersonId()));
+			if(person.getPersonId()!=null){
+			HrStaff tempstaff=hrService.getStaffById(person.getPersonId());
+			prepareModel(model,tempstaff);
+			}
 			else
 			prepareModel(model,null);
 			return SUCCESS_FORM_VIEW;
+		}
+		List<PersonAttributeType> pats=Context.getPersonService().getAllPersonAttributeTypes(false);
+		for(PersonAttributeType pat:pats)
+		{
+			String attr=request.getParameter(pat.getPersonAttributeTypeId()+"");
+			if(attr!=null && attr!=""){
+			PersonAttribute newAttribute=new PersonAttribute(pat,attr);
+			person.addAttribute(newAttribute);
+			}
 		}
 		Context.getPersonService().savePerson(person);
 		HrStaff staff=new HrStaff();
