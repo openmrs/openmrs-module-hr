@@ -80,7 +80,9 @@ public class TerminateStaffController {
 		else{
 			HrStaff staff=(HrStaff)request.getSession().getAttribute("staff");
 			HRManagerService hrManagerService= Context.getService(HRManagerService.class);
+			ConceptService cs=Context.getConceptService();
 			HrPostHistory postHistoryInstance=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			if(postHistoryInstance!=null){
 			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(postHistory.getEndReason()!=null){
@@ -102,7 +104,6 @@ public class TerminateStaffController {
 			}
 			}
 			if(errors.hasErrors()){
-				ConceptService cs=Context.getConceptService();
 				Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 				Collection<ConceptAnswer> postHistoryEndReasons;
 				if(endReason!=null)
@@ -135,7 +136,6 @@ public class TerminateStaffController {
 				isPersonCentric=true;
 			}
 			HrPost post=Context.getService(HRService.class).getPostById(postHistoryInstance.getHrPost().getPostId());
-			ConceptService cs=Context.getConceptService();
 			if(!isPersonCentric){
 			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
 			Concept openPost=null;
@@ -163,6 +163,7 @@ public class TerminateStaffController {
 				post.setStatus(closedPost);
 			}
 			Context.getService(HRService.class).savePost(post);	
+			}
 			Concept staffStatusQuestion=cs.getConceptByMapping("Staff status","HR Module");
 			Concept former=null;
 			if(staffStatusQuestion!=null){
