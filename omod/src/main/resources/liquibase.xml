@@ -1020,14 +1020,14 @@
 			Creating the hr_report_parameters table
 		</comment>
 		<createTable tableName="hr_report_parameters">
-		<column name="parameter_id"><constraints nullable="false"/></column>
-		<column name="display_name"></column>
-		<column name="name"><constraints nullable="false"/></column>
-		<column name="class"></column>
-		<column name="mapped_class"></column>
-		<column name="reportId"><constraints nullable="false"/></column>
-		<column name="default_value"></column>
-		<column name="visible"><constraints nullable="false"/></column>
+		<column name="parameter_id" type="int(11)"><constraints nullable="false"/></column>
+		<column name="display_name" type="varchar(45)"></column>
+		<column name="name" type="varchar(45)"><constraints nullable="false"/></column>
+		<column name="class" type="varchar(50)"></column>
+		<column name="mapped_class" type="varchar(50)"></column>
+		<column name="reportId" type="int(11)"><constraints nullable="false"/></column>
+		<column name="default_value" type="varchar(45)"></column>
+		<column name="visible" type="tinyint(1)"><constraints nullable="false"/></column>
 		</createTable>
 		<addPrimaryKey tableName="hr_report_parameters" columnNames="parameter_id"/>
 		<createIndex tableName="hr_report_parameters" indexName="report"><column name="reportId"></column></createIndex>
