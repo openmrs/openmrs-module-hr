@@ -13,7 +13,7 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
     // Fields    
 	
 
-	/**
+		/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -144,6 +144,10 @@ public class HrJobTitle extends BaseOpenmrsMetadata implements java.io.Serializa
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
+	}
+	@Override
+	public String toString() {
+		return this.jobId+"";
 	}
 
 }
