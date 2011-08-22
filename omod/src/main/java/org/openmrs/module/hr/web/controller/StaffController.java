@@ -154,6 +154,9 @@ public class StaffController {
 	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("person") Person person, BindingResult errors) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 		HRService hrService=Context.getService(HRService.class);
+		boolean newStaff=false;
+		if(person.getPersonId()==null)
+			newStaff=true;
 		if (Context.isAuthenticated()) {
 			if (person.getDead()) {
 			log.debug("Person is dead, so let's make sure there's an Obs for it");
@@ -423,14 +426,6 @@ public class StaffController {
 			
 		}
 		new PersonValidator().validate(person, errors);
-		HrStaff staff;
-		if(person.getPersonId()!=null)
-		{
-			staff=hrService.getStaffById(person.getPersonId());
-		}
-		else{
-			staff=new HrStaff();
-		}
 		Concept statusConcept=null;
 		if(!request.getParameter("staffStatus").equals(""))
 			statusConcept=Context.getConceptService().getConcept(Integer.parseInt(request.getParameter("staffStatus")));
@@ -455,7 +450,15 @@ public class StaffController {
 			}
 		}
 		Context.getPersonService().savePerson(person);
-		staff.setStaffId(person.getPersonId());
+		HrStaff staff=null;
+		if(!newStaff)
+		{
+			staff=hrService.getStaffById(person.getPersonId());
+		}
+		if(staff==null){
+			staff=new HrStaff();
+			staff.setStaffId(person.getPersonId());
+		}
 		staff.setStaffStatus(statusConcept);
 		if(staff.getInitialHireDate()==null)
 			staff.setInitialHireDate(new Date());
