@@ -13,7 +13,9 @@
  */
 package org.openmrs.module.hr;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.logging.Log;
@@ -77,6 +79,8 @@ public class HumanResourceModuleActivator implements ModuleActivator {
 		 humanResourceClerk.setInheritedRoles(inheritedRoleSet);
 		 us.saveRole(humanResourceClerk);
 		 } 
+		addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports"));
+		addPrivilegesToRole(humanResourceClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff"));
 		log.info("Starting Human Resource Module");
 		
 	}
@@ -84,6 +88,14 @@ public class HumanResourceModuleActivator implements ModuleActivator {
 	public void willStop() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void addPrivilegesToRole(Role role, List<String> privs) {
+		UserService us = Context.getUserService();
+		for (int i = 0; i < privs.size(); i++) {
+			role.addPrivilege(us.getPrivilege(privs.get(i)));
+		}
+		us.saveRole(role);
 	}
 	
 }
