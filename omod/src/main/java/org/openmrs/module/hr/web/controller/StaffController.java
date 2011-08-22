@@ -107,7 +107,7 @@ public class StaffController {
 		return person;
 	}
 	
-	@ModelAttribute("staff")
+	@ModelAttribute("thisStaff")
 	@RequestMapping(value="module/hr/admin/staff.form",method=RequestMethod.GET)
 	public HrStaff getStaff(ModelMap model,@RequestParam(required = false, value = "personId") Integer personId,@RequestParam(required = false, value = "managerEdit") boolean managerEdit,@RequestParam(required = false, value = "createNewPerson") String createNewPerson) {
 		HrStaff staff=null;

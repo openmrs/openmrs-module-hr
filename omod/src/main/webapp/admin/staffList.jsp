@@ -83,7 +83,7 @@ Filter by name : <input name="filter" id="filter-box" value="" maxlength="30" si
 	
 		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/first.png" class="first"/>
 		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/prev.png" class="prev"/>
-		<input type="text" style="width:25px" readonly="readonly" class="pagedisplay"/>
+		<input type="text" style="width:30px" readonly="readonly" class="pagedisplay"/>
 		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/next.png" class="next"/>
 		<img src="${pageContext.request.contextPath}/moduleResources/hr/images/last.png" class="last"/>
 		<select class="pagesize">
