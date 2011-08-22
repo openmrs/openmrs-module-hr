@@ -31,11 +31,11 @@
 	<tr>
 		<th valign="top"><spring:message code="Job Title"/></th>
 		<td>
-			<spring:bind path="post.hrJobTitle.id">	
-				<select name="job" id="${status.expression}">
-					<c:forEach items="${JobList}" var="job" varStatus="status">
+			<spring:bind path="post.hrJobTitle">	
+				<select name="${status.expression}" id="${status.expression}">
+					<c:forEach items="${JobList}" var="job" varStatus="varStatus">
 						<c:if test='${job.retired==false}'>
-						<option value="${job.id}" <c:if test="${ post.hrJobTitle.title == job.title}">selected</c:if>>${job.title}</option>
+						<option value="${job.id}" <c:if test="${status.value== job.id}">selected</c:if>>${job.title}</option>
 						</c:if>
 					</c:forEach>
      		</select> 
@@ -43,12 +43,12 @@
 		</td>
 	</tr>
 	<tr>
-		<th valign="top"><spring:message code="Locations"/></th>
+		<th valign="top"><spring:message code="Location"/></th>
 		<td>
-			<spring:bind path="post.location.id">	
-				<select name="location" id="${status.expression}">
-					<c:forEach items="${LocationList}" var="location" varStatus="status">
-				 		<option value="${location.id}" <c:if test="${ post.location.name== location.name}">selected</c:if>>${location.name}</option>
+			<spring:bind path="post.location">	
+				<select name="${status.expression}" id="${status.expression}">
+					<c:forEach items="${LocationList}" var="location" varStatus="varStatus">
+				 		<option value="${location.id}" <c:if test="${ status.value== location.id}">selected</c:if>>${location.name}</option>
 					</c:forEach>
      		</select> 
 			</spring:bind>
