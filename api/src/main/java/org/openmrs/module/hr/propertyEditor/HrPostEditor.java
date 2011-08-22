@@ -23,7 +23,7 @@ private Log log = LogFactory.getLog(this.getClass());
 			}
 			catch (Exception ex) {
 				log.error("Error setting text" + text, ex);
-				throw new IllegalArgumentException("Concept not found: " + ex.getMessage());
+				throw new IllegalArgumentException("post not found: " + ex.getMessage());
 			}
 		} else {
 			setValue(null);
