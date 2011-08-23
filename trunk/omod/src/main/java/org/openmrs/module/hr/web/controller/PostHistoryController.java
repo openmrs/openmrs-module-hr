@@ -435,10 +435,18 @@ public class PostHistoryController {
 				model.addAttribute("addprev",true);
 			if(!isPersonCentric){			
 			List<HrPost> postList;
-			if(locationId==null)
+			if(locationId==null){
+				if(addprev==true)
 				postList=hrManagerService.getPostsByJobTitle(locationList.get(0).getId());
-			else 
+				else
+				postList=hrManagerService.getOpenPostByJobTitle(locationList.get(0).getId());
+			}
+			else {
+			if(addprev==true)
 			postList=hrManagerService.getPostsByJobTitle(locationId);
+			else
+			postList=hrManagerService.getOpenPostByJobTitle(locationId);
+			}
 			model.addAttribute("postList",postList);
 			}
 			else
