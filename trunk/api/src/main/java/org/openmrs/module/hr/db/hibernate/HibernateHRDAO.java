@@ -722,6 +722,7 @@ public class HibernateHRDAO implements HRDAO {
         	if(!includeAllPosts)
         		criteria.add(Restrictions.in("status",postStatusCurrent));
            	if(!includeAllLocations){
+           		if(!hrManagedLocations.isEmpty())
            		criteria.add(Restrictions.in("location",hrManagedLocations));
            	}
            	postList=criteria.list();

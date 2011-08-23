@@ -39,6 +39,7 @@
 						</c:if>
 					</c:forEach>
      		</select> 
+     		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</spring:bind>
 		</td>
 	</tr>
@@ -51,6 +52,7 @@
 				 		<option value="${location.id}" <c:if test="${ status.value== location.id}">selected</c:if>>${location.name}</option>
 					</c:forEach>
      		</select> 
+     		<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
 			</spring:bind>
 		</td>
 	</tr>
@@ -62,6 +64,7 @@
 					<c:forEach items="${PostStatusAnswers}" var="answer">
 						<option value="${answer.answerConcept}" <c:if test="${ status.value == answer.answerConcept.conceptId}">selected</c:if>>${answer.answerConcept.name.name}</option>
 					</c:forEach>
+					<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
      		</select> 
 			</spring:bind>
 		</td>
