@@ -43,16 +43,7 @@ public class HumanResourceModuleActivator implements ModuleActivator {
 	}
 
 	public void stopped() {
-		UserService us = Context.getUserService();
-		Role humanResourceManager = us.getRole("Human Resource Manager");
-		Role humanResourceClerk=us.getRole("Human Resource Clerk");
-		if(humanResourceManager!=null){
-			us.purgeRole(humanResourceManager);
-		}
-		if(humanResourceClerk!=null){
-			us.purgeRole(humanResourceClerk);
-		}
-		log.info("Shutting down Human Resource Module");
+		
 		
 	}
 
@@ -65,28 +56,27 @@ public class HumanResourceModuleActivator implements ModuleActivator {
 		Set<Role> inheritedRoleSet=new HashSet<Role>();
 		inheritedRoleSet.add(Context.getUserService().getRole(OpenmrsConstants.AUTHENTICATED_ROLE));
 		UserService us = Context.getUserService();
-		Role humanResourceManager = us.getRole("Human Resource Manager");
+		Role humanResourceManager = us.getRole("HR Manager");
 		// Create role if it doesn't exist
 		if (humanResourceManager == null){
-			humanResourceManager=new Role("Human Resource Manager", "HR Role");
+			humanResourceManager=new Role("HR Manager", "HR Role");
 			humanResourceManager.setInheritedRoles(inheritedRoleSet);
 			us.saveRole(humanResourceManager); 
 		}
-		Role humanResourceClerk=us.getRole("Human Resource Clerk");
+		Role humanResourceClerk=us.getRole("HR Clerk");
 		// Create role if it doesn't exist
 		if (humanResourceClerk == null ){
-		 humanResourceClerk=new Role("Human Resource Clerk", "HR Role");
+		 humanResourceClerk=new Role("HR Clerk", "HR Role");
 		 humanResourceClerk.setInheritedRoles(inheritedRoleSet);
 		 us.saveRole(humanResourceClerk);
 		 } 
-		addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports"));
-		addPrivilegesToRole(humanResourceClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff"));
+		addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports","View Concepts","View People","Edit People","Add People"));
+		addPrivilegesToRole(humanResourceClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff","View Concepts","View People","Edit People","Add People"));
 		log.info("Starting Human Resource Module");
 		
 	}
 
 	public void willStop() {
-		// TODO Auto-generated method stub
 		
 	}
 	

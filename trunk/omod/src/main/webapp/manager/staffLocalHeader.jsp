@@ -44,7 +44,7 @@
  			</a>
 		</li>
 		</openmrs:hasPrivilege>
-		<openmrs:hasPrivilege privilege="View Post">
+		<openmrs:hasPrivilege privilege="View Posts">
 		<li>
 			<a href="${pageContext.request.contextPath}/module/hr/manager/staffPosition.list" <c:if test='<%= request.getRequestURI().contains("staffPosition") %>'>class="current"</c:if>>
 				<spring:message code="Post History"/>
