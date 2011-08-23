@@ -29,6 +29,7 @@ import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -140,6 +141,8 @@ public class PostController {
 		model.addAttribute("LocationList", locationList);
 		model.addAttribute("PostStatusAnswers", postStatusAnswers);
 		if (Context.isAuthenticated()) {
+			ValidationUtils.rejectIfEmpty(errors, "hrJobTitle","error.null");
+			ValidationUtils.rejectIfEmpty(errors, "location","error.null");
 			if (request.getParameter("retirePost") != null) {
 				String retireReason = request.getParameter("retireReason");
 				if (post.getId() != null && (retireReason == null || retireReason.length() == 0)) {
