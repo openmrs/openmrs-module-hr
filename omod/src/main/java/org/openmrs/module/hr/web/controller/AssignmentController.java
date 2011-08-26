@@ -71,7 +71,8 @@ public class AssignmentController {
 			return "redirect:/module/hr/manager/staffPosition.list";
 		}
 		String actionString=request.getParameter("actionString");
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);		
+		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors,"location","error.null");
 		if(actionString.equals("createNew"))
 		{
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
