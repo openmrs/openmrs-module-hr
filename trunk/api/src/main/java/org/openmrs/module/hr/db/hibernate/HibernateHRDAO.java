@@ -717,6 +717,8 @@ public class HibernateHRDAO implements HRDAO {
     	LocationService locService=Context.getLocationService();
     	ConceptService conceptService=Context.getConceptService();
     	List<Location> hrManagedLocations=locService.getLocationsByTag(locService.getLocationTagByName("HR Managed"));
+    	List<Location> otherLocationList=locService.getAllLocations();
+    	otherLocationList.removeAll(hrManagedLocations);
     	List<Concept> postStatusCurrent=conceptService.getConceptsByMapping("Post status current", "HR Module");
         try {
         	if(!includeAllPosts)
@@ -724,6 +726,8 @@ public class HibernateHRDAO implements HRDAO {
            	if(!includeAllLocations){
            		if(!hrManagedLocations.isEmpty())
            		criteria.add(Restrictions.in("location",hrManagedLocations));
+           		else
+           		criteria.add(Restrictions.not(Restrictions.in("location",otherLocationList)));
            	}
            	postList=criteria.list();
             if (postList==null) {
