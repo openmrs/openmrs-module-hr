@@ -18,9 +18,13 @@ else
 function updateLocations(addprev) {
 	var url = "postHistory.form?";
 	select=document.getElementById('hrPost.location');
-	option=select.options[select.selectedIndex];
+	if(select!=null){
+		if(select.selectedIndex!=-1){
+		option=select.options[select.selectedIndex];
+		url += "&locationId="+option.value;
+		}
+		}
 	url += "alllocations="+document.getElementById('alllocations').checked;
-	url += "&locationId="+option.value;
 	var vacateEndDate=document.getElementById("vacateEndDate");
 	var vacateEndReason=document.getElementById("vacateEndReason");
 	var vacateEndReasonText=document.getElementById("vacateEndReasonText");

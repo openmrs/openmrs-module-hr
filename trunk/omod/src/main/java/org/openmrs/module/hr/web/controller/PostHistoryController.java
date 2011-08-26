@@ -86,6 +86,7 @@ public class PostHistoryController {
 		ConceptService cs=Context.getConceptService();
 		String actionString=request.getParameter("actionString");
 		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		ValidationUtils.rejectIfEmpty(errors,"hrPost.location","error.null");
 		if(!isPersonCentric){
 		ValidationUtils.rejectIfEmpty(errors,"hrPost","error.null");
 		}
