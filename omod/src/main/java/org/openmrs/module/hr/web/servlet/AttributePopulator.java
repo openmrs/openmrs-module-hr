@@ -1,10 +1,7 @@
 package org.openmrs.module.hr.web.servlet;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -13,9 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
-import org.openmrs.util.OpenmrsUtil;
 
 /**
  * Servlet implementation class AttributePopulator

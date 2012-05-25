@@ -46,6 +46,9 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
 		</dependency>
-	</dependencies>
+
+
+
+    </dependencies>
 
 </project>

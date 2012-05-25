@@ -1,7 +1,6 @@
 package org.openmrs.module.hr.web.controller;
 
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,11 +15,11 @@ import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
-import org.openmrs.module.hr.listItem.PostListItem;
-import org.openmrs.module.hr.propertyEditor.HrJobTitleEditor;
+import org.openmrs.module.hr.api.listItem.PostListItem;
+import org.openmrs.module.hr.api.propertyEditor.HrJobTitleEditor;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
@@ -36,7 +35,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 

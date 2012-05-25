@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <hr_report report_id="1" name="test report" file_name="testfile.jrxml" />
+    <hr_report report_id="2" name="test report" file_name="testfile.jrxml" />
+</dataset>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <hr_staff staff_id="1" staff_status="2" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1111-111111111111" />
+    <hr_staff staff_id="2" staff_status="2" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1111-111111111112" />
+
+    <hr_staff_attribute staff_attribute_id="1" staff_id="11" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1112-111111111111" />
+    <hr_staff_attribute staff_attribute_id="2" staff_id="11" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1112-111111111112" />
+
+    <hr_staff_attribute_type staff_attribute_type_id="1" name="Age" format="number" description="Age" searchable="1" creator="0" date_created="2011-12-11 00:00:00.0" retired="0" uuid="11111111-1111-1111-1113-111111111111" />
+    <hr_staff_attribute_type staff_attribute_type_id="2" name="Address" format="string" description="Address" searchable="0" creator="0" date_created="2011-12-11 00:00:00.0" retired="0" uuid="11111111-1111-1111-1113-111111111112" />
+
+</dataset>

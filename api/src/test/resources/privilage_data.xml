@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <privilege privilege="Manage Staff" description="Manage Staff" uuid="fa2a8ee4-d183-4f7f-acc4-287b5e6d4740"/>
+    <privilege privilege="View Staff" description="View Staff" uuid="fa2a8ee4-d183-4f7f-acc4-287b5e6d4741"/>
+</dataset>

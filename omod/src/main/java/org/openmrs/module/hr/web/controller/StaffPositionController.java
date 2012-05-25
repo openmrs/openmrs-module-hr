@@ -1,6 +1,5 @@
 package org.openmrs.module.hr.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.logging.Log;
@@ -8,8 +7,7 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRManagerService;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.springframework.stereotype.Controller;
@@ -17,7 +15,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller

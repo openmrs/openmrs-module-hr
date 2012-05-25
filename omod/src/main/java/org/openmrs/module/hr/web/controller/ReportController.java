@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -16,10 +15,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.api.HRReportsService;
+import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrReport;
 import org.openmrs.module.hr.HrReportParameter;
 import org.openmrs.module.hr.ReportGenerator;
+import org.openmrs.module.hr.api.extension.html.HumanResourcesGutterLinkExt;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.util.OpenmrsUtil;
@@ -55,26 +56,26 @@ public class ReportController {
 	
 	@RequestMapping(value = "module/hr/admin/reportSelection.list",method=RequestMethod.GET)
 	public String showList(ModelMap model){
-		HRService hrService=Context.getService(HRService.class);
-		model.addAttribute("ReportList", hrService.getHrReports());
+		HRReportsService hrReportsService=Context.getService(HRReportsService.class);
+		model.addAttribute("ReportList", hrReportsService.getHrReports());
 		return SUCCESS_LIST_VIEW;
 	}
 	
 	@RequestMapping(value = "module/hr/admin/generateReport.form",method=RequestMethod.GET)
 	@ModelAttribute("HrReport")
 	public HrReport showForm(ModelMap model,@RequestParam(required=false,value="reportId") Integer reportId){
-		HRService hrService=Context.getService(HRService.class);
+		HRReportsService hrReportsService=Context.getService(HRReportsService.class);
 		if(reportId!=null)
-		return hrService.getHrReport(reportId);
+		return hrReportsService.getHrReport(reportId);
 		else
 			return new HrReport();
 	}
 	@RequestMapping(value = "module/hr/admin/generateReport.form",method=RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,HttpServletResponse response,@ModelAttribute("HrReport") HrReport report,BindingResult errors) throws IOException
 	{
-		HRService hrService=Context.getService(HRService.class);
+		HRReportsService hrReportsService=Context.getService(HRReportsService.class);
 		String outputFormat=request.getParameter("outputFormat");
-		HrReport hrReport=hrService.getHrReport(report.getReportId());
+		HrReport hrReport=hrReportsService.getHrReport(report.getReportId());
 		int i=0;
 		List<HrReportParameter> parameterList=report.getParameters();
 		for(HrReportParameter p:parameterList)

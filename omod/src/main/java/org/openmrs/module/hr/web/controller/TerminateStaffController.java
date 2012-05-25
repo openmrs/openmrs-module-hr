@@ -13,19 +13,17 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.ConceptAnswer;
 import org.openmrs.GlobalProperty;
-import org.openmrs.Location;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRManagerService;
-import org.openmrs.module.hr.HRService;
+import org.openmrs.module.hr.api.HRManagerService;
+import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
-import org.openmrs.module.hr.propertyEditor.HrPostEditor;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.propertyeditor.ConceptEditor;
-import org.openmrs.propertyeditor.LocationEditor;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -38,8 +36,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
 public class TerminateStaffController {
@@ -177,7 +173,7 @@ public class TerminateStaffController {
 			}
 			request.getSession().removeAttribute("staff");
 			staff.setStaffStatus(former);
-			Context.getService(HRService.class).saveStaff(staff);
+			Context.getService(HRStaffService.class).saveStaff(staff);
 			request.getSession().setAttribute("staff",staff);
 		}
 

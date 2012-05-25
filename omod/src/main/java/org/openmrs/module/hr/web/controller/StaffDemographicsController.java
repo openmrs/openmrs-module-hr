@@ -5,15 +5,12 @@ import java.util.Map;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.openmrs.Person;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HRService;
-import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
