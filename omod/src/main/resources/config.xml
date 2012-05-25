@@ -22,11 +22,11 @@
 	<!-- Extensions -->
 	<extension>
 		<point>org.openmrs.admin.list</point>
-		<class>@MODULE_PACKAGE@.extension.html.AdminList</class>
+		<class>@MODULE_PACKAGE@.api.extension.html.AdminList</class>
 	</extension>
 	<extension>
 	<point>org.openmrs.gutter.tools</point>
-	<class>@MODULE_PACKAGE@.extension.html.HumanResourcesGutterLinkExt
+	<class>@MODULE_PACKAGE@.api.extension.html.HumanResourcesGutterLinkExt
 	</class>
 	</extension>
 	
