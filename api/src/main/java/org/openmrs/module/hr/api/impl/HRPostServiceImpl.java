@@ -26,13 +26,13 @@ public class HRPostServiceImpl implements HRPostService {
 
 
     public List<HrJobTitle> getAllJobTitles() {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+		List<HrJobTitle> list=hrJobTitleDAO.getAllJobTitles();
+		return list;
+	}
+	public void saveJobTitle(HrJobTitle jobTitle) {
+		hrJobTitleDAO.saveJobTitle(jobTitle);
 
-    public void saveJobTitle(HrJobTitle jobTitle) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+	}
     public HrPost savePost(HrPost post) {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }

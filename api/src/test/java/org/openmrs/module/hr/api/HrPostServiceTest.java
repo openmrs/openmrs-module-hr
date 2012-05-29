@@ -3,10 +3,10 @@ package org.openmrs.module.hr.api;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     HRPostService hrPostService;
@@ -37,4 +37,29 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetJobTitleById(){
         assertNotNull(hrPostService.getJobTitleById(2));
     }
+
+    @Test
+    public void shouldRetireOrUnRetireJobTitle(){
+        HrJobTitle hrJobTitle = hrPostService.getJobTitleById(2);
+        hrPostService.retireJobTitle(hrJobTitle,"test reason");
+        assertTrue(hrPostService.getJobTitleById(2).isRetired());
+        hrPostService.unretireJobTitle(hrJobTitle);
+        assertFalse(hrPostService.getJobTitleById(2).isRetired());
+    }
+
+    @Test
+    public void shouldGetAllJobTitles(){
+        assertEquals(2,hrPostService.getAllJobTitles().size());
+    }
+
+    @Test
+    public void shouldSaveJobTitle(){
+        HrJobTitle hrJobTitle = hrPostService.getJobTitleById(1);
+        hrJobTitle.setTitle("changed title");
+        hrPostService.saveJobTitle(hrJobTitle);
+        assertEquals("changed title",hrPostService.getJobTitleById(1).getTitle());
+    }
+
 }
+
+
