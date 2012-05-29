@@ -29,7 +29,7 @@ public interface HRService {
 	
 //	public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
-	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
+//	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
 	
 	public List<HrIscoCodes> getAllIscoCodes();
 	

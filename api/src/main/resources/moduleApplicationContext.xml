@@ -137,4 +137,35 @@
 			</list>
 		</property>
 	</bean>
+
+    <bean parent="serviceContext">
+		<property name="moduleService">
+			<list>
+				<value>org.openmrs.module.hr.api.HRPostService</value> <!-- service interface name -->
+				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+					<property name="transactionManager"><ref bean="transactionManager"/></property>
+					<property name="target">
+						<bean class="org.openmrs.module.hr.api.impl.HRPostServiceImpl">
+							<property name="hriscoCodeDAO">
+								<bean class="org.openmrs.module.hr.api.db.hibernate.HibernateHRISCOCodeDAO">
+									<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+								</bean>
+							</property>
+                            <property name="hrJobTitleDAO">
+								<bean class="org.openmrs.module.hr.api.db.hibernate.HibernateHRJobTitleDAO">
+									<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+								</bean>
+							</property>
+						</bean>
+					</property>
+					<property name="preInterceptors">
+						<ref bean="serviceInterceptors"/>
+					</property>
+					<property name="transactionAttributeSource">
+						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
+					</property>
+				</bean>
+			</list>
+		</property>
+	</bean>
 </beans>

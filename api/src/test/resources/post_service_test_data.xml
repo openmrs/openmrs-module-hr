@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <hr_isco_codes codeisco="1" title="test isco code"/>
+    <hr_isco_codes codeisco="2" title="test isco code"/>
+
+    <hr_job_title job_id="1" codeISCO="1" title="test title" cadre="123" grades="some" retired="0" date_created="2011-12-11 00:00:00.0" creator="1" uuid="11111111-1111-1111-1111-111111111111"/>
+    <hr_job_title job_id="2" codeISCO="1" title="test title" cadre="123" grades="some" retired="0" date_created="2011-12-11 00:00:00.0" creator="1" uuid="11111111-1111-1111-1111-111111111112"/>
+</dataset>
