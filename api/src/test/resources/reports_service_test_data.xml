@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <hr_report report_id="1" name="test report" file_name="testfile.jrxml" />
-    <hr_report report_id="2" name="test report" file_name="testfile.jrxml" />
+  <hr_report report_id="1" name="Staff Roster" description="Demographics of the existing staff" file_name="Staff_Roster.jrxml"/>
+  <hr_report report_id="2" name="Post Summary" description="List of posts in the system categorized into filled,open,unapproved and closed posts" file_name="Post_Summary.jrxml"/>
+  <hr_report_parameters parameter_id="1" display_name="As Of Date" name="AsOf" class="java.util.Date" reportId="2" default_value="07/01/2008" visible="true"/>
 </dataset>

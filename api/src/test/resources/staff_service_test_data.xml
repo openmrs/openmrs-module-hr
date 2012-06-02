@@ -1,12 +1,98 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <hr_staff staff_id="1" staff_status="2" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1111-111111111111" />
-    <hr_staff staff_id="2" staff_status="2" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1111-111111111112" />
-
-    <hr_staff_attribute staff_attribute_id="1" staff_id="11" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1112-111111111111" />
+  <hr_staff staff_id="7777701" staff_status="7777743" initial_hire_date="1980-04-02 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4380f28-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777702" staff_status="7777743" initial_hire_date="1985-01-18 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4390c09-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777703" staff_status="7777743" initial_hire_date="1990-02-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e43a5580-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777704" staff_status="7777744" initial_hire_date="1995-08-02 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e43b3b7d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777705" staff_status="7777743" initial_hire_date="2000-10-12 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e43c9741-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777706" staff_status="7777743" initial_hire_date="1985-04-02 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e43dbbb1-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777707" staff_status="7777743" initial_hire_date="1995-04-27 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e43ec69b-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777708" staff_status="7777743" initial_hire_date="2000-01-24 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4400e99-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777709" staff_status="7777745" initial_hire_date="1985-12-03 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4412371-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777710" staff_status="7777743" initial_hire_date="1990-02-09 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4427039-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777711" staff_status="7777743" initial_hire_date="1980-09-05 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4439d38-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777712" staff_status="7777743" initial_hire_date="1985-10-07 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e444fa7d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777713" staff_status="7777743" initial_hire_date="1990-05-14 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4470b79-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777714" staff_status="7777743" initial_hire_date="1992-07-20 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4482599-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777715" staff_status="7777743" initial_hire_date="1994-12-27 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e449452e-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777716" staff_status="7777743" initial_hire_date="1996-12-28 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e44ad11d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777717" staff_status="7777743" initial_hire_date="1999-03-18 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e44bf1c4-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777718" staff_status="7777743" initial_hire_date="2000-11-02 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e44d3586-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777719" staff_status="7777743" initial_hire_date="2002-04-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e44f000b-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777720" staff_status="7777743" initial_hire_date="2004-08-01 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4569b97-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777721" staff_status="7777743" initial_hire_date="2004-12-14 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e457e48e-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777722" staff_status="7777743" initial_hire_date="2004-04-05 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e458e182-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777723" staff_status="7777743" initial_hire_date="2005-03-21 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e45a102f-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777724" staff_status="7777743" initial_hire_date="2005-03-21 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e45c0afb-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777725" staff_status="7777743" initial_hire_date="2006-03-12 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e45d3e51-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777726" staff_status="7777743" initial_hire_date="2006-01-18 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e45e7286-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777727" staff_status="7777743" initial_hire_date="2007-01-06 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e45f8803-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777728" staff_status="7777743" initial_hire_date="2008-09-13 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e461352d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777729" staff_status="7777743" initial_hire_date="2009-12-19 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4627725-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777730" staff_status="7777743" initial_hire_date="2009-08-21 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4639977-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777731" staff_status="7777743" initial_hire_date="2009-03-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e464c064-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777732" staff_status="7777743" initial_hire_date="1982-10-04 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e465c5e1-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777733" staff_status="7777743" initial_hire_date="1994-11-24 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e466e8a9-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777734" staff_status="7777743" initial_hire_date="2004-01-14 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e467ec30-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777735" staff_status="7777743" initial_hire_date="1992-10-08 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e469259c-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777736" staff_status="7777743" initial_hire_date="1988-06-16 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e46a23a8-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777737" staff_status="7777743" initial_hire_date="1997-10-05 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e46b65a6-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777738" staff_status="7777743" initial_hire_date="2003-06-23 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e46e7621-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777739" staff_status="7777743" initial_hire_date="2007-12-20 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e46f918e-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777740" staff_status="7777743" initial_hire_date="2008-10-26 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e470a895-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777741" staff_status="7777743" initial_hire_date="2000-02-01 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47185d0-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777742" staff_status="7777743" initial_hire_date="2004-02-16 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47266ef-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777743" staff_status="7777743" initial_hire_date="2008-09-28 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e473cc6c-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777744" staff_status="7777743" initial_hire_date="1982-03-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e474b2a8-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777745" staff_status="7777743" initial_hire_date="1999-07-26 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e476367f-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777746" staff_status="7777743" initial_hire_date="2003-03-24 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4778a2a-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777747" staff_status="7777743" initial_hire_date="2005-02-18 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47893fa-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777748" staff_status="7777743" initial_hire_date="2007-08-11 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e479e7fb-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777749" staff_status="7777743" initial_hire_date="1990-02-02 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47b0f7d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777750" staff_status="7777743" initial_hire_date="1995-01-23 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47c7d61-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777751" staff_status="7777743" initial_hire_date="1999-08-06 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47d9db7-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777752" staff_status="7777743" initial_hire_date="2006-06-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e47eec2b-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777753" staff_status="7777743" initial_hire_date="1994-04-04 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4802732-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777754" staff_status="7777743" initial_hire_date="2004-06-16 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4815e32-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777755" staff_status="7777743" initial_hire_date="2005-11-03 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e482b308-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777756" staff_status="7777743" initial_hire_date="2008-02-26 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e483e81a-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777757" staff_status="7777743" initial_hire_date="2009-10-13 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48546bd-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777758" staff_status="7777743" initial_hire_date="1990-02-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4867b94-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777759" staff_status="7777743" initial_hire_date="1994-08-14 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e487aa11-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777760" staff_status="7777743" initial_hire_date="2004-08-24 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4892546-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777761" staff_status="7777743" initial_hire_date="2005-07-08 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48a91dd-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777762" staff_status="7777743" initial_hire_date="2008-01-22 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48c13e7-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777763" staff_status="7777743" initial_hire_date="2009-10-12 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48d2f43-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777764" staff_status="7777743" initial_hire_date="1986-04-17 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48eaa32-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777765" staff_status="7777743" initial_hire_date="1998-02-14 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e48fa567-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777766" staff_status="7777743" initial_hire_date="2004-06-06 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e490eced-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777767" staff_status="7777743" initial_hire_date="2005-07-25 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4926bee-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777768" staff_status="7777743" initial_hire_date="2006-11-07 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4937fd0-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777769" staff_status="7777743" initial_hire_date="2008-05-24 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e494f76b-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777770" staff_status="7777743" initial_hire_date="2009-12-10 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e495f282-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777771" staff_status="7777743" initial_hire_date="1986-02-05 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e49740e2-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777772" staff_status="7777743" initial_hire_date="1998-05-19 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e498c38e-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777773" staff_status="7777743" initial_hire_date="2004-11-03 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e499c962-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777774" staff_status="7777743" initial_hire_date="2005-04-26 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e49b4708-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777775" staff_status="7777743" initial_hire_date="1986-05-01 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e49c510d-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777776" staff_status="7777743" initial_hire_date="1998-10-28 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e49d8d53-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777777" staff_status="7777743" initial_hire_date="2004-08-04 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e49f102b-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777778" staff_status="7777743" initial_hire_date="2005-05-25 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a0174e-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777779" staff_status="7777743" initial_hire_date="2006-06-04 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a153b0-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777780" staff_status="7777743" initial_hire_date="2008-12-17 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a2d598-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777781" staff_status="7777743" initial_hire_date="1978-09-17 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a3dba6-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777782" staff_status="7777743" initial_hire_date="2006-02-13 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a55de8-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777783" staff_status="7777743" initial_hire_date="1990-01-20 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a6d417-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777784" staff_status="7777743" initial_hire_date="2003-09-22 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a85a11-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777785" staff_status="7777743" initial_hire_date="1988-07-21 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4a995d1-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777786" staff_status="7777743" initial_hire_date="2007-01-17 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4aaf0b2-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777787" staff_status="7777745" initial_hire_date="1970-10-26 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4abfa77-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777788" staff_status="7777745" initial_hire_date="1996-12-13 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4acfc52-9538-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777792" staff_status="7777745" initial_hire_date="1985-11-22 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="6f87f7a2-9539-11e0-b3e8-8a74a6e487f5"/>
+  <hr_staff staff_id="7777793" staff_status="7777745" initial_hire_date="1998-07-11 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="6f892136-9539-11e0-b3e8-8a74a6e487f5"/>
+<hr_staff_attribute staff_attribute_id="1" staff_id="11" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1112-111111111111" />
     <hr_staff_attribute staff_attribute_id="2" staff_id="11" creator="0" date_created="2011-12-11 00:00:00.0" voided="false" uuid="11111111-1111-1111-1112-111111111112" />
 
     <hr_staff_attribute_type staff_attribute_type_id="1" name="Age" format="number" description="Age" searchable="1" creator="0" date_created="2011-12-11 00:00:00.0" retired="0" uuid="11111111-1111-1111-1113-111111111111" />
     <hr_staff_attribute_type staff_attribute_type_id="2" name="Address" format="string" description="Address" searchable="0" creator="0" date_created="2011-12-11 00:00:00.0" retired="0" uuid="11111111-1111-1111-1113-111111111112" />
-
 </dataset>

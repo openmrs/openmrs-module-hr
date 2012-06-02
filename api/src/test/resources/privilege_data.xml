@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <privilege privilege="Add Allergies" description="Add allergies" uuid="a4faaba0-4f91-401a-ba8f-763d250eb12c"/>
+  <privilege privilege="Add Assignments" description="Able to Add Assignments" uuid="3648849d-e281-4f25-acad-bfc4d8219769"/>
+  <privilege privilege="Add Cohorts" description="Able to add a cohort to the system" uuid="df2223f0-8f41-46e9-80d8-ce3a8ca995c3"/>
+  <privilege privilege="Add Concept Proposals" description="Able to add concept proposals to the system" uuid="753d773a-2fab-459a-902f-2f2c0bc3e64f"/>
+  <privilege privilege="Add Encounters" description="Able to add patient encounters" uuid="02401f45-c401-4460-a349-d94bc38758ac"/>
+  <privilege privilege="Add FormEntry Archive" description="Allows the user to add the formentry archive" uuid="d4eccd65-30e9-437f-b44a-89ce9e7cfd9b"/>
+  <privilege privilege="Add FormEntry Error" description="Allows a user to add a formentry error item" uuid="ae0360cd-7654-4059-b29c-26719c7bdbb4"/>
+  <privilege privilege="Add FormEntry Queue" description="Allows user to add a queue item to database" uuid="59eacd95-f1dd-46a7-b6d6-25fb7eb3e8c4"/>
+  <privilege privilege="Add Observations" description="Able to add patient observations" uuid="6f0d36f4-485b-4a2e-a66c-51a1e8740981"/>
+  <privilege privilege="Add Orders" description="Able to add orders" uuid="7c12b19e-36a8-4adf-bd31-c06a69380c21"/>
+  <privilege privilege="Add Patient Identifiers" description="Able to add patient identifiers" uuid="a343151d-cc28-480c-9c41-a40e569af5c6"/>
+  <privilege privilege="Add Patient Programs" description="Able to add patients to programs" uuid="abb37535-650d-4a13-a553-d96b17fb5bcf"/>
+  <privilege privilege="Add Patients" description="Able to add patients" uuid="a2ccb149-76cd-4987-a40b-4d87631626ac"/>
+  <privilege privilege="Add People" description="Able to add person objects" uuid="1ca6f765-36ad-4708-be46-9c9f74dae377"/>
+  <privilege privilege="Add Post" description="Able to Add (Create/Move) Posts" uuid="84d754a7-6d17-49f6-9b79-eb46ba629b11"/>
+  <privilege privilege="Add Problems" description="Add problems" uuid="d158bcab-d9bb-4135-8624-071902df6799"/>
+  <privilege privilege="Add Relationships" description="Able to add relationships" uuid="5c9b3570-d6bc-4808-a034-df93c6385b9f"/>
+  <privilege privilege="Add Users" description="Able to add users to OpenMRS" uuid="b02ad697-2407-4a57-9e02-8ec4f79ccd67"/>
+  <privilege privilege="Delete Cohorts" description="Able to add a cohort to the system" uuid="92e64d39-2416-49bd-b86a-d3b460070251"/>
+  <privilege privilege="Delete Concept Proposals" description="Able to delete concept proposals from the system" uuid="7da676db-8d1a-40d5-987f-71959cbab558"/>
+  <privilege privilege="Delete Encounters" description="Able to delete patient encounters" uuid="2124f806-4daf-4544-b0fe-4243863141ad"/>
+  <privilege privilege="Delete FormEntry Archive" description="Allows the user to delete a formentry archive" uuid="2b34ac00-b744-43ba-b0eb-af5413a65682"/>
+  <privilege privilege="Delete FormEntry Error" description="Allows a user to delete a formentry error item" uuid="94e024d2-9f63-4022-98e1-d09cfd4fc515"/>
+  <privilege privilege="Delete FormEntry Queue" description="Allows the user to delete formentry queue items" uuid="c3289e5a-e4ca-4d5a-a56c-91f360256340"/>
+  <privilege privilege="Delete Observations" description="Able to delete patient observations" uuid="87a35e24-bca3-4d25-ad04-4e5c8cf75189"/>
+  <privilege privilege="Delete Orders" description="Able to delete orders" uuid="cf81cc8b-1fa4-492a-bb4c-1f951b896554"/>
+  <privilege privilege="Delete Patient Identifiers" description="Able to delete patient identifiers" uuid="1dd5bd8d-19e5-40c0-beca-aa5af7c56be0"/>
+  <privilege privilege="Delete Patient Programs" description="Able to delete patients from programs" uuid="2b5cbdf3-e4ce-4a87-9a85-a53aaae6c693"/>
+  <privilege privilege="Delete Patients" description="Able to delete patients" uuid="45d467fd-573b-48f9-a61b-4dfc885afec5"/>
+  <privilege privilege="Delete People" description="Able to delete objects" uuid="98c45371-3212-4885-a2d6-53f3223ffe4b"/>
+  <privilege privilege="Delete Relationships" description="Able to delete relationships" uuid="4c6ed40d-7a37-4c76-8131-0eb5d83f1cfe"/>
+  <privilege privilege="Delete Users" description="Able to delete users in OpenMRS" uuid="7ee264bc-386f-4690-9a9d-0a4a43173019"/>
+  <privilege privilege="Edit Allergies" description="Able to edit allergies" uuid="a81b7534-3cf6-4114-a8ec-955cf8ddb2fe"/>
+  <privilege privilege="Edit Cohorts" description="Able to add a cohort to the system" uuid="5ee71a57-8da0-43ed-9ea4-2048b4047a00"/>
+  <privilege privilege="Edit Concept Proposals" description="Able to edit concept proposals in the system" uuid="72677c1f-fdab-4915-a15f-24c8a9ae56a0"/>
+  <privilege privilege="Edit Encounters" description="Able to edit patient encounters" uuid="d97d3746-e35a-478b-90e3-ff64adb24b94"/>
+  <privilege privilege="Edit FormEntry Archive" description="Allows the user to edit a formentry archive" uuid="382f7728-2786-4c32-a408-dfe3913897eb"/>
+  <privilege privilege="Edit FormEntry Error" description="Allows a user to edit a formentry error item" uuid="b2b3c03e-ba53-4f41-a29b-18dae7d7c9dd"/>
+  <privilege privilege="Edit FormEntry Queue" description="Allows the user to edit the formentry queue" uuid="1798a290-39ba-4862-a162-56405fb0da8b"/>
+  <privilege privilege="Edit Observations" description="Able to edit patient observations" uuid="a5346971-457b-406d-896f-5b88a2da77c4"/>
+  <privilege privilege="Edit Orders" description="Able to edit orders" uuid="79947846-21a7-40db-87a9-191134f83375"/>
+  <privilege privilege="Edit Patient Identifiers" description="Able to edit patient identifiers" uuid="0af4b636-62dd-426e-a77c-f42db7ccb6df"/>
+  <privilege privilege="Edit Patient Programs" description="Able to edit patients in programs" uuid="fe0b407d-614d-4e84-9829-2a62ac8d6fab"/>
+  <privilege privilege="Edit Patients" description="Able to edit patients" uuid="075b4771-5890-486b-b9a9-96e54bfb1b2d"/>
+  <privilege privilege="Edit People" description="Able to add person objects" uuid="22bf533b-dd9a-41a7-bbc9-696392472968"/>
+  <privilege privilege="Edit Problems" description="Able to edit problems" uuid="63cb0a43-771d-422f-9ec6-ad623547c4d7"/>
+  <privilege privilege="Edit Relationships" description="Able to edit relationships" uuid="ea7f67da-ed04-49b6-9d75-fc53c7cf8a34"/>
+  <privilege privilege="Edit User Passwords" description="Able to change the passwords of users in OpenMRS" uuid="7f2adae4-b07b-4338-a776-51e6b711ff49"/>
+  <privilege privilege="Edit Users" description="Able to edit users in OpenMRS" uuid="720a24d0-fc27-4f8d-804a-65d4dcc35c3c"/>
+  <privilege privilege="Find Human Resources" description="Able to Find Human Resources" uuid="a3427ee9-81d4-4a15-aef4-116731d105f2"/>
+  <privilege privilege="Form Entry" description="Able to fill out forms" uuid="a348c14b-91ba-4920-9688-517baaed1480"/>
+  <privilege privilege="Manage Alerts" description="Able to add/edit/delete user alerts" uuid="1425eaab-cf8a-417a-8953-aec3f2d5bf80"/>
+  <privilege privilege="Manage Concept Classes" description="Able to add/edit/retire concept classes" uuid="d16e7d4f-5535-4506-b18e-ca6c29742a49"/>
+  <privilege privilege="Manage Concept Datatypes" description="Able to add/edit/retire concept datatypes" uuid="a1e17f3d-3861-4f52-b9e2-9b11fd20e836"/>
+  <privilege privilege="Manage Concept Name tags" description="Able to add/edit/delete concept name tags" uuid="65cbbc7d-d6ab-41fc-b105-6b46b800bb75"/>
+  <privilege privilege="Manage Concept Sources" description="Able to add/edit/delete concept sources" uuid="6b64bad7-8a59-44d0-acb6-0c71b95fb4d2"/>
+  <privilege privilege="Manage Concepts" description="Able to add/edit/delete concept entries" uuid="2e631725-4736-4d86-9606-3cb33d6eaad3"/>
+  <privilege privilege="Manage Encounter Types" description="Able to add/edit/retire encounter types" uuid="7cd475a2-e251-4533-9185-c81a7f0e7b54"/>
+  <privilege privilege="Manage Field Types" description="Able to add/edit/retire field types" uuid="129678de-7bab-4ec5-bca1-11fa9a1c7e8d"/>
+  <privilege privilege="Manage FormEntry XSN" description="Allows user to upload and edit the xsns stored on the server" uuid="d5014f2e-c432-449c-b074-ff4fad718ab9"/>
+  <privilege privilege="Manage Forms" description="Able to add/edit/delete forms" uuid="0c2a93b5-1f09-4386-ab20-d61b79c12bc9"/>
+  <privilege privilege="Manage Global Properties" description="Able to add/edit global properties" uuid="70ae3d55-730e-4ca9-b9a4-fce81c38f862"/>
+  <privilege privilege="Manage Identifier Types" description="Able to add/edit/retire patient identifier types" uuid="126ae653-bbb6-4b24-a8a7-e456b1880f25"/>
+  <privilege privilege="Manage Implementation Id" description="Able to view/add/edit the implementation id for the system" uuid="485cfb6b-c301-4a52-94d8-0a35aebf1844"/>
+  <privilege privilege="Manage Job Titles" description="Able to Manage (Create/Edit) the Job Titles" uuid="2c293cd9-53ab-4410-bbb3-1f693e749700"/>
+  <privilege privilege="Manage Location Tags" description="Able to add/edit/delete location tags" uuid="3fc13319-a2d2-494e-a4f3-83d6bb833ca3"/>
+  <privilege privilege="Manage Locations" description="Able to add/edit/delete locations" uuid="105b671a-3ff7-436f-b369-74d368502401"/>
+  <privilege privilege="Manage Modules" description="Able to add/remove modules to the system" uuid="f17ac94d-1b7c-445b-97ac-a26618e4202d"/>
+  <privilege privilege="Manage Order Types" description="Able to add/edit/retire order types" uuid="096d8519-b445-4bdc-ba0d-1f0e9a3619f0"/>
+  <privilege privilege="Manage Person Attribute Types" description="Able to add/edit/retire person attribute types" uuid="024c7e47-2d73-43d0-9050-95371cef8840"/>
+  <privilege privilege="Manage Posts" description="Able to Manage (Create/Edit) the Posts" uuid="6db38799-6e88-4f4b-beea-df24ed3ff14b"/>
+  <privilege privilege="Manage Privileges" description="Able to add/edit/delete privileges" uuid="546cacb8-1d13-47aa-bc9d-1c898a5a02f1"/>
+  <privilege privilege="Manage Programs" description="Able to add/view/delete patient programs" uuid="aba19580-e6f9-45d8-8024-e05f9635c63d"/>
+  <privilege privilege="Manage Relationship Types" description="Able to add/edit/retire relationship types" uuid="5bcef7c9-4019-4120-aaa6-561b79409af4"/>
+  <privilege privilege="Manage Roles" description="Able to add/edit/delete user roles" uuid="491fee4b-36f0-4de0-ba0f-25022af448ed"/>
+  <privilege privilege="Manage Scheduler" description="Able to add/edit/remove scheduled tasks" uuid="61395ccd-8155-43e1-952d-c009fc521a5f"/>
+  <privilege privilege="Manage Staff" description="Able to Manage (Create/Edit) the Staff" uuid="1c2e5fdd-41a3-4d31-9670-2f8e9d709a54"/>
+  <privilege privilege="Manage Staff Attribute Types" description="Able to Manage (Create/Edit/Delete) the Staff Attribute Types" uuid="15033403-b66c-472e-adbd-f8ec450ae228"/>
+  <privilege privilege="Patient Dashboard - View Demographics Section" description="Able to view the &apos;Demographics&apos; tab on the patient dashboard" uuid="3eacca34-a433-489c-8067-b2f5c11389c8"/>
+  <privilege privilege="Patient Dashboard - View Encounters Section" description="Able to view the &apos;Encounters&apos; tab on the patient dashboard" uuid="920556ee-7642-44c8-8304-7bfa69c15916"/>
+  <privilege privilege="Patient Dashboard - View Forms Section" description="Able to view the &apos;Forms&apos; tab on the patient dashboard" uuid="8929e5c3-4af5-4fff-bc72-bb1143da83e8"/>
+  <privilege privilege="Patient Dashboard - View Graphs Section" description="Able to view the &apos;Graphs&apos; tab on the patient dashboard" uuid="acd0e75d-14b8-4156-9327-270b7d445a53"/>
+  <privilege privilege="Patient Dashboard - View Overview Section" description="Able to view the &apos;Overview&apos; tab on the patient dashboard" uuid="907546ee-f1c1-4f07-98f3-f2db08ed06ce"/>
+  <privilege privilege="Patient Dashboard - View Patient Summary" description="Able to view the &apos;Summary&apos; tab on the patient dashboard" uuid="abda9a81-397b-4f35-b7cc-3dfaa2bd1113"/>
+  <privilege privilege="Patient Dashboard - View Regimen Section" description="Able to view the &apos;Regimen&apos; tab on the patient dashboard" uuid="1976356e-3c1a-4cc1-9876-dec77cfe6a16"/>
+  <privilege privilege="Remove Allergies" description="Remove allergies" uuid="e8c8b31a-1493-445d-83d3-ab26036baee5"/>
+  <privilege privilege="Remove Problems" description="Remove problems" uuid="ee0de494-adf2-4f80-8533-f282d8e7a02e"/>
+  <privilege privilege="Upload XSN" description="Allows user to upload/overwrite the XSNs defined for forms" uuid="a49f5d67-1cdb-4380-a4f2-c609dfd50caa"/>
+  <privilege privilege="View Administration Functions" description="Able to view the &apos;Administration&apos; link in the navigation bar" uuid="9f7908a4-64ad-46a3-8054-5c1b207a69b8"/>
+  <privilege privilege="View Allergies" description="Able to view allergies" uuid="f97214e6-505f-4275-a677-b8d7ee6d9a91"/>
+  <privilege privilege="View Concept Classes" description="Able to view concept classes" uuid="62956efd-33da-41af-a020-9dd8c8d119d9"/>
+  <privilege privilege="View Concept Datatypes" description="Able to view concept datatypes" uuid="fb7f0063-078b-484b-966d-da53326f1607"/>
+  <privilege privilege="View Concept Proposals" description="Able to view concept proposals to the system" uuid="b16c1e74-d1f3-47ab-b143-5772c9a55748"/>
+  <privilege privilege="View Concept Sources" description="Able to view concept sources" uuid="b1d421e8-b73c-4567-905b-c89227ae538b"/>
+  <privilege privilege="View Concepts" description="Able to view concept entries" uuid="df316991-5d66-4da9-98ed-816bdd0e9890"/>
+  <privilege privilege="View Database Changes" description="Able to view database changes from the admin screen" uuid="3bbb091e-c756-4d20-9b91-a5144bf02a63"/>
+  <privilege privilege="View Encounter Types" description="Able to view encounter types" uuid="b83f29e4-ab3f-45fb-864b-715d39ba7b1c"/>
+  <privilege privilege="View Encounters" description="Able to view patient encounters" uuid="61ce79a2-8d29-4163-ba00-78104827bfce"/>
+  <privilege privilege="View Field Types" description="Able to view field types" uuid="514e5bb4-645e-4058-b469-a43b1f7ec2f9"/>
+  <privilege privilege="View FormEntry Archive" description="Allows the user to view the formentry archive" uuid="06f70986-3322-46c1-977f-713887460e6a"/>
+  <privilege privilege="View FormEntry Error" description="Allows a user to view a formentry error" uuid="d1a59e6a-22bc-4623-a3c8-8c307d5109cd"/>
+  <privilege privilege="View FormEntry Queue" description="Allows user to view the queue items" uuid="77fe3ea7-25b6-4b9d-8c3f-2096e77c0234"/>
+  <privilege privilege="View Forms" description="Able to view forms" uuid="ef1e4643-9d58-4f0b-8054-72fdddc8f73d"/>
+  <privilege privilege="View Global Properties" description="Able to view global properties on the administration screen" uuid="f2fa6b52-e61a-42a8-971f-7dde30d38d51"/>
+  <privilege privilege="View Identifier Types" description="Able to view patient identifier types" uuid="6732fe80-5725-4211-ae7b-73f23ea1c0fe"/>
+  <privilege privilege="View Locations" description="Able to view locations" uuid="c737035c-e28a-4284-96a8-873464f9209d"/>
+  <privilege privilege="View Navigation Menu" description="Able to view the navigation menu (Home, View Patients, Dictionary, Administration, My Profile" uuid="2730f2eb-0de5-4ad6-a382-0cc5ac365c13"/>
+  <privilege privilege="View Observations" description="Able to view patient observations" uuid="2e8a78c5-d868-4567-b1da-785bca1ee942"/>
+  <privilege privilege="View Order Types" description="Able to view order types" uuid="a0a5f822-ae4d-4684-ad5c-d17c10b43159"/>
+  <privilege privilege="View Orders" description="Able to view orders" uuid="15d838b8-6f0a-4dec-b9de-1c721d0609da"/>
+  <privilege privilege="View Patient Cohorts" description="Able to view patient cohorts" uuid="62fd4888-cdbd-45fa-855b-4489333612b5"/>
+  <privilege privilege="View Patient Identifiers" description="Able to view patient identifiers" uuid="9f28e9e2-a369-4ee8-9308-888082f30e40"/>
+  <privilege privilege="View Patient Programs" description="Able to see which programs that patients are in" uuid="4ca0e737-8fd6-46a5-9d3b-da9f898f57b3"/>
+  <privilege privilege="View Patients" description="Able to view patients" uuid="a7b7165f-490f-407a-8107-74f6e63cb72e"/>
+  <privilege privilege="View People" description="Able to view person objects" uuid="3cdcb6c2-15d2-4e58-adf1-c1c53a786cf7"/>
+  <privilege privilege="View Person Attribute Types" description="Able to view person attribute types" uuid="d4753989-095d-4a77-a2e5-ea4ef3b26155"/>
+  <privilege privilege="View Posts" description="Able to View Posts" uuid="468f6804-ac9a-4ee8-925d-7d0946f79dc3"/>
+  <privilege privilege="View Privileges" description="Able to view user privileges" uuid="8aabab58-6e5c-4784-8216-d8c0de77fcc4"/>
+  <privilege privilege="View Problems" description="Able to view problems" uuid="2390e43c-e4d5-4899-a03c-101c12b93278"/>
+  <privilege privilege="View Programs" description="Able to view patient programs" uuid="bf8e1a17-a7bb-40b0-b6a0-4eb0e7632bea"/>
+  <privilege privilege="View Relationship Types" description="Able to view relationship types" uuid="d9b6b940-1177-4d4f-b631-e1ca5a458b34"/>
+  <privilege privilege="View Relationships" description="Able to view relationships" uuid="24170de4-aef6-4616-a496-0f00be585fdd"/>
+  <privilege privilege="View Reports" description="Able to view reports" uuid="771f73ad-2fef-42fb-97d5-6807c7c41883"/>
+  <privilege privilege="View Roles" description="Able to view user roles" uuid="06c62c86-3030-441d-b812-c487657bb5b0"/>
+  <privilege privilege="View Staff" description="Able to View the Staff" uuid="48cf09ec-77f6-46a2-bc05-6add2aa5fbbb"/>
+  <privilege privilege="View Staff Demographics" description="Able to View Staff Demographics" uuid="10d1d653-c69a-4f9b-8f77-14be35c90c20"/>
+  <privilege privilege="View Unpublished Forms" description="Able to view and fill out unpublished forms" uuid="a89b0f6d-d489-4cf0-89fe-da2998521bd8"/>
+  <privilege privilege="View Users" description="Able to view users in OpenMRS" uuid="2a518387-1aa1-4825-8e5e-bc4281f59558"/>
+  <users user_id="1" system_id="admin" username="admin" password="5cc11adc5e582e1953c15d352eea9b28f8c436075c0df905aa0e27a8e7cdd566f49263bb528f2628697fedf9d4493b0b655fd709443b5598200cef467ab0da3e" salt="96f3289108e79844baa0a14c03a78cc839db40863f4a3e8e3bea95d86dd4c728484417aec275877ab3143729c50e7cce7a7f47d6f0bc7f7a5d25e14019224149" creator="1" date_created="2005-01-01 00:00:00.0" changed_by="1" date_changed="2012-05-22 17:10:17.0" person_id="1" retired="0" uuid="519a3780-a402-11e1-9ef6-14feb5ad1c16"/>
+  <users user_id="3" system_id="3-4" username="hrmanager" password="dce7beab5ca1af88f5f90ce057972051d87890546d676a82d71cb5fb4cc34c6ac41bc1851fb6ae3dbfed87300ce596afc6b9bd1000842281f7073b9ef7225c97" salt="f6d6cdca8c4fd388cc8515afa9e95fee5b767f53ae8b56b820f1657deb240fcf2093b3617a6445d2d30f3918b4d60bf6e109bff8a047eeb366a8bd796ebe14bf" creator="1" date_created="2012-06-02 13:37:07.0" changed_by="1" date_changed="2012-06-02 13:37:08.0" person_id="1" retired="0" uuid="28b75721-62b5-44b2-8805-57bcbbceca5f"/>
+  <users user_id="4" system_id="4-2" username="hrclerk" password="074881829fe6f0b95e3e063798c11017066ae87d047bab8ad4b181804ba0764a5e49aaf043d942c3066903c8f8745dbf6af8f29bf23d963c0a755933edc89a7f" salt="d6c6e07bd8d50efb961ed18ba61967a6ec02b2f8013c18d8ee6c6913abd881a4367f7149c6a30a8213ffdab99ba2d801808db33f2530567a010a5d4e6c53324a" creator="1" date_created="2012-06-02 13:37:39.0" changed_by="1" date_changed="2012-06-02 13:37:39.0" person_id="1" retired="0" uuid="ba26679f-c557-4ce8-92b4-bc7c980c902a"/>
+  <users user_id="5" system_id="5-9" username="norole" password="471e8d05a883f187115289dd7132a725b4c033ff40ec5147856a76d990670e783b65519fde97cfbf59e86ba412ed399a126d007b67e0f5fcc4cac91e75afa276" salt="5dd765675617c9acad853b260844908b0ddd8a19c53e4695db1ffe67de2d88ff276d373a418d2038ab594f64620a41959fa8335ac25fc328f16d800fd4fb8a7a" creator="1" date_created="2012-06-02 13:43:04.0" changed_by="1" date_changed="2012-06-02 13:43:04.0" person_id="1" retired="0" uuid="625fd1ef-ab76-40eb-bcdf-f0c769e4af58"/>
+
+  <user_role user_id="1" role="Provider"/>
+  <user_role user_id="1" role="System Developer"/>
+  <user_role user_id="4" role="HR Clerk"/>
+  <user_role user_id="3" role="HR Manager"/>
+
+  <role role="Anonymous" description="Privileges for non-authenticated users." uuid="dfb9f0d0-66b4-47ac-a9fb-0bbc8d7fd3d0"/>
+  <role role="Authenticated" description="Privileges gained once authentication has been established." uuid="7ea3bb4f-6791-4278-9545-9fa2d3fd9cff"/>
+  <role role="HR Clerk" description="HR Role" uuid="1cff2bcb-ae5b-440c-8018-55a343579529"/>
+  <role role="HR Manager" description="HR Role" uuid="86d4b187-a54c-4c7b-98ff-5e4b5c1fa041"/>
+  <role role="Provider" description="All users with the &apos;Provider&apos; role will appear as options in the default Infopath " uuid="8d94f280-c2cc-11de-8d13-0010c6dffd0f"/>
+  <role role="System Developer" description="Developers of the OpenMRS .. have additional access to change fundamental structure of the database model." uuid="8d94f852-c2cc-11de-8d13-0010c6dffd0f"/>
+  <role_privilege role="Authenticated" privilege="View Concept Classes"/>
+  <role_privilege role="Authenticated" privilege="View Concept Datatypes"/>
+  <role_privilege role="Authenticated" privilege="View Encounter Types"/>
+  <role_privilege role="Authenticated" privilege="View Field Types"/>
+  <role_privilege role="Authenticated" privilege="View Global Properties"/>
+  <role_privilege role="Authenticated" privilege="View Identifier Types"/>
+  <role_privilege role="Authenticated" privilege="View Locations"/>
+  <role_privilege role="Authenticated" privilege="View Order Types"/>
+  <role_privilege role="Authenticated" privilege="View Person Attribute Types"/>
+  <role_privilege role="Authenticated" privilege="View Privileges"/>
+  <role_privilege role="Authenticated" privilege="View Relationship Types"/>
+  <role_privilege role="Authenticated" privilege="View Relationships"/>
+  <role_privilege role="Authenticated" privilege="View Roles"/>
+  <role_privilege role="HR Clerk" privilege="Add Assignments"/>
+  <role_privilege role="HR Clerk" privilege="Add People"/>
+  <role_privilege role="HR Clerk" privilege="Add Post"/>
+  <role_privilege role="HR Clerk" privilege="Edit People"/>
+  <role_privilege role="HR Clerk" privilege="Find Human Resources"/>
+  <role_privilege role="HR Clerk" privilege="View Concepts"/>
+  <role_privilege role="HR Clerk" privilege="View People"/>
+  <role_privilege role="HR Clerk" privilege="View Posts"/>
+  <role_privilege role="HR Clerk" privilege="View Staff"/>
+  <role_privilege role="HR Clerk" privilege="View Staff Demographics"/>
+  <role_privilege role="HR Manager" privilege="Add Assignments"/>
+  <role_privilege role="HR Manager" privilege="Add People"/>
+  <role_privilege role="HR Manager" privilege="Add Post"/>
+  <role_privilege role="HR Manager" privilege="Edit People"/>
+  <role_privilege role="HR Manager" privilege="Find Human Resources"/>
+  <role_privilege role="HR Manager" privilege="Manage Job Titles"/>
+  <role_privilege role="HR Manager" privilege="Manage Posts"/>
+  <role_privilege role="HR Manager" privilege="Manage Staff"/>
+  <role_privilege role="HR Manager" privilege="Manage Staff Attribute Types"/>
+  <role_privilege role="HR Manager" privilege="View Concepts"/>
+  <role_privilege role="HR Manager" privilege="View People"/>
+  <role_privilege role="HR Manager" privilege="View Posts"/>
+  <role_privilege role="HR Manager" privilege="View Reports"/>
+  <role_privilege role="HR Manager" privilege="View Staff"/>
+  <role_privilege role="HR Manager" privilege="View Staff Demographics"/>
+  <role_role parent_role="Authenticated" child_role="HR Clerk"/>
+  <role_role parent_role="Authenticated" child_role="HR Manager"/>
+</dataset>
