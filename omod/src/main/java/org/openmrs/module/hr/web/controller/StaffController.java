@@ -25,6 +25,7 @@ import org.openmrs.PersonName;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
@@ -80,7 +81,7 @@ public class StaffController {
 		List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
 		PersonService ps=Context.getPersonService();
 		for(HrStaff staff:staffList){
-			Map<String,Object> jlMap=Context.getService(HRService.class).getCurrentJobLocationForStaff(staff.getId());
+			Map<String,Object> jlMap=Context.getService(HRPostService.class).getCurrentJobLocationForStaff(staff.getId());
 			staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location")))==null?"":((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle"))==null?"":((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
 		}
 		model.addAttribute("StaffListItemList",staffListItemList);

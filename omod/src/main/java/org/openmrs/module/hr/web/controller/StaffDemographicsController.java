@@ -9,6 +9,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrStaffAttribute;
 import org.openmrs.module.hr.HrStaffAttributeType;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,13 +27,13 @@ public class StaffDemographicsController {
 	
 	@RequestMapping(value = "module/hr/manager/staffDemographics.htm",method = RequestMethod.GET)
 	public String showPage(ModelMap model,@RequestParam(required=false,value="staffId") Integer staffId){
-		HRService hrService=Context.getService(HRService.class);
+		HRStaffService hrStaffService=Context.getService(HRStaffService.class);
 		if(staffId!=null){
-		model.addAttribute("staff",hrService.getStaffById(staffId));
+		model.addAttribute("staff",hrStaffService.getStaffById(staffId));
 		model.addAttribute("person",Context.getPersonService().getPerson(staffId));
-		model.addAttribute("attrTypes",hrService.getAllStaffAttributeTypes());
+		model.addAttribute("attrTypes",hrStaffService.getAllStaffAttributeTypes());
 		Map<String,HrStaffAttribute> attributeMap=new HashMap<String, HrStaffAttribute>();
-		for (HrStaffAttribute attribute : hrService.getStaffById(staffId).getActiveAttributes()) {
+		for (HrStaffAttribute attribute : hrStaffService.getStaffById(staffId).getActiveAttributes()) {
 			attributeMap.put(attribute.getHrStaffAttributeType().getName(), attribute);
 		}
 		model.addAttribute("attributeMap",attributeMap);
@@ -41,9 +42,9 @@ public class StaffDemographicsController {
 		HrStaffAttributeType sat=null;
 		if(property!=null)
 		{
-			sat=hrService.getStaffAttributeTypeByName(property);
+			sat=hrStaffService.getStaffAttributeTypeByName(property);
 			if(sat!=null){
-			AttributeToDisplay=hrService.getStaffById(staffId).getAttribute(sat);
+			AttributeToDisplay=hrStaffService.getStaffById(staffId).getAttribute(sat);
 			}
 		}
 		if(sat!=null && AttributeToDisplay!=null)

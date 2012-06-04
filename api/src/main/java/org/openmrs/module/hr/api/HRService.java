@@ -11,33 +11,33 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface HRService {
 	
-	public List<HrJobTitle> getAllJobTitles();
+//	public List<HrJobTitle> getAllJobTitles();
 	
-	public void saveJobTitle(HrJobTitle jobTitle);
+//	public void saveJobTitle(HrJobTitle jobTitle);
 	
-	public HrPost savePost(HrPost post);
+//	public HrPost savePost(HrPost post);
 	
-	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
+//	public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 	
-	public void retireJobTitle(HrJobTitle jobTitle,String retireReason);
+//	public void retireJobTitle(HrJobTitle jobTitle,String retireReason);
 	
-	public void unretireJobTitle(HrJobTitle jobTitle);
+//	public void unretireJobTitle(HrJobTitle jobTitle);
 	
 //	public void saveStaff(HrStaff staff);
 	
-	public HrJobTitle getJobTitleById( int id);
+//	public HrJobTitle getJobTitleById( int id);
 	
 //	public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
 //	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
 	
-	public List<HrIscoCodes> getAllIscoCodes();
+//	public List<HrIscoCodes> getAllIscoCodes();
 	
-	public HrIscoCodes getIscoCodeById( String id) ;
+//	public HrIscoCodes getIscoCodeById( String id) ;
 	
 //	public HrStaffAttributeType getStaffAttributeTypeById( int id);
 	
-	public String getMostRecentIncumbentForPostbyId(int id);
+//	public String getMostRecentIncumbentForPostbyId(int id);
 	
 //	public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType,String reitreReason);
 	
@@ -45,13 +45,13 @@ public interface HRService {
 	
 //	public void purgeStaffAttributeType(HrStaffAttributeType staffAttributeType);
 	
-	public HrPost getPostById( int id);
+//	public HrPost getPostById( int id);
 	
-	public void retirePost(HrPost post,String reitreReason);
+//	public void retirePost(HrPost post,String reitreReason);
 	
-	public void unretirePost(HrPost post);
+//	public void unretirePost(HrPost post);
 	
-	public Map<String,Object> getCurrentJobLocationForStaff(int id);
+//	public Map<String,Object> getCurrentJobLocationForStaff(int id);
 	
 //	public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations);
 	

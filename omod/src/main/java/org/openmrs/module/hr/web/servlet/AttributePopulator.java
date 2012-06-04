@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
 
@@ -30,8 +31,8 @@ public class AttributePopulator extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String code=request.getParameter("code");
-		HRService hrService=Context.getService(HRService.class);
-		HrIscoCodes iscoCode=hrService.getIscoCodeById(code);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		HrIscoCodes iscoCode=hrPostService.getIscoCodeById(code);
 		String responseString=iscoCode.getTitle()+"^"+iscoCode.getDefinition()+"^"+iscoCode.getTasksInclude()+"^"+iscoCode.getIncludedOccupations()+"^"+iscoCode.getExcludedOccupations();
 		response.setHeader("Cache-Control", "no-cache");
 		response.getWriter().write(new String(responseString));

@@ -17,6 +17,7 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.api.HRManagerService;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
@@ -131,7 +132,7 @@ public class TerminateStaffController {
 			if(gp.getPropertyValue().equals("person")){
 				isPersonCentric=true;
 			}
-			HrPost post=Context.getService(HRService.class).getPostById(postHistoryInstance.getHrPost().getPostId());
+			HrPost post=Context.getService(HRPostService.class).getPostById(postHistoryInstance.getHrPost().getPostId());
 			if(!isPersonCentric){
 			List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
 			Concept openPost=null;
@@ -158,7 +159,7 @@ public class TerminateStaffController {
 				}
 				post.setStatus(closedPost);
 			}
-			Context.getService(HRService.class).savePost(post);	
+			Context.getService(HRPostService.class).savePost(post);
 			}
 			Concept staffStatusQuestion=cs.getConceptByMapping("Staff status","HR Module");
 			Concept former=null;

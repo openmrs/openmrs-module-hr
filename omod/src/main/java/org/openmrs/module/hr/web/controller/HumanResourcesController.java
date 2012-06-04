@@ -9,9 +9,11 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.listItem.StaffListItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,12 +38,13 @@ public class HumanResourcesController {
 		 */
 		@RequestMapping(value = "module/hr/manager/findStaff.list",method=RequestMethod.GET)
 		public String showList(ModelMap model,@RequestParam(required=false,value="allstaff") boolean allStaffIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
-			HRService hrService=Context.getService(HRService.class);
-			List<HrStaff> staffList=hrService.getAllStaff(allStaffIncluded,allLocationsIncluded);
+			HRStaffService hrStaffService=Context.getService(HRStaffService.class);
+            HRPostService hrPostService = Context.getService(HRPostService.class);
+			List<HrStaff> staffList=hrStaffService.getAllStaff(allStaffIncluded,allLocationsIncluded);
 			List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
 			PersonService ps=Context.getPersonService();
 			for(HrStaff staff:staffList){
-				Map<String,Object> jlMap=hrService.getCurrentJobLocationForStaff(staff.getId());
+				Map<String,Object> jlMap=hrPostService.getCurrentJobLocationForStaff(staff.getId());
 				staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location")))==null?"":((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle"))==null?"":((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
 			}
 			model.addAttribute("StaffListItemList",staffListItemList);

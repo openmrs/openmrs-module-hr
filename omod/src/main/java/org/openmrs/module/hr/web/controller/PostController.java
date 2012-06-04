@@ -15,6 +15,7 @@ import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
@@ -61,12 +62,12 @@ public class PostController {
 	 */
 	@RequestMapping(value = "module/hr/admin/posts.list",method = RequestMethod.GET)
 	public String showList(ModelMap model,@RequestParam(required=false,value="allposts") boolean allpostsIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
-		HRService hrService=Context.getService(HRService.class);
-		List<HrPost> allPosts=hrService.getAllPosts(allpostsIncluded,allLocationsIncluded);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrPost> allPosts=hrPostService.getAllPosts(allpostsIncluded,allLocationsIncluded);
 		List<PostListItem> postListItemList=new ArrayList<PostListItem>();
 		for(HrPost post:allPosts)
 		{
-			postListItemList.add(new PostListItem(post,hrService.getMostRecentIncumbentForPostbyId(post.getPostId())));		
+			postListItemList.add(new PostListItem(post,hrPostService.getMostRecentIncumbentForPostbyId(post.getPostId())));
 		}
 		model.addAttribute("PostListItemList",postListItemList);
 		return SUCCESS_LIST_VIEW;
@@ -75,8 +76,8 @@ public class PostController {
 	@ModelAttribute("post")
 	public HrPost showForm(ModelMap model,@RequestParam(value="postId",required=false) Integer postId)
 	{
-		HRService hrService=Context.getService(HRService.class);
-		List<HrJobTitle> jobList= hrService.getAllJobTitles();
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrJobTitle> jobList= hrPostService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();
 		Concept postStatus=cs.getConceptByMapping("Post Status","HR Module");
 		Collection<ConceptAnswer> postStatusAnswers;
@@ -92,7 +93,7 @@ public class PostController {
 		model.addAttribute("PostStatusAnswers", postStatusAnswers);
 		HrPost post;
 		if(postId!=null){
-		post=hrService.getPostById(postId);
+		post=hrPostService.getPostById(postId);
 		if(post==null)
 			post=new HrPost();
 		}
@@ -103,10 +104,10 @@ public class PostController {
 	}
 	@ModelAttribute("prevStatus")
 	public Concept getStatus(@RequestParam(value="postId",required=false) Integer postId){
-		HRService hrService=Context.getService(HRService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		if(postId!=null)
 		{
-			HrPost post=hrService.getPostById(postId);
+			HrPost post=hrPostService.getPostById(postId);
 			return post!=null?post.getStatus():null;
 		}
 		else
@@ -123,8 +124,8 @@ public class PostController {
 	 */
 	@RequestMapping(value = "module/hr/admin/post.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors,@ModelAttribute("prevStatus") Concept prevStatus) {
-		HRService hrService=Context.getService(HRService.class);
-		List<HrJobTitle> jobList= hrService.getAllJobTitles();
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrJobTitle> jobList= hrPostService.getAllJobTitles();
 		ConceptService cs=Context.getConceptService();
 		Concept postStatus=cs.getConceptByMapping("Post Status","HR Module");
 		Collection<ConceptAnswer> postStatusAnswers;
@@ -147,12 +148,12 @@ public class PostController {
 					errors.reject("retireReason", "Retire reason cannot be empty");
 					return SUCCESS_FORM_VIEW;
 				}
-				hrService.retirePost(hrService.getPostById(post.getId()), retireReason);
+				hrPostService.retirePost(hrPostService.getPostById(post.getId()), retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post Retired Successfully");
 				return showList(model,false,false);
 			}
 			else if (request.getParameter("unretirePost") != null) {
-				hrService.unretirePost(hrService.getPostById(post.getId()));
+				hrPostService.unretirePost(hrPostService.getPostById(post.getId()));
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post Unretired Successfully");
 				return showList(model,false,false);
 			} else {
@@ -169,7 +170,7 @@ public class PostController {
 					return SUCCESS_FORM_VIEW;
 				}
 				else{	
-				hrService.savePost(post);
+				hrPostService.savePost(post);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Post saved Successfully");
 				return showList(model,false,false);
 				}

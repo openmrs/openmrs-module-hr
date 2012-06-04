@@ -23,6 +23,7 @@ import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.api.HRManagerService;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
@@ -116,9 +117,9 @@ public class PostHistoryController {
 					errors.reject("jobIdNull","error.null");
 				if(locationId!=0 && jobId!=0){
 				newPost.setLocation(Context.getLocationService().getLocation(locationId));
-				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				newPost.setHrJobTitle(Context.getService(HRPostService.class).getJobTitleById(jobId));
 				newPost.setStatus(filledPost);
-				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+				postHistory.setHrPost(Context.getService(HRPostService.class).savePost(newPost));
 				}
 			}
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
@@ -213,7 +214,7 @@ public class PostHistoryController {
 						}
 						post.setStatus(closedPost);
 					}
-				Context.getService(HRService.class).savePost(post);
+				Context.getService(HRPostService.class).savePost(post);
 				currentPosthistory.setEndDate(vacateEndDate);
 				currentPosthistory.setEndReason(vacateEndReason);
 				currentPosthistory.setEndReasonOther(vacateEndReasonText);
@@ -250,7 +251,7 @@ public class PostHistoryController {
 			if(!isPersonCentric){
 			HrPost post=postHistory.getHrPost();
 			post.setStatus(filledPost);
-			Context.getService(HRService.class).savePost(post);
+			Context.getService(HRPostService.class).savePost(post);
 			}
 		}
 		else if(actionString.equals("addprev"))
@@ -270,7 +271,7 @@ public class PostHistoryController {
 					errors.reject("jobIdNull","error.null");
 				if(locationId!=0 && jobId!=0){
 				newPost.setLocation(Context.getLocationService().getLocation(locationId));
-				newPost.setHrJobTitle(Context.getService(HRService.class).getJobTitleById(jobId));
+				newPost.setHrJobTitle(Context.getService(HRPostService.class).getJobTitleById(jobId));
 				Concept filledPost=null;
 				List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
 				if(concepts!=null){
@@ -280,7 +281,7 @@ public class PostHistoryController {
 						break;
 				}
 				newPost.setStatus(filledPost);
-				postHistory.setHrPost(Context.getService(HRService.class).savePost(newPost));
+				postHistory.setHrPost(Context.getService(HRPostService.class).savePost(newPost));
 				}
 			}
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
@@ -457,7 +458,7 @@ public class PostHistoryController {
 			else
 			{
 			model.addAttribute("selectedJobTitle",selJob);
-			model.addAttribute("jobList",Context.getService(HRService.class).getAllJobTitles());
+			model.addAttribute("jobList",Context.getService(HRPostService.class).getAllJobTitles());
 			}
 			
 		postHistory=new HrPostHistory();

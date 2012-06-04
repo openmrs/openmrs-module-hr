@@ -27,6 +27,7 @@ import org.openmrs.ConceptAnswer;
 import org.openmrs.Location;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrIscoCodes;
 import org.openmrs.module.hr.HrJobTitle;
@@ -73,8 +74,8 @@ public class JobTitleController{
 
 	@RequestMapping(value = "module/hr/admin/jobTitles.list")
 	public String showList(ModelMap model){
-		HRService hrService=Context.getService(HRService.class);
-		List<HrJobTitle> jobList= hrService.getAllJobTitles();
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrJobTitle> jobList= hrPostService.getAllJobTitles();
 		model.addAttribute("JobList",jobList);
 		return SUCCESS_LIST_VIEW;
 	}
@@ -83,8 +84,8 @@ public class JobTitleController{
 	@RequestMapping(value="module/hr/admin/jobTitle.form")
 	public HrJobTitle showForm(ModelMap model,@RequestParam(value="jobId",required=false) Integer jobId)
 	{
-		HRService hrService=Context.getService(HRService.class);
-		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrIscoCodes> iscoCodeList= hrPostService.getAllIscoCodes();
 		ConceptService cs=Context.getConceptService();
 		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
 		Collection<ConceptAnswer> cadreAnswers;
@@ -96,7 +97,7 @@ public class JobTitleController{
 		model.addAttribute("CadreAnswers", cadreAnswers);
 		HrJobTitle jobTitle;
 		if(jobId!=null){
-		jobTitle=hrService.getJobTitleById(jobId);
+		jobTitle=hrPostService.getJobTitleById(jobId);
 		if(jobTitle==null)
 			jobTitle=new HrJobTitle();
 		}
@@ -115,8 +116,8 @@ public class JobTitleController{
 	 */
 	@RequestMapping(value="module/hr/admin/jobTitle.form",method = RequestMethod.POST)
 	public ModelAndView onSubmit(HttpServletRequest request,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
-		HRService hrService=Context.getService(HRService.class);
-		List<HrIscoCodes> iscoCodeList= hrService.getAllIscoCodes();
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrIscoCodes> iscoCodeList= hrPostService.getAllIscoCodes();
 		ConceptService cs=Context.getConceptService();
 		Concept cadre=cs.getConceptByMapping("Cadre","HR Module");
 		Collection<ConceptAnswer> cadreAnswers;
@@ -136,16 +137,16 @@ public class JobTitleController{
 					errors.reject("retireReason", "Retire reason cannot be empty");
 					return formView;
 				}
-				hrService.retireJobTitle(hrService.getJobTitleById(jobTitle.getId()), retireReason);
+				hrPostService.retireJobTitle(hrPostService.getJobTitleById(jobTitle.getId()), retireReason);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Retired Successfully");
-				jobList=hrService.getAllJobTitles();
+				jobList=hrPostService.getAllJobTitles();
 				listView.addObject("JobList", jobList);
 				return listView;
 			}
 			else if (request.getParameter("unretireJobTitle") != null) {
-				hrService.unretireJobTitle(hrService.getJobTitleById(jobTitle.getId()));
+				hrPostService.unretireJobTitle(hrPostService.getJobTitleById(jobTitle.getId()));
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Unretired Successfully");
-				jobList=hrService.getAllJobTitles();
+				jobList=hrPostService.getAllJobTitles();
 				listView.addObject("JobList", jobList);
 				return listView;
 			} else {
@@ -158,10 +159,10 @@ public class JobTitleController{
 					return formView;
 				}
 				else{
-				jobTitle.setHrIscoCodes(hrService.getIscoCodeById(request.getParameter("IscoCode")));
-				hrService.saveJobTitle(jobTitle);
+				jobTitle.setHrIscoCodes(hrPostService.getIscoCodeById(request.getParameter("IscoCode")));
+				hrPostService.saveJobTitle(jobTitle);
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title saved Successfully");
-				jobList=hrService.getAllJobTitles();
+				jobList=hrPostService.getAllJobTitles();
 				listView.addObject("JobList", jobList);
 				return listView;
 				}
