@@ -15,6 +15,7 @@ public class HrStaffServiceTest extends BaseModuleContextSensitiveTest{
     @Before
 	public void before() throws Exception {
 		initializeInMemoryDatabase();
+        executeDataSet("person_test_data.xml");
 		executeDataSet("staff_service_test_data.xml");
         hrStaffService = Context.getService(HRStaffService.class);
 	}
@@ -26,20 +27,20 @@ public class HrStaffServiceTest extends BaseModuleContextSensitiveTest{
 
     @Test
     public void shouldGetStaffByID(){
-        assertNotNull("should get staff by id",hrStaffService.getStaffById(1));
+        assertNotNull("should get staff by id",hrStaffService.getStaffById(7777701));
     }
 
     @Test
     public void shouldSaveTheStaff(){
-        HrStaff hrStaff = hrStaffService.getStaffById(1);
+        HrStaff hrStaff = hrStaffService.getStaffById(7777701);
         hrStaff.setGender("Male");
         hrStaffService.saveStaff(hrStaff);
-        assertEquals("should save staff","Male",hrStaffService.getStaffById(1).getGender());
+        assertEquals("should save staff","Male",hrStaffService.getStaffById(7777701).getGender());
     }
 
     @Test
     public void shouldGetAllStaff(){
-        assertEquals("should return all staff", 2, hrStaffService.getAllStaff(true, true).size());
+        assertEquals("should return all staff", 90, hrStaffService.getAllStaff(true, true).size());
     }
 
     @Test
