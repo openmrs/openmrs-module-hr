@@ -1,9 +1,7 @@
 package org.openmrs.module.hr.api;
 
 import org.openmrs.annotation.Authorized;
-import org.openmrs.module.hr.HrIscoCodes;
-import org.openmrs.module.hr.HrJobTitle;
-import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -52,5 +50,14 @@ public interface HRPostService {
 	public void unretirePost(HrPost post);
 
 	public Map<String,Object> getCurrentJobLocationForStaff(int id);
+
+    public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff);
+
+    public HrPostHistory getPostHistoryById( int id);
+
+    public HrPostHistory getCurrentPostForStaff(int staffId);
+
+    public void savePostHistory(HrPostHistory postHistory);
+
 
 }

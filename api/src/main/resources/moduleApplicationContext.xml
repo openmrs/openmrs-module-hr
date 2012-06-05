@@ -161,6 +161,11 @@
 									<property name="sessionFactory"><ref bean="sessionFactory"/></property>
 								</bean>
 							</property>
+                            <property name="hrPostHistoryDAO">
+								<bean class="org.openmrs.module.hr.api.db.hibernate.HibernateHRPostHistoryDAO">
+									<property name="sessionFactory"><ref bean="sessionFactory"/></property>
+								</bean>
+							</property>
 						</bean>
 					</property>
 					<property name="preInterceptors">

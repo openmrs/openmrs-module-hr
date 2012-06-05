@@ -1,12 +1,11 @@
 package org.openmrs.module.hr.api.impl;
 
-import org.openmrs.module.hr.HrIscoCodes;
-import org.openmrs.module.hr.HrJobTitle;
-import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.*;
 import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.db.HRISCOCodeDAO;
 import org.openmrs.module.hr.api.db.HRJobTitleDAO;
 import org.openmrs.module.hr.api.db.HRPostDAO;
+import org.openmrs.module.hr.api.db.HRPostHistoryDAO;
 
 import java.util.List;
 import java.util.Map;
@@ -16,6 +15,11 @@ public class HRPostServiceImpl implements HRPostService {
     HRISCOCodeDAO hriscoCodeDAO;
     HRJobTitleDAO hrJobTitleDAO;
     HRPostDAO hrPostDAO;
+    HRPostHistoryDAO hrPostHistoryDAO;
+
+    public void setHrPostHistoryDAO(HRPostHistoryDAO hrPostHistoryDAO) {
+        this.hrPostHistoryDAO = hrPostHistoryDAO;
+    }
 
     public void setHrPostDAO(HRPostDAO hrPostDAO) {
         this.hrPostDAO = hrPostDAO;
@@ -81,5 +85,21 @@ public class HRPostServiceImpl implements HRPostService {
 
     public Map<String,Object> getCurrentJobLocationForStaff(int id){
 		return hrPostDAO.getCurrentJobLocationForStaff(id);
+	}
+
+    public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff) {
+		return hrPostHistoryDAO.getPostHistoriesForStaff(staff);
+	}
+
+    public HrPostHistory getPostHistoryById(int id) {
+		return hrPostHistoryDAO.getPostHistoryById(id);
+	}
+
+    public HrPostHistory getCurrentPostForStaff(int staffId){
+		return hrPostHistoryDAO.getCurrentPostForStaff(staffId);
+	}
+
+    public void savePostHistory(HrPostHistory postHistory){
+		hrPostHistoryDAO.savePostHistory(postHistory);
 	}
 }

@@ -1,16 +1,31 @@
 package org.openmrs.module.hr.api;
 
+import org.dbunit.DatabaseUnitException;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.database.QueryDataSet;
+import org.dbunit.database.search.TablesDependencyHelper;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
+import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.test.SkipBaseSetup;
 import org.openmrs.test.TestUtil;
 import org.openmrs.util.RoleConstants;
 
 import javax.management.relation.Role;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +37,7 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         executeDataSet("person_test_data.xml");
         executeDataSet("privilege_data.xml");
         executeDataSet("post_service_test_data.xml");
+        executeDataSet("staff_service_test_data.xml");
         hrPostService = Context.getService(HRPostService.class);
 	}
 
@@ -125,7 +141,49 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         Context.authenticate("admin","Admin123");
     }
 
+    @Test
+    @SkipBaseSetup
+    public void shouldGetPostHistoryForStaff() throws ClassNotFoundException, SQLException, DatabaseUnitException, IOException {
+        Context.authenticate("hrmanager","Hrmanager123");
+        assertNotNull(hrPostService.getPostHistoriesForStaff(Context.getService(HRStaffService.class).getStaffById(7777701)));
+        Context.authenticate("admin","Admin123");
+//        Connection jdbcConnection = DriverManager.getConnection(
+//                "jdbc:mysql://localhost:3306/openmrs", "root", "password");
+//        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
+//
+//        // partial database export
+//        QueryDataSet partialDataSet = new QueryDataSet(connection);
+//        partialDataSet.addTable("hr_post_history");
+//        FlatXmlDataSet.write(partialDataSet, new FileOutputStream("partial.xml"));
 
+    }
+    @Test
+    @SkipBaseSetup
+    public void shouldGetPostHistoryById(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        assertNotNull(hrPostService.getPostHistoryById(7777701));
+        Context.authenticate("admin","Admin123");
+    }
+
+    @Test
+    @SkipBaseSetup
+    public void shouldGetCurrentPostForStaff(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        HrPostHistory hrPostHistory = hrPostService.getCurrentPostForStaff(7777701);
+        assertEquals((Integer)7777701,hrPostHistory.getHrStaff().getId());
+        Context.authenticate("admin","Admin123");
+    }
+
+    @Test
+    @SkipBaseSetup
+    public void shouldSavePostHistory(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        HrPostHistory hrPostHistory = hrPostService.getPostHistoryById(7777701);
+        hrPostHistory.setGrade("Grade Changed");
+        hrPostService.savePostHistory(hrPostHistory);
+        assertEquals("Grade Changed",hrPostService.getPostHistoryById(7777701).getGrade());
+        Context.authenticate("admin","Admin123");
+    }
 }
 
 
