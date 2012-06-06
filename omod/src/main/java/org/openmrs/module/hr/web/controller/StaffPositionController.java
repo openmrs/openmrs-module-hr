@@ -7,9 +7,9 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.api.HRPostService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -27,8 +27,8 @@ public class StaffPositionController {
 	
 	@RequestMapping(value = "module/hr/manager/staffPosition.list",method = RequestMethod.GET)
 	public String showList(ModelMap model,@ModelAttribute("staff") HrStaff staff){
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
-		List<HrPostHistory> postHistoryList=hrManagerService.getPostHistoriesForStaff(staff);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
+		List<HrPostHistory> postHistoryList=hrPostService.getPostHistoriesForStaff(staff);
 		model.addAttribute("PostHistories", postHistoryList);
 		ConceptService cs=Context.getConceptService();
 		List<Concept> staffStatusCurrent=cs.getConceptsByMapping("Staff status current","HR Module");

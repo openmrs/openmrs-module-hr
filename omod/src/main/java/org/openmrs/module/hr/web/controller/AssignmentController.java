@@ -17,10 +17,10 @@ import org.openmrs.LocationTag;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.propertyEditor.HrPostHistoryEditor;
 import org.openmrs.propertyeditor.ConceptEditor;
 import org.openmrs.propertyeditor.LocationEditor;
@@ -70,12 +70,12 @@ public class AssignmentController {
 			return "redirect:/module/hr/manager/staffPosition.list";
 		}
 		String actionString=request.getParameter("actionString");
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors,"location","error.null");
 		if(actionString.equals("createNew"))
 		{
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
-			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			HrPostHistory currentPosthistory=hrPostService.getCurrentPostForStaff(staff.getStaffId());
 			if(assignment.getStartDate()!=null){
 				if(currentPosthistory!=null){
 				if(assignment.getStartDate().before(currentPosthistory.getStartDate()))
@@ -88,7 +88,7 @@ public class AssignmentController {
 			}
 			if(currentPosthistory!=null){
 			assignment.setHrPostHistory(currentPosthistory);
-			hrManagerService.saveAssignment(assignment);
+			hrPostService.saveAssignment(assignment);
 			}
 		}
 		else if(actionString.equals("addprev"))
@@ -106,7 +106,7 @@ public class AssignmentController {
 			if(assignment.getStartDate().after(assignment.getEndDate()))
 			errors.reject("endBeforeStart","End Date cannot be before start date");
 			if(assignment.getHrPostHistory()!=null){
-			HrPostHistory thisPostHistory=hrManagerService.getPostHistoryById(assignment.getHrPostHistory().getPostHistoryId());
+			HrPostHistory thisPostHistory=hrPostService.getPostHistoryById(assignment.getHrPostHistory().getPostHistoryId());
 			if(thisPostHistory!=null){
 			if(!((thisPostHistory.getStartDate().before(assignment.getStartDate())||thisPostHistory.getStartDate().equals(assignment.getStartDate())) && (thisPostHistory.getEndDate().after(assignment.getEndDate()) || thisPostHistory.getEndDate().equals(assignment.getEndDate()))))
 				errors.reject("startEnd","Start and end Date of assignment invalid for this post");
@@ -118,12 +118,12 @@ public class AssignmentController {
 				prepareModel(assignment.getAssignmentId(), model, staff, true);
 				return SUCCESS_FORM_VIEW;
 			}
-			hrManagerService.saveAssignment(assignment);
+			hrPostService.saveAssignment(assignment);
 		}
 		else if(actionString.equals("endAssignment"))
 		{
-			HrAssignment assignmentInstance=hrManagerService.getAssignmentById(assignment.getId());
-			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
+			HrAssignment assignmentInstance=hrPostService.getAssignmentById(assignment.getId());
+			ValidationUtils.rejectIfEmpty(errors, "endDate", "error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(assignment.getEndReason()!=null){
 			if(assignment.getEndReason().getName().getName().endsWith(":"))
@@ -141,13 +141,13 @@ public class AssignmentController {
 			assignmentInstance.setEndDate(assignment.getEndDate());
 			assignmentInstance.setEndReason(assignment.getEndReason());
 			assignmentInstance.setEndReasonOther(assignment.getEndReasonOther());
-			hrManagerService.saveAssignment(assignmentInstance);
+			hrPostService.saveAssignment(assignmentInstance);
 		}
 		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Assignment saved successfully");
 		return "redirect:/module/hr/manager/staffPosition.list";
 	}
 	private HrAssignment prepareModel(Integer assignmentId,ModelMap model,HrStaff staff,boolean addprev){
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		HrAssignment assignment;
 		if(assignmentId==null||assignmentId==0){
 			LocationService locService=Context.getLocationService();
@@ -168,12 +168,12 @@ public class AssignmentController {
 			model.addAttribute("workScheduleAnswers",workScheduleAnswers);
 			if(addprev==false){
 				model.addAttribute("createNew",true);	
-				HrPostHistory postHistory= hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+				HrPostHistory postHistory= hrPostService.getCurrentPostForStaff(staff.getStaffId());
 				model.addAttribute("currentPost",postHistory);
 			}
 			else{
 				model.addAttribute("addprev",true);
-				List<HrPostHistory> postHistories=hrManagerService.getPostHistoriesForStaff(staff);
+				List<HrPostHistory> postHistories=hrPostService.getPostHistoriesForStaff(staff);
 				HrPostHistory postHistorytobedel=null;
 				Iterator<HrPostHistory> iter=postHistories.iterator();
 				while(iter.hasNext()){
@@ -197,7 +197,7 @@ public class AssignmentController {
 			assignment=new HrAssignment();
 		}
 		else {
-			assignment= hrManagerService.getAssignmentById(assignmentId);
+			assignment= hrPostService.getAssignmentById(assignmentId);
 			ConceptService cs=Context.getConceptService();
 			Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 			Collection<ConceptAnswer> postHistoryEndReasons;

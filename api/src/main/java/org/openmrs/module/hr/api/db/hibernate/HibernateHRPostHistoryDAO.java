@@ -7,6 +7,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.APIException;
+import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.api.db.HRPostHistoryDAO;
@@ -93,6 +94,10 @@ public class HibernateHRPostHistoryDAO implements HRPostHistoryDAO{
 			return null;
 		}
 	}
+
+    public List<HrPostHistory> getPostHistoriesForPostsInList(List<HrPost> criteriaPosts) {
+        return sessionFactory.getCurrentSession().createCriteria(HrPostHistory.class).add(Restrictions.in("hrPost",criteriaPosts)).list();
+    }
 
 
     public HrPostHistory getPostHistoryById( int id) {

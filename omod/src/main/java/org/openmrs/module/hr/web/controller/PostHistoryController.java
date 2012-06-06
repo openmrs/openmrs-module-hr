@@ -22,9 +22,7 @@ import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.LocationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.api.HRPostService;
-import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
@@ -86,7 +84,7 @@ public class PostHistoryController {
 		}
 		ConceptService cs=Context.getConceptService();
 		String actionString=request.getParameter("actionString");
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		ValidationUtils.rejectIfEmpty(errors,"hrPost.location","error.null");
 		if(!isPersonCentric){
 		ValidationUtils.rejectIfEmpty(errors,"hrPost","error.null");
@@ -123,7 +121,7 @@ public class PostHistoryController {
 				}
 			}
 			ValidationUtils.rejectIfEmpty(errors,"startDate","error.null");
-			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			HrPostHistory currentPosthistory=hrPostService.getCurrentPostForStaff(staff.getStaffId());
 			if(currentPosthistory!=null)
 			{
 			String vacateDateString=request.getParameter("vacateEndDate");
@@ -145,7 +143,7 @@ public class PostHistoryController {
 					if(vacateEndReasonText==null)
 						errors.reject("vacateEndReasonText", "enter a valid vacate end reason text");
 			}
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(currentPosthistory);
+			List<HrAssignment> assignmentsUnder=hrPostService.getAssignmentsForPostHistory(currentPosthistory);
 			if(vacateEndDate!=null){
 			if(postHistory.getStartDate()!=null){
 			if(vacateEndDate.after(postHistory.getStartDate()))
@@ -185,7 +183,7 @@ public class PostHistoryController {
 					assignment.setEndReason(vacateEndReason);
 					assignment.setEndReasonOther(vacateEndReasonText);
 					}
-					hrManagerService.saveAssignment(assignment);
+					hrPostService.saveAssignment(assignment);
 				}
 				HrPost post=currentPosthistory.getHrPost();
 				if(!isPersonCentric){
@@ -218,10 +216,10 @@ public class PostHistoryController {
 				currentPosthistory.setEndDate(vacateEndDate);
 				currentPosthistory.setEndReason(vacateEndReason);
 				currentPosthistory.setEndReasonOther(vacateEndReasonText);
-				hrManagerService.savePostHistory(currentPosthistory);
+				hrPostService.savePostHistory(currentPosthistory);
 			}
 			else {
-				List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
+				List<HrPostHistory> allPostHistories=hrPostService.getPostHistoriesForStaff(staff);
 				if(!allPostHistories.isEmpty()){
 				Iterator<HrPostHistory> phiter=allPostHistories.iterator();
 				Date maxEndDate=phiter.next().getEndDate();
@@ -247,7 +245,7 @@ public class PostHistoryController {
 				}
 			}	
 			postHistory.setHrStaff(staff);
-			hrManagerService.savePostHistory(postHistory);
+			hrPostService.savePostHistory(postHistory);
 			if(!isPersonCentric){
 			HrPost post=postHistory.getHrPost();
 			post.setStatus(filledPost);
@@ -296,7 +294,7 @@ public class PostHistoryController {
 			if(postHistory.getStartDate().after(postHistory.getEndDate()))
 			errors.reject("startBeforeEnd","End Date cannot be before start date");
 			}
-			List<HrPostHistory> allPostHistories=hrManagerService.getPostHistoriesForStaff(staff);
+			List<HrPostHistory> allPostHistories=hrPostService.getPostHistoriesForStaff(staff);
 			Iterator<HrPostHistory> phiter=allPostHistories.iterator();
 			while (phiter.hasNext()) {
 				HrPostHistory temp=phiter.next();
@@ -315,7 +313,7 @@ public class PostHistoryController {
 				}
 				}
 			}
-			HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			HrPostHistory currentPosthistory=hrPostService.getCurrentPostForStaff(staff.getStaffId());
 			if(currentPosthistory!=null){
 				if(postHistory.getStartDate()!=null){
 				if(postHistory.getStartDate().after(currentPosthistory.getStartDate()))
@@ -326,7 +324,7 @@ public class PostHistoryController {
 			{
 			if(postHistory.getStartDate()!=null && postHistory.getEndDate()!=null){
 				if(!postHistory.getStartDate().after(postHistory.getEndDate())){
-					HrPost wasOpenPost=hrManagerService.wasPostOpen(postHistory.getHrPost(),postHistory.getStartDate(),postHistory.getEndDate());
+					HrPost wasOpenPost=hrPostService.wasPostOpen(postHistory.getHrPost(),postHistory.getStartDate(),postHistory.getEndDate());
 					if(wasOpenPost==null)
 						errors.reject("NoPostOpen","No open posts for this job title during the specified period");
 					else
@@ -346,12 +344,12 @@ public class PostHistoryController {
 			}
 		
 			postHistory.setHrStaff(staff);
-			hrManagerService.savePostHistory(postHistory);
+			hrPostService.savePostHistory(postHistory);
 			
 		}
 		/*else if(actionString.equals("endPostHistory"))
 		{
-			HrPostHistory postHistoryInstance=hrManagerService.getPostHistoryById(postHistory.getPostHistoryId());
+			HrPostHistory postHistoryInstance=hrPostService.getPostHistoryById(postHistory.getPostHistoryId());
 			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
 			if(postHistory.getEndReason()!=null){
@@ -375,8 +373,8 @@ public class PostHistoryController {
 			postHistoryInstance.setEndDate(postHistory.getEndDate());
 			postHistoryInstance.setEndReason(postHistory.getEndReason());
 			postHistoryInstance.setEndReasonOther(postHistory.getEndReasonOther());
-			hrManagerService.savePostHistory(postHistoryInstance);
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(postHistoryInstance);
+			hrPostService.savePostHistory(postHistoryInstance);
+			List<HrAssignment> assignmentsUnder=hrPostService.getAssignmentsForPostHistory(postHistoryInstance);
 			Iterator<HrAssignment> iter=assignmentsUnder.iterator();
 			while(iter.hasNext())
 			{
@@ -384,7 +382,7 @@ public class PostHistoryController {
 				assignment.setEndDate(postHistory.getEndDate());
 				assignment.setEndReason(postHistory.getEndReason());
 				assignment.setEndReasonOther(postHistory.getEndReasonOther());
-				hrManagerService.saveAssignment(assignment);
+				hrPostService.saveAssignment(assignment);
 			}
 			HrPost post=postHistory.getHrPost();
 			ConceptService cs=Context.getConceptService();
@@ -413,7 +411,7 @@ public class PostHistoryController {
 		}
 		else
 			model.addAttribute("isPersonCentric",false);
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		model.addAttribute("selectedLocation", locationId);
 		ConceptService cs=Context.getConceptService();
 		HrPostHistory postHistory;
@@ -440,18 +438,18 @@ public class PostHistoryController {
 			if(locationId==null){
 				if(addprev==true){
 				if(!locationList.isEmpty())
-				postList=hrManagerService.getPostsByJobTitle(locationList.get(0).getId());
+				postList=hrPostService.getPostsByJobTitle(locationList.get(0).getId());
 				}
 				else {
 					if(!locationList.isEmpty())
-				postList=hrManagerService.getOpenPostByJobTitle(locationList.get(0).getId());
+				postList=hrPostService.getOpenPostByJobTitle(locationList.get(0).getId());
 				}
 			}
 			else {
 			if(addprev==true)
-			postList=hrManagerService.getPostsByJobTitle(locationId);
+			postList=hrPostService.getPostsByJobTitle(locationId);
 			else
-			postList=hrManagerService.getOpenPostByJobTitle(locationId);
+			postList=hrPostService.getOpenPostByJobTitle(locationId);
 			}
 			model.addAttribute("postList",postList);
 			}
@@ -464,9 +462,9 @@ public class PostHistoryController {
 		postHistory=new HrPostHistory();
 		}
 		else {
-			postHistory=hrManagerService.getPostHistoryById(postHistoryId);
+			postHistory=hrPostService.getPostHistoryById(postHistoryId);
 		}
-		HrPostHistory currentPosthistory=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+		HrPostHistory currentPosthistory=hrPostService.getCurrentPostForStaff(staff.getStaffId());
 		if(currentPosthistory!=null)model.addAttribute("currentExists",true);
 		Concept endReason=cs.getConceptByMapping("Post history end reason","HR Module");
 		Collection<ConceptAnswer> postHistoryEndReasons;

@@ -176,4 +176,46 @@ public class HibernateHRPostDAO implements HRPostDAO {
 		}
 		return jlMap;
 	}
+
+    public List<HrPost> getPostsForJobTitleAndLocation(Location location, HrJobTitle hrJobTitle) {
+        return sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.eq("location", location)).add(Restrictions.eq("hrJobTitle",hrJobTitle)).list();
+    }
+    @SuppressWarnings("unchecked")
+    public List<HrPost> getOpenPostByJobTitle(Integer locationId){
+        List<HrPost> postList=new ArrayList<HrPost>();
+        ConceptService cs=Context.getConceptService();
+        List<Concept> concepts=cs.getConceptsByMapping("Post status current","HR Module");
+        Concept openPost=null;
+        if(concepts!=null){
+            Iterator<Concept> caliter=concepts.iterator();
+            while(caliter.hasNext())
+                if((openPost=caliter.next()).getName().getName().equals("Open"))
+                    break;
+        }
+        Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("status",openPost)).add(Restrictions.eq("retired", false)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+        List<Object[]> objectList=crit.list();
+        Iterator<Object[]> iter=objectList.iterator();
+        List<Integer> posts=new ArrayList<Integer>();
+        while (iter.hasNext()) {
+            posts.add((Integer)iter.next()[1]);
+        }
+        if(openPost!=null && posts.size()>0)
+            postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
+
+        return postList;
+    }
+
+    public List<HrPost> getPostsByJobTitle(Integer locationId){
+        List<HrPost> postList=new ArrayList<HrPost>();
+        Criteria crit=sessionFactory.getCurrentSession().createCriteria(HrPost.class).createAlias("location","postLocation").add(Restrictions.eq("postLocation.id",locationId)).add(Restrictions.eq("retired",false)).setProjection(Projections.projectionList().add(Projections.groupProperty("hrJobTitle")).add(Projections.min("postId")));
+        List<Object[]> objectList=crit.list();
+        Iterator<Object[]> iter=objectList.iterator();
+        List<Integer> posts=new ArrayList<Integer>();
+        while (iter.hasNext()) {
+            posts.add((Integer)iter.next()[1]);
+        }
+        if(posts.size()>0)
+            postList=sessionFactory.getCurrentSession().createCriteria(HrPost.class).add(Restrictions.in("postId",posts)).list();
+        return postList;
+    }
 }

@@ -5,8 +5,8 @@ import java.beans.PropertyEditorSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.HrPostHistory;
+import org.openmrs.module.hr.api.HRPostService;
 import org.springframework.util.StringUtils;
 
 public class HrPostHistoryEditor extends PropertyEditorSupport{
@@ -16,10 +16,10 @@ public class HrPostHistoryEditor extends PropertyEditorSupport{
 		
 	}
 	public void setAsText(String text) throws IllegalArgumentException {
-		HRManagerService hrManagerService=Context.getService(HRManagerService.class);
+		HRPostService hrPostService=Context.getService(HRPostService.class);
 		if (StringUtils.hasText(text)) {
 			try {
-				setValue(hrManagerService.getPostHistoryById(Integer.valueOf(text)));
+				setValue(hrPostService.getPostHistoryById(Integer.valueOf(text)));
 			}
 			catch (Exception ex) {
 				log.error("Error setting text" + text, ex);

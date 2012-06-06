@@ -6,9 +6,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.api.HRPostService;
-import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrPost;
-import org.openmrs.module.hr.api.db.HRPostDAO;
 import org.springframework.util.StringUtils;
 
 public class HrPostEditor extends PropertyEditorSupport{

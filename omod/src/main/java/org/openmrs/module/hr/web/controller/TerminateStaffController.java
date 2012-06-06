@@ -16,9 +16,7 @@ import org.openmrs.GlobalProperty;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.ConceptService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRManagerService;
 import org.openmrs.module.hr.api.HRPostService;
-import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
@@ -76,9 +74,9 @@ public class TerminateStaffController {
 		}
 		else{
 			HrStaff staff=(HrStaff)request.getSession().getAttribute("staff");
-			HRManagerService hrManagerService= Context.getService(HRManagerService.class);
+			HRPostService hrPostService= Context.getService(HRPostService.class);
 			ConceptService cs=Context.getConceptService();
-			HrPostHistory postHistoryInstance=hrManagerService.getCurrentPostForStaff(staff.getStaffId());
+			HrPostHistory postHistoryInstance=hrPostService.getCurrentPostForStaff(staff.getStaffId());
 			if(postHistoryInstance!=null){
 			ValidationUtils.rejectIfEmpty(errors,"endDate","error.null");
 			ValidationUtils.rejectIfEmpty(errors,"endReason","error.null");
@@ -91,7 +89,7 @@ public class TerminateStaffController {
 			if(postHistoryInstance.getStartDate().after(postHistory.getEndDate()))
 			errors.reject("startBeforeEnd","Termination date cannot be before a posts start date");
 			}
-			List<HrAssignment> assignmentsUnder=hrManagerService.getAssignmentsForPostHistory(postHistoryInstance);
+			List<HrAssignment> assignmentsUnder=hrPostService.getAssignmentsForPostHistory(postHistoryInstance);
 			for(HrAssignment each:assignmentsUnder){
 			if(each.getEndDate()!=null && postHistory.getEndDate()!=null){
 			if(postHistory.getEndDate().before(each.getEndDate())){
@@ -114,7 +112,7 @@ public class TerminateStaffController {
 			postHistoryInstance.setEndDate(postHistory.getEndDate());
 			postHistoryInstance.setEndReason(postHistory.getEndReason());
 			postHistoryInstance.setEndReasonOther(postHistory.getEndReasonOther());
-			hrManagerService.savePostHistory(postHistoryInstance);
+			hrPostService.savePostHistory(postHistoryInstance);
 			Iterator<HrAssignment> iter=assignmentsUnder.iterator();
 			while(iter.hasNext())
 			{
@@ -124,7 +122,7 @@ public class TerminateStaffController {
 				assignment.setEndReason(postHistory.getEndReason());
 				assignment.setEndReasonOther(postHistory.getEndReasonOther());
 				}
-				hrManagerService.saveAssignment(assignment);
+				hrPostService.saveAssignment(assignment);
 			}
 			AdministrationService as=Context.getAdministrationService();
 			GlobalProperty gp=as.getGlobalPropertyObject("hr.Centric");

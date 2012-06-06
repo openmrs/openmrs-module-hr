@@ -1,12 +1,12 @@
 package org.openmrs.module.hr.api.impl;
 
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.hr.*;
 import org.openmrs.module.hr.api.HRPostService;
-import org.openmrs.module.hr.api.db.HRISCOCodeDAO;
-import org.openmrs.module.hr.api.db.HRJobTitleDAO;
-import org.openmrs.module.hr.api.db.HRPostDAO;
-import org.openmrs.module.hr.api.db.HRPostHistoryDAO;
+import org.openmrs.module.hr.api.db.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +16,11 @@ public class HRPostServiceImpl implements HRPostService {
     HRJobTitleDAO hrJobTitleDAO;
     HRPostDAO hrPostDAO;
     HRPostHistoryDAO hrPostHistoryDAO;
+    HRAssignmentDAO hrAssignmentDAO;
+
+    public void setHrAssignmentDAO(HRAssignmentDAO hrAssignmentDAO) {
+        this.hrAssignmentDAO = hrAssignmentDAO;
+    }
 
     public void setHrPostHistoryDAO(HRPostHistoryDAO hrPostHistoryDAO) {
         this.hrPostHistoryDAO = hrPostHistoryDAO;
@@ -31,6 +36,14 @@ public class HRPostServiceImpl implements HRPostService {
 
     public void setHriscoCodeDAO(HRISCOCodeDAO hriscoCodeDAO) {
         this.hriscoCodeDAO = hriscoCodeDAO;
+    }
+
+    public List<HrPost> getPostsByJobTitle(Integer locationId){
+        return hrPostDAO.getPostsByJobTitle(locationId);
+    }
+
+    public List<HrPost> getOpenPostByJobTitle(Integer locationId) {
+        return hrPostDAO.getOpenPostByJobTitle(locationId);
     }
 
     public List<HrJobTitle> getAllJobTitles() {
@@ -102,4 +115,52 @@ public class HRPostServiceImpl implements HRPostService {
     public void savePostHistory(HrPostHistory postHistory){
 		hrPostHistoryDAO.savePostHistory(postHistory);
 	}
+
+    public void saveAssignment(HrAssignment assignment) {
+        hrAssignmentDAO.saveAssignment(assignment);
+    }
+
+    public HrAssignment getAssignmentById( int id){
+        return hrAssignmentDAO.getAssignmentById(id);
+    }
+
+    public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory){
+        return hrAssignmentDAO.getAssignmentsForPostHistory(postHistory);
+    }
+
+
+    public HrPost wasPostOpen(HrPost post,Date start,Date end){
+        List<HrPost> criteriaPosts=null;
+        if(post!=null && start!=null && end!=null){
+            criteriaPosts=hrPostDAO.getPostsForJobTitleAndLocation(post.getLocation(),post.getHrJobTitle());
+            List<HrPostHistory> postHistories = hrPostHistoryDAO.getPostHistoriesForPostsInList(criteriaPosts);
+            List<HrPost> occupiedPosts=new ArrayList<HrPost>();
+            for(HrPostHistory postHistory:postHistories)
+            {
+                if(postHistory.getStartDate()!=null)
+                {
+                    if(postHistory.getEndDate()==null){
+                        if((start.after(postHistory.getStartDate()) || end.after(postHistory.getStartDate()))){
+                            HrPost thispost=getPostById(postHistory.getHrPost().getId());
+                            if(!occupiedPosts.contains(thispost))
+                                occupiedPosts.add(thispost);
+                        }
+                    }
+                    else{
+                        if((end.after(postHistory.getStartDate()))&&(start.before(postHistory.getEndDate()))){
+                            HrPost thispost=getPostById(postHistory.getHrPost().getId());
+                            if(!occupiedPosts.contains(thispost))
+                                occupiedPosts.add(thispost);
+                        }
+                    }
+
+                }
+            }
+            criteriaPosts.removeAll(occupiedPosts);
+        }
+        if(criteriaPosts!=null && criteriaPosts.size()>=1)
+            return criteriaPosts.get(0);
+        else
+            return null;
+    }
 }

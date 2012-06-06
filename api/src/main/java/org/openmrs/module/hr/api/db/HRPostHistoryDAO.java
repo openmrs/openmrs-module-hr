@@ -1,5 +1,8 @@
 package org.openmrs.module.hr.api.db;
 
+import org.openmrs.Location;
+import org.openmrs.module.hr.HrJobTitle;
+import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 
@@ -17,4 +20,6 @@ public interface HRPostHistoryDAO {
     public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff);
 
 	public HrPostHistory getCurrentPostForStaff(int staffId);
+
+    List<HrPostHistory> getPostHistoriesForPostsInList(List<HrPost> criteriaPosts);
 }

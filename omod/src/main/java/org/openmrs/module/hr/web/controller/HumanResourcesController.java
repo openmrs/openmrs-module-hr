@@ -10,7 +10,6 @@ import org.openmrs.Location;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.api.HRPostService;
-import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.api.HRStaffService;

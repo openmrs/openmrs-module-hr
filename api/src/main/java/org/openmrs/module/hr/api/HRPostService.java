@@ -4,6 +4,7 @@ import org.openmrs.annotation.Authorized;
 import org.openmrs.module.hr.*;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -59,5 +60,15 @@ public interface HRPostService {
 
     public void savePostHistory(HrPostHistory postHistory);
 
+    public void saveAssignment(HrAssignment assignment);
 
+    public HrAssignment getAssignmentById( int id);
+
+    public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory);
+
+    public HrPost wasPostOpen(HrPost post,Date start,Date end);
+
+    public List<HrPost> getPostsByJobTitle(Integer locationId);
+
+    List<HrPost> getOpenPostByJobTitle(Integer locationId);
 }

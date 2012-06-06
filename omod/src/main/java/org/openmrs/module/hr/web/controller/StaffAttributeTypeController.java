@@ -12,7 +12,6 @@ import org.openmrs.Privilege;
 import org.openmrs.api.APIException;
 import org.openmrs.api.AdministrationService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.api.HRService;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.web.WebConstants;
@@ -210,20 +209,4 @@ public class StaffAttributeTypeController {
 		}
 		return formView;
 	}
-/*	@RequestMapping(value="module/hr/admin/staffAttributeType.list",method = RequestMethod.POST)
-	public ModelAndView onListSubmit(HttpServletRequest request,@ModelAttribute("staffAttributeType") HrStaffAttributeType staffAttributeType, BindingResult errors) {
-		String value=request.getParameter("toBeDisplayed");
-		AdministrationService as=Context.getAdministrationService();
-		GlobalProperty gp=as.getGlobalPropertyObject("hr.Staff_Attribute_to_display");
-		gp.setPropertyValue(value);
-		as.saveGlobalProperty(gp);
-		ModelAndView listView=new ModelAndView("/module/hr/admin/staffAttributeTypes");
-		HRService hrService=Context.getService(HRService.class);
-		HrStaffAttributeType sat=hrService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId());
-		hrService.purgeStaffAttributeType(sat);
-		request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Attribute Type purged successfully");
-		listView.addObject("StaffAttributeTypeList", hrService.getAllStaffAttributeTypes());
-		listView.addObject("toBeDisplayed",value);
-		return listView;
-	}*/
 }

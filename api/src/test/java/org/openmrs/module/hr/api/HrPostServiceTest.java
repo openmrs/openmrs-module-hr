@@ -10,6 +10,7 @@ import org.dbunit.dataset.xml.FlatXmlDataSet;
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.hr.HrAssignment;
 import org.openmrs.module.hr.HrJobTitle;
 import org.openmrs.module.hr.HrPost;
 import org.openmrs.module.hr.HrPostHistory;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -51,7 +53,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetAllISCOCodes() throws Exception {
         Context.authenticate("hrmanager","Hrmanager123");
         assertEquals(619, hrPostService.getAllIscoCodes().size());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -59,7 +60,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetISCOOcdeById(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertNotNull(hrPostService.getIscoCodeById("1"));
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -67,7 +67,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetJobTitleById(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertNotNull(hrPostService.getJobTitleById(1));
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -79,7 +78,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         assertTrue(hrPostService.getJobTitleById(1).isRetired());
         hrPostService.unretireJobTitle(hrJobTitle);
         assertFalse(hrPostService.getJobTitleById(1).isRetired());
-        Context.authenticate("admin","Admin123");
 
     }
 
@@ -88,7 +86,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetAllJobTitles(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertEquals(31,hrPostService.getAllJobTitles().size());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -99,7 +96,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         hrJobTitle.setTitle("changed title");
         hrPostService.saveJobTitle(hrJobTitle);
         assertEquals("changed title", hrPostService.getJobTitleById(1).getTitle());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -107,7 +103,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetAllPosts(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertEquals(91, hrPostService.getAllPosts(true, true).size());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -127,7 +122,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         assertTrue(hrPostService.getPostById(7777701).isRetired());
         hrPostService.unretirePost(hrPost);
         assertFalse(hrPostService.getPostById(7777701).isRetired());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -138,7 +132,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         hrPost.setFundingSource("MHRD");
         hrPostService.savePost(hrPost);
         assertEquals("MHRD",hrPostService.getPostById(7777701).getFundingSource());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -151,9 +144,9 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
 //                "jdbc:mysql://localhost:3306/openmrs", "root", "password");
 //        IDatabaseConnection connection = new DatabaseConnection(jdbcConnection);
 //
-//        // partial database export
+//        partial database export
 //        QueryDataSet partialDataSet = new QueryDataSet(connection);
-//        partialDataSet.addTable("hr_post_history");
+//        partialDataSet.addTable("hr_assignment");
 //        FlatXmlDataSet.write(partialDataSet, new FileOutputStream("partial.xml"));
 
     }
@@ -162,7 +155,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetPostHistoryById(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertNotNull(hrPostService.getPostHistoryById(7777701));
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -171,7 +163,6 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         Context.authenticate("hrmanager","Hrmanager123");
         HrPostHistory hrPostHistory = hrPostService.getCurrentPostForStaff(7777701);
         assertEquals((Integer)7777701,hrPostHistory.getHrStaff().getId());
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -182,8 +173,32 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         hrPostHistory.setGrade("Grade Changed");
         hrPostService.savePostHistory(hrPostHistory);
         assertEquals("Grade Changed",hrPostService.getPostHistoryById(7777701).getGrade());
-        Context.authenticate("admin","Admin123");
     }
+
+    @Test
+    @SkipBaseSetup
+    public void shouldGetAssignment(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        assertNotNull(hrPostService.getAssignmentById(7777701));
+    }
+
+    @Test
+    @SkipBaseSetup
+    public void shouldSetAssignment(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        HrAssignment hrAssignment = hrPostService.getAssignmentById(7777701);
+        hrAssignment.setNote("Test note");
+        assertEquals("Test note",hrPostService.getAssignmentById(7777701).getNote());
+    }
+
+    @Test
+    @SkipBaseSetup
+    public void shouldGetAssignmentsForPostHistory(){
+        Context.authenticate("hrmanager","Hrmanager123");
+        assertEquals(1,hrPostService.getAssignmentsForPostHistory(hrPostService.getPostHistoryById(7777701)).size());
+    }
+
+
 }
 
 

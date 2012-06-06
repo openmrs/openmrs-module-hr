@@ -31,7 +31,6 @@ public class HrReportsServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetReportById(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertNotNull("should get report by ID",hrReportsService.getHrReport(1));
-        Context.authenticate("admin","Admin123");
     }
 
     @Test
@@ -39,7 +38,6 @@ public class HrReportsServiceTest extends BaseModuleContextSensitiveTest {
     public void shouldGetAllReports(){
         Context.authenticate("hrmanager","Hrmanager123");
         assertEquals(2,hrReportsService.getHrReports().size());
-        Context.authenticate("admin","Admin123");
 
     }
 }
