@@ -3,17 +3,19 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>hr-parent</artifactId>
+		<artifactId>hr</artifactId>
 		<version>2.0</version>
 	</parent>
+
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>hr</artifactId>
+	<artifactId>hr-omod</artifactId>
 	<packaging>omod</packaging>
 	<name>Human Resource Module OMOD</name>
 	<description>OpenMRS module project for Human Resource Module</description>
 
 	<dependencies>
-		<dependency>
+
+        <dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>hr-api</artifactId>
 			<version>${project.parent.version}</version>
@@ -33,99 +35,153 @@
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
 			<type>jar</type>
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<artifactId>servlet-api</artifactId>-->
-					<!--<groupId>javax.servlet</groupId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
 		</dependency>
-		<dependency>
+
+        <dependency>
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
 			<type>test-jar</type>
 		</dependency>
-		<dependency>
+
+        <dependency>
 			<groupId>org.openmrs.test</groupId>
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
-			<!--<exclusions>-->
-				<!--<exclusion>-->
-					<!--<artifactId>servlet-api</artifactId>-->
-					<!--<groupId>javax.servlet</groupId>-->
-				<!--</exclusion>-->
-			<!--</exclusions>-->
 		</dependency>
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/webapp</directory>
-				<filtering>true</filtering>
-				<excludes>
-					<exclude>resources</exclude>
-				</excludes>
-				<targetPath>web/module</targetPath>
-			</resource>
-			<resource>
-				<directory>src/main/webapp</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>resources</include>
-				</includes>
-				<targetPath>web/module</targetPath>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.xml</include>
-					<include>**/*.txt</include>
-				</includes>
-			</testResource>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>false</filtering>
-				<excludes>
-					<exclude>**/*.xml</exclude>
-					<exclude>**/*.txt</exclude>
-				</excludes>
-			</testResource>
-		</testResources>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<artifactId>maven-resources-plugin</artifactId>
-					<configuration>
-						<includeEmptyDirs>true</includeEmptyDirs>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.openmrs.maven.plugins</groupId>
-				<artifactId>maven-openmrs-plugin</artifactId>
-				<extensions>true</extensions>
-				<configuration>
-					<verifyOmod>false</verifyOmod>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <build>
+        <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>resources</exclude>
+                </excludes>
+                <targetPath>web/module</targetPath>
+            </resource>
+            <resource>
+                <directory>src/main/webapp</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>resources</include>
+                </includes>
+                <targetPath>web/module</targetPath>
+            </resource>
+        </resources>
+
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <filtering>true</filtering>
+            </testResource>
+        </testResources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <configuration>
+                        <includeEmptyDirs>true</includeEmptyDirs>
+                    </configuration>
+                </plugin>
+                <!--This plugin's configuration is used to store Eclipse m2e settings
+                        only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.openmrs.maven.plugins</groupId>
+                                        <artifactId>maven-openmrs-plugin</artifactId>
+                                        <versionRange>[1.0.1,)</versionRange>
+                                        <goals>
+                                            <goal>initialize-module</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.maven.plugins</groupId>
+                                        <artifactId>maven-dependency-plugin</artifactId>
+                                        <versionRange>[2.4,)</versionRange>
+                                        <goals>
+                                            <goal>unpack-dependencies</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.openmrs.maven.plugins</groupId>
+                <artifactId>maven-openmrs-plugin</artifactId>
+                <extensions>true</extensions>
+                <executions>
+                    <execution>
+                        <id>init</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>initialize-module</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>pack</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package-module</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>Expand moduleApplicationContext and messages</id>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <includeGroupIds>${project.parent.groupId}</includeGroupIds>
+                            <includeArtifactIds>${project.parent.artifactId}-api</includeArtifactIds>
+                            <excludeTransitive>true</excludeTransitive>
+                            <includes>**/*</includes>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 
 	<properties>
-		<MODULE_ID>${artifactId}</MODULE_ID>
+		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
 		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
-		<MODULE_PACKAGE>${project.parent.groupId}.${artifactId}</MODULE_PACKAGE>
+		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
 	</properties>
 
 </project>

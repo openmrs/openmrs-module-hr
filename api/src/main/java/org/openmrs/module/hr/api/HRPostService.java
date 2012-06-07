@@ -60,7 +60,9 @@ public interface HRPostService {
 
     public void savePostHistory(HrPostHistory postHistory);
 
+    @Authorized("Add Assignments")
     public void saveAssignment(HrAssignment assignment);
+
 
     public HrAssignment getAssignmentById( int id);
 
