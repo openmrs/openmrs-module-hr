@@ -11,19 +11,19 @@ import java.util.List;
 @Transactional
 public interface HRStaffService{
 
-    @Authorized("Manage Staff")
+    @Authorized({"Manage Staff","Manage Staff Attribute Types","Add Post"})
     public void saveStaff(HrStaff staff);
 
-    @Authorized("View Staff")
+    @Authorized({"View Staff","View Staff Demographics"})
     public HrStaff getStaffById( int id);
 
-    @Authorized("View Staff")
+    @Authorized({"View Staff","Find Human Resources","Manage Staff Attribute Types","View Staff Demographics"})
     public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations);
 
     @Authorized("Manage Staff Attribute Types")
     public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 
-    @Authorized("Manage Staff Attribute Types")
+    @Authorized({"Manage Staff Attribute Types","View Staff Demographics","Manage Staff"})
 	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
 
     @Authorized("Manage Staff Attribute Types")

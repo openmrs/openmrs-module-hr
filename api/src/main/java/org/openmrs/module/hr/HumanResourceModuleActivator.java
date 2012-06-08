@@ -63,16 +63,31 @@ public class HumanResourceModuleActivator implements ModuleActivator {
 			humanResourceManager.setInheritedRoles(inheritedRoleSet);
 			us.saveRole(humanResourceManager); 
 		}
-		Role humanResourceClerk=us.getRole("HR Clerk");
+		Role humanResourceStrongClerk=us.getRole("HR Strong Clerk");
 		// Create role if it doesn't exist
-		if (humanResourceClerk == null ){
-		 humanResourceClerk=new Role("HR Clerk", "HR Role");
-		 humanResourceClerk.setInheritedRoles(inheritedRoleSet);
-		 us.saveRole(humanResourceClerk);
-		 } 
-		addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports","View Concepts","View People","Edit People","Add People"));
-		addPrivilegesToRole(humanResourceClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics","View Staff","View Concepts","View People","Edit People","Add People"));
-		log.info("Starting Human Resource Module");
+		if (humanResourceStrongClerk == null ){
+		 humanResourceStrongClerk=new Role("HR Strong Clerk", "HR Role");
+		 humanResourceStrongClerk.setInheritedRoles(inheritedRoleSet);
+		 us.saveRole(humanResourceStrongClerk);
+		 }
+
+        Role humanResourceWeakClerk=us.getRole("HR Weak Clerk");
+        // Create role if it doesn't exist
+        if (humanResourceWeakClerk == null ){
+            humanResourceWeakClerk=new Role("HR Weak Clerk", "HR Role");
+            humanResourceWeakClerk.setInheritedRoles(inheritedRoleSet);
+            us.saveRole(humanResourceWeakClerk);
+        }
+
+
+        addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics",
+                "View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports","View Concepts","View People","Edit People","Add People"));
+		addPrivilegesToRole(humanResourceStrongClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics",
+                "View Staff","View Concepts","View People","Edit People","Add People","Manage Posts"));
+        addPrivilegesToRole(humanResourceWeakClerk,Arrays.asList("Add Assignments","Edit People","Add People","View People","View Concepts","Manage Staff","Find Human Resources",
+                "View Staff","View Posts","View Staff Demographics"));
+
+        log.info("Starting Human Resource Module");
 		
 	}
 
