@@ -46,11 +46,7 @@ public class AdminList extends AdministrationSectionExt {
 	public Map<String, String> getLinks() {
 		
 		Map<String, String> map = new LinkedHashMap<String, String>();
-		map.put("module/hr/admin/jobTitles.list", "Manage Job Titles");
-		map.put("module/hr/admin/posts.list", "Manage Posts");
-		map.put("module/hr/admin/staff.list", "Manage Staff");
-		map.put("module/hr/admin/staffAttributeTypes.list", "Manage Staff Attribute Types");
-		map.put("/module/hr/admin/reportSelection.list","Reports");
+		map.put("module/hr/landing.list", "Manage Human Resources");
 		return map;
 	}
 	@Override

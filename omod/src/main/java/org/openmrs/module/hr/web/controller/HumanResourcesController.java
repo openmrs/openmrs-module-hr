@@ -25,31 +25,38 @@ public class HumanResourcesController {
 	
 	
 		
-		/** Logger for this class and subclasses */
-		protected final Log log = LogFactory.getLog(getClass());
-		
-		/** Success form view name */
-		
-		private final String SUCCESS_LIST_VIEW = "/module/hr/manager/findStaff";
-		/**
-		 * Initially called after the formBackingObject method to get the landing form name  
-		 * @return String form view name
-		 */
-		@RequestMapping(value = "module/hr/manager/findStaff.list",method=RequestMethod.GET)
-		public String showList(ModelMap model,@RequestParam(required=false,value="allstaff") boolean allStaffIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
-			HRStaffService hrStaffService=Context.getService(HRStaffService.class);
-            HRPostService hrPostService = Context.getService(HRPostService.class);
-			List<HrStaff> staffList=hrStaffService.getAllStaff(allStaffIncluded,allLocationsIncluded);
-			List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
-			PersonService ps=Context.getPersonService();
-			for(HrStaff staff:staffList){
-				Map<String,Object> jlMap=hrPostService.getCurrentJobLocationForStaff(staff.getId());
-				staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location")))==null?"":((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle"))==null?"":((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
-			}
-			model.addAttribute("StaffListItemList",staffListItemList);
-			return SUCCESS_LIST_VIEW;
-		
-		}
+    /** Logger for this class and subclasses */
+    protected final Log log = LogFactory.getLog(getClass());
+
+    /** Success form view name */
+
+    private final String SUCCESS_LIST_VIEW = "/module/hr/manager/findStaff";
+    private final String HR_LANDING_PAGE = "/module/hr/landing";
+    /**
+     * Initially called after the formBackingObject method to get the landing form name
+     * @return String form view name
+     */
+    @RequestMapping(value = "module/hr/manager/findStaff.list",method=RequestMethod.GET)
+    public String showList(ModelMap model,@RequestParam(required=false,value="allstaff") boolean allStaffIncluded,@RequestParam(required=false,value="alllocations") boolean allLocationsIncluded){
+        HRStaffService hrStaffService=Context.getService(HRStaffService.class);
+        HRPostService hrPostService = Context.getService(HRPostService.class);
+        List<HrStaff> staffList=hrStaffService.getAllStaff(allStaffIncluded,allLocationsIncluded);
+        List<StaffListItem> staffListItemList=new ArrayList<StaffListItem>();
+        PersonService ps=Context.getPersonService();
+        for(HrStaff staff:staffList){
+            Map<String,Object> jlMap=hrPostService.getCurrentJobLocationForStaff(staff.getId());
+            staffListItemList.add(new StaffListItem(ps.getPerson(staff.getId()), staff, ((Location)(jlMap.get("Location")))==null?"":((Location)(jlMap.get("Location"))).getName(),((HrJobTitle) jlMap.get("JobTitle"))==null?"":((HrJobTitle) jlMap.get("JobTitle")).getTitle()));
+        }
+        model.addAttribute("StaffListItemList",staffListItemList);
+        return SUCCESS_LIST_VIEW;
+
+    }
+
+    @RequestMapping(value = "module/hr/landing.list")
+    public String landingPage(){
+        return HR_LANDING_PAGE;
+    }
+
 		
 }
 
