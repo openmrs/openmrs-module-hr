@@ -83,9 +83,9 @@ public class HumanResourceModuleActivator implements ModuleActivator {
         addPrivilegesToRole(humanResourceManager,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics",
                 "View Staff", "Manage Job Titles","Manage Posts","Manage Staff","Manage Staff Attribute Types","View Reports","View Concepts","View People","Edit People","Add People"));
 		addPrivilegesToRole(humanResourceStrongClerk,Arrays.asList("Add Post","Add Assignments","Find Human Resources","View Posts","View Staff Demographics",
-                "View Staff","View Concepts","View People","Edit People","Add People","Manage Posts"));
+                "View Staff","View Concepts","View People","Edit People","Add People","Manage Posts","View Reports"));
         addPrivilegesToRole(humanResourceWeakClerk,Arrays.asList("Add Assignments","Edit People","Add People","View People","View Concepts","Manage Staff","Find Human Resources",
-                "View Staff","View Posts","View Staff Demographics"));
+                "View Staff","View Posts","View Staff Demographics","View Reports"));
 
         log.info("Starting Human Resource Module");
 		

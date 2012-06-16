@@ -76,6 +76,7 @@ public class HrPostServiceTest extends BaseModuleContextSensitiveTest {
         HrJobTitle hrJobTitle = hrPostService.getJobTitleById(1);
         hrPostService.retireJobTitle(hrJobTitle,"test reason");
         assertTrue(hrPostService.getJobTitleById(1).isRetired());
+        assertEquals("test reason",hrPostService.getJobTitleById(1).getRetireReason());
         hrPostService.unretireJobTitle(hrJobTitle);
         assertFalse(hrPostService.getJobTitleById(1).isRetired());
 

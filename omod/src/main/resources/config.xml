@@ -57,6 +57,12 @@
 		<url-pattern>/AttributePopulator</url-pattern>
 	</servlet-mapping>
 	<!-- Required Privileges -->
+
+    <privilege>
+        <name>Manage Certificates</name>
+        <description>Able to Manage (Create/Edit) the Certificates</description>
+    </privilege>
+
 	<privilege>
 		<name>Manage Posts</name>
 		<description>Able to Manage (Create/Edit) the Posts</description>

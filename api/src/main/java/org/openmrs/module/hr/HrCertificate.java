@@ -16,7 +16,7 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int certificateId;
+	private Integer certificateId;
      private Integer nationalId;
      private String agency;
      private String certificate;
@@ -32,7 +32,7 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
     }
 
 	/** minimal constructor */
-    public HrCertificate(int certificateId, String agency, String certificate, String levels, String uuid) {
+    public HrCertificate(Integer certificateId, String agency, String certificate, String levels, String uuid) {
         this.certificateId = certificateId;
         this.agency = agency;
         this.certificate = certificate;
@@ -41,7 +41,7 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
     }
     
     /** full constructor */
-    public HrCertificate(int certificateId, Integer nationalId, String agency, String certificate, String levels, String uuid, Set<HrStaffCert> hrStaffCerts) {
+    public HrCertificate(Integer certificateId, Integer nationalId, String agency, String certificate, String levels, String uuid, Set<HrStaffCert> hrStaffCerts) {
         this.certificateId = certificateId;
         this.nationalId = nationalId;
         this.agency = agency;
@@ -55,11 +55,11 @@ public class HrCertificate extends BaseOpenmrsMetadata implements java.io.Serial
    
     // Property accessors
 
-    public int getCertificateId() {
+    public Integer getCertificateId() {
         return this.certificateId;
     }
     
-    public void setCertificateId(int certificateId) {
+    public void setCertificateId(Integer certificateId) {
         this.certificateId = certificateId;
     }
 
