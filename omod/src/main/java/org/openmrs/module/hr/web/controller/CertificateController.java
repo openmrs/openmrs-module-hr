@@ -44,6 +44,10 @@ public class CertificateController {
     @RequestMapping(value ="module/hr/admin/certificate.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateCertificate(HttpServletRequest request,@ModelAttribute("certificate")  HrCertificate certificate, BindingResult errors){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
+
+        if(request.getParameter("unretireCertificate") != null)
+            return unRetireCertificate(request, certificate, hrQualificationService, errors);
+
         new CertificateValidator().validate(certificate,errors);
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW);
@@ -51,17 +55,13 @@ public class CertificateController {
         if(request.getParameter("retireCertificate") != null)
             return checkAndRetireCertificate(request, certificate, hrQualificationService , errors);
 
-        if(request.getParameter("unretireCertificate") != null)
-            return unRetireCertificate(request, certificate, hrQualificationService, errors);
-
         hrQualificationService.saveCertificate(certificate);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Certificate saved Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("certificatesList",hrQualificationService.getCertificates());
-
     }
 
     private ModelAndView unRetireCertificate(HttpServletRequest request, HrCertificate certificate, HRQualificationService hrQualificationService, BindingResult errors) {
-        hrQualificationService.unretireCertificate(certificate);
+        hrQualificationService.unretireCertificate(hrQualificationService.getCertificateById(certificate.getId()));
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Certificate Un-Retired Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("certificatesList",hrQualificationService.getCertificates());
     }
@@ -72,7 +72,7 @@ public class CertificateController {
             errors.reject("retireReason", "Retire reason cannot be empty");
             return new ModelAndView(SUCCESS_FORM_VIEW);
         }
-        hrQualificationService.retireCertificate(certificate, retireReason);
+        hrQualificationService.retireCertificate(hrQualificationService.getCertificateById(certificate.getId()), retireReason);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Certificate Retired Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("certificatesList",hrQualificationService.getCertificates());
     }
