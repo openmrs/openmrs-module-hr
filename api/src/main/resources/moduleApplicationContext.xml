@@ -146,6 +146,11 @@
                                     <property name="sessionFactory"><ref bean="sessionFactory"/></property>
                                 </bean>
                             </property>
+                            <property name="hrStaffCertDAO">
+                                <bean class="org.openmrs.module.hr.api.db.hibernate.HibernateHRStaffCertDAO">
+                                    <property name="sessionFactory"><ref bean="sessionFactory"/></property>
+                                </bean>
+                            </property>
                         </bean>
                     </property>
                     <property name="preInterceptors">

@@ -46,7 +46,7 @@ else
 	<tr>
 		<th width="10%" align="left" valign="top"><spring:message code="Location"/></th>
 		<td>
-				
+
 				<c:choose>
 				<c:when test='${createNew==true or addprev==true}'>
 				<spring:bind path="assignment.location">

@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.api.db;
 
 
+import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 
 import java.util.List;
@@ -15,4 +16,5 @@ public interface HRStaffCertDAO {
 
     public HrStaffCert getStaffCertById( int id);
 
+    List<HrStaffCert> getAllCertificatesForStaff(HrStaff staff);
 }

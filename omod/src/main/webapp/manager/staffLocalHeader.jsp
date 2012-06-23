@@ -51,5 +51,13 @@
 			</a>
 		</li>
 		</openmrs:hasPrivilege>
+		<openmrs:hasPrivilege privilege="View Certificates">
+            <li>
+                <a href="${pageContext.request.contextPath}/module/hr/manager/staffCertificates.list" <c:if test='<%= request.getRequestURI().contains("staffCertificate") %>'>class="current"</c:if>>
+                    <spring:message code="Certificates"/>
+                </a>
+            </li>
+        </openmrs:hasPrivilege>
+
 </ul>
 </div>

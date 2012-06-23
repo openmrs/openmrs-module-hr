@@ -5,6 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
+import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.module.hr.api.db.HRStaffCertDAO;
 
@@ -74,6 +76,25 @@ public class HibernateHRStaffCertDAO implements HRStaffCertDAO {
                 log.debug("get successful, instance found");
             }
             return instance;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
+    public List<HrStaffCert> getAllCertificatesForStaff(HrStaff staff) {
+        log.debug("getting HrAssignment instance with given post history");
+        try {
+            List<HrStaffCert> hrStaffCertList=sessionFactory.getCurrentSession().createCriteria(HrStaffCert.class).add(Restrictions.eq("hrStaff", staff)).list();
+            if (hrStaffCertList==null) {
+                hrStaffCertList=new ArrayList<HrStaffCert>();
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return hrStaffCertList;
         }
         catch (RuntimeException re) {
             log.error("get failed", re);

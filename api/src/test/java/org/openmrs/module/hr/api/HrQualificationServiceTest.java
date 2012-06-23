@@ -5,7 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrCertificate;
+import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
+
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -15,6 +19,7 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
     @Before
     public void setUp() throws Exception {
         executeDataSet("person_test_data.xml");
+        executeDataSet("staff_service_test_data.xml");
         executeDataSet("qualification_service_test_data.xml");
         hrQualificationService = Context.getService(HRQualificationService.class);
     }
@@ -55,5 +60,28 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
 
     }
 
+    @Test
+    public void shouldGetStaffCertById(){
+        assertNotNull(hrQualificationService.getStaffCertificateById(1));
+    }
 
+    @Test
+    public void shouldGetAllCertificatesForStaff(){
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
+        HrStaff staff = hrStaffService.getStaffById(7777701);
+        assertEquals(2,hrQualificationService.getCertificatesForStaff(staff).size());
+    }
+
+    @Test
+    public void shouldSaveStaffCertificate(){
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
+        HrStaffCert hrStaffCert = new HrStaffCert();
+        hrStaffCert.setCurrentCertDate(new Date(1));
+        hrStaffCert.setCertExpirationDate(new Date(2));
+        hrStaffCert.setHrCertificate(hrQualificationService.getCertificateById(1));
+        hrStaffCert.setHrStaff(hrStaffService.getStaffById(7777701));
+        hrStaffCert.setId(13);
+        hrQualificationService.saveStaffCertificate(hrStaffCert);
+        assertNotNull(hrQualificationService.getStaffCertificateById(13));
+    }
 }
