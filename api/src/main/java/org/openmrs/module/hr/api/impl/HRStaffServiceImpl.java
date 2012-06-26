@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.api.impl;
 
+import org.openmrs.User;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttributeType;
 import org.openmrs.module.hr.api.db.HRStaffAttributeDAO;
@@ -53,12 +54,16 @@ public class HRStaffServiceImpl implements org.openmrs.module.hr.api.HRStaffServ
 		return hrStaffAttributeTypeDAO.getStaffAttributeTypeById(id);
 	}
 
-    public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType, String retireReason) {
+    public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType, String retireReason ,User retiredBy) {
+        staffAttributeType.setRetired(true);
+        staffAttributeType.setRetireReason(retireReason);
+        staffAttributeType.setRetiredBy(retiredBy);
 		hrStaffAttributeTypeDAO.saveStaffAttributeType(staffAttributeType);
 
 	}
 
 	public void unretireStaffAttributeType(HrStaffAttributeType staffAttributeType) {
+        staffAttributeType.setRetired(false);
 		hrStaffAttributeTypeDAO.saveStaffAttributeType(staffAttributeType);
 
 	}

@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.api.impl;
 
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.User;
 import org.openmrs.module.hr.*;
 import org.openmrs.module.hr.api.HRPostService;
 import org.openmrs.module.hr.api.db.*;
@@ -64,10 +65,14 @@ public class HRPostServiceImpl implements HRPostService {
 		return list;
 	}
 
-    public void retireJobTitle(HrJobTitle jobTitle,String retireReason){
+    public void retireJobTitle(HrJobTitle jobTitle,String retireReason,User retiredBy){
+        jobTitle.setRetired(true);
+        jobTitle.setRetireReason(retireReason);
+        jobTitle.setRetiredBy(retiredBy);
 		hrJobTitleDAO.saveJobTitle(jobTitle);
 	}
 	public void unretireJobTitle(HrJobTitle jobTitle) {
+        jobTitle.setRetired(false);
 		hrJobTitleDAO.saveJobTitle(jobTitle);
 	}
 	public HrJobTitle getJobTitleById( int id)

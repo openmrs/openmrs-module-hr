@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.api.impl;
 
 
+import org.openmrs.User;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
@@ -33,8 +34,11 @@ public class HRQualificationServiceImpl implements HRQualificationService{
         return hrCertificateDAO.getAllCertificates();
     }
 
-    public void retireCertificate(HrCertificate certificate, String retireReason) {
-         hrCertificateDAO.saveCertificate(certificate);
+    public void retireCertificate(HrCertificate certificate, String retireReason , User retiredBy) {
+        certificate.setRetired(true);
+        certificate.setRetireReason(retireReason);
+        certificate.setRetiredBy(retiredBy);
+        hrCertificateDAO.saveCertificate(certificate);
     }
 
     public void saveCertificate(HrCertificate certificate) {
@@ -42,6 +46,7 @@ public class HRQualificationServiceImpl implements HRQualificationService{
     }
 
     public void unretireCertificate(HrCertificate certificate) {
+        certificate.setRetired(false);
         hrCertificateDAO.saveCertificate(certificate);
 
     }

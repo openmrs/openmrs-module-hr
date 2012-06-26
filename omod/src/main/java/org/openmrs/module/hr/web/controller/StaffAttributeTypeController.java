@@ -85,14 +85,7 @@ public class StaffAttributeTypeController {
 		
 		return staffAttributeType;
 	}
-	/**
-	 * All the parameters are optional based on the necessity  
-	 * 
-	 * @param httpSession
-	 * @param anyRequestObject
-	 * @param errors
-	 * @return
-	 */
+
 	@RequestMapping(value="module/hr/admin/staffAttributeType.form",method = RequestMethod.POST)
 	public ModelAndView onSubmit(HttpServletRequest request,@ModelAttribute("staffAttributeType") HrStaffAttributeType staffAttributeType, BindingResult errors) {
 		HRStaffService hrStaffService=Context.getService(HRStaffService.class);
@@ -156,7 +149,7 @@ public class StaffAttributeTypeController {
 					errors.reject("retireReason", "general.retiredReason.empty");
 					return formView;
 				}
-				hrStaffService.retireStaffAttributeType(hrStaffService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()), retireReason);
+				hrStaffService.retireStaffAttributeType(hrStaffService.getStaffAttributeTypeById(staffAttributeType.getStaffAttributeTypeId()), retireReason,Context.getAuthenticatedUser());
 				if(gp!=null && gp.getPropertyValue().equals(staffAttributeType.getName())){
 					gp.setPropertyValue("");
 					as.saveGlobalProperty(gp);

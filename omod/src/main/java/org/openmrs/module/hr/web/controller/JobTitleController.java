@@ -105,14 +105,7 @@ public class JobTitleController{
 		}
 		return jobTitle;
 	}
-	/**
-	 * All the parameters are optional based on the necessity  
-	 * 
-	 * @param httpSession
-	 * @param anyRequestObject
-	 * @param errors
-	 * @return
-	 */
+
 	@RequestMapping(value="module/hr/admin/jobTitle.form",method = RequestMethod.POST)
 	public ModelAndView onSubmit(HttpServletRequest request,@ModelAttribute("job") HrJobTitle jobTitle, BindingResult errors) {
 		HRPostService hrPostService=Context.getService(HRPostService.class);
@@ -136,7 +129,7 @@ public class JobTitleController{
 					errors.reject("retireReason", "Retire reason cannot be empty");
 					return formView;
 				}
-				hrPostService.retireJobTitle(hrPostService.getJobTitleById(jobTitle.getId()), retireReason);
+				hrPostService.retireJobTitle(hrPostService.getJobTitleById(jobTitle.getId()), retireReason,Context.getAuthenticatedUser());
 				request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Job Title Retired Successfully");
 				jobList=hrPostService.getAllJobTitles();
 				listView.addObject("JobList", jobList);

@@ -82,7 +82,9 @@
 				<select name="hrCertificate" id="${status.expression}" onChange="getLevels()">
 				    <option value="">Select Certificate</option>
 					<c:forEach items="${allCertificatesList}" var="certificate">
-						<option value="${certificate.certificateId}" <c:if test='${certificate.certificateId == status.value}'>selected="selected"</c:if>>${certificate.certificate}</option>
+					    <c:if test="${not certificate.retired}">
+						    <option value="${certificate.certificateId}" <c:if test='${certificate.certificateId == status.value}'>selected="selected"</c:if>>${certificate.certificate}</option>
+						</c:if>
 					</c:forEach>
 				</select>
 				<c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>

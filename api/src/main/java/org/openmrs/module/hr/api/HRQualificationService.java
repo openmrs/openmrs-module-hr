@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.api;
 
 
+import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.module.hr.HrCertificate;
 import org.openmrs.module.hr.HrStaff;
@@ -19,7 +20,7 @@ public interface HRQualificationService {
     List<HrCertificate> getCertificates();
 
     @Authorized("Manage Certificates")
-    void retireCertificate(HrCertificate certificate, String retireReason);
+    void retireCertificate(HrCertificate certificate, String retireReason , User retiredBy);
 
     @Authorized("Manage Certificates")
     void saveCertificate(HrCertificate certificate);

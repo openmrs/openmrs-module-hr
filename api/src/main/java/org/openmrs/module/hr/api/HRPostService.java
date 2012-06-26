@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.api;
 
+import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.module.hr.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +25,7 @@ public interface HRPostService {
     public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 
     @Authorized("Manage Job Titles")
-    public void retireJobTitle(HrJobTitle jobTitle,String retireReason);
+    public void retireJobTitle(HrJobTitle jobTitle,String retireReason,User retiredBy);
 
     @Authorized("Manage Job Titles")
     public void unretireJobTitle(HrJobTitle jobTitle);

@@ -113,14 +113,7 @@ public class PostController {
 			return null;
 		
 	}
-	/**
-	 * All the parameters are optional based on the necessity  
-	 * 
-	 * @param httpSession
-	 * @param anyRequestObject
-	 * @param errors
-	 * @return
-	 */
+
 	@RequestMapping(value = "module/hr/admin/post.form",method = RequestMethod.POST)
 	public String onSubmit(HttpServletRequest request,ModelMap model,@ModelAttribute("post") HrPost post, BindingResult errors,@ModelAttribute("prevStatus") Concept prevStatus) {
 		HRPostService hrPostService=Context.getService(HRPostService.class);

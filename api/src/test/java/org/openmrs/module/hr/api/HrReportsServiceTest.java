@@ -1,6 +1,7 @@
 package org.openmrs.module.hr.api;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -26,6 +27,7 @@ public class HrReportsServiceTest extends BaseModuleContextSensitiveTest {
         assertNotNull(Context.getService(HRStaffService.class));
     }
 
+    @Ignore
     @Test
     @SkipBaseSetup
     public void shouldGetReportById(){
@@ -33,6 +35,7 @@ public class HrReportsServiceTest extends BaseModuleContextSensitiveTest {
         assertNotNull("should get report by ID",hrReportsService.getHrReport(1));
     }
 
+    @Ignore
     @Test
     @SkipBaseSetup
     public void shouldGetAllReports(){

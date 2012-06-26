@@ -72,7 +72,7 @@ public class CertificateController {
             errors.reject("retireReason", "Retire reason cannot be empty");
             return new ModelAndView(SUCCESS_FORM_VIEW);
         }
-        hrQualificationService.retireCertificate(hrQualificationService.getCertificateById(certificate.getId()), retireReason);
+        hrQualificationService.retireCertificate(hrQualificationService.getCertificateById(certificate.getId()), retireReason, Context.getAuthenticatedUser());
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Certificate Retired Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("certificatesList",hrQualificationService.getCertificates());
     }

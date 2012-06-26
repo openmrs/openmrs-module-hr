@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.api;
 
+import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hr.HrStaff;
@@ -30,7 +31,7 @@ public interface HRStaffService{
     public HrStaffAttributeType getStaffAttributeTypeById( int id);
 
     @Authorized("Manage Staff Attribute Types")
-    public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType,String retireReason);
+    public void retireStaffAttributeType(HrStaffAttributeType staffAttributeType,String retireReason , User retiredBy);
 
     @Authorized("Manage Staff Attribute Types")
 	public void unretireStaffAttributeType(HrStaffAttributeType staffAttributeType);

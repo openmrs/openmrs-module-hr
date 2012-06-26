@@ -66,7 +66,7 @@ public class HrStaffServiceTest extends BaseModuleContextSensitiveTest{
     @Test
     public void shouldRetireOrUnretireStaffAttributeType(){
         HrStaffAttributeType hrStaffAttributeType = hrStaffService.getStaffAttributeTypeById(1);
-        hrStaffService.retireStaffAttributeType(hrStaffAttributeType,"Testing");
+        hrStaffService.retireStaffAttributeType(hrStaffAttributeType,"Testing",Context.getAuthenticatedUser());
         assertTrue("should retire attribute type",hrStaffService.getStaffAttributeTypeById(1).isRetired());
         hrStaffService.unretireStaffAttributeType(hrStaffAttributeType);
         assertFalse("should un-retire attribute type",hrStaffService.getStaffAttributeTypeById(1).isRetired());

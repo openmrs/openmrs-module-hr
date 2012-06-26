@@ -36,7 +36,8 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
 
     @Test
     public void shouldRetireOrUnretireCertificate(){
-        hrQualificationService.retireCertificate(hrQualificationService.getCertificateById(1), "test");
+
+        hrQualificationService.retireCertificate(hrQualificationService.getCertificateById(1), "test",Context.getAuthenticatedUser());
         assertTrue(hrQualificationService.getCertificateById(1).isRetired());
         hrQualificationService.unretireCertificate(hrQualificationService.getCertificateById(1));
         assertFalse(hrQualificationService.getCertificateById(1).isRetired());
