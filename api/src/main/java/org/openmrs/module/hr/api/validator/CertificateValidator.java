@@ -17,5 +17,10 @@ public class CertificateValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"certificate","error.null");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"agency","error.null");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"levels","error.null");
+        HrCertificate certificate = (HrCertificate)target;
+        if(certificate.getLevels().endsWith(","))
+            errors.reject("endsWithComma");
+        if(certificate.getLevels().startsWith(","))
+            errors.reject("startsWithComma");
     }
 }

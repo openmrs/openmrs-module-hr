@@ -48,7 +48,7 @@ window.onload=function(){
 		</thead>
 		<tbody>
 		<c:forEach var="staffCertificate" items="${staffCertificates}" varStatus="rowStatus">
-			<tr onclick="document.location.href='staffCertificate.form?staffCertificateId=${staffCertificate.id}'">
+			<tr onclick="document.location.href='staffCertificate.form?staffCertId=${staffCertificate.id}'">
                 <td>${staffCertificate.hrCertificate.certificate}</td>
                 <td>${staffCertificate.level}</td>
                 <td><openmrs:formatDate date="${staffCertificate.currentCertDate}" type="medium" /></td>

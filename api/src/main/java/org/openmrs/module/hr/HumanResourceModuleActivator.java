@@ -13,11 +13,14 @@
  */
 package org.openmrs.module.hr;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Role;
@@ -26,6 +29,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.Activator;
 import org.openmrs.module.ModuleActivator;
 import org.openmrs.util.OpenmrsConstants;
+import org.openmrs.util.OpenmrsUtil;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
@@ -86,6 +90,20 @@ public class HumanResourceModuleActivator implements ModuleActivator {
                 "View Staff","View Concepts","View People","Edit People","Add People","Manage Posts","View Reports"));
         addPrivilegesToRole(humanResourceWeakClerk,Arrays.asList("Add Assignments","Edit People","Add People","View People","View Concepts","Manage Staff","Find Human Resources",
                 "View Staff","View Posts","View Staff Demographics","View Reports"));
+
+
+        File imgFolder = new File(OpenmrsUtil.getApplicationDataDirectory(), "/hr_certificates");
+        if (!imgFolder.exists()) {
+            try {
+                FileUtils.forceMkdir(imgFolder);
+                log.info("Created Folder to Store staff certificates");
+            } catch (IOException ex) {
+                log.error(ex);
+            }
+        } else {
+            log.info("Folder for staff certificates Already Exists");
+        }
+
 
         log.info("Starting Human Resource Module");
 		

@@ -31,6 +31,9 @@
         <property name="cancelDate" type="timestamp">
             <column name="cancel_date" length="19" />
         </property>
+        <property name="imagePresent" type="java.lang.Boolean">
+            <column name="imagePresent" length="1" not-null="true"/>
+        </property>
         <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
 		<property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
 		<many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />

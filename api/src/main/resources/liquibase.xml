@@ -1059,4 +1059,10 @@
 		INSERT INTO `location_tag` (`location_tag_id`, `name`, `description`, `creator`, `date_created`,uuid) VALUES (7777701, 'HR Managed', 'Locations managed by HR module for this installation', 1, '2001-05-31',uuid());
 		</sql>
 		</changeSet>
+
+    <changeSet author="Sandeep Joshi" id="humanresource_staffcert_image">
+        <addColumn tableName="hr_staff_cert">
+            <column name="imagePresent" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

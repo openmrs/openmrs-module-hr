@@ -22,8 +22,9 @@
 <spring:hasBindErrors name="certificate">
 	<spring:message code="fix.error"/>
 	<c:forEach items="${errors.allErrors}" var="error">
-	<c:if test="${error.code == 'statusChange'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
-</c:forEach>
+        <c:if test="${error.code == 'statusChange'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/></c:if>
+        <c:if test="${error.code == 'startsWithComma' or error.code == 'endsWithComma'}"><span class="error"><spring:message code="${error.defaultMessage}" text="Improper text for Levels"/></span><br/></c:if>
+    </c:forEach>
 	<br />
 </spring:hasBindErrors>
 
@@ -56,6 +57,7 @@
                 <td>
                     <spring:bind path="certificate.levels">
                         <input type="text" name="${status.expression}" size="40" value="${status.value}" />
+                        Give comma separated list of applicable levels for this certificate.
                         <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
                     </spring:bind>
                 </td>

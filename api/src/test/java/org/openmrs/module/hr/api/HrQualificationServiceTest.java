@@ -80,6 +80,7 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
         hrStaffCert.setCertExpirationDate(new Date(2));
         hrStaffCert.setHrCertificate(hrQualificationService.getCertificateById(1));
         hrStaffCert.setHrStaff(hrStaffService.getStaffById(7777701));
+        hrStaffCert.setImagePresent(true);
         hrStaffCert.setId(13);
         hrQualificationService.saveStaffCertificate(hrStaffCert);
         assertNotNull(hrQualificationService.getStaffCertificateById(13));

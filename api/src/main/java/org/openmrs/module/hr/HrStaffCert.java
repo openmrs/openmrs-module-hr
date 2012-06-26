@@ -24,6 +24,16 @@ public class HrStaffCert extends BaseOpenmrsData implements java.io.Serializable
      private Date certExpirationDate;
      private String certCancel;
      private Date cancelDate;
+
+    public Boolean getImagePresent() {
+        return imagePresent;
+    }
+
+    public void setImagePresent(Boolean imagePresent) {
+        this.imagePresent = imagePresent;
+    }
+
+    private Boolean imagePresent;
      private String uuid;
 
 
