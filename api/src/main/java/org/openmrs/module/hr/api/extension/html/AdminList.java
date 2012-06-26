@@ -37,7 +37,7 @@ public class AdminList extends AdministrationSectionExt {
 	 * @see org.openmrs.module.web.extension.AdministrationSectionExt#getTitle()
 	 */
 	public String getTitle() {
-		return "hr.title";
+		return "Human Resource Module";
 	}
 	
 	/**
