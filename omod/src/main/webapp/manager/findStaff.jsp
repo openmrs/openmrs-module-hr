@@ -37,7 +37,13 @@
    	  }
 	  
   }
+
 </script>
+<ul id="menu">
+    <li class="first"><a href="${pageContext.request.contextPath}/module/hr/landing.list"><spring:message code="HR Home"/></a></li>
+</ul>
+
+
 <h2><spring:message code="Find Staff" /></h2>
 <br/>
 Filter by name : <input name="filter" id="filter-box" value="" maxlength="30" size="30" type="text">

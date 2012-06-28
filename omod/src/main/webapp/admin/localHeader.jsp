@@ -2,6 +2,9 @@
 	<li class="first">
 		<a href="${pageContext.request.contextPath}/admin"><spring:message code="admin.title.short"/></a>
 	</li>
+	    <li>
+	        <a href="${pageContext.request.contextPath}/module/hr/landing.list"><spring:message code="HR Home"/></a>
+	    </li>
 		<openmrs:hasPrivilege privilege="Manage Job Titles">
 		<li <c:if test='<%= request.getRequestURI().contains("job") %>'>class="active"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/admin/jobTitles.list">
