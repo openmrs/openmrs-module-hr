@@ -49,7 +49,16 @@ window.onload=function(){
 		<tbody>
 		<c:forEach var="staffCertificate" items="${staffCertificates}" varStatus="rowStatus">
 			<tr onclick="document.location.href='staffCertificate.form?staffCertId=${staffCertificate.id}'">
-                <td>${staffCertificate.hrCertificate.certificate}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${not empty staffCertificate.certCancel}">
+                            <del>${staffCertificate.hrCertificate.certificate}</del>
+                        </c:when>
+                        <c:otherwise>
+                            ${staffCertificate.hrCertificate.certificate}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td>${staffCertificate.level}</td>
                 <td><openmrs:formatDate date="${staffCertificate.currentCertDate}" type="medium" /></td>
                 <td><openmrs:formatDate date="${staffCertificate.certExpirationDate}" type="medium" /></td>

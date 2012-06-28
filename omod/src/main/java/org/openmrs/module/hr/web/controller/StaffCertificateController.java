@@ -36,6 +36,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -60,12 +62,23 @@ public class StaffCertificateController {
     public HrStaffCert showForm(@RequestParam(value="staffCertId",required=false) Integer staffCertificateId,ModelMap model){
         HrStaffCert hrStaffCert;
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
-        if(staffCertificateId != null)
+        if(staffCertificateId != null){
             hrStaffCert = hrQualificationService.getStaffCertificateById(staffCertificateId);
-        else
+            Date today = getTodaysDate();
+            if(hrStaffCert.getCertExpirationDate().before(today))
+                model.addAttribute("expired",true);
+        }
+        else{
             hrStaffCert = new HrStaffCert();
+            model.addAttribute("expired",false);
+        }
         model.addAttribute("allCertificatesList",hrQualificationService.getCertificates());
         return hrStaffCert;
+    }
+
+    private Date getTodaysDate() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
     }
 
     @RequestMapping(value = "module/hr/manager/staffCertificates.list")
@@ -84,6 +97,11 @@ public class StaffCertificateController {
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCertificatesList",hrQualificationService.getCertificates());
 
+        if(request.getParameter("cancelStaffCertificate") != null)
+            return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff);
+
+
+
         hrStaffCert.setImagePresent(false);
         hrStaffCert.setHrStaff(staff);
         hrQualificationService.saveStaffCertificate(hrStaffCert);
@@ -92,6 +110,25 @@ public class StaffCertificateController {
             addImage((MultipartHttpServletRequest)request,hrStaffCert,errors);
 
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Saved Successfully");
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrQualificationService.getCertificatesForStaff(staff));
+    }
+
+    private ModelAndView cancelStaffCertificate(HttpServletRequest request, HrStaffCert hrStaffCert, HRQualificationService hrQualificationService, BindingResult errors, HrStaff staff) {
+        String cancelReason = request.getParameter("certCancel");
+        if(cancelReason == null || cancelReason.length() ==0){
+            errors.reject("certCancel","Cancel Reason can not be empty");
+            ModelAndView modelAndView = new ModelAndView(SUCCESS_FORM_VIEW);
+            modelAndView.addObject("staffCertificate",hrQualificationService.getStaffCertificateById(hrStaffCert.getStaffCertId()));
+            modelAndView.addObject("expired",false);
+            modelAndView.addObject("allCertificatesList",hrQualificationService.getCertificates());
+            return modelAndView;
+        }
+
+        HrStaffCert staffCert = hrQualificationService.getStaffCertificateById(hrStaffCert.getStaffCertId());
+        staffCert.setCancelDate(getTodaysDate());
+        staffCert.setCertCancel(cancelReason);
+        hrQualificationService.saveStaffCertificate(staffCert);
+        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Cancelled Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrQualificationService.getCertificatesForStaff(staff));
     }
 

@@ -59,7 +59,26 @@
     }
 </script>
 
+<c:if test="${expired}">
+    <div class="retiredMessage">
+        <div>
+            <spring:message code="Certificate Expired on"/>
+            <openmrs:formatDate date="${staffCertificate.certExpirationDate}" type="medium" />
+        </div>
+    </div>
+</c:if>
 
+
+<c:if test="${not empty staffCertificate.certCancel}">
+    <div class="retiredMessage">
+        <div>
+            <spring:message code="This certificate is Cancelled on"/>
+            <openmrs:formatDate date="${staffCertificate.cancelDate}" type="medium" />
+            -
+            ${staffCertificate.certCancel}
+        </div>
+    </div>
+</c:if>
 
 <spring:hasBindErrors name="staffCertificate">
 <c:set var="errorExist" value="true"/>
@@ -70,7 +89,9 @@
 	<br />
 </spring:hasBindErrors>
 
-<h2><spring:message code="Add New Staff Certificate" /></h2>
+<c:if test="{staffCertificate.staffCertId == 0}">
+    <h2><spring:message code="Add New Staff Certificate" /></h2>
+</c:if>
 
 <form method="post" enctype="multipart/form-data" name="staffCertForm">
 <fieldset>
@@ -158,8 +179,27 @@
 
 </table>
 <br />
+<br />
 </fieldset>
-<input type="submit" value="<spring:message code="Save Staff Certificate"/>" name="submit"/>
+<c:if test="${empty staffCertificate.certCancel}">
+    <input type="submit" value="<spring:message code="Save Staff Certificate"/>" name="submit"/>
+</c:if>
+<c:if test="${empty staffCertificate.certCancel && not expired && staffCertificate.staffCertId!=0}">
+	<fieldset>
+			<h4><spring:message code="Cancel Staff Certificate"/></h4>
+
+			<b><spring:message code="general.reason"/></b>
+			<input type="text" value="" size="40" name="certCancel" />
+			<spring:hasBindErrors name="staffCertificate">
+				<c:forEach items="${errors.allErrors}" var="error">
+					<c:if test="${error.code == 'certCancel'}"><span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span></c:if>
+				</c:forEach>
+			</spring:hasBindErrors>
+			<br/>
+			<input type="submit" value='<spring:message code="Cancel Staff Certificate"/>' name="cancelStaffCertificate"/>
+		</fieldset>
+</c:if>
+
 
 </form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>
