@@ -3,10 +3,12 @@ package org.openmrs.module.hr.api.impl;
 
 import org.openmrs.User;
 import org.openmrs.module.hr.HrCertificate;
+import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.module.hr.api.HRQualificationService;
 import org.openmrs.module.hr.api.db.HRCertificateDAO;
+import org.openmrs.module.hr.api.db.HREducationDAO;
 import org.openmrs.module.hr.api.db.HRStaffCertDAO;
 
 import java.util.List;
@@ -15,6 +17,11 @@ public class HRQualificationServiceImpl implements HRQualificationService{
 
     HRCertificateDAO hrCertificateDAO;
     HRStaffCertDAO hrStaffCertDAO;
+    HREducationDAO hrEducationDAO;
+
+    public void setHrEducationDAO(HREducationDAO hrEducationDAO){
+        this.hrEducationDAO = hrEducationDAO;
+    }
 
     public void setHrStaffCertDAO(HRStaffCertDAO hrStaffCertDAO) {
         this.hrStaffCertDAO = hrStaffCertDAO;
@@ -62,4 +69,17 @@ public class HRQualificationServiceImpl implements HRQualificationService{
     public void saveStaffCertificate(HrStaffCert hrStaffCert) {
         hrStaffCertDAO.saveStaffCert(hrStaffCert);
     }
+
+    public HrEducation getEducationById(Integer educationId) {
+        return hrEducationDAO.getEducationById(educationId);
+    }
+
+    public void saveEducation(HrEducation education) {
+        hrEducationDAO.saveEducation(education);
+    }
+
+    public List<HrEducation> getEducationsForStaff(HrStaff staff) {
+        return hrEducationDAO.getEducationForStaff(staff);
+    }
+
 }

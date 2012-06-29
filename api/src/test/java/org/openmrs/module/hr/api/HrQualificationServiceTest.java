@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrCertificate;
+import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -86,4 +87,33 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
         hrQualificationService.saveStaffCertificate(hrStaffCert);
         assertNotNull(hrQualificationService.getStaffCertificateById(13));
     }
+
+    @Test
+    public void shouldGetEducationById(){
+        assertNotNull(hrQualificationService.getEducationById(1));
+    }
+
+    @Test
+    public void shouldSaveEducation(){
+        HrEducation education = new HrEducation();
+        education.setDegree("test");
+        education.setDegreeYear(1999);
+        education.setInstitution("test");
+        education.setInstitutionLocation("test");
+        education.setMajor("test");
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
+        education.setHrStaff(hrStaffService.getStaffById(7777701));
+        education.setId(13);
+        hrQualificationService.saveEducation(education);
+        assertNotNull(hrQualificationService.getEducationById(13));
+
+    }
+
+    @Test
+    public void shouldGetEducationForStaff(){
+        HRStaffService staffService = Context.getService(HRStaffService.class);
+        assertEquals(1,hrQualificationService.getEducationsForStaff(staffService.getStaffById(7777701)).size());
+    }
+
+
 }

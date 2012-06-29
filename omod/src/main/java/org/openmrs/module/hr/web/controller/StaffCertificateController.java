@@ -90,7 +90,7 @@ public class StaffCertificateController {
     }
 
     @RequestMapping(value ="module/hr/manager/staffCertificate.form", method = RequestMethod.POST)
-    public ModelAndView createOrUpdateStaffCertificate(HttpServletRequest request,@ModelAttribute("staffCertificate")  HrStaffCert hrStaffCert, BindingResult errors,@ModelAttribute("staff") HrStaff staff,ModelMap model){
+    public ModelAndView createOrUpdateStaffCertificate(HttpServletRequest request,@ModelAttribute("staffCertificate")  HrStaffCert hrStaffCert, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
 
         new StaffCertificateValidator().validate(hrStaffCert,errors);

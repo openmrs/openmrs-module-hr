@@ -4,6 +4,7 @@ package org.openmrs.module.hr.api;
 import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.module.hr.HrCertificate;
+import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public interface HRQualificationService {
     @Authorized("Manage Certificates")
     void unretireCertificate(HrCertificate certificate);
 
-    @Authorized("View Certificates")//2724101101983
+    @Authorized("View Certificates")
     HrStaffCert getStaffCertificateById(Integer staffCertificateId);
 
     @Authorized("View Certificates")
@@ -36,4 +37,13 @@ public interface HRQualificationService {
 
     @Authorized("Add Staff Certificates")
     void saveStaffCertificate(HrStaffCert hrStaffCert);
+
+    @Authorized("View Education")
+    HrEducation getEducationById(Integer educationId);
+
+    @Authorized("Add Staff Education")
+    void saveEducation(HrEducation education);
+
+    @Authorized("View Staff Education")
+    List<HrEducation> getEducationsForStaff(HrStaff staff);
 }

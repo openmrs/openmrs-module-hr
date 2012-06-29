@@ -25,7 +25,7 @@ public class HrCertificateEditor extends PropertyEditorSupport {
             }
             catch (Exception ex) {
                 log.error("Error setting text" + text, ex);
-                throw new IllegalArgumentException("post not found: " + ex.getMessage());
+                throw new IllegalArgumentException("certificate not found: " + ex.getMessage());
             }
         } else {
             setValue(null);

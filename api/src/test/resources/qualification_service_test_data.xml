@@ -6,4 +6,7 @@
     <hr_staff_cert staff_cert_id="1" certificate_id="1" staff_id="7777701" creator="1" uuid="e4380f28-9538-11e0-1121-8a74a6e487f5" current_cert_date="2011-05-31 00:00:00.0" date_created="2011-05-31 00:00:00.0" voided="0" level="test" imagePresent="0"/>
     <hr_staff_cert staff_cert_id="2" certificate_id="2" staff_id="7777701" creator="1" uuid="e4380f28-9538-11e0-1122-8a74a6e487f5" current_cert_date="2011-05-31 00:00:00.0" date_created="2011-05-31 00:00:00.0" voided="0" level="test" imagePresent="0"/>
     <hr_staff_cert staff_cert_id="3" certificate_id="3" staff_id="7777702" creator="1" uuid="e4380f28-9538-11e0-1123-8a74a6e487f5" current_cert_date="2011-05-31 00:00:00.0" date_created="2011-05-31 00:00:00.0" voided="0" level="test" imagePresent="0"/>
+
+    <hr_education education_id="1" staff_id="7777701" creator="1" uuid="e4380f28-9538-11e0-1131-8a74a6e487f5"  date_created="2011-05-31 00:00:00.0" voided="0" institution="test" institution_location="test" degree="test" major="test"/>
+    <hr_education education_id="2" staff_id="7777702" creator="1" uuid="e4380f28-9538-11e0-1132-8a74a6e487f5"  date_created="2011-05-31 00:00:00.0" voided="0" institution="test" institution_location="test" degree="test" major="test"/>
 </dataset>
