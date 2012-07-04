@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <hr_competency competency_id="1" category="test" name="test" levels="test" creator="1" uuid="e4380f28-9538-11e0-1111-8a74a6e487f5" date_created="2011-05-31 00:00:00.0"  retired="0"/>
+    <hr_competency competency_id="2" category="test" name="test" levels="test" creator="1" uuid="e4380f28-9538-11e0-1112-8a74a6e487f5" date_created="2011-05-31 00:00:00.0"  retired="0"/>
+
+    <hr_evaluation evaluation_id="1" competency_id="1" creator="1" staff_id="7777701" evaluator_id="7777704" level="test" evaluation_date="2011-05-31 00:00:00.0" uuid="e4380f28-9538-11e0-1121-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
+    <hr_evaluation evaluation_id="2" competency_id="2" creator="1" staff_id="7777701" evaluator_id="7777704" level="test" evaluation_date="2011-05-31 00:00:00.0" uuid="e4380f28-9538-11e0-1122-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
+</dataset>

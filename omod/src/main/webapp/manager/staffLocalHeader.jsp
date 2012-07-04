@@ -66,6 +66,13 @@
                 </a>
             </li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="View Evaluations">
+            <li>
+                <a href="${pageContext.request.contextPath}/module/hr/manager/evaluations.list" <c:if test='<%= request.getRequestURI().contains("evaluations") %>'>class="current"</c:if>>
+                    <spring:message code="Evaluations"/>
+                </a>
+            </li>
+        </openmrs:hasPrivilege>
 
 </ul>
 </div>

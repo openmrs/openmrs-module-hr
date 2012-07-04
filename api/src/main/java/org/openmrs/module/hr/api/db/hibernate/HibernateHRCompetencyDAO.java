@@ -98,4 +98,5 @@ public class HibernateHRCompetencyDAO implements HRCompetencyDAO{
             throw re;
         }
     }
+
 }

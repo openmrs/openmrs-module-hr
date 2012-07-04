@@ -19,4 +19,5 @@ public interface HREvaluationDAO {
 
     public HrEvaluation getEvaluationById( int id);
 
+    List<HrEvaluation> getEvaluationsForStaff(HrStaff staff);
 }

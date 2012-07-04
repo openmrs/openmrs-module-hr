@@ -27,7 +27,7 @@
 		</li>
 		</openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Manage Staff Attribute Types">
-		<li <c:if test='<%= request.getRequestURI().contains("staffAttributeType") %>'>class="active"</c:if>>
+		<li <c:if test='<%= request.getRequestURI().contains("staffAttributeTypes") %>'>class="active"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/admin/staffAttributeTypes.list">
 				<spring:message code="Manage Staff Attribute Types"/>
 			</a>
@@ -35,11 +35,19 @@
 		</openmrs:hasPrivilege>
 
 		<openmrs:hasPrivilege privilege="Manage Certificates">
-        		<li <c:if test='<%= request.getRequestURI().contains("certificate") %>'>class="active"</c:if>>
+        		<li <c:if test='<%= request.getRequestURI().contains("certificates") %>'>class="active"</c:if>>
         			<a href="${pageContext.request.contextPath}/module/hr/admin/certificates.list">
         				<spring:message code="Manage Certificates"/>
         			</a>
         		</li>
+        </openmrs:hasPrivilege>
+
+        <openmrs:hasPrivilege privilege="Manage Competencies">
+                <li <c:if test='<%= request.getRequestURI().contains("competencies") %>'>class="active"</c:if>>
+                    <a href="${pageContext.request.contextPath}/module/hr/admin/competencies.list">
+                        <spring:message code="Manage Competencies"/>
+                    </a>
+                </li>
         </openmrs:hasPrivilege>
 
 		<openmrs:hasPrivilege privilege="View Reports">

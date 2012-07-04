@@ -74,6 +74,7 @@
         <servlet-name>ImageServlet</servlet-name>
         <url-pattern>/ImageServlet</url-pattern>
     </servlet-mapping>
+
 	<!-- Required Privileges -->
 
     <privilege>

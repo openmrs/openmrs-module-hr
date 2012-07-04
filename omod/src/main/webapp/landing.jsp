@@ -25,6 +25,10 @@
         <openmrs:hasPrivilege privilege="Manage Certificates">
                     <li><a href="admin/certificates.list">Manage Certificates</a></li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="Manage Competencies">
+                    <li><a href="admin/competencies.list">Manage Competencies</a></li>
+        </openmrs:hasPrivilege>
+
     </ul>
 </div>
 

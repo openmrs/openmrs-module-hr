@@ -99,4 +99,20 @@ public class HibernateHREvaluationDAO implements HREvaluationDAO{
         }
     }
 
+    public List<HrEvaluation> getEvaluationsForStaff(HrStaff staff) {
+        log.debug("getting evaluation for staff and competency");
+        try {
+            List<HrEvaluation> evaluationList=sessionFactory.getCurrentSession().createCriteria(HrEvaluation.class).add(Restrictions.eq("hrStaff", staff)).list();
+            if(evaluationList!=null)
+                log.debug("get successful");
+            else
+                evaluationList=new ArrayList<HrEvaluation>();
+            return evaluationList;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
 }
