@@ -62,9 +62,6 @@ public class HRQualificationServiceImpl implements HRQualificationService{
         return hrStaffCertDAO.getStaffCertById(staffCertificateId);
     }
 
-    public List<HrStaffCert> getCertificatesForStaff(HrStaff staff) {
-        return hrStaffCertDAO.getAllCertificatesForStaff(staff);
-    }
 
     public void saveStaffCertificate(HrStaffCert hrStaffCert) {
         hrStaffCertDAO.saveStaffCert(hrStaffCert);

@@ -7,8 +7,7 @@
             <column name="staff_note_id" />
             <generator class="native" />
         </id>
-        <discriminator column="staff_note_type" type="string"/>
-        <property name="noteType" type="string" insert="false" update="false" not-null="true">
+        <property name="noteType" type="string" update="false" not-null="true">
             <column name="staff_note_type" length="50" />
         </property>
         <property name="text" type="string">
@@ -40,7 +39,5 @@
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" />
         </many-to-one>
-        <subclass name="org.openmrs.module.hr.HrInjury" discriminator-value="injury">
-        </subclass>
     </class>
 </hibernate-mapping>

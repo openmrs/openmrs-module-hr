@@ -10,6 +10,7 @@ import org.openmrs.module.hr.HrPostHistory;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.module.hr.api.HRQualificationService;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.propertyEditor.HrCertificateEditor;
 import org.openmrs.module.hr.api.propertyEditor.HrPostHistoryEditor;
 import org.openmrs.module.hr.api.validator.CertificateValidator;
@@ -83,15 +84,15 @@ public class StaffCertificateController {
 
     @RequestMapping(value = "module/hr/manager/staffCertificates.list")
     public String showList(ModelMap model ,@ModelAttribute("staff") HrStaff staff){
-        HRQualificationService hrQualificationService=Context.getService(HRQualificationService.class);
-        List<HrStaffCert> hrStaffCertList = hrQualificationService.getCertificatesForStaff(staff);
-        model.addAttribute("staffCertificates",hrStaffCertList);
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
+        model.addAttribute("staffCertificates",hrStaffService.getStaffById(staff.getId()).getHrStaffCerts());
         return SUCCESS_LIST_VIEW;
     }
 
     @RequestMapping(value ="module/hr/manager/staffCertificate.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateStaffCertificate(HttpServletRequest request,@ModelAttribute("staffCertificate")  HrStaffCert hrStaffCert, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
         if(request.getParameter("action").equalsIgnoreCase("Delete Staff Certificate"))
             deleteStaffCertificate(hrQualificationService,hrStaffCert,request);
 
@@ -101,7 +102,7 @@ public class StaffCertificateController {
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCertificatesList",hrQualificationService.getCertificates());
 
         if(request.getParameter("action").equalsIgnoreCase("Cancel Staff Certificate"))
-            return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff);
+            return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff,hrStaffService);
 
 
         hrStaffCert.setImagePresent(false);
@@ -113,7 +114,7 @@ public class StaffCertificateController {
 
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Saved Successfully");
         }
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrQualificationService.getCertificatesForStaff(staff));
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrStaffService.getStaffById(staff.getId()).getHrStaffCerts());
     }
 
     private void deleteStaffCertificate(HRQualificationService hrQualificationService, HrStaffCert hrStaffCert, HttpServletRequest request) {
@@ -121,7 +122,7 @@ public class StaffCertificateController {
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Deleted Successfully");
     }
 
-    private ModelAndView cancelStaffCertificate(HttpServletRequest request, HrStaffCert hrStaffCert, HRQualificationService hrQualificationService, BindingResult errors, HrStaff staff) {
+    private ModelAndView cancelStaffCertificate(HttpServletRequest request, HrStaffCert hrStaffCert, HRQualificationService hrQualificationService, BindingResult errors, HrStaff staff, HRStaffService hrStaffService) {
         String cancelReason = request.getParameter("certCancel");
         if(cancelReason == null || cancelReason.length() ==0){
             errors.reject("certCancel","Cancel Reason can not be empty");
@@ -137,7 +138,7 @@ public class StaffCertificateController {
         staffCert.setCertCancel(cancelReason);
         hrQualificationService.saveStaffCertificate(staffCert);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Cancelled Successfully");
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrQualificationService.getCertificatesForStaff(staff));
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrStaffService.getStaffById(staff.getId()).getHrStaffCerts());
     }
 
     private void addImage(MultipartHttpServletRequest request, HrStaffCert hrStaffCert, BindingResult errors) {

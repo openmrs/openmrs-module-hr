@@ -32,7 +32,10 @@ public class HRNoteServiceImpl implements HRNoteService {
     }
 
     @Override
-    public void deleteInjury(HrStaffNote hrStaffNote) {
+    public void deleteStaffNote(HrStaffNote hrStaffNote) {
+        if(hrStaffNoteDAO.getStaffNoteById(hrStaffNote.getId()).getHrStaffNotes() != null)
+        for(HrStaffNote child : hrStaffNoteDAO.getStaffNoteById(hrStaffNote.getId()).getHrStaffNotes())
+           hrStaffNoteDAO.deleteStaffNote(child);
         hrStaffNoteDAO.deleteStaffNote(hrStaffNote);
     }
 

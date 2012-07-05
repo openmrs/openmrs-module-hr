@@ -7,6 +7,7 @@ import org.openmrs.Person;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.*;
 import org.openmrs.module.hr.api.HRCompetencyService;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.propertyEditor.HrCompetencyEditor;
 import org.openmrs.module.hr.api.validator.EvaluationValidator;
 import org.openmrs.propertyeditor.PersonEditor;
@@ -58,15 +59,15 @@ public class EvaluationController {
 
     @RequestMapping(value = "module/hr/manager/evaluations.list")
     public String showList(ModelMap model ,@ModelAttribute("staff") HrStaff staff){
-        HRCompetencyService hrCompetencyService = Context.getService(HRCompetencyService.class);
-        List<HrEvaluation> hrEvaluationList = (List<HrEvaluation>) staff.getHrEvaluations();
-        model.addAttribute("evaluations",hrEvaluationList);
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
+        model.addAttribute("evaluations",hrStaffService.getStaffById(staff.getId()).getHrEvaluations());
         return SUCCESS_LIST_VIEW;
     }
 
     @RequestMapping(value ="module/hr/manager/evaluation.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateEvaluation(HttpServletRequest request,@ModelAttribute("evaluation")  HrEvaluation hrEvaluation, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRCompetencyService hrCompetencyService = Context.getService(HRCompetencyService.class);
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
         if(request.getParameter("action").equalsIgnoreCase("Delete Staff Evaluation"))
             deleteEvaluation(request,hrCompetencyService,hrEvaluation);
         else{
@@ -79,7 +80,7 @@ public class EvaluationController {
             hrCompetencyService.saveEvaluation(hrEvaluation);
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Evaluation Saved Successfully");
         }
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("evaluations", staff.getHrEvaluations());
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("evaluations", hrStaffService.getStaffById(staff.getId()).getHrEvaluations());
     }
 
     private void deleteEvaluation(HttpServletRequest request, HRCompetencyService hrCompetencyService, HrEvaluation hrEvaluation) {

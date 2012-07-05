@@ -75,7 +75,7 @@
         </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View Notes">
             <li>
-                <a href="${pageContext.request.contextPath}/module/hr/manager/injuries.list" <c:if test='<%= request.getRequestURI().contains("injuries") %>'>class="current"</c:if>>
+                <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Injury" <c:if test='<%= request.getRequestURI().contains("staffNotes") %>'>class="current"</c:if>>
                     <spring:message code="Injury"/>
                 </a>
             </li>

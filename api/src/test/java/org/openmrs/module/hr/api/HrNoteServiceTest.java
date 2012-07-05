@@ -34,7 +34,7 @@ public class HrNoteServiceTest extends BaseModuleContextSensitiveTest {
     @Test
     public void shouldGetAllNotesForStaffGivenType(){
         HrStaff hrStaff = Context.getService(HRStaffService.class).getStaffById(7777701);
-        assertEquals(1,hrNoteService.getHeadNotesForStaff(hrStaff,"injury").size());
+        assertEquals(1,hrNoteService.getHeadNotesForStaff(hrStaff,"Injury").size());
     }
 
 

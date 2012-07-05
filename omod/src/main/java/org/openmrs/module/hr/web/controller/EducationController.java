@@ -5,6 +5,7 @@ import org.openmrs.module.hr.HrEducation;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffCert;
 import org.openmrs.module.hr.api.HRQualificationService;
+import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.validator.EducationValidator;
 import org.openmrs.web.WebConstants;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -42,8 +43,9 @@ public class EducationController {
     @RequestMapping(value ="module/hr/manager/staffEducation.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateEducation(HttpServletRequest request,@ModelAttribute("education")  HrEducation education, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
+        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
         if(request.getParameter("action").equalsIgnoreCase("Delete Education"))
-            deleteEducation(request,hrQualificationService,education);
+            deleteEducation(request,hrQualificationService,education,hrStaffService);
         else{
         new EducationValidator().validate(education, errors);
         if(errors.hasErrors())
@@ -53,10 +55,10 @@ public class EducationController {
         hrQualificationService.saveEducation(education);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Education saved Successfully");
         }
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffEducations",hrQualificationService.getEducationsForStaff(staff));
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffEducations",hrStaffService.getStaffById(staff.getId()).getHrEducations());
     }
 
-    private void deleteEducation(HttpServletRequest request, HRQualificationService hrQualificationService, HrEducation education) {
+    private void deleteEducation(HttpServletRequest request, HRQualificationService hrQualificationService, HrEducation education, HRStaffService hrStaffService) {
         hrQualificationService.deleteEducation(hrQualificationService.getEducationById(education.getEducationId()));
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Education deleted Successfully");
     }

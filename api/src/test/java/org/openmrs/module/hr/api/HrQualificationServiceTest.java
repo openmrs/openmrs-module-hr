@@ -67,12 +67,6 @@ public class HrQualificationServiceTest extends BaseModuleContextSensitiveTest{
         assertNotNull(hrQualificationService.getStaffCertificateById(1));
     }
 
-    @Test
-    public void shouldGetAllCertificatesForStaff(){
-        HRStaffService hrStaffService = Context.getService(HRStaffService.class);
-        HrStaff staff = hrStaffService.getStaffById(7777701);
-        assertEquals(2,hrQualificationService.getCertificatesForStaff(staff).size());
-    }
 
     @Test
     public void shouldSaveStaffCertificate(){

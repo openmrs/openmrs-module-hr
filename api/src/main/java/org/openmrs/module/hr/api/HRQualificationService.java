@@ -32,9 +32,6 @@ public interface HRQualificationService {
     @Authorized("View Certificates")
     HrStaffCert getStaffCertificateById(Integer staffCertificateId);
 
-    @Authorized("View Certificates")
-    List<HrStaffCert> getCertificatesForStaff(HrStaff staff);
-
     @Authorized("Add Staff Certificates")
     void saveStaffCertificate(HrStaffCert hrStaffCert);
 
