@@ -35,4 +35,5 @@ public class HRNoteServiceImpl implements HRNoteService {
     public void deleteInjury(HrStaffNote hrStaffNote) {
         hrStaffNoteDAO.deleteStaffNote(hrStaffNote);
     }
+
 }

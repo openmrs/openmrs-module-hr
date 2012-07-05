@@ -60,11 +60,6 @@ public class HRCompetencyServiceImpl implements HRCompetencyService {
     }
 
     @Override
-    public List<HrEvaluation> getEvaluationsForStaff(HrStaff staff) {
-        return hrEvaluationDAO.getEvaluationsForStaff(staff);
-    }
-
-    @Override
     public void saveEvaluation(HrEvaluation hrEvaluation) {
         hrEvaluationDAO.saveEvaluation(hrEvaluation);
     }

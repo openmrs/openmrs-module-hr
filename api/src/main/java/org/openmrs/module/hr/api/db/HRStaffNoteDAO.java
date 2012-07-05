@@ -21,4 +21,6 @@ public interface HRStaffNoteDAO {
     List<HrStaffNote> getAllStaffNotesForStaff(HrStaff staff, String injury);
 
     List<HrStaffNote> getHeadStaffNotesForStaff(HrStaff staff, String injury);
+
+    List<HrStaffNote> getAllChildrenNotes(HrStaffNote noteId);
 }

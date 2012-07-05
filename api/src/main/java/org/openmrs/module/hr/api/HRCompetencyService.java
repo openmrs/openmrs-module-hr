@@ -29,9 +29,6 @@ public interface HRCompetencyService {
     @Authorized("View Evaluation")
     HrEvaluation getEvaluationById(Integer evaluationId);
 
-    @Authorized("View Evaluation")
-    List<HrEvaluation> getEvaluationsForStaff(HrStaff staff);
-
     @Authorized("Manage Evaluation")
     void saveEvaluation(HrEvaluation hrEvaluation);
 

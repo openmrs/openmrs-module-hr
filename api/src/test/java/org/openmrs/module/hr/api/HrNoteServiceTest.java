@@ -37,4 +37,5 @@ public class HrNoteServiceTest extends BaseModuleContextSensitiveTest {
         assertEquals(1,hrNoteService.getHeadNotesForStaff(hrStaff,"injury").size());
     }
 
+
 }

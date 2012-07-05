@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,13 +27,17 @@ public class InjuryController {
 
     @RequestMapping(value="module/hr/manager/injury.form")
     @ModelAttribute("injury")
-    public HrInjury showForm(@RequestParam(value="noteId",required=false) Integer noteId){
+    public HrInjury showForm(@RequestParam(value="noteId",required=false) Integer noteId,ModelMap model){
         HrInjury hrInjury;
         HRNoteService hrNoteService = Context.getService(HRNoteService.class);
-        if(noteId != null)
+        if(noteId != null){
             hrInjury = (HrInjury)hrNoteService.getStaffNoteById(noteId);
-        else
+            model.addAttribute("childrenNotes",hrInjury.getHrStaffNotes());
+        }
+        else{
             hrInjury = new HrInjury();
+            model.addAttribute("childrenNotes",new ArrayList<HrInjury>(0));
+        }
         return hrInjury;
     }
 

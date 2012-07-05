@@ -16,11 +16,11 @@ public interface HRNoteService {
     void saveNote(HrStaffNote note);
 
     @Authorized("View Notes")
-    List<HrStaffNote> getHeadNotesForStaff(HrStaff staff, String injury);
-
-    @Authorized("View Notes")
     HrStaffNote getStaffNoteById(Integer noteId);
 
     @Authorized("Manage Notes")
     void deleteInjury(HrStaffNote staffNoteById);
+
+    @Authorized("View Notes")
+    List<HrStaffNote> getHeadNotesForStaff(HrStaff staff, String injury);
 }

@@ -59,7 +59,7 @@ public class EvaluationController {
     @RequestMapping(value = "module/hr/manager/evaluations.list")
     public String showList(ModelMap model ,@ModelAttribute("staff") HrStaff staff){
         HRCompetencyService hrCompetencyService = Context.getService(HRCompetencyService.class);
-        List<HrEvaluation> hrEvaluationList = hrCompetencyService.getEvaluationsForStaff(staff);
+        List<HrEvaluation> hrEvaluationList = (List<HrEvaluation>) staff.getHrEvaluations();
         model.addAttribute("evaluations",hrEvaluationList);
         return SUCCESS_LIST_VIEW;
     }
@@ -79,7 +79,7 @@ public class EvaluationController {
             hrCompetencyService.saveEvaluation(hrEvaluation);
             request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Evaluation Saved Successfully");
         }
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("evaluations", hrCompetencyService.getEvaluationsForStaff(staff));
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("evaluations", staff.getHrEvaluations());
     }
 
     private void deleteEvaluation(HttpServletRequest request, HRCompetencyService hrCompetencyService, HrEvaluation hrEvaluation) {

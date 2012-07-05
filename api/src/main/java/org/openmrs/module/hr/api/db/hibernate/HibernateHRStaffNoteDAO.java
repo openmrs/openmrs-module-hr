@@ -144,4 +144,24 @@ public class HibernateHRStaffNoteDAO implements HRStaffNoteDAO {
         }
     }
 
+    @Override
+    public List<HrStaffNote> getAllChildrenNotes(HrStaffNote staffNote) {
+        log.debug("getting StaffNote instance with note as parent");
+        try {
+            List<HrStaffNote> hrStaffNoteList=sessionFactory.getCurrentSession().createCriteria(HrStaffNote.class).add(Restrictions.eq("parent",staffNote)).list();
+            if (hrStaffNoteList==null) {
+                hrStaffNoteList=new ArrayList<HrStaffNote>();
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return hrStaffNoteList;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
 }
