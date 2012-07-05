@@ -35,7 +35,7 @@ window.onload=function(){
 
 <br/>
 <b class="boxHeader">
-<spring:message code="injuries"/>
+<spring:message code="Injuries"/>
 </b>
 <form method="post" class="box">
 <table id="injuriesTable" width="100%">

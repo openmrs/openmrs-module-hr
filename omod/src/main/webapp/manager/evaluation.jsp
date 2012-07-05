@@ -139,7 +139,7 @@
 <br />
 </fieldset>
 <input type="submit" value="<spring:message code="Save Staff Evaluation"/>" name="action"/>
-<c:if test="${evaluation.evaluationId!=0}">
+<c:if test="${evaluation.evaluationId != 0}">
     <input type="submit" value="<spring:message code="Delete Staff Evaluation"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this evaluation?"/>')"/>
 </c:if>
 </form>

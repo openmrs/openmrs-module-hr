@@ -183,7 +183,7 @@
 </fieldset>
 <c:if test="${empty staffCertificate.certCancel}">
     <input type="submit" value="<spring:message code="Save Staff Certificate"/>" name="action"/>
-    <c:if test="${staffCertificate.staffCertId!=0}">
+    <c:if test="${staffCertificate.staffCertId != 0}">
         <input type="submit" value="<spring:message code="Delete Staff Certificate"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete the Staff Certificate?"/>')"/>
     </c:if>
 </c:if>

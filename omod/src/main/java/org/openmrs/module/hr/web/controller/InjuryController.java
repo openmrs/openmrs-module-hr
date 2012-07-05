@@ -37,18 +37,20 @@ public class InjuryController {
     }
 
     @RequestMapping(value ="module/hr/manager/injury.form", method = RequestMethod.POST)
-    public ModelAndView createOrUpdateEducation(HttpServletRequest request,@ModelAttribute("injury")  HrInjury injury, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
+    public ModelAndView createOrUpdateInjury(HttpServletRequest request,@ModelAttribute("injury")  HrInjury injury, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRNoteService hrNoteService = Context.getService(HRNoteService.class);
         if(request.getParameter("action").equalsIgnoreCase("Delete Injury Note"))
             deleteInjury(request,hrNoteService,injury);
-        new HRStaffNoteValidator().validate(injury, errors);
-        if(errors.hasErrors())
-            return new ModelAndView(SUCCESS_FORM_VIEW).addObject("injury",injury);
+        else{
+            new HRStaffNoteValidator().validate(injury, errors);
+            if(errors.hasErrors())
+                return new ModelAndView(SUCCESS_FORM_VIEW).addObject("injury",injury);
 
-        injury.setHrStaff(staff);
-        hrNoteService.saveNote(injury);
-        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Injury saved Successfully");
-        return new ModelAndView(SUCCESS_FORM_VIEW).addObject("education",hrNoteService.getStaffNoteById(injury.getNoteId()));
+            injury.setHrStaff(staff);
+            hrNoteService.saveNote(injury);
+            request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Injury saved Successfully");
+        }
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("injuries",hrNoteService.getHeadNotesForStaff(staff, "injury"));
     }
 
     private void deleteInjury(HttpServletRequest request, HRNoteService hrNoteService, HrInjury injury) {

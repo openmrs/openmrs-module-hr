@@ -53,7 +53,7 @@ public class EducationController {
         hrQualificationService.saveEducation(education);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Education saved Successfully");
         }
-        return new ModelAndView(SUCCESS_FORM_VIEW).addObject("education",hrQualificationService.getEducationById(education.getEducationId()));
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffEducations",hrQualificationService.getEducationsForStaff(staff));
     }
 
     private void deleteEducation(HttpServletRequest request, HRQualificationService hrQualificationService, HrEducation education) {

@@ -45,7 +45,7 @@
 </fieldset>
 
 <input type="submit" value="<spring:message code="Save Injury Note"/>" name="action"/>
-<c:if test="${injury.noteId!=0}">
+<c:if test="${injury.noteId != 0}">
     <input type="submit" value="<spring:message code="Delete Injury Note"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this note?"/>')"/>
 </c:if>
 

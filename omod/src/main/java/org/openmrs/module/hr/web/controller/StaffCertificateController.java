@@ -100,7 +100,7 @@ public class StaffCertificateController {
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCertificatesList",hrQualificationService.getCertificates());
 
-        if(request.getParameter("cancelStaffCertificate") != null)
+        if(request.getParameter("action").equalsIgnoreCase("Cancel Staff Certificate"))
             return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff);
 
 
