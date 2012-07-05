@@ -5,30 +5,26 @@ import org.openmrs.BaseOpenmrsData;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class BaseNote extends BaseOpenmrsData implements java.io.Serializable {
+public class BaseNote extends BaseOpenmrsData implements java.io.Serializable {
 
+
+    private int noteId;
     private String text;
     private String uuid;
     private Integer priority;
     private String noteType;
 
 
-
     public BaseNote(){
 
     }
 
-    public BaseNote(String text, String uuid) {
-        this.text = text;
-        this.uuid = uuid;
+    public int getNoteId() {
+        return noteId;
     }
 
-    public BaseNote(String noteType, String text, Integer priority, String uuid) {
-        this.text = text;
-        this.uuid = uuid;
-        this.priority = priority;
-        this.noteType = noteType;
-
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
     }
 
 
@@ -38,6 +34,16 @@ public abstract class BaseNote extends BaseOpenmrsData implements java.io.Serial
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public Integer getId() {
+        return noteId;
+    }
+
+    @Override
+    public void setId(Integer integer) {
+        noteId = integer;
     }
 
     public String getUuid() {

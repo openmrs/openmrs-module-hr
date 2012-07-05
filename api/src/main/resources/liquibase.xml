@@ -1065,4 +1065,18 @@
             <column name="imagePresent" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
         </addColumn>
     </changeSet>
+    <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_staff_note_id">
+        <addAutoIncrement tableName="hr_staff_note" columnName="staff_note_id" columnDataType="int"/>
+    </changeSet>
+    <changeSet author="Sandeep Joshi" id="adding_comments_column_to_evaluation">
+        <addColumn tableName="hr_evaluation">
+            <column name="staffComments" type="TEXT"></column>
+        </addColumn>
+        <addColumn tableName="hr_evaluation">
+            <column name="evaluatorComments" type="TEXT"></column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_evaluation_id">
+        <addAutoIncrement tableName="hr_evaluation" columnName="evaluation_id" columnDataType="int"/>
+    </changeSet>
 </databaseChangeLog>

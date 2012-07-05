@@ -42,7 +42,9 @@ public class EducationController {
     @RequestMapping(value ="module/hr/manager/staffEducation.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateEducation(HttpServletRequest request,@ModelAttribute("education")  HrEducation education, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
-
+        if(request.getParameter("action").equalsIgnoreCase("Delete Education"))
+            deleteEducation(request,hrQualificationService,education);
+        else{
         new EducationValidator().validate(education, errors);
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("education",education);
@@ -50,7 +52,13 @@ public class EducationController {
         education.setHrStaff(staff);
         hrQualificationService.saveEducation(education);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Education saved Successfully");
+        }
         return new ModelAndView(SUCCESS_FORM_VIEW).addObject("education",hrQualificationService.getEducationById(education.getEducationId()));
+    }
+
+    private void deleteEducation(HttpServletRequest request, HRQualificationService hrQualificationService, HrEducation education) {
+        hrQualificationService.deleteEducation(hrQualificationService.getEducationById(education.getEducationId()));
+        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Education deleted Successfully");
     }
 
     @RequestMapping(value = "module/hr/manager/staffEducations.list")

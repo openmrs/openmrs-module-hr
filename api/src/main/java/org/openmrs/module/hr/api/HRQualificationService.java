@@ -41,9 +41,15 @@ public interface HRQualificationService {
     @Authorized("View Education")
     HrEducation getEducationById(Integer educationId);
 
-    @Authorized("Add Staff Education")
+    @Authorized("Manage Education")
     void saveEducation(HrEducation education);
 
-    @Authorized("View Staff Education")
+    @Authorized("View Education")
     List<HrEducation> getEducationsForStaff(HrStaff staff);
+
+    @Authorized("Manage Staff Certificates")
+    void deleteStaffCertificate(HrStaffCert hrStaffCert);
+
+    @Authorized("Manage Education")
+    void deleteEducation(HrEducation education);
 }

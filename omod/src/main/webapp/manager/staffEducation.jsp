@@ -77,7 +77,10 @@
         </fieldset>
 
     <openmrs:hasPrivilege privilege="Add Staff Education">
-        <input type="submit" value="<spring:message code="Save Education"/>" name="submit"/>
+        <input type="submit" value="<spring:message code="Save Education"/>" name="action"/>
+        <c:if test="${education.educationId!=0}">
+                <input type="submit" value="<spring:message code="Delete Education"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete Education details?"/>')"/>
+        </c:if>
     </openmrs:hasPrivilege>
 </form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>

@@ -22,6 +22,8 @@ public class HrEvaluation extends BaseOpenmrsData implements java.io.Serializabl
      private String level;
      private Date evaluationDate;
      private String uuid;
+    private String staffComments;
+    private String evaluatorComments;
 
 
     // Constructors
@@ -108,5 +110,20 @@ public class HrEvaluation extends BaseOpenmrsData implements java.io.Serializabl
 	public void setId(Integer id) {
 		setEvaluationId(id);
 	}
- 
+
+    public String getStaffComments() {
+        return staffComments;
+    }
+
+    public void setStaffComments(String staffComments) {
+        this.staffComments = staffComments;
+    }
+
+    public String getEvaluatorComments() {
+        return evaluatorComments;
+    }
+
+    public void setEvaluatorComments(String evaluatorComments) {
+        this.evaluatorComments = evaluatorComments;
+    }
 }

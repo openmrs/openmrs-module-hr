@@ -69,4 +69,9 @@ public class HRCompetencyServiceImpl implements HRCompetencyService {
         hrEvaluationDAO.saveEvaluation(hrEvaluation);
     }
 
+    @Override
+    public void deleteEvaluation(HrEvaluation hrEvaluation) {
+        hrEvaluationDAO.deleteEvaluation(hrEvaluation);
+    }
+
 }

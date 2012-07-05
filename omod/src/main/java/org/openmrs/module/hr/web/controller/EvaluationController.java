@@ -67,16 +67,24 @@ public class EvaluationController {
     @RequestMapping(value ="module/hr/manager/evaluation.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateEvaluation(HttpServletRequest request,@ModelAttribute("evaluation")  HrEvaluation hrEvaluation, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRCompetencyService hrCompetencyService = Context.getService(HRCompetencyService.class);
+        if(request.getParameter("action").equalsIgnoreCase("Delete Staff Evaluation"))
+            deleteEvaluation(request,hrCompetencyService,hrEvaluation);
+        else{
+            new EvaluationValidator().validate(hrEvaluation,errors);
+            if(errors.hasErrors())
+                return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCompetenciesList", hrCompetencyService.getCompetencies());
 
-        new EvaluationValidator().validate(hrEvaluation,errors);
-        if(errors.hasErrors())
-            return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCompetenciesList", hrCompetencyService.getCompetencies());
 
-
-        hrEvaluation.setHrStaff(staff);
-        hrCompetencyService.saveEvaluation(hrEvaluation);
-        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Evaluation Saved Successfully");
+            hrEvaluation.setHrStaff(staff);
+            hrCompetencyService.saveEvaluation(hrEvaluation);
+            request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Evaluation Saved Successfully");
+        }
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("evaluations", hrCompetencyService.getEvaluationsForStaff(staff));
+    }
+
+    private void deleteEvaluation(HttpServletRequest request, HRCompetencyService hrCompetencyService, HrEvaluation hrEvaluation) {
+        hrCompetencyService.deleteEvaluation(hrCompetencyService.getEvaluationById(hrEvaluation.getEvaluationId()));
+        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Evaluation Deleted Successfully");
     }
 
 

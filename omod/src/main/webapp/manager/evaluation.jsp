@@ -59,9 +59,6 @@
 <spring:hasBindErrors name="evaluation">
 <c:set var="errorExist" value="true"/>
 	<spring:message code="fix.error"/>
-	<c:forEach items="${errors.allErrors}" var="error">
-	    <span class="error"><spring:message code="${error.defaultMessage}" text="${error.defaultMessage}"/></span><br/>
-</c:forEach>
 	<br />
 </spring:hasBindErrors>
 
@@ -69,9 +66,9 @@
     <h2><spring:message code="Add New Evaluation" /></h2>
 </c:if>
 
-<form method="post" enctype="multipart/form-data" name="evaluationForm">
+<form method="post" name="evaluationForm">
 <fieldset>
-<table width="100%">
+<table width="100%" >
 	<tr>
 		<th width="10%" align="left" valign="top"><spring:message code="Competency"/></th>
 		<td>
@@ -115,17 +112,35 @@
         <th width="10%" align="left" valign="top"><spring:message code="Evaluator"/></th>
             <td>
                 <spring:bind path="evaluation.evaluator">
-                   <openmrs_tag:personField formFieldName="personId" formFieldId="existingPersonId"/>
+                   <openmrs_tag:personField formFieldName="evaluator" formFieldId="evaluator" initialValue="${status.value}"/>
                    <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
                 </spring:bind>
             </td>
     </tr>
 
-</table>
+    <tr>
+        <th width="10%" align="left" valign="top"><spring:message code="Staff Comments"/></th>
+        <td>
+                <spring:bind path="evaluation.staffComments">
+                <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${evaluation.staffComments}</textarea>
+                </spring:bind>
+        </td>
+    </tr>
+    <tr>
+        <th width="10%" align="left" valign="top"><spring:message code="Evaluator Comments"/></th>
+        <td>
+                <spring:bind path="evaluation.evaluatorComments">
+                <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${evaluation.staffComments}</textarea>
+                </spring:bind>
+        </td>
+    </tr>
+    </table>
 <br />
 <br />
 </fieldset>
-<input type="submit" value="<spring:message code="Save Staff Evaluation"/>" name="submit"/>
-
+<input type="submit" value="<spring:message code="Save Staff Evaluation"/>" name="action"/>
+<c:if test="${evaluation.evaluationId!=0}">
+    <input type="submit" value="<spring:message code="Delete Staff Evaluation"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this evaluation?"/>')"/>
+</c:if>
 </form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>

@@ -34,4 +34,7 @@ public interface HRCompetencyService {
 
     @Authorized("Manage Evaluation")
     void saveEvaluation(HrEvaluation hrEvaluation);
+
+    @Authorized("Manage Evaluation")
+    void deleteEvaluation(HrEvaluation hrEvaluation);
 }

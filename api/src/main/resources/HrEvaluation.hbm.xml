@@ -33,5 +33,11 @@
         <property name="uuid" type="string">
             <column name="uuid" length="38" not-null="true" unique="true" />
         </property>
+        <property name="staffComments" type="string">
+            <column name="staffComments" length="65535"/>
+        </property>
+        <property name="evaluatorComments" type="string">
+            <column name="evaluatorComments" length="65535"/>
+        </property>
     </class>
 </hibernate-mapping>

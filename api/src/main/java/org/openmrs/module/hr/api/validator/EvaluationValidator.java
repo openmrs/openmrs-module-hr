@@ -17,6 +17,5 @@ public class EvaluationValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"level","error.null");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"evaluationDate","error.null");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors,"evaluator","error.null");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors,"hrStaff","error.null");
     }
 }

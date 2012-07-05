@@ -5,6 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
+import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffNote;
 import org.openmrs.module.hr.api.db.HRStaffNoteDAO;
 
@@ -94,6 +96,47 @@ public class HibernateHRStaffNoteDAO implements HRStaffNoteDAO {
                 log.debug("get successful, instance found");
             }
             return staffNote;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
+    @Override
+    public List<HrStaffNote> getAllStaffNotesForStaff(HrStaff staff, String noteType) {
+        log.debug("getting StaffNote instance with given staff and note type");
+        try {
+            List<HrStaffNote> hrStaffNoteList=sessionFactory.getCurrentSession().createCriteria(HrStaffNote.class).add(Restrictions.eq("hrStaff", staff)).add(Restrictions.eq("noteType",noteType)).list();
+            if (hrStaffNoteList==null) {
+                hrStaffNoteList=new ArrayList<HrStaffNote>();
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return hrStaffNoteList;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+
+    }
+
+    @Override
+    public List<HrStaffNote> getHeadStaffNotesForStaff(HrStaff staff, String noteType) {
+        log.debug("getting StaffNote instance with given staff and note type");
+        try {
+            List<HrStaffNote> hrStaffNoteList=sessionFactory.getCurrentSession().createCriteria(HrStaffNote.class).add(Restrictions.eq("hrStaff", staff)).add(Restrictions.eq("noteType",noteType)).add(Restrictions.isNull("parent")).list();
+            if (hrStaffNoteList==null) {
+                hrStaffNoteList=new ArrayList<HrStaffNote>();
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return hrStaffNoteList;
         }
         catch (RuntimeException re) {
             log.error("get failed", re);

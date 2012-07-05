@@ -82,4 +82,12 @@ public class HRQualificationServiceImpl implements HRQualificationService{
         return hrEducationDAO.getEducationForStaff(staff);
     }
 
+    public void deleteStaffCertificate(HrStaffCert hrStaffCert) {
+        hrStaffCertDAO.deleteStaffCert(hrStaffCert);
+    }
+
+    public void deleteEducation(HrEducation education) {
+        hrEducationDAO.deleteEducation(education);
+    }
+
 }

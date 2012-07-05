@@ -92,14 +92,16 @@ public class StaffCertificateController {
     @RequestMapping(value ="module/hr/manager/staffCertificate.form", method = RequestMethod.POST)
     public ModelAndView createOrUpdateStaffCertificate(HttpServletRequest request,@ModelAttribute("staffCertificate")  HrStaffCert hrStaffCert, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
+        if(request.getParameter("action").equalsIgnoreCase("Delete Staff Certificate"))
+            deleteStaffCertificate(hrQualificationService,hrStaffCert,request);
 
+        else{
         new StaffCertificateValidator().validate(hrStaffCert,errors);
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCertificatesList",hrQualificationService.getCertificates());
 
         if(request.getParameter("cancelStaffCertificate") != null)
             return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff);
-
 
 
         hrStaffCert.setImagePresent(false);
@@ -110,7 +112,13 @@ public class StaffCertificateController {
             addImage((MultipartHttpServletRequest)request,hrStaffCert,errors);
 
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Saved Successfully");
+        }
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("staffCertificates",hrQualificationService.getCertificatesForStaff(staff));
+    }
+
+    private void deleteStaffCertificate(HRQualificationService hrQualificationService, HrStaffCert hrStaffCert, HttpServletRequest request) {
+        hrQualificationService.deleteStaffCertificate(hrQualificationService.getStaffCertificateById(hrStaffCert.getStaffCertId()));
+        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Staff Certificate Deleted Successfully");
     }
 
     private ModelAndView cancelStaffCertificate(HttpServletRequest request, HrStaffCert hrStaffCert, HRQualificationService hrQualificationService, BindingResult errors, HrStaff staff) {
