@@ -2,8 +2,6 @@
 <openmrs:require privilege="Manage TrainingClass" otherwise="/login.htm" redirect="/module/hr/admin/trainingClasses.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
-<%@ include file="staffLocalHeader.jsp" %>
-
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 
 
@@ -23,8 +21,8 @@
 	<tr>
 		<th width="10%" align="left" valign="top"><spring:message code="Training"/></th>
 		<td>
-				<spring:bind path="trainingClass.htTraining">
-				<select name="htTraining" id="${status.expression}">
+				<spring:bind path="trainingClass.hrTraining">
+				<select name="hrTraining" id="${status.expression}">
 					<c:forEach items="${allTrainingsList}" var="training">
                         <option value="${training.trainingId}" <c:if test='${training.trainingId == status.value}'>selected="selected"</c:if>>${training.name}</option>
 					</c:forEach>
@@ -129,7 +127,7 @@
     <tr>
         <th valign="top"><spring:message code="Travel Cost"/></th>
         <td>
-            <spring:bind path="trainingClass.costRegister">
+            <spring:bind path="trainingClass.costTravel">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
                 <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
             </spring:bind>

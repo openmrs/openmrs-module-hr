@@ -17,7 +17,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int trainClassId;
+	private int trainingClassId;
      private HrTraining hrTraining;
      private Date startDate;
      private float duration;
@@ -43,7 +43,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
 
 	/** minimal constructor */
     public HrTrainingClass(int trainClassId, HrTraining hrTraining, Date startDate, float duration, float ceunits, String location, String instructor, String organization, String fundingSource, float costCourse, float costRegister, float costTravel, float costPerdiem, String uuid) {
-        this.trainClassId = trainClassId;
+        this.trainingClassId = trainClassId;
         this.hrTraining = hrTraining;
         this.startDate = startDate;
         this.duration = duration;
@@ -61,7 +61,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
     
     /** full constructor */
     public HrTrainingClass(int trainClassId, HrTraining hrTraining, Date startDate, float duration, float ceunits, String location, String instructor, String organization, String fundingSource, float costCourse, float costRegister, float costTravel, float costPerdiem, String uuid, Double sortWeight, Set<HrTrainPerson> hrTrainPersons) {
-        this.trainClassId = trainClassId;
+        this.trainingClassId = trainClassId;
         this.hrTraining = hrTraining;
         this.startDate = startDate;
         this.duration = duration;
@@ -83,12 +83,12 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
    
     // Property accessors
 
-    public int getTrainClassId() {
-        return this.trainClassId;
+    public int getTrainingClassId() {
+        return this.trainingClassId;
     }
     
-    public void setTrainClassId(int trainClassId) {
-        this.trainClassId = trainClassId;
+    public void setTrainingClassId(int trainingClassId) {
+        this.trainingClassId = trainingClassId;
     }
 
 
@@ -213,10 +213,10 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
     }
 
 	public Integer getId() {
-		return getTrainClassId();
+		return getTrainingClassId();
 	}
 
 	public void setId(Integer id) {
-		setTrainClassId(id);
+		setTrainingClassId(id);
 	}
 }

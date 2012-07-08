@@ -4,7 +4,7 @@
 
 <%@ include file="localHeader.jsp" %>
 <h2><spring:message code="Manage Training Classes" /></h2>
-<a href="training.form"><spring:message code="Add Training"/></a>
+<a href="trainingClass.form"><spring:message code="Add Training Class"/></a>
 <br /><br />
 
 <b class="boxHeader">
@@ -20,14 +20,7 @@
 			<tr>
 				<td valign="top">
 					<a href="trainingClass.form?trainingClassId=${trainingClass.trainingClassId}">
-						<c:choose>
-							<c:when test="${trainingClass.retired == true}">
-								<del>${trainingClass.hrTraining.name}</del>
-							</c:when>
-							<c:otherwise>
-								${trainingClass.hrTraining.name}
-							</c:otherwise>
-						</c:choose>
+                            ${trainingClass.hrTraining.name}
 					</a>
 				</td>
 				<td valign="top">${trainingClass.hrTraining.category}</td>

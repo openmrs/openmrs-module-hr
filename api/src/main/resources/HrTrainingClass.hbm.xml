@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
     <class name="org.openmrs.module.hr.HrTrainingClass" table="hr_training_class">
-        <id name="trainClassId" type="int">
+        <id name="trainingClassId" type="int">
             <column name="train_class_id" />
             <generator class="native" />
         </id>

@@ -5,7 +5,6 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.HrTrainingClass;
-import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.api.HRTrainingService;
 import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.propertyEditor.HrTrainingEditor;
@@ -56,7 +55,7 @@ public class TrainingClassController {
     @RequestMapping(value = "module/hr/admin/trainingClasses.list")
     public String showList(ModelMap model){
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
-        model.addObject("trainingClassesList",hrTrainingService.getTrainingClasses());
+        model.addAttribute("trainingClassesList",hrTrainingService.getTrainingClasses());
         return SUCCESS_LIST_VIEW;
     }
 
@@ -79,7 +78,7 @@ public class TrainingClassController {
     }
 
     private void deleteTrainingClass(HttpServletRequest request, HRTrainingService hrTrainingService, HrTrainingClass hrTrainingClass) {
-        hrTrainingService.deleteTrainingClasses(hrTrainingService.getTrainingClassById(hrTrainingClass.getTrainClassId()));
+        hrTrainingService.deleteTrainingClasses(hrTrainingService.getTrainingClassById(hrTrainingClass.getTrainingClassId()));
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Training Class Deleted Successfully");
     }
 

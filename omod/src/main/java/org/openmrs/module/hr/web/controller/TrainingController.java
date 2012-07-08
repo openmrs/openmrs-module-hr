@@ -5,6 +5,7 @@ import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.api.HRTrainingService;
 import org.openmrs.module.hr.api.validator.TrainingValidator;
 import org.openmrs.web.WebConstants;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+@Controller
 public class TrainingController {
     private static final String SUCCESS_LIST_VIEW = "/module/hr/admin/trainings";
     private static final String SUCCESS_FORM_VIEW = "/module/hr/admin/training";

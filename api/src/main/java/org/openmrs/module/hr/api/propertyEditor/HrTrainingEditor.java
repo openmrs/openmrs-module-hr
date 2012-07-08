@@ -4,7 +4,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrTraining;
-import org.openmrs.module.hr.api.HRQualificationService;
+import org.openmrs.module.hr.api.HRTrainingService;
 import org.springframework.util.StringUtils;
 
 import java.beans.PropertyEditor;
@@ -17,10 +17,10 @@ public class HrTrainingEditor extends PropertyEditorSupport {
 
     }
     public void setAsText(String text) throws IllegalArgumentException {
-        HRQualificationService hrQualificationService= Context.getService(HRQualificationService.class);
+        HRTrainingService hrTrainingService= Context.getService(HRTrainingService.class);
         if (StringUtils.hasText(text)) {
             try {
-                setValue(hrQualificationService.getCertificateById(Integer.valueOf(text)));
+                setValue(hrTrainingService.getTrainingById(Integer.valueOf(text)));
             }
             catch (Exception ex) {
                 log.error("Error setting text" + text, ex);
