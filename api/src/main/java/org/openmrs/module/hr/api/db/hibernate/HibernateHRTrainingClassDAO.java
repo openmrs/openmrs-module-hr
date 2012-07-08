@@ -80,15 +80,23 @@ public class HibernateHRTrainingClassDAO implements HRTrainingClassDAO {
             throw re;
         }
     }
-    public void saveTrainPerson(HrTrainPerson trainPerson) {
-        log.debug("saving train person instance");
+
+    @Override
+    public List<HrTrainingClass> getTariningClasses() {
+        log.debug("finding training class by example");
         try {
-            sessionFactory.getCurrentSession().saveOrUpdate(trainPerson);
-            log.debug("save successful");
+            List<HrTrainingClass> results = sessionFactory.getCurrentSession().createCriteria(HrTrainingClass.class).list();
+            if(results!=null)
+                log.debug("get training class, result size: " + results.size());
+            else
+                results=new ArrayList<HrTrainingClass>();
+            return results;
         }
         catch (RuntimeException re) {
-            log.error("save failed", re);
+            log.error("find by example failed", re);
             throw re;
         }
     }
+
+
 }

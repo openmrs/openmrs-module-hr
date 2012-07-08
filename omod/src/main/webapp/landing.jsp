@@ -28,6 +28,9 @@
         <openmrs:hasPrivilege privilege="Manage Competencies">
                     <li><a href="admin/competencies.list">Manage Competencies</a></li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="Manage Trainings">
+                    <li><a href="admin/trainings.list">Manage Trainings</a></li>
+        </openmrs:hasPrivilege>
 
     </ul>
 </div>

@@ -377,5 +377,6 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 		}
 		return ret;
 	}
-	
+
+
 }
