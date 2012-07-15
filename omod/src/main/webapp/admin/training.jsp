@@ -57,7 +57,8 @@
                 <th width="10%" align="left" valign="top"><spring:message code="Description"/></th>
                 <td>
                         <spring:bind path="training.description">
-                        <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${training.description}</textarea>
+                            <input type="text" name="${status.expression}" size="40" value="${status.value}" />
+                            <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>                            <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
                         </spring:bind>
                 </td>
             </tr>

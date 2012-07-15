@@ -34,6 +34,9 @@
         <openmrs:hasPrivilege privilege="Manage Training Classes">
                     <li><a href="admin/trainingClasses.list">Manage Training Classes</a></li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="Manage Training Classes">
+                    <li><a href="admin/trainingManagement.list">Manage Training Classes 2</a></li>
+        </openmrs:hasPrivilege>
 
     </ul>
 </div>

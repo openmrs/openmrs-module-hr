@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
 import org.openmrs.BaseOpenmrsData;
 
 
@@ -78,9 +79,8 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
         this.sortWeight = sortWeight;
         this.hrTrainPersons = hrTrainPersons;
     }
-    
 
-   
+
     // Property accessors
 
     public int getTrainingClassId() {
@@ -219,4 +219,7 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
 	public void setId(Integer id) {
 		setTrainingClassId(id);
 	}
+
+
+
 }

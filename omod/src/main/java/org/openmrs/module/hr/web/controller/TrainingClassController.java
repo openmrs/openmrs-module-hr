@@ -21,6 +21,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class TrainingClassController {
