@@ -16,9 +16,9 @@
 
 
 
-    <context:component-scan base-package="@MODULE_PACKAGE@.web.controller" />
+    <!--<context:component-scan base-package="@MODULE_PACKAGE@.web.controller" />-->
 
-    <mvc:annotation-driven />
+
 
     <bean parent="serviceContext">
 		<property name="moduleService">

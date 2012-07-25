@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @Controller
@@ -26,11 +27,14 @@ public class TrainingManagementController {
 
     @RequestMapping(value="/module/hr/admin/trainingClasses.json")
     public @ResponseBody
-    HrTrainingClass getTrainingClassesJson(@RequestParam(value="trainingClassId",required=true) Integer trainingId){
+    Object getTrainingClassesJson(@RequestParam(value="trainingClassId",required=true) Integer trainingId,HttpServletResponse response){
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
         HrTraining hrTraining = hrTrainingService.getTrainingById(trainingId);
         System.out.println("THIS____________------------>"+hrTraining.getCategory());
+        response.addHeader("ContentType","application/json");
+//        String[] a = {"a","b","c"};
         HrTrainingClass hrTrainingClass =(HrTrainingClass)hrTraining.getHrTrainingClasses().toArray()[0];
         return hrTrainingClass;
+//        return a;
     }
 }

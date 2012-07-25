@@ -172,12 +172,12 @@
 		HrStaffAttribute.hbm.xml
 		HrStaffAttributeType.hbm.xml
 		HrStaffCert.hbm.xml
-		HrStaffNote.hbm.xml 
 		HrTraining.hbm.xml
 		HrTrainingClass.hbm.xml
 		HrTrainPerson.hbm.xml
 		HrStaffTag.hbm.xml
 		HrReport.hbm.xml
+        HrStaffNote.hbm.xml
 	</mappingFiles>
 </module>
 

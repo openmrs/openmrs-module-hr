@@ -15,6 +15,17 @@
 
 	<dependencies>
 
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>webservices.rest-omod</artifactId>
+        </dependency>
+
         <dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>hr-api</artifactId>

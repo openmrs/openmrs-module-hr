@@ -5,6 +5,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
 import org.openmrs.module.hr.HrTraining;
+import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.db.HRTrainingDAO;
 
 import java.util.ArrayList;
@@ -97,5 +98,11 @@ public class HibernateHRTrainingDAO implements HRTrainingDAO{
             log.error("get failed", re);
             throw re;
         }
+    }
+
+    @Override
+    public HrTraining getTrainingByUniqueId(String uuid) {
+        return (HrTraining) sessionFactory.getCurrentSession().createQuery("from HrTraining where uuid = :uuid")
+                .setString("uuid", uuid).uniqueResult();
     }
 }

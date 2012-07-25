@@ -5,7 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
-import org.openmrs.module.hr.HrTrainPerson;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.db.HRTrainingClassDAO;
 
@@ -96,6 +96,12 @@ public class HibernateHRTrainingClassDAO implements HRTrainingClassDAO {
             log.error("find by example failed", re);
             throw re;
         }
+    }
+
+    @Override
+    public HrTrainingClass getTrainingClassByUniqueId(String uuid) {
+        return (HrTrainingClass) sessionFactory.getCurrentSession().createQuery("from HrTrainingClass where uuid = :uuid")
+                .setString("uuid", uuid).uniqueResult();
     }
 
 

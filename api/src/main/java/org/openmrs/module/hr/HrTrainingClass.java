@@ -81,6 +81,11 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
     }
 
 
+    public String toString(){
+        return new ToStringBuilder(this).append("organization",organization).
+                append("hrTraining",hrTraining.getId()).toString();
+    }
+
     // Property accessors
 
     public int getTrainingClassId() {

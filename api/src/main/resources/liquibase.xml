@@ -86,38 +86,7 @@
 		<addForeignKeyConstraint constraintName="competency_retired_by" referencedTableName="users" baseColumnNames="retired_by" baseTableName="hr_competency" referencedColumnNames="user_id"/>
  		</changeSet>
  		
- 	<!-- <changeSet id="humanresource_person"  author="saimanohar">
- 	  <preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person"/></not>
-		</preConditions>
-		<comment>
-			Creating the person table
-		</comment>
-		<createTable tableName="person">
-		<column name="person_id" type="int(11)"><constraints nullable="false"/></column>
-		<column name="gender" type="VARCHAR(50)" defaultValue=""></column>
-		<column name="birthdate" type="DATE" defaultValue="NULL"></column>
-		<column name="birthdate_estimated" type="SMALLINT(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="dead" type="SMALLINT(6)"><constraints nullable="false"/></column>
-		<column name="death_date" type="DATETIME" defaultValue="NULL"></column>
-		<column name="cause_of_death" type="INT(11)" defaultValue="NULL"></column>
-		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
-		<column name="changed_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
-		<column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="voided_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
-		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
-		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-		</createTable>
-		<addPrimaryKey tableName="person" columnNames="person_id"/>
-		<addAutoIncrement tableName="person" columnName="person_id" columnDataType="int(11)"/>
-		<createIndex tableName="person" indexName="person_uuid_index" unique="true"><column name="uuid"></column></createIndex>
-		<createIndex tableName="person" indexName="person_birthdate"><column name="birthdate"></column></createIndex>
-		<createIndex tableName="person" indexName="person_death_date"><column name="death_date"></column></createIndex>
- 		</changeSet> -->
- 		
+
  	<changeSet id="humanresource_provider"  author="saimanohar">
  	  <preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="hr_provider"/></not>
@@ -310,47 +279,6 @@
 		<addForeignKeyConstraint constraintName="cadre_concept" referencedTableName="concept" baseColumnNames="cadre" baseTableName="hr_job_title" referencedColumnNames="concept_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
 		
-	<!-- <changeSet author="saimanohar" id="humanresource_location">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="location"/></not>
-		</preConditions>
-		<comment>
-			Creating the location table
-		</comment>
-		<createTable tableName="location">
-		<column name="location_id" type="INT(11)"><constraints nullable="false"/></column>
-		<column name="name" type="VARCHAR(255)" defaultValue=""><constraints nullable="false"/></column>
-		<column name="description" type="VARCHAR(255)" defaultValue="NULL"></column>
-		<column name="address1" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="address2" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="city_village" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="state_province" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="postal_code" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="country" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="latitude" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="longitude" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
-		<column name="country_district" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="neigborhood_cell" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="region" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="subregion" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="township_division" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="retired" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="retired_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_retired" type="DATETIME" defaultValue="NULL"></column>
-		<column name="retire_reason" type="varchar(255)" defaultValue="NULL"></column>
-		<column name="parent_location" type="INT(11)" defaultValue="NULL"></column>
-		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-		</createTable>
-		<addPrimaryKey tableName="location" columnNames="location_id"/>
-		<addAutoIncrement tableName="location" columnName="location_id" columnDataType="int(11)"/>
-		<createIndex tableName="location" indexName="location_uuid_index"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="location" indexName="name_of_location"><column name="name"></column></createIndex>
-		<createIndex tableName="location" indexName="retired_status"><column name="retired"></column></createIndex>
-		<createIndex tableName="location" indexName="parent_location"><column name="parent_location"></column></createIndex>
-		<addForeignKeyConstraint constraintName="parent_location" referencedTableName="location" baseColumnNames="location_id" baseTableName="location" referencedColumnNames="parent_location"/>
-		</changeSet> -->
 	<changeSet author="saimanohar" id="humanresource_staff_note">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="hr_staff_note"/></not>
@@ -388,86 +316,7 @@
 		<addForeignKeyConstraint constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="staff_note_id"/>
 		<addForeignKeyConstraint constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
 		</changeSet>
-	<!-- 
-	<changeSet author="saimanohar" id="humanresource_person_address">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person_address"/></not>
-		</preConditions>
-		<comment>
-			Creating the person_address table
-		</comment>
-		<createTable tableName="person_address">
-		<column name="person_address_id" type="int(11)"><constraints nullable="false"/></column>
-		<column name="person_id" type="int(11)" defaultValue="NULL"></column>
-		<column name="preferred" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="address1" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="address2" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="city_village" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="state_province" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="postal_code" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="country" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="latitude" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="longitude" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
-		<column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="voided_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
-		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
-		<column name="country_district" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="neigborhood_cell" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="region" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="subregion" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="township_division" type="VARCHAR(50)" defaultValue="NULL"></column>
-		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-		</createTable>
-		<addPrimaryKey tableName="person_address" columnNames="person_address_id"/>
-		<addAutoIncrement tableName="person_address"  columnName="person_address_id" columnDataType="int(11)"/>
-		<createIndex tableName="person_address" indexName="person_address_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="person_address" indexName="address_for_person"><column name="person_id"></column></createIndex>
-		<addForeignKeyConstraint constraintName="address_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_address" referencedColumnNames="person_id" onUpdate="CASCADE"/>
-	</changeSet>
-	
-	<changeSet author="saimanohar" id="humanresource_person_name">
-		<preConditions onFail="MARK_RAN">
-			<not><tableExists tableName="person_name"/></not>
-		</preConditions>
-		<comment>
-			Creating the person_name table
-		</comment>
-		<createTable tableName="person_name">
-		<column name="person_name_id" type="int(11)"><constraints nullable="false"/></column>
-		<column name="preferred" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="person_id" type="int(11)" defaultValue="NULL"></column>
-		<column name="prefix" type="varchar(50)"></column>
-		<column name="given_name" type="varchar(50)"></column>
-		<column name="middle_name" type="varchar(50)"></column>
-		<column name="family_name_prefix" type="varchar(50)"></column>
-		<column name="family_name" type="varchar(50)"></column>
-		<column name="family_name2" type="varchar(50)"></column>
-		<column name="family_name_suffix" type="varchar(50)"></column>
-		<column name="degree" type="varchar(50)"></column>
-		<column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
-		<column name="changed_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
-		<column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-		<column name="voided_by" type="int(11)" defaultValue="NULL"></column>
-		<column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
-		<column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
-		<column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-		</createTable>
-		<addPrimaryKey tableName="person_name"  columnNames="person_name_id"/>
-		<addAutoIncrement tableName="person_name"   columnName="person_name_id"/>
-		<createIndex tableName="person_name" indexName="person_name_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-		<createIndex tableName="person_name" indexName="first_name"><column name="given_name"></column></createIndex>
-		<createIndex tableName="person_name" indexName="last_name"><column name="family_name"></column></createIndex>
-		<createIndex tableName="person_name" indexName="middle_name"><column name="middle_name"></column></createIndex>
-		<createIndex tableName="person_name" indexName="name_for_person"><column name="person_id"></column></createIndex>
-		<createIndex tableName="person_name" indexName="family_name_2"><column name="family_name_2"></column></createIndex>
-		<addForeignKeyConstraint constraintName="name_for_person" referencedTableName="person" baseColumnNames="person_id" baseTableName="person_name" referencedColumnNames="person_id" onUpdate="CASCADE"/>
-	</changeSet> -->
-	
+
 	<changeSet author="saimanohar" id="humanresource_post">
 		<preConditions onFail="MARK_RAN">
 			<not><tableExists tableName="hr_post"/></not>
@@ -1079,4 +928,48 @@
     <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_evaluation_id">
         <addAutoIncrement tableName="hr_evaluation" columnName="evaluation_id" columnDataType="int"/>
     </changeSet>
+
+    <changeSet author="Sandeep Joshi" id="humanresource_staff_memo">
+        <preConditions onFail="MARK_RAN">
+            <not><tableExists tableName="hr_staff_memo"/></not>
+        </preConditions>
+        <comment>
+            Creating the staff_memo table
+        </comment>
+        <createTable tableName="hr_staff_memo">
+            <column name="memo_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
+            <column name="note_type" type="varchar(50)" defaultValue="NULL"></column>
+            <column name="staff_id" type="int(11)" defaultValue="NULL"></column>
+            <column name="text" type="TEXT"><constraints nullable="false"/></column>
+            <column name="memo_date_time" type="DATETIME" defaultValue="NULL"></column>
+            <column name="parent" type="int(11)" defaultValue="NULL"></column>
+            <column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
+            <column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
+            <column name="changed_by" type="int(11)" defaultValue="NULL"></column>
+            <column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
+            <column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
+            <column name="voided_by" type="int(11)" defaultValue="NULL"></column>
+            <column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
+            <column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
+            <column name="uuid" type="char(38)"><constraints nullable="false"/></column>
+        </createTable>
+        <addPrimaryKey tableName="hr_staff_memo" columnNames="memo_id"/>
+        <createIndex tableName="hr_staff_memo" indexName="memo_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+        <createIndex tableName="hr_staff_memo" indexName="staff_memo_hierarchy"><column name="parent"></column> </createIndex>
+        <createIndex tableName="hr_staff_memo" indexName="staff_memo_staff"><column name="staff_id"></column> </createIndex>
+        <createIndex tableName="hr_staff_memo" indexName="staff_memo_changer"><column name="changed_by"></column> </createIndex>
+        <createIndex tableName="hr_staff_memo" indexName="staff_memo_creator"><column name="creator"></column> </createIndex>
+        <createIndex tableName="hr_staff_memo" indexName="staff_memo_voider"><column name="voided_by"></column> </createIndex>
+        <addForeignKeyConstraint constraintName="staff_memo_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="staff_memo_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="staff_memo_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="staff_memo_hierarchy" referencedTableName="hr_staff_memo" baseColumnNames="parent" baseTableName="hr_staff_memo" referencedColumnNames="memo_id"/>
+        <addForeignKeyConstraint constraintName="staff_memo_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_memo" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
+
+    <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_memo_id">
+        <addAutoIncrement tableName="hr_staff_memo" columnName="memo_id" columnDataType="int"/>
+    </changeSet>
+
+
 </databaseChangeLog>

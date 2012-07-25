@@ -4,6 +4,7 @@
 
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 
+<%@ include file="localHeader.jsp" %>
 
 <spring:hasBindErrors name="trainingClass">
 <c:set var="errorExist" value="true"/>
@@ -13,6 +14,9 @@
 
 <c:if test="{trainingClass.trainClassId == 0}">
     <h2><spring:message code="Add New Training Class" /></h2>
+</c:if>
+<c:if test="{not trainingClass.trainClassId == 0}">
+    <h2><spring:message code="Training Class" /></h2>
 </c:if>
 
 <form method="post" name="trainingClassForm">

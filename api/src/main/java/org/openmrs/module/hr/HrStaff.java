@@ -27,17 +27,16 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int staffId;
-     private Concept staffStatus;
-     private Date initialHireDate;
-     private String uuid;
-     private Set<HrAssignment> hrAssignments;
-     private Set<HrStaffNote> hrStaffNotes;
-     private Set<HrStaffAttribute> hrStaffAttributes = new TreeSet<HrStaffAttribute>();
-     private Set<HrEducation> hrEducations;
-     private Set<HrEvaluation> hrEvaluations;
-     private Set<HrStaffCert> hrStaffCerts;
-     private Set<HrPostHistory> hrPostHistories;
-
+    private Concept staffStatus;
+    private Date initialHireDate;
+    private String uuid;
+    private Set<HrAssignment> hrAssignments;
+    private Set<HrStaffNote> hrStaffNotes;
+    private Set<HrStaffAttribute> hrStaffAttributes = new TreeSet<HrStaffAttribute>();
+    private Set<HrEducation> hrEducations;
+    private Set<HrEvaluation> hrEvaluations;
+    private Set<HrStaffCert> hrStaffCerts;
+    private Set<HrPostHistory> hrPostHistories;
 
     // Constructors
 
@@ -73,7 +72,14 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
     public void setStaffId(int staffId) {
         this.staffId = staffId;
     }
-    
+
+    public Set<HrStaffNote> getHrStaffNotes() {
+        return hrStaffNotes;
+    }
+
+    public void setHrStaffNotes(Set<HrStaffNote> hrStaffNotes) {
+        this.hrStaffNotes = hrStaffNotes;
+    }
     public Concept getStaffStatus() {
         return this.staffStatus;
     }
@@ -107,13 +113,13 @@ public class HrStaff extends BaseOpenmrsData implements java.io.Serializable {
         this.hrAssignments = hrAssignments;
     }
 
-     public Set<HrStaffNote> getHrStaffNotes() {
-        return this.hrStaffNotes;
-    }
-    
-    public void setHrStaffNotes(Set<HrStaffNote> hrStaffNotes) {
-        this.hrStaffNotes = hrStaffNotes;
-    }
+//     public Set<HrStaffMemo> getHrStaffMemos() {
+//        return this.hrStaffMemos;
+//    }
+//
+//    public void setHrStaffMemos(Set<HrStaffMemo> hrStaffMemos) {
+//        this.hrStaffMemos = hrStaffMemos;
+//    }
 
     public Set<HrStaffAttribute> getHrStaffAttributes() {
         return this.hrStaffAttributes;

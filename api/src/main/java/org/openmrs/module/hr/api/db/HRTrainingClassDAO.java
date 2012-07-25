@@ -16,4 +16,6 @@ public interface HRTrainingClassDAO {
     public HrTrainingClass getTrainingClassById( int id);
 
     List<HrTrainingClass> getTariningClasses();
+
+    HrTrainingClass getTrainingClassByUniqueId(String uuid);
 }

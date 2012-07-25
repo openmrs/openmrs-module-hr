@@ -25,7 +25,6 @@ public interface HRTrainingService {
     @Authorized("Manage Trainings")
     void retireTraining(HrTraining trainingById, String retireReason, User authenticatedUser);
 
-
     @Authorized("Manage TrainingClasses")
     List<HrTrainingClass> getTrainingClasses();
 
@@ -37,4 +36,13 @@ public interface HRTrainingService {
 
     @Authorized("Manage TrainingClasses")
     HrTrainingClass getTrainingClassById(Integer trainingClassId);
+
+    @Authorized("Manage TrainingClasses")
+    HrTrainingClass getTrainingClassByUniqueId(String uuid);
+
+    @Authorized("Manage Trainings")
+    void deleteTraining(HrTraining hrTraining);
+
+    @Authorized("Manage Trainings")
+    HrTraining getTrainingByUniqueId(String uuid);
 }

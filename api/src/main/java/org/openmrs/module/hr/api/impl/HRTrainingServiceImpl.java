@@ -72,4 +72,19 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     public HrTrainingClass getTrainingClassById(Integer trainingClassId) {
        return hrTrainingClassDAO.getTrainingClassById(trainingClassId);
     }
+
+    @Override
+    public HrTrainingClass getTrainingClassByUniqueId(String uuid) {
+        return hrTrainingClassDAO.getTrainingClassByUniqueId(uuid);
+    }
+
+    @Override
+    public void deleteTraining(HrTraining hrTraining) {
+        hrTrainingDAO.deleteTraining(hrTraining);
+    }
+
+    @Override
+    public HrTraining getTrainingByUniqueId(String uuid) {
+        return hrTrainingDAO.getTrainingByUniqueId(uuid);
+    }
 }
