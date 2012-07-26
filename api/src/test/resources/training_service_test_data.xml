@@ -1,0 +1,10 @@
+<dataset>
+    <hr_training training_id="1" category="test" name="test" description="test" creator="1" uuid="e4380f28-9538-11e0-1111-8a74a6e487f5" date_created="2011-05-31 00:00:00.0"  retired="0"/>
+    <hr_training training_id="2" category="test" name="test" description="test" creator="1" uuid="e4380f28-9538-11e0-1112-8a74a6e487f5" date_created="2011-05-31 00:00:00.0"  retired="0"/>
+
+    <hr_training_class train_class_id="1" training_id="1"  creator="1" uuid="e4380f28-9538-11e0-1121-8a74a6e487f5" start_date="2011-05-31 00:00:00.0" date_created="2011-05-31 00:00:00.0" voided="0" duration="3.0" ceunits="12.0" instructor="test"
+            organization="test" funding_source="test" cost_course="1500.0" cost_register="1200.00" cost_travel="1200.00" cost_perdiem="1200.00" location="Mumbai"/>
+
+    <hr_train_person train_person_id="1" train_class_id="1" person_id="7777701" completed="1" reason="test" follow_UP_date="2011-05-31 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4380f28-9538-11e0-1131-8a74a6e487f5"/>
+    <hr_train_person train_person_id="2" train_class_id="1" person_id="7777701" completed="1" reason="test" follow_UP_date="2011-05-31 00:00:00.0" creator="1" date_created="2011-05-31 00:00:00.0" voided="0" uuid="e4380f28-9538-11e0-1132-8a74a6e487f5"/>
+</dataset>

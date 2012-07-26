@@ -5,6 +5,8 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
+import org.openmrs.Person;
 import org.openmrs.module.hr.HrTrainPerson;
 import org.openmrs.module.hr.api.db.HRTrainPersonDAO;
 
@@ -73,6 +75,26 @@ public class HibernateHRTrainPersonDAO implements HRTrainPersonDAO{
                 log.debug("get successful, instance found");
             }
             return instance;
+        }
+        catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
+    public List<HrTrainPerson> getTrainingHistoryFor(Person person) {
+
+        log.debug("getting training history ");
+        try {
+            List<HrTrainPerson> hrTrainPersonList=sessionFactory.getCurrentSession().createCriteria(HrTrainPerson.class).add(Restrictions.eq("person", person)).list();
+            if (hrTrainPersonList==null) {
+                hrTrainPersonList=new ArrayList<HrTrainPerson>();
+                log.debug("get successful, no instance found");
+            }
+            else {
+                log.debug("get successful, instance found");
+            }
+            return hrTrainPersonList;
         }
         catch (RuntimeException re) {
             log.error("get failed", re);

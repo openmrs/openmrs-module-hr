@@ -2,9 +2,12 @@ package org.openmrs.module.hr.api.impl
         ;
 
 import org.openmrs.User;
+import org.openmrs.api.db.PersonDAO;
+import org.openmrs.module.hr.HrTrainPerson;
 import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.HRTrainingService;
+import org.openmrs.module.hr.api.db.HRTrainPersonDAO;
 import org.openmrs.module.hr.api.db.HRTrainingClassDAO;
 import org.openmrs.module.hr.api.db.HRTrainingDAO;
 
@@ -15,6 +18,16 @@ public class HRTrainingServiceImpl implements HRTrainingService {
 
     HRTrainingDAO hrTrainingDAO;
     HRTrainingClassDAO hrTrainingClassDAO;
+    HRTrainPersonDAO hrTrainPersonDAO;
+    PersonDAO personDAO;
+
+    public void setPersonDAO(PersonDAO personDAO){
+        this.personDAO = personDAO;
+    }
+
+    public void setHrTrainPersonDAO(HRTrainPersonDAO hrTrainPersonDAO) {
+        this.hrTrainPersonDAO = hrTrainPersonDAO;
+    }
 
     public void setHrTrainingClassDAO(HRTrainingClassDAO hrTrainingClassDAO) {
         this.hrTrainingClassDAO = hrTrainingClassDAO;
@@ -86,5 +99,10 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     @Override
     public HrTraining getTrainingByUniqueId(String uuid) {
         return hrTrainingDAO.getTrainingByUniqueId(uuid);
+    }
+
+    @Override
+    public List<HrTrainPerson> getTrainingHistoryFor(int personId) {
+        return hrTrainPersonDAO.getTrainingHistoryFor(personDAO.getPerson(personId));
     }
 }
