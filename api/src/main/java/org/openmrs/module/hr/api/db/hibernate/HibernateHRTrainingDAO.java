@@ -2,8 +2,11 @@ package org.openmrs.module.hr.api.db.hibernate;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.db.HRTrainingDAO;
@@ -104,5 +107,22 @@ public class HibernateHRTrainingDAO implements HRTrainingDAO{
     public HrTraining getTrainingByUniqueId(String uuid) {
         return (HrTraining) sessionFactory.getCurrentSession().createQuery("from HrTraining where uuid = :uuid")
                 .setString("uuid", uuid).uniqueResult();
+    }
+
+    @Override
+    public List<HrTraining> getTrainings(Boolean includeRetired, Integer start, Integer length) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HrTraining.class);
+        if (!includeRetired)
+            criteria.add(Restrictions.ne("retired", true));
+
+        criteria.addOrder(Order.asc("trainingId"));
+
+        if (start != null)
+            criteria.setFirstResult(start);
+        if (length != null && length > 0)
+            criteria.setMaxResults(length);
+
+        List<HrTraining> list = (List<HrTraining>) criteria.list();
+        return list;
     }
 }

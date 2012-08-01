@@ -18,4 +18,6 @@ public interface HRTrainingDAO {
     public List<HrTraining> getTrainings();
 
     HrTraining getTrainingByUniqueId(String uuid);
+
+    List<HrTraining> getTrainings(Boolean ifVoided, Integer index, Integer length);
 }

@@ -2,6 +2,7 @@ package org.openmrs.module.hr.api;
 
 import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
+import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrTrainPerson;
 import org.openmrs.module.hr.HrTraining;
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface HRTrainingService {
+public interface HRTrainingService extends OpenmrsService{
     @Authorized("Manage Trainings")
     HrTraining getTrainingById(Integer trainingId);
 
@@ -49,4 +50,14 @@ public interface HRTrainingService {
     HrTraining getTrainingByUniqueId(String uuid);
 
     List<HrTrainPerson> getTrainingHistoryFor(int personId);
+
+    List<HrTraining> getTrainings(Boolean ifRetired, Integer index, Integer length);
+
+    int getCountOfTrainings(Boolean ifRetired);
+
+    void saveTrainPerson(HrTrainPerson hrTrainPerson);
+
+    void deleteTrainPerson(HrTrainPerson hrTrainPerson);
+
+    HrTrainPerson getTrainPersonByUniqueID(String uuid);
 }

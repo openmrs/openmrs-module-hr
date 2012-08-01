@@ -20,6 +20,8 @@ public class HrTraining extends BaseOpenmrsMetadata implements java.io.Serializa
      private String category;
      private String uuid;
      private Double sortWeight;
+    private String name;
+    private String description;
      private Set<HrTrainingClass> hrTrainingClasses = new HashSet<HrTrainingClass>(0);
 
 
@@ -50,6 +52,21 @@ public class HrTraining extends BaseOpenmrsMetadata implements java.io.Serializa
 
    
     // Property accessors
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public int getTrainingId() {
         return this.trainingId;

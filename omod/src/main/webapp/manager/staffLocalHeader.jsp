@@ -80,6 +80,13 @@
                 </a>
             </li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="View StaffTrainings">
+            <li>
+                <a href="${pageContext.request.contextPath}/module/hr/manager/staffTrainings.list" <c:if test='<%= request.getRequestURI().contains("Training") %>'>class="current"</c:if>>
+                    <spring:message code="Training"/>
+                </a>
+            </li>
+        </openmrs:hasPrivilege>
 
 </ul>
 </div>

@@ -2,6 +2,7 @@
 <openmrs:require privilege="Manage Trainings" otherwise="/login.htm" redirect="/module/hr/admin/trainingManagement.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/hr/styles/table.css"/>
 
 <script type="text/javascript">
@@ -13,11 +14,11 @@ jQuery(document).ready(function(){
                 {
                     var trainingClass = trainingJson.hrTrainingClasses[i];
                     var table = jQuery("#TrainingClassesTable");
-                    var row = jQuery('<tr id="row-'+trainingJson.uuid+'"></tr>');
+                    var row = jQuery('<tr id="row-'+trainingClass.uuid+'"></tr>');
                     var checkbox;
                     var retired;
                     checkbox = jQuery('<td valign="top"><input type="checkbox" name="trainingClass-'+trainingClass.uuid+'" class="select-trainingClass" value="'+trainingClass.uuid+'"/></td>"');
-                    var startDate = jQuery('<td valign="top">'+jQuery.datepicker.formatDate( 'dd/mm/yy', new Date(trainingClass.startDate))+'</td>');
+                    var startDate = jQuery('<td valign="top">'+trainingClass.startDate+'</td>');
                     var location = jQuery('<td valign="top">'+trainingClass.location+'</td>');
                     var organization = jQuery('<td valign="top">'+trainingClass.organization+'</td>');
                     row.append(checkbox);
@@ -27,7 +28,7 @@ jQuery(document).ready(function(){
                     if(val)
                         jQuery('#TrainingClassesTable tr:last').after(row);
                     else
-                        jQuery('#row-'+trainingJson.uuid).remove();
+                        jQuery('#row-'+trainingClass.uuid).remove();
                 }
              });
             });

@@ -10,14 +10,14 @@ import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
-import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
-import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
-import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
+import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
+import org.openmrs.module.webservices.rest.web.resource.impl.*;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource("training")
 @Handler(supports = HrTraining.class, order = 0)
 public class HRTrainingResource extends MetadataDelegatingCrudResource<HrTraining> {
+
     @Override
     public HrTraining getByUniqueId(String uuid) {
         return Context.getService(HRTrainingService.class).getTrainingByUniqueId(uuid);
@@ -53,6 +53,8 @@ public class HRTrainingResource extends MetadataDelegatingCrudResource<HrTrainin
             Descri.addProperty("uuid");
             Descri.addProperty("trainingId");
             Descri.addProperty("category");
+            Descri.addProperty("name");
+            Descri.addProperty("description");
             Descri.addSelfLink();
             Descri.addLink("full", ".?v="+ RestConstants.REPRESENTATION_FULL);
             return Descri;
@@ -62,10 +64,35 @@ public class HRTrainingResource extends MetadataDelegatingCrudResource<HrTrainin
             Descri.addProperty("uuid");
             Descri.addProperty("trainingId");
             Descri.addProperty("category");
-            Descri.addProperty("hrTrainingClasses");
+            Descri.addProperty("name");
+            Descri.addProperty("description");
+            Descri.addProperty("hrTrainingClasses",Representation.FULL);
             return Descri;
 
         }
+
         return null;
+    }
+    @Override
+    protected AlreadyPaged<HrTraining> doSearch(String query, RequestContext context) {
+        return new ServiceSearcher<HrTraining>(HRTrainingService.class, "getTrainings", "getCountOfTrainings").search(query,
+                context);
+    }
+
+    @Override
+    protected PageableResult doGetAll(RequestContext context) {
+        return  new NeedsPaging<HrTraining>(Context.getService(HRTrainingService.class).getTrainings(), context);
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() {
+        DelegatingResourceDescription d = new DelegatingResourceDescription();
+        d.addRequiredProperty("category");
+        d.addProperty("name");
+        d.addProperty("description");
+        d.addProperty("sortWeight");
+        d.addProperty("hrTrainingClasses");
+        return d;
+
     }
 }

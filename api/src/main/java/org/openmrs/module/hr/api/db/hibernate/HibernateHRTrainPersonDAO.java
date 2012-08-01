@@ -8,6 +8,7 @@ import org.hibernate.criterion.Example;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.Person;
 import org.openmrs.module.hr.HrTrainPerson;
+import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.api.db.HRTrainPersonDAO;
 
 import java.util.ArrayList;
@@ -100,6 +101,12 @@ public class HibernateHRTrainPersonDAO implements HRTrainPersonDAO{
             log.error("get failed", re);
             throw re;
         }
+    }
+
+    @Override
+    public HrTrainPerson getTrainPersonByUniqueID(String uuid) {
+        return (HrTrainPerson) sessionFactory.getCurrentSession().createQuery("from HrTrainPerson where uuid = :uuid")
+                .setString("uuid", uuid).uniqueResult();
     }
 
 }

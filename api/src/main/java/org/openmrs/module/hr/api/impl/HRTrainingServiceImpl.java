@@ -105,4 +105,39 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     public List<HrTrainPerson> getTrainingHistoryFor(int personId) {
         return hrTrainPersonDAO.getTrainingHistoryFor(personDAO.getPerson(personId));
     }
+
+    @Override
+    public List<HrTraining> getTrainings(Boolean ifRetired, Integer index, Integer length) {
+        return hrTrainingDAO.getTrainings(ifRetired,index,length);
+    }
+
+    @Override
+    public int getCountOfTrainings(Boolean ifRetired) {
+        return hrTrainingDAO.getTrainings(ifRetired,null,null).size();
+    }
+
+    @Override
+    public void saveTrainPerson(HrTrainPerson hrTrainPerson) {
+        hrTrainPersonDAO.saveTrainPerson(hrTrainPerson);
+    }
+
+    @Override
+    public void deleteTrainPerson(HrTrainPerson hrTrainPerson) {
+        hrTrainPersonDAO.deleteTrainPerson(hrTrainPerson);
+    }
+
+    @Override
+    public HrTrainPerson getTrainPersonByUniqueID(String uuid) {
+        return hrTrainPersonDAO.getTrainPersonByUniqueID(uuid);
+    }
+
+    @Override
+    public void onStartup() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void onShutdown() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }
