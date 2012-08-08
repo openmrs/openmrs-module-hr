@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="org.openmrs.module.hr.HrStaffMemo" table="hr_memo">
+        <id name="memoId" type="int">
+            <column name="memo_id" />
+            <generator class="native" />
+        </id>
+        <discriminator column="type" type="string"/>
+
+        <property name="text" type="string">
+            <column name="text" length="65535" not-null="true" />
+        </property>
+
+        <property name="dateTime" type="java.util.Date">
+            <column name="date_time" />
+        </property>
+
+
+
+        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
+        <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
+        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
+        <property name="dateChanged" type="java.util.Date" column="date_changed" />
+        <property name="voided" type="java.lang.Boolean" length="1" not-null="true" column="voided"/>
+        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
+        <property name="dateVoided" type="java.util.Date" column="date_voided" />
+        <property name="voidReason" type="string" column="void_reason" />
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" unique="true" />
+        </property>
+        <set name="hrMemos" inverse="true">
+            <key>
+                <column name="parent" />
+            </key>
+            <one-to-many class="org.openmrs.module.hr.HrStaffMemo" />
+        </set>
+        <many-to-one name="parent" class="org.openmrs.module.hr.HrStaffMemo" fetch="select">
+            <column name="parent" />
+        </many-to-one>
+
+
+
+        <subclass name="org.openmrs.module.hr.HrMemoInjury" discriminator-value="INJURY">
+            <join table="hr_injury_memo">
+                <key column="memo_id"/>
+
+                <property name="type" type="string">
+                    <column name="type" length="65535" not-null="true" />
+                </property>
+
+                <property name="uuid" type="string">
+                    <column name="uuid" length="38" not-null="true" unique="true" />
+                </property>
+
+                <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
+                    <column name="staff_id" />
+                </many-to-one>
+            </join>
+        </subclass>
+
+    </class>
+</hibernate-mapping>

@@ -10,13 +10,12 @@ public class HrMemoBase<T> extends BaseOpenmrsData implements java.io.Serializab
 
 
     private int memoId;
-    private Date memoDateTime;
-    private T relatedTo;
+    private Date dateTime;
     private String text;
     private String uuid;
     private HrMemoBase<T> parent;
     private String type;
-    private Set<HrMemoBase<T>> hrNotes = new HashSet<HrMemoBase<T>>(0);
+    private Set<HrMemoBase<T>> hrMemos = new HashSet<HrMemoBase<T>>(0);
 
 
     public HrMemoBase(){
@@ -31,17 +30,14 @@ public class HrMemoBase<T> extends BaseOpenmrsData implements java.io.Serializab
         this.parent = parent;
     }
 
-    public Set<HrMemoBase<T>> getHrNotes() {
-        return hrNotes;
+    public Set<HrMemoBase<T>> getHrMemos() {
+        return hrMemos;
     }
 
-    public void setHrNotes(Set<HrMemoBase<T>> hrNotes) {
-        this.hrNotes = hrNotes;
+    public void setHrMemos(Set<HrMemoBase<T>> hrMemos) {
+        this.hrMemos = hrMemos;
     }
 
-    public T getRelatedTo() {
-        return relatedTo;
-    }
 
     public String getUuid() {
         return uuid;
@@ -51,9 +47,6 @@ public class HrMemoBase<T> extends BaseOpenmrsData implements java.io.Serializab
         this.uuid = uuid;
     }
 
-    public void setRelatedTo(T relatedTo) {
-        this.relatedTo = relatedTo;
-    }
 
     public void setText(String text) {
         this.text = text;
@@ -67,12 +60,12 @@ public class HrMemoBase<T> extends BaseOpenmrsData implements java.io.Serializab
         this.memoId = memoId;
     }
 
-    public Date getMemoDateTime() {
-        return memoDateTime;
+    public Date getDateTime() {
+        return dateTime;
     }
 
-    public void setMemoDateTime(Date memoDateTime) {
-        this.memoDateTime = memoDateTime;
+    public void setDateTime(Date dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getText() {

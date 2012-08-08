@@ -189,6 +189,7 @@
 		HrStaffTag.hbm.xml
 		HrReport.hbm.xml
         HrStaffNote.hbm.xml
+        HrMemo.hbm.xml
 	</mappingFiles>
 </module>
 
