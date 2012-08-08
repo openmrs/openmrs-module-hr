@@ -61,21 +61,52 @@
     }
 
     function assignPersonToClass(trainingClassID){
+        var reasonVar = prompt("Enter reason","");
         var staffID = document.getElementById("staffID").value;
         $j.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr?getPersonForStaffId="+staffID , function(personValue) {
 
-          var data = {person : personValue.personUUID ,hrTrainingClass :trainingClassID};
+          var data = {person:personValue.person ,hrTrainingClass :trainingClassID,reason : reasonVar };
             jQuery.ajax({
                 "url" : "${pageContext.request.contextPath}" + "/ws/rest/v1/hr/trainPerson",
                 "type" : "POST",
                 "contentType" : "application/json",
                 "data" : JSON.stringify(data),
                 "success" : function(data) {
-                    alert("done");
+                    var row = $j("<tr></tr>");
+                    var date = $j('<td>'+data.dateCreated+'</td>');
+                    var location = $j('<td>'+data.hrTrainingClass.location+'</td>');
+                    var organization = $j('<td>'+data.hrTrainingClass.hrTraining.name+'</td>');
+                    var ceunits = $j('<td>'+data.hrTrainingClass.ceunits+'</td>');
+                    var completed;
+                    if(data.completed)
+                        completed = $j('<input type="checkbox" disabled checked/>');
+                    else
+                        completed = $j('<input type="checkbox" name="'+data.uuid+'" onClick="completeTraining(this)"/>');
+                    row.append(date);
+                    row.append(location);
+                    row.append(organization);
+                    row.append(ceunits);
+                    row.append(completed);
+                    $j('#TrainingsTable tr:last').after(row);
                 }
             });
         });
 
+
+    }
+
+    function completeTraining(checkbox){
+        var trainingPersonUUID = $j(checkbox).attr('name');
+        var data={completed:true};
+        jQuery.ajax({
+                "url" : "${pageContext.request.contextPath}" + "/ws/rest/v1/hr/trainPerson/"+trainingPersonUUID,
+                "type" : "POST",
+                "contentType" : "application/json",
+                "data" : JSON.stringify(data),
+                "success" : function(data) {
+                    $j(checkbox).attr("disabled",true);
+                }
+            });
 
     }
 
@@ -127,7 +158,7 @@
                 <th> <spring:message code="Location" /> </th>
                 <th> <spring:message code="Course Name" /> </th>
                 <th> <spring:message code="CE Units" /> </th>
-                <th> <spring:message code="Complete" /></th>
+                <th> <spring:message code="Completed" /></th>
             </thead>
             <tbody>
             <c:forEach var="staffTraining" items="${staffTrainings}" varStatus="rowStatus">
@@ -136,14 +167,16 @@
                     <td>${staffTraining.hrTrainingClass.location}</td>
                     <td>${staffTraining.hrTrainingClass.hrTraining.name}</td>
                     <td>${staffTraining.hrTrainingClass.ceunits}</td>
-                    <c:choose>
-                        <c:when test="${not staffTraining.completed}">
-                            <input type="checkbox" disabled />
-                        </c:when>
-                        <c:otherwise>
-                            <input type="checkbox" disabled checked/>
-                        </c:otherwise>
-                    </c:choose>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not staffTraining.completed}">
+                                <input type="checkbox" name="${staffTraining.uuid}" onClick="completeTraining(this)" />
+                            </c:when>
+                            <c:otherwise>
+                                <input type="checkbox" disabled checked/>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -187,7 +220,7 @@
             <tr>
                 <th><spring:message code="Date"/></th>
                 <th><spring:message code="Location"/></th>
-                <th><spring:message code="Course Name"/></th>
+                <th><spring:message code="Organization"/></th>
                 <th><spring:message code="CE Units"/></th>
                 <th><spring:message code="Days"/></th>
                 <th><spring:message code="Cost"/></th>

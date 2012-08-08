@@ -71,6 +71,8 @@ public class HRTrainingClassResource extends DelegatingSubResource<HrTrainingCla
             Descri.addProperty("startDate");
             Descri.addProperty("location");
             Descri.addProperty("organization");
+            Descri.addProperty("ceunits");
+            Descri.addProperty("hrTraining",Representation.DEFAULT);
             Descri.addSelfLink();
             Descri.addLink("full", ".?v="+ RestConstants.REPRESENTATION_FULL);
             return Descri;

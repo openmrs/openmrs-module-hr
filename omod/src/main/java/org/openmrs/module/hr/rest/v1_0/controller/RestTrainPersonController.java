@@ -9,17 +9,22 @@ import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.propertyEditor.HrCompetencyEditor;
 import org.openmrs.module.hr.api.propertyEditor.HrTrainingClassEditor;
 import org.openmrs.module.hr.rest.v1_0.resource.HRTrainPersonResource;
+import org.openmrs.module.webservices.rest.SimpleObject;
+import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
+import org.openmrs.module.webservices.rest.web.RestUtil;
 import org.openmrs.module.webservices.rest.web.api.RestService;
+import org.openmrs.module.webservices.rest.web.response.ResponseException;
 import org.openmrs.module.webservices.rest.web.v1_0.controller.BaseCrudController;
 import org.openmrs.propertyeditor.PersonEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.text.NumberFormat;
 
 @Controller
@@ -35,4 +40,5 @@ public class RestTrainPersonController extends BaseCrudController<HRTrainPersonR
         log.info("getting TrainPerson resource");
         return Context.getService(RestService.class).getResource(HRTrainPersonResource.class);
     }
+
 }
