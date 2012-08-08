@@ -24,6 +24,8 @@
 			</th>
 			<td>
 				${staff.staffStatus.name.name}
+                <input type="hidden" id="staffID" value="${staff.staffId}"/>
+                <input type="hidden" id="staffUUID" value="${staff.uuid}"/>
 			</td>
 			<th id="initialEmployment">
 				Initial Employment: 
@@ -31,6 +33,7 @@
 			<td>
 				<openmrs:formatDate date="${staff.initialHireDate}" type="medium" />
 			</td>
+
 		</tr>
 	</table>
 </div>

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HRTrainingClassDAO {
 
-    public void saveTrainingClass(HrTrainingClass trainingClass);
+    public HrTrainingClass saveTrainingClass(HrTrainingClass trainingClass);
 
     public void deleteTrainingClass(HrTrainingClass trainingClass);
 

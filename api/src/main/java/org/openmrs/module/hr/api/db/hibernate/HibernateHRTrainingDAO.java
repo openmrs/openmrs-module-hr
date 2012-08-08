@@ -28,11 +28,12 @@ public class HibernateHRTrainingDAO implements HRTrainingDAO{
         this.sessionFactory = sessionFactory;
     }
 
-    public void saveTraining(HrTraining training) {
+    public HrTraining saveTraining(HrTraining training) {
         log.debug("saving HrTraining instance");
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(training);
             log.debug("save successful");
+            return training;
         }
         catch (RuntimeException re) {
             log.error("save failed", re);
@@ -116,6 +117,24 @@ public class HibernateHRTrainingDAO implements HRTrainingDAO{
             criteria.add(Restrictions.ne("retired", true));
 
         criteria.addOrder(Order.asc("trainingId"));
+
+        if (start != null)
+            criteria.setFirstResult(start);
+        if (length != null && length > 0)
+            criteria.setMaxResults(length);
+
+        List<HrTraining> list = (List<HrTraining>) criteria.list();
+        return list;
+    }
+
+
+
+    @Override
+    public List<HrTraining> getTrainingsByCategory(String category, Integer start, Integer length) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HrTraining.class);
+
+        criteria.addOrder(Order.asc("trainingId"));
+        criteria.add(Restrictions.eq("category",category));
 
         if (start != null)
             criteria.setFirstResult(start);

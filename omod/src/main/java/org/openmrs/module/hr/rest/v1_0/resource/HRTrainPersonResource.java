@@ -11,13 +11,14 @@ import org.openmrs.module.webservices.rest.web.annotation.Resource;
 import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
+import org.openmrs.module.webservices.rest.web.resource.impl.DataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource("trainPerson")
 @Handler(supports = HrTrainPerson.class, order = 0)
-public class HRTrainPersonResource extends DelegatingCrudResource<HrTrainPerson>{
+public class HRTrainPersonResource extends DataDelegatingCrudResource<HrTrainPerson> {
 
     @Override
     public HrTrainPerson getByUniqueId(String uuid) {
@@ -78,6 +79,17 @@ public class HRTrainPersonResource extends DelegatingCrudResource<HrTrainPerson>
         }
 
         return null;
+    }
+
+    @Override
+    public DelegatingResourceDescription getCreatableProperties() {
+        DelegatingResourceDescription d = new DelegatingResourceDescription();
+        d.addRequiredProperty("hrTrainingClass");
+        d.addRequiredProperty("person");
+        d.addProperty("followUpDate");
+        d.addProperty("completed");
+        d.addProperty("reason");
+        return d;
     }
 
 

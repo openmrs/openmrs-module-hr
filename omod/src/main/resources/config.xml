@@ -58,6 +58,17 @@
 	</servlet-mapping>
 
     <servlet>
+        <servlet-name>PersonServlet</servlet-name>
+        <servlet-class>org.openmrs.module.hr.web.servlet.PersonServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PersonServlet</servlet-name>
+        <url-pattern>/PersonServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
         <servlet-name>LevelPopulator</servlet-name>
         <servlet-class>org.openmrs.module.hr.web.servlet.LevelPopulator</servlet-class>
     </servlet>

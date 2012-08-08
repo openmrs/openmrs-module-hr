@@ -20,7 +20,7 @@
         }
     }
     $j(document).ready(function(){
-        getTrainingsForCategory();
+        getTrainingsForCategory(selectBox);
     });
 
     function getTrainingClass(checkbox){
@@ -60,15 +60,31 @@
          });
     }
 
-    function assignPersonToClass(trainingClassUUID){
-        alert(trainingClassUUID);
+    function assignPersonToClass(trainingClassID){
+        var staffID = document.getElementById("staffID").value;
+        $j.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr?getPersonForStaffId="+staffID , function(personValue) {
+
+          var data = {person : personValue.personUUID ,hrTrainingClass :trainingClassID};
+            jQuery.ajax({
+                "url" : "${pageContext.request.contextPath}" + "/ws/rest/v1/hr/trainPerson",
+                "type" : "POST",
+                "contentType" : "application/json",
+                "data" : JSON.stringify(data),
+                "success" : function(data) {
+                    alert("done");
+                }
+            });
+        });
+
+
     }
+
     function deleteRow(rowID){
         $j('#'+rowID).remove();
     }
 
-    function getTrainingsForCategory(){
-        $j.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr/training?category="+$j(this).attr('value')+"&v=default" , function(trainingsJson) {
+    function getTrainingsForCategory(selectBox){
+        $j.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr/training?category="+$j(selectBox).attr('value') , function(trainingsJson) {
             for(i in trainingsJson.results)
                 {
                     var trainingJson = trainingsJson.results[i];
@@ -84,6 +100,8 @@
                 }
         });
     }
+
+
 
 </script>
 <style type="text/css">
@@ -141,7 +159,7 @@
 
 <div name="left">
     Select Training Category :
-    <select name="hrTrainingCategory" id="trainingCategory" width="100%" onChange="getTrainingsForCategory()">
+    <select name="hrTrainingCategory" id="trainingCategory" width="100%" onChange="getTrainingsForCategory(this)">
         <c:forEach var="category" items="${trainingCategories}" varStatus="rowStatus">
             <option value="${category}">${category}</option>
         </c:forEach>

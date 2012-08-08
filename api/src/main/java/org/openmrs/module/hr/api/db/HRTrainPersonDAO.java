@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HRTrainPersonDAO {
 
-    public void saveTrainPerson(HrTrainPerson trainPerson);
+    public HrTrainPerson saveTrainPerson(HrTrainPerson trainPerson);
 
     public void deleteTrainPerson(HrTrainPerson trainPerson);
 

@@ -20,7 +20,7 @@ public interface HRTrainingService extends OpenmrsService{
     List<HrTraining> getTrainings();
 
     @Authorized("Manage Trainings")
-    void saveTraining(HrTraining training);
+    HrTraining saveTraining(HrTraining training);
 
     @Authorized("Manage Trainings")
     void unretireTraining(HrTraining trainingById);
@@ -32,7 +32,7 @@ public interface HRTrainingService extends OpenmrsService{
     List<HrTrainingClass> getTrainingClasses();
 
     @Authorized("Manage TrainingClasses")
-    void saveTrainingClass(HrTrainingClass hrTrainingClass);
+    HrTrainingClass saveTrainingClass(HrTrainingClass hrTrainingClass);
 
     @Authorized("Manage TrainingClasses")
     void deleteTrainingClasses(HrTrainingClass trainingClass);
@@ -53,9 +53,13 @@ public interface HRTrainingService extends OpenmrsService{
 
     List<HrTraining> getTrainings(Boolean ifRetired, Integer index, Integer length);
 
+    List<HrTraining> getTrainingsByCategory(String category,Integer index,Integer length);
+
+    int getCountOfTrainingsByCategory(String category);
+
     int getCountOfTrainings(Boolean ifRetired);
 
-    void saveTrainPerson(HrTrainPerson hrTrainPerson);
+    HrTrainPerson saveTrainPerson(HrTrainPerson hrTrainPerson);
 
     void deleteTrainPerson(HrTrainPerson hrTrainPerson);
 

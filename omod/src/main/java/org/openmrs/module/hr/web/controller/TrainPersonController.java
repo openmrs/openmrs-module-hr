@@ -3,8 +3,10 @@ package org.openmrs.module.hr.web.controller;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrStaff;
+import org.openmrs.module.hr.HrTrainPerson;
 import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.HRStaffService;
@@ -50,5 +52,18 @@ public class TrainPersonController {
             categories.add(training.getCategory());
         model.addAttribute("trainingCategories",categories);
         return SUCCESS_LIST_VIEW;
+    }
+
+    @RequestMapping(value= "module/hr/manager/staffPerson.form")
+    public void create(@RequestParam("hrTrainingClass") HrTrainingClass hrTrainingClass,@ModelAttribute("staff") HrStaff staff){
+        HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
+        PersonService personService = Context.getService(PersonService.class);
+        HrTrainPerson hrTrainPerson= new HrTrainPerson();
+        hrTrainPerson.setHrTrainingClass(hrTrainingClass);
+        hrTrainPerson.setReason("blank");
+        hrTrainPerson.setFollowUpDate(new Date());
+        hrTrainPerson.setCompleted(false);
+        hrTrainPerson.setPerson(personService.getPerson(staff.getId()));
+        hrTrainingService.saveTrainPerson(hrTrainPerson);
     }
 }

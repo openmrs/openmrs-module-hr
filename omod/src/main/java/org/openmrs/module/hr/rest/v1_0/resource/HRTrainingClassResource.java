@@ -67,6 +67,7 @@ public class HRTrainingClassResource extends DelegatingSubResource<HrTrainingCla
         if(rep instanceof DefaultRepresentation)
         {
             Descri.addProperty("uuid");
+            Descri.addProperty("trainingClassId");
             Descri.addProperty("startDate");
             Descri.addProperty("location");
             Descri.addProperty("organization");
@@ -78,6 +79,7 @@ public class HRTrainingClassResource extends DelegatingSubResource<HrTrainingCla
         {
             //
             Descri.addProperty("uuid");
+            Descri.addProperty("trainingClassId");
             Descri.addProperty("startDate");
             Descri.addProperty("location");
             Descri.addProperty("organization");

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HRTrainingDAO {
 
-    public void saveTraining(HrTraining training);
+    HrTraining saveTraining(HrTraining training);
 
     public void deleteTraining(HrTraining training);
 
@@ -20,4 +20,6 @@ public interface HRTrainingDAO {
     HrTraining getTrainingByUniqueId(String uuid);
 
     List<HrTraining> getTrainings(Boolean ifVoided, Integer index, Integer length);
+
+    List<HrTraining> getTrainingsByCategory(String category, Integer index, Integer length);
 }

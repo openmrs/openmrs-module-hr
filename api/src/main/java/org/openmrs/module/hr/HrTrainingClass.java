@@ -1,5 +1,6 @@
 package org.openmrs.module.hr;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -223,6 +224,20 @@ public class HrTrainingClass extends BaseOpenmrsData implements java.io.Serializ
 
 	public void setId(Integer id) {
 		setTrainingClassId(id);
+	}
+	
+	public String getDisplayString() {
+		StringBuilder s = new StringBuilder();
+		SimpleDateFormat df = new SimpleDateFormat();
+		if (this.getHrTraining() == null) {
+			s.append("? ");
+			s.append(df.format(this.getStartDate()));
+		} else {
+			s.append(this.getHrTraining().getName());
+			s.append(" ");
+			s.append(df.format(this.getStartDate()));
+		}
+		return s.toString();
 	}
 
 

@@ -48,8 +48,8 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     }
 
     @Override
-    public void saveTraining(HrTraining training) {
-        hrTrainingDAO.saveTraining(training);
+    public HrTraining saveTraining(HrTraining training) {
+        return hrTrainingDAO.saveTraining(training);
     }
 
     @Override
@@ -72,8 +72,8 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     }
 
     @Override
-    public void saveTrainingClass(HrTrainingClass hrTrainingClass) {
-        hrTrainingClassDAO.saveTrainingClass(hrTrainingClass);
+    public HrTrainingClass saveTrainingClass(HrTrainingClass hrTrainingClass) {
+        return hrTrainingClassDAO.saveTrainingClass(hrTrainingClass);
     }
 
     @Override
@@ -112,13 +112,23 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     }
 
     @Override
+    public List<HrTraining> getTrainingsByCategory(String category, Integer index, Integer length) {
+        return hrTrainingDAO.getTrainingsByCategory(category,index,length);
+    }
+
+    @Override
+    public int getCountOfTrainingsByCategory(String category) {
+        return hrTrainingDAO.getTrainingsByCategory(category,null,null).size();
+    }
+
+    @Override
     public int getCountOfTrainings(Boolean ifRetired) {
         return hrTrainingDAO.getTrainings(ifRetired,null,null).size();
     }
 
     @Override
-    public void saveTrainPerson(HrTrainPerson hrTrainPerson) {
-        hrTrainPersonDAO.saveTrainPerson(hrTrainPerson);
+    public HrTrainPerson saveTrainPerson(HrTrainPerson hrTrainPerson) {
+        return hrTrainPersonDAO.saveTrainPerson(hrTrainPerson);
     }
 
     @Override

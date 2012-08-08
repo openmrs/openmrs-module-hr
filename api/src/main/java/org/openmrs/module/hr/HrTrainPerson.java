@@ -1,5 +1,6 @@
 package org.openmrs.module.hr;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.openmrs.BaseOpenmrsData;
@@ -18,7 +19,7 @@ public class HrTrainPerson extends BaseOpenmrsData implements java.io.Serializab
 	private int trainPersonId;
      private HrTrainingClass hrTrainingClass;
      private Person person;
-     private short completed;
+     private Boolean completed;
      private String reason;
      private Date followUpDate;
      private String uuid;
@@ -31,7 +32,7 @@ public class HrTrainPerson extends BaseOpenmrsData implements java.io.Serializab
     }
 
     /** full constructor */
-    public HrTrainPerson(int trainPersonId, HrTrainingClass hrTrainingClass, Person person, short completed, String reason, Date followUpDate,  String uuid) {
+    public HrTrainPerson(int trainPersonId, HrTrainingClass hrTrainingClass, Person person, Boolean completed, String reason, Date followUpDate,  String uuid) {
         this.trainPersonId = trainPersonId;
         this.hrTrainingClass = hrTrainingClass;
         this.person = person;
@@ -69,11 +70,11 @@ public class HrTrainPerson extends BaseOpenmrsData implements java.io.Serializab
         this.person= person;
     }
 
-    public short getCompleted() {
+    public Boolean getCompleted() {
         return this.completed;
     }
     
-    public void setCompleted(short completed) {
+    public void setCompleted(Boolean completed) {
         this.completed = completed;
     }
 
@@ -107,5 +108,26 @@ public class HrTrainPerson extends BaseOpenmrsData implements java.io.Serializab
 
 	public void setId(Integer id) {
 		setTrainPersonId(id);
+	}
+	
+	public String getDisplayString() {
+		StringBuilder s = new StringBuilder();
+		SimpleDateFormat df = new SimpleDateFormat();
+		if (this.getHrTrainingClass() == null)
+			s.append("??");
+		else if (this.getHrTrainingClass().getHrTraining() == null) {
+			s.append("? ");
+			s.append(df.format(this.getHrTrainingClass().getStartDate()));
+		} else {
+			s.append(this.getHrTrainingClass().getHrTraining().getName());
+			s.append(" ");
+			s.append(df.format(this.getHrTrainingClass().getStartDate()));
+		}
+		s.append(" : ");
+		if (this.getPerson() == null)
+			s.append("??");
+		else 
+			s.append(this.getPerson().getPersonName().getFullName());
+		return s.toString();
 	}
 }

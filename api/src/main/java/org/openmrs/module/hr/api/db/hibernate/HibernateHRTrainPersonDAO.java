@@ -28,11 +28,12 @@ public class HibernateHRTrainPersonDAO implements HRTrainPersonDAO{
         this.sessionFactory = sessionFactory;
     }
 
-    public void saveTrainPerson(HrTrainPerson trainPerson) {
+    public HrTrainPerson saveTrainPerson(HrTrainPerson trainPerson) {
         log.debug("saving train person instance");
         try {
             sessionFactory.getCurrentSession().saveOrUpdate(trainPerson);
             log.debug("save successful");
+            return trainPerson;
         }
         catch (RuntimeException re) {
             log.error("save failed", re);
