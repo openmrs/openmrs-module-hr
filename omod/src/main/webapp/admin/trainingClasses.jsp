@@ -3,18 +3,18 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Manage Training Classes" /></h2>
-<a href="trainingClass.form"><spring:message code="Add Training Class"/></a>
+<h2><spring:message code="hr.training.classes.manage" /></h2>
+<a href="trainingClass.form"><spring:message code="hr.training.classes.add"/></a>
 <br /><br />
 
 <b class="boxHeader">
-<spring:message code="Current Training Classes"/></b>
+<spring:message code="hr.training.classes.current"/></b>
 <form method="post" class="box">
 	<table id="TrainingClassesTable" width="100%">
 		<tr>
-			<th> <spring:message code="Training"/> </th>
-			<th> <spring:message code="Training Category"/> </th>
-			<th> <spring:message code="Organization"/> </th>
+			<th> <spring:message code="hr.training.classes.training"/> </th>
+			<th> <spring:message code="hr.trainings.category"/> </th>
+			<th> <spring:message code="hr.training.classes.organization"/> </th>
 		</tr>
 		<c:forEach var="training" items="${trainingClassesList}">
 			<tr>

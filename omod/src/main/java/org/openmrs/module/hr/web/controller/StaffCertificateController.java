@@ -93,7 +93,7 @@ public class StaffCertificateController {
     public ModelAndView createOrUpdateStaffCertificate(HttpServletRequest request,@ModelAttribute("staffCertificate")  HrStaffCert hrStaffCert, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
         HRStaffService hrStaffService = Context.getService(HRStaffService.class);
-        if(request.getParameter("action").equalsIgnoreCase("Delete Staff Certificate"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.certificates.delete")))
             deleteStaffCertificate(hrQualificationService,hrStaffCert,request);
 
         else{
@@ -101,11 +101,10 @@ public class StaffCertificateController {
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allCertificatesList",hrQualificationService.getCertificates());
 
-        if(request.getParameter("action").equalsIgnoreCase("Cancel Staff Certificate"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.certificates.cancel")))
             return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff,hrStaffService);
 
 
-        hrStaffCert.setImagePresent(false);
         hrStaffCert.setHrStaff(staff);
         hrQualificationService.saveStaffCertificate(hrStaffCert);
 
@@ -153,20 +152,21 @@ public class StaffCertificateController {
 
                 hrStaffCert.setImagePresent(true);
                 File imageFolder = new File(OpenmrsUtil.getApplicationDataDirectory(),"hr_certificates");
-                File origImageToSave = new File(imageFolder,"staff_cert_orig_"+hrStaffCert.getUuid());
+                File origImageToSave = new File(imageFolder,"staff_cert_orig_"+hrStaffCert.getId());
 
                 try {
                     log.info("Saving image");
                     image.transferTo(origImageToSave);
-                    BufferedImage originalImage = ImageIO.read(new File(imageFolder,"staff_cert_orig_"+hrStaffCert.getUuid()));
+                    BufferedImage originalImage = ImageIO.read(new File(imageFolder,"staff_cert_orig_"+hrStaffCert.getId()));
                     int type = originalImage.getType() == 0? BufferedImage.TYPE_INT_ARGB : originalImage.getType();
                     BufferedImage resizedImage = new BufferedImage(100,100,type);
                     Graphics2D graphics2D = resizedImage.createGraphics();
                     graphics2D.drawImage(originalImage,0,0,100,100,null);
                     graphics2D.dispose();
-                    ImageIO.write(resizedImage,"jpg",new File(imageFolder,"staff_cert_display_"+hrStaffCert.getUuid()));
+                    ImageIO.write(resizedImage,"jpg",new File(imageFolder,"staff_cert_display_"+hrStaffCert.getId()));
                 } catch (IOException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    log.error("Problem while saving image");
+                    log.error(e);
                 }
 
 
@@ -180,7 +180,8 @@ public class StaffCertificateController {
 
         }
         else
-            hrStaffCert.setImagePresent(false);
+            if(!hrStaffCert.getImagePresent())
+                hrStaffCert.setImagePresent(false);
         hrQualificationService.saveStaffCertificate(hrStaffCert);
     }
 

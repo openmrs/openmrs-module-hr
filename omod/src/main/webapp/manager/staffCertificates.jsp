@@ -28,7 +28,7 @@ window.onload=function(){
 
 <table width="100%">
     <tr>
-        <td width="72%"><input type="button" value="Add New Certificate" onclick="document.location.href='staffCertificate.form'"/>
+        <td width="72%"><input type="button" value="<spring:message code="hr.certificates.add" />" onclick="document.location.href='staffCertificate.form'"/>
     </tr>
 </table>
 
@@ -41,10 +41,10 @@ window.onload=function(){
 <table id="CertificatesTable" width="100%">
 		<thead>
 		<tr>
-			<th> <spring:message code="Certificate" /> </th>
-			<th> <spring:message code="Level" /></th>
-			<th> <spring:message code="Current Certification Date" /> </th>
-			<th> <spring:message code="Expiration Date" /></th>
+			<th> <spring:message code="hr.certificate" /> </th>
+			<th> <spring:message code="hr.certificates.level" /></th>
+			<th> <spring:message code="hr.certificates.certification.date" /> </th>
+			<th> <spring:message code="hr.certificates.expiration.date" /></th>
 		</thead>
 		<tbody>
 		<c:forEach var="staffCertificate" items="${staffCertificates}" varStatus="rowStatus">

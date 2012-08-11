@@ -8,12 +8,12 @@
     <form method="post">
         <div class="retiredMessage">
             <div>
-                <spring:message code="This certificate is retired by"/>
+                <spring:message code="hr.certificates.retired.by"/>
                 ${certificate.retiredBy.personName}
                 <openmrs:formatDate date="${certificate.dateRetired}" type="medium" />
                 -
                 ${certificate.retireReason}
-                <input type="submit" value='<spring:message code="Unretire Certificate"/>' name="unretireCertificate"/>
+                <input type="submit" value='<spring:message code="hr.certificates.unretire"/>' name="unretireCertificate"/>
             </div>
         </div>
 	</form>
@@ -33,7 +33,7 @@
         <table>
 
             <tr>
-                    <th valign="top"><spring:message code="Agency"/></th>
+                    <th valign="top"><spring:message code="hr.certificates.agency"/></th>
                     <td>
                         <spring:bind path="certificate.agency">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -43,7 +43,7 @@
                 </tr>
             <tr>
             <tr>
-                    <th valign="top"><spring:message code="Certificate"/></th>
+                    <th valign="top"><spring:message code="hr.certificate"/></th>
                     <td>
                         <spring:bind path="certificate.certificate">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -53,7 +53,7 @@
                 </tr>
             <tr>
         <tr>
-                <th valign="top"><spring:message code="Levels"/></th>
+                <th valign="top"><spring:message code="hr.certificates.levels"/></th>
                 <td>
                     <spring:bind path="certificate.levels">
                         <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -65,7 +65,7 @@
 
         </table>
         <br />
-        <input type="submit" value="<spring:message code="Save Certificate"/>" name="save">
+        <input type="submit" value="<spring:message code="hr.action.certificates.save"/>" name="save">
 
     </fieldset>
 <br/>
@@ -73,7 +73,7 @@
 
 <c:if test="${not certificate.retired && certificate.certificateId!=0 }">
 	<fieldset>
-			<h4><spring:message code="Retire Certificate"/></h4>
+			<h4><spring:message code="hr.certificates.retire"/></h4>
 
 			<b><spring:message code="general.reason"/></b>
 			<input type="text" value="" size="40" name="retireReason" />
@@ -83,7 +83,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="Retire Certificate"/>' name="retireCertificate"/>
+			<input type="submit" value='<spring:message code="hr.action.certificates.retire"/>' name="retireCertificate"/>
 		</fieldset>
 </c:if>
 </form>

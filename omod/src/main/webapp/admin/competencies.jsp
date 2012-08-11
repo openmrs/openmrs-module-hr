@@ -1,19 +1,19 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="Manage Competencies" otherwise="/login.htm" redirect="/module/hr/admin/staffAttributeTypes.list"/>
+<openmrs:require privilege="Manage Competencies" otherwise="/login.htm" redirect="/module/hr/admin/competencies.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Manage Competencies" /></h2>
-<a href="competency.form"><spring:message code="Add competency"/></a>
+<h2><spring:message code="hr.competencies.manage" /></h2>
+<a href="competency.form"><spring:message code="hr.competencies.add"/></a>
 <br /><br />
 
 <b class="boxHeader">
-<spring:message code="Current Competencies"/></b>
+<spring:message code="hr.competencies.current"/></b>
 <form method="post" class="box">
 	<table id="CompetenciesTable" width="100%">
 		<tr>
-			<th> <spring:message code="Name"/> </th>
-			<th> <spring:message code="Levels"/> </th>
+			<th> <spring:message code="hr.competencies.name"/> </th>
+			<th> <spring:message code="hr.competencies.levels"/> </th>
 		</tr>
 		<c:forEach var="competency" items="${competenciesList}">
 			<tr>

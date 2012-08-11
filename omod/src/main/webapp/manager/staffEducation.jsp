@@ -13,7 +13,7 @@
 	<br />
 </spring:hasBindErrors>
 
-<h2><spring:message code="Education" /></h2>
+<h2><spring:message code="hr.education" /></h2>
 
 <form method="post">
 
@@ -21,7 +21,7 @@
 
         <table width="100%">
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Degree"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.education.degree"/></th>
                 <td>
                         <spring:bind path="education.degree">
                           <input type="text" value="${status.value}" size="40" name="${status.expression}" />
@@ -31,7 +31,7 @@
             </tr>
 
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Institution"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.education.institution"/></th>
                 <td>
                         <spring:bind path="education.institution">
                           <input type="text" value="${status.value}" size="40" name="${status.expression}" />
@@ -41,7 +41,7 @@
             </tr>
 
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Institution Location"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.education.institution.location"/></th>
                 <td>
                         <spring:bind path="education.institutionLocation">
                           <input type="text" value="${status.value}" size="40" name="${status.expression}" />
@@ -51,7 +51,7 @@
             </tr>
 
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Major"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.education.major"/></th>
                 <td>
                         <spring:bind path="education.major">
                           <input type="text" value="${status.value}" size="40" name="${status.expression}" />
@@ -61,7 +61,7 @@
             </tr>
 
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Year of Completion of Degree"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.education.completion.year"/></th>
                     <td>
                         <spring:bind path="education.degreeYear">
                           <input type="text" value="${status.value}" size="40" name="${status.expression}" />
@@ -77,9 +77,9 @@
         </fieldset>
 
     <openmrs:hasPrivilege privilege="Add Staff Education">
-        <input type="submit" value="<spring:message code="Save Education"/>" name="action"/>
+        <input type="submit" value="<spring:message code="hr.action.education.save"/>" name="action"/>
         <c:if test="${education.educationId != 0}">
-                <input type="submit" value="<spring:message code="Delete Education"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete Education details?"/>')"/>
+                <input type="submit" value="<spring:message code="hr.action.education.delete"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete Education details?"/>')"/>
         </c:if>
     </openmrs:hasPrivilege>
 </form>

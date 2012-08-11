@@ -28,7 +28,7 @@ window.onload=function(){
 
 <table width="100%">
     <tr>
-        <td width="72%"><input type="button" value="Add New Education Details" onclick="document.location.href='staffEducation.form'"/>
+        <td width="72%"><input type="button" value="<spring:message code="hr.education.add" />" onclick="document.location.href='staffEducation.form'"/>
     </tr>
 </table>
 
@@ -41,9 +41,9 @@ window.onload=function(){
 <table id="EducationsTable" width="100%">
 		<thead>
 		<tr>
-			<th> <spring:message code="Degree" /> </th>
-			<th> <spring:message code="Institution" /></th>
-			<th> <spring:message code="Major" /> </th>
+			<th> <spring:message code="hr.education.degree" /> </th>
+			<th> <spring:message code="hr.education.institution" /></th>
+			<th> <spring:message code="hr.education.major" /> </th>
 		</thead>
 		<tbody>
 		<c:forEach var="education" items="${staffEducations}" varStatus="rowStatus">

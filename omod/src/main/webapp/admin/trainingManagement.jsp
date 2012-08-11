@@ -37,21 +37,21 @@ jQuery(document).ready(function(){
 </script>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Manage Trainings" /></h2>
-<a href="training.form"><spring:message code="Add new training description"/></a>
+<h2><spring:message code="hr.trainings.manage" /></h2>
+<a href="training.form"><spring:message code="hr.trainings.add"/></a>
 <br /><br />
 
 <b class="boxHeader">
-<spring:message code="Current Trainings"/></b>
+<spring:message code="hr.trainings.current"/></b>
 <form method="post" class="box">
     <div class = "fixedSizeTable">
 	<table id="TrainingsTable" width="100%">
 		<tr>
 			<th></th>
-			<th> <spring:message code="Category"/> </th>
-			<th> <spring:message code="Name"/> </th>
-			<th> <spring:message code="Description"/> </th>
-			<th> <spring:message code="Retired"/> </th>
+			<th> <spring:message code="hr.trainings.category"/> </th>
+			<th> <spring:message code="hr.trainings.name"/> </th>
+			<th> <spring:message code="hr.trainings.description"/> </th>
+			<th> <spring:message code="hr.trainings.retired"/> </th>
 		</tr>
 		<c:forEach var="training" items="${trainingsList}">
 			<tr>
@@ -87,17 +87,17 @@ jQuery(document).ready(function(){
 </br>
 </br>
 
-<a href="trainingClass.form"><spring:message code="Add New Training Class"/></a>
+<a href="trainingClass.form"><spring:message code="hr.training.classes.add"/></a>
 <b class="boxHeader">
-<spring:message code="Trainings Classes"/></b>
+<spring:message code="hr.training.classes"/></b>
 <form method="post" class="box">
     <div class="fixedSizeTable">
         <table id="TrainingClassesTable" width="100%">
             <tr>
                 <th></th>
-                <th> <spring:message code="Start Date"/> </th>
-                <th> <spring:message code="Location"/> </th>
-                <th> <spring:message code="Organization"/> </th>
+                <th> <spring:message code="hr.training.classes.start.date"/> </th>
+                <th> <spring:message code="hr.training.classes.location"/> </th>
+                <th> <spring:message code="hr.training.classes.organization"/> </th>
             </tr>
         </table>
 	</div>

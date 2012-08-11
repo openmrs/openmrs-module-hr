@@ -34,14 +34,14 @@ window.onload=function(){
 </spring:hasBindErrors>
 
 <c:if test="{staffNote.noteId == 0}">
-    <h2><spring:message code="Add New ${staffNote.noteType}" /></h2>
+    <h2><spring:message code="hr.notes.${staffNote.noteType}.add" /></h2>
 </c:if>
 
 <form method="post" enctype="multipart/form-data" name="staffNoteForm">
 <fieldset>
 <table width="100%">
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Text"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.notes.text"/></th>
 		<td>
 				<spring:bind path="staffNote.text">
                 <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${staffNote.text}</textarea>
@@ -50,7 +50,7 @@ window.onload=function(){
 		</td>
 	</tr>
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Date"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.notes.date"/></th>
 		<td>
      		<spring:bind path="staffNote.dateTime">
                 <input type="text" name="${status.expression}" size="10"
@@ -65,9 +65,9 @@ window.onload=function(){
 <br />
 </fieldset>
 
-<input type="submit" value="<spring:message code="Save ${staffNote.noteType} Note"/>" name="action"/>
+<input type="submit" value="<spring:message code="hr.save.${staffNote.noteType}.note"/>" name="action"/>
 <c:if test="${staffNote.noteId != 0}">
-    <input type="submit" value="<spring:message code="Delete ${staffNote.noteType} Note"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this note?"/>')"/>
+    <input type="submit" value="<spring:message code="hr.delete.${staffNote.noteType}.note"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this note?"/>')"/>
 </c:if>
 </form>
 <br/>
@@ -75,7 +75,7 @@ window.onload=function(){
 <br/>
 <table width="100%">
     <tr>
-        <td width="40%"><input type="button" value="Add Related ${staffNote.noteType} Note" onclick="document.location.href='staffNote.form?parent=${staffNote.noteId}&noteType=${staffNote.noteType}'"/>
+        <td width="40%"><input type="button" value="<spring:message code="hr.add.related.${staffNote.noteType}.note"/>" onclick="document.location.href='staffNote.form?parent=${staffNote.noteId}&noteType=${staffNote.noteType}'"/>
         <c:choose>
             <c:when test="${not empty staffNote.parent && not empty staffNote.parent.parent}">
                 <td width="40%"><a href="staffNote.form?noteId=${staffNote.parent.noteId}&parent=${staffNote.parent.parent.noteId}&noteType=${staffNote.noteType}">Goto Parent Note</a>
@@ -89,14 +89,14 @@ window.onload=function(){
 
 <br/>
 <b class="boxHeader">
-<spring:message code="Related Notes"/>
+<spring:message code="hr.notes.related.notes"/>
 </b>
 <form method="post" class="box">
 <table id="staffNotesTable" width="100%">
 		<thead>
 		<tr>
-			<th> <spring:message code="Date" /> </th>
-			<th> <spring:message code="Added By" /> </th>
+			<th> <spring:message code="hr.notes.date" /> </th>
+			<th> <spring:message code="hr.notes.added.by" /> </th>
 		</thead>
 		<tbody>
 		<c:forEach var="staffNote" items="${childrenNotes}" varStatus="rowStatus">

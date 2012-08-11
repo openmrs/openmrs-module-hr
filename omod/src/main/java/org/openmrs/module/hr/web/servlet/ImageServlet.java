@@ -37,7 +37,7 @@ public class ImageServlet extends HttpServlet {
         response.setContentType("images");
         String imagePath = OpenmrsUtil.getApplicationDataDirectory() + "//hr_certificates";
 
-        File imageFile = new File(imagePath,"staff_cert_"+size+"_"+hrQualificationService.getStaffCertificateById(Integer.parseInt(id)).getUuid());
+        File imageFile = new File(imagePath,"staff_cert_"+size+"_"+hrQualificationService.getStaffCertificateById(Integer.parseInt(id)).getId());
         FileInputStream image = new FileInputStream(imageFile);
         response.setContentLength(IMAGE_SIZE);
         byte[] imageBytes = new byte[IMAGE_SIZE];

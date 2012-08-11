@@ -3,17 +3,17 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Training" /></h2>
+<h2><spring:message code="hr.training" /></h2>
 <c:if test="${training.retired}">
     <form method="post">
         <div class="retiredMessage">
             <div>
-                <spring:message code="This training is retired by"/>
+                <spring:message code="hr.trainings.retired.by"/>
                 ${training.retiredBy.personName}
                 <openmrs:formatDate date="${training.dateRetired}" type="medium" />
                 -
                 ${training.retireReason}
-                <input type="submit" value='<spring:message code="Unretire Training"/>' name="unretireTraining"/>
+                <input type="submit" value='<spring:message code="hr.trainings.unretire"/>' name="unretireTraining"/>
             </div>
         </div>
 	</form>
@@ -33,7 +33,7 @@
         <table>
 
             <tr>
-                    <th valign="top"><spring:message code="Name"/></th>
+                    <th valign="top"><spring:message code="hr.trainings.name"/></th>
                     <td>
                         <spring:bind path="training.name">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -44,7 +44,7 @@
             <tr>
 
             <tr>
-                    <th valign="top"><spring:message code="Category"/></th>
+                    <th valign="top"><spring:message code="hr.trainings.category"/></th>
                     <td>
                         <spring:bind path="training.category">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -54,7 +54,7 @@
                 </tr>
             <tr>
             <tr>
-                <th width="10%" align="left" valign="top"><spring:message code="Description"/></th>
+                <th width="10%" align="left" valign="top"><spring:message code="hr.trainings.description"/></th>
                 <td>
                         <spring:bind path="training.description">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -65,7 +65,7 @@
 
         </table>
         <br />
-        <input type="submit" value="<spring:message code="Save Training"/>" name="save">
+        <input type="submit" value="<spring:message code="hr.action.trainings.save"/>" name="save">
 
     </fieldset>
 <br/>
@@ -73,7 +73,7 @@
 
 <c:if test="${not training.retired && training.trainingId!=0 }">
 	<fieldset>
-			<h4><spring:message code="Retire Training"/></h4>
+			<h4><spring:message code="hr.trainings.retire"/></h4>
 
 			<b><spring:message code="general.reason"/></b>
 			<input type="text" value="" size="40" name="retireReason" />
@@ -83,7 +83,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="Retire Training"/>' name="retireTraining"/>
+			<input type="submit" value='<spring:message code="hr.action.trainings.retire"/>' name="retireTraining"/>
 		</fieldset>
 </c:if>
 </form>

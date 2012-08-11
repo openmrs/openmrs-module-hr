@@ -3,18 +3,18 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Manage Certificates" /></h2>
-<a href="certificate.form"><spring:message code="Add Certificate"/></a>
+<h2><spring:message code="hr.certificates.manage" /></h2>
+<a href="certificate.form"><spring:message code="hr.certificates.add"/></a>
 <br /><br />
 
 <b class="boxHeader">
-<spring:message code="Current Certificates"/></b>
+<spring:message code="hr.certificates.current"/></b>
 <form method="post" class="box">
 	<table id="certificatesTable" width="100%">
 		<tr>
-			<th> <spring:message code="Certificate"/> </th>
-			<th> <spring:message code="Agency"/> </th>
-			<th> <spring:message code="Levels"/> </th>
+			<th> <spring:message code="hr.certificate"/> </th>
+			<th> <spring:message code="hr.certificates.agency"/> </th>
+			<th> <spring:message code="hr.certificates.levels"/> </th>
 		</tr>
 		<c:forEach var="certificate" items="${certificatesList}">
 			<tr>

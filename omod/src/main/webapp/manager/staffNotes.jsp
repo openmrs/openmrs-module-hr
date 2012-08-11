@@ -28,21 +28,21 @@ window.onload=function(){
 
 <table width="100%">
     <tr>
-        <td width="72%"><input type="button" value="Add New ${noteType} Note" onclick="document.location.href='staffNote.form?noteType=${noteType}'"/>
+        <td width="72%"><input type="button" value="<spring:message code="hr.notes.${noteType}.add" />" onclick="document.location.href='staffNote.form?noteType=${noteType}'"/>
     </tr>
 </table>
 
 
 <br/>
 <b class="boxHeader">
-<spring:message code="${noteType} Notes"/>
+<spring:message code="hr.notes.${noteType}.notes"/>
 </b>
 <form method="post" class="box">
 <table id="staffNotesTable" width="100%">
 		<thead>
 		<tr>
-			<th> <spring:message code="Date" /> </th>
-			<th> <spring:message code="Added By" /> </th>
+			<th> <spring:message code="hr.notes.date" /> </th>
+			<th> <spring:message code="hr.notes.added.by" /> </th>
 		</thead>
 		<tbody>
 		<c:forEach var="staffNote" items="${staffNotes}" varStatus="rowStatus">

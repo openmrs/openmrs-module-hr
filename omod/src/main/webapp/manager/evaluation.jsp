@@ -63,14 +63,14 @@
 </spring:hasBindErrors>
 
 <c:if test="{evaluation.evaluationId == 0}">
-    <h2><spring:message code="Add New Evaluation" /></h2>
+    <h2><spring:message code="hr.evaluation.add" /></h2>
 </c:if>
 
 <form method="post" name="evaluationForm">
 <fieldset>
 <table width="100%" >
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Competency"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.competency"/></th>
 		<td>
 				<spring:bind path="evaluation.hrCompetency">
 				<select name="hrCompetency" id="${status.expression}" onChange="getLevels()">
@@ -84,7 +84,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Level"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.level"/></th>
 		<td>
      		<spring:bind path="evaluation.level">
      		    <select name="level" id="${status.expression}"/>
@@ -93,7 +93,7 @@
 		</td>
 	</tr>
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Evaluation Date"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.evaluation.date"/></th>
         <td>
             <spring:bind path="evaluation.evaluationDate">
                 <input type="text" name="${status.expression}" size="10"
@@ -109,7 +109,7 @@
         </td>
     </tr>
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Evaluator"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.evaluation.evaluator"/></th>
             <td>
                 <spring:bind path="evaluation.evaluator">
                    <openmrs_tag:personField formFieldName="evaluator" formFieldId="evaluator" initialValue="${status.value}"/>
@@ -119,7 +119,7 @@
     </tr>
 
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Staff Comments"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.evaluation.staff.comments"/></th>
         <td>
                 <spring:bind path="evaluation.staffComments">
                 <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${evaluation.staffComments}</textarea>
@@ -127,7 +127,7 @@
         </td>
     </tr>
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Evaluator Comments"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.evaluation.evaluation.evaluator.comments"/></th>
         <td>
                 <spring:bind path="evaluation.evaluatorComments">
                 <textarea name="${status.expression}" value="${status.value}" rows="5" cols="50">${evaluation.staffComments}</textarea>
@@ -138,9 +138,9 @@
 <br />
 <br />
 </fieldset>
-<input type="submit" value="<spring:message code="Save Staff Evaluation"/>" name="action"/>
+<input type="submit" value="<spring:message code="hr.action.evaluation.save"/>" name="action"/>
 <c:if test="${evaluation.evaluationId != 0}">
-    <input type="submit" value="<spring:message code="Delete Staff Evaluation"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this evaluation?"/>')"/>
+    <input type="submit" value="<spring:message code="hr.action.evaluation.delete"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this evaluation?"/>')"/>
 </c:if>
 </form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>

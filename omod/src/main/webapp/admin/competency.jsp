@@ -3,17 +3,17 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
-<h2><spring:message code="Competency" /></h2>
+<h2><spring:message code="hr.competency" /></h2>
 <c:if test="${competency.retired}">
     <form method="post">
         <div class="retiredMessage">
             <div>
-                <spring:message code="This competency is retired by"/>
+                <spring:message code="hr.competencies.retired.by"/>
                 ${competency.retiredBy.personName}
                 <openmrs:formatDate date="${competency.dateRetired}" type="medium" />
                 -
                 ${competency.retireReason}
-                <input type="submit" value='<spring:message code="Unretire Competency"/>' name="unretireCompetency"/>
+                <input type="submit" value='<spring:message code="hr.action.competencies.unretire"/>' name="unretireCompetency"/>
             </div>
         </div>
 	</form>
@@ -33,7 +33,7 @@
         <table>
 
             <tr>
-                    <th valign="top"><spring:message code="Name"/></th>
+                    <th valign="top"><spring:message code="hr.competencies.name"/></th>
                     <td>
                         <spring:bind path="competency.name">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -43,7 +43,7 @@
                 </tr>
             <tr>
             <tr>
-                    <th valign="top"><spring:message code="Category"/></th>
+                    <th valign="top"><spring:message code="hr.competencies.category"/></th>
                     <td>
                         <spring:bind path="competency.category">
                             <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -53,7 +53,7 @@
                 </tr>
             <tr>
         <tr>
-            <th valign="top"><spring:message code="Levels"/></th>
+            <th valign="top"><spring:message code="hr.competencies.levels"/></th>
             <td>
                 <spring:bind path="competency.levels">
                     <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -63,7 +63,7 @@
             </td>
         </tr>
         <tr>
-            <th valign="top"><spring:message code="Edit Privilege"/></th>
+            <th valign="top"><spring:message code="hr.competencies.edit.privilege"/></th>
             <td>
                 <spring:bind path="competency.editPrivilege">
                     <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -75,7 +75,7 @@
 
         </table>
         <br />
-        <input type="submit" value="<spring:message code="Save competency"/>" name="save">
+        <input type="submit" value="<spring:message code="hr.action.competencies.save"/>" name="save">
 
     </fieldset>
 <br/>
@@ -83,7 +83,7 @@
 
 <c:if test="${not competency.retired && competency.competencyId!=0 }">
 	<fieldset>
-			<h4><spring:message code="Retire competency"/></h4>
+			<h4><spring:message code="hr.competencies.retire"/></h4>
 
 			<b><spring:message code="general.reason"/></b>
 			<input type="text" value="" size="40" name="retireReason" />
@@ -93,7 +93,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="Retire competency"/>' name="retirecompetency"/>
+			<input type="submit" value='<spring:message code="hr.action.competencies.retire"/>' name="retirecompetency"/>
 		</fieldset>
 </c:if>
 </form>

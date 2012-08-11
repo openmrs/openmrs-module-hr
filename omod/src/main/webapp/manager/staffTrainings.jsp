@@ -147,18 +147,18 @@
 
 <br/>
 <b class="boxHeader">
-<spring:message code="Training History"/>
+<spring:message code="hr.training.history"/>
 </b>
 <form method="post" class="box">
     <div class="fixedSizeTable">
         <table id="TrainingsTable" width="100%">
             <thead>
             <tr>
-                <th> <spring:message code="Date" /> </th>
-                <th> <spring:message code="Location" /> </th>
-                <th> <spring:message code="Course Name" /> </th>
-                <th> <spring:message code="CE Units" /> </th>
-                <th> <spring:message code="Completed" /></th>
+                <th> <spring:message code="hr.training.date" /> </th>
+                <th> <spring:message code="hr.training.classes.location" /> </th>
+                <th> <spring:message code="hr.trainings.name" /> </th>
+                <th> <spring:message code="hr.training.classes.ce.units" /> </th>
+                <th> <spring:message code="hr.training.classes.completed" /></th>
             </thead>
             <tbody>
             <c:forEach var="staffTraining" items="${staffTrainings}" varStatus="rowStatus">
@@ -198,13 +198,13 @@
         </c:forEach>
     </select>
     <b class="boxHeader">
-    <spring:message code="Trainings Classes"/></b>
+    <spring:message code="hr.training.classes"/></b>
     <form method="post" class="box">
         <div class="fixedSizeTable">
             <table id="TrainingCoursesTable" width="100%">
                 <tr>
                     <th></th>
-                    <th> <spring:message code="Course Name"/> </th>
+                    <th> <spring:message code="hr.trainings.name"/> </th>
                 </tr>
             </table>
     	</div>
@@ -218,12 +218,12 @@
     <div class="fixedSizeTable">
         <table id="createTrainPersonTable" width="100%">
             <tr>
-                <th><spring:message code="Date"/></th>
-                <th><spring:message code="Location"/></th>
-                <th><spring:message code="Organization"/></th>
-                <th><spring:message code="CE Units"/></th>
-                <th><spring:message code="Days"/></th>
-                <th><spring:message code="Cost"/></th>
+                <th><spring:message code="hr.training.date"/></th>
+                <th><spring:message code="hr.training.classes.location"/></th>
+                <th><spring:message code="hr.training.classes.organization"/></th>
+                <th><spring:message code="hr.training.classes.ce.units"/></th>
+                <th><spring:message code="hr.training.classes.duration"/></th>
+                <th><spring:message code="hr.training.classes.cost"/></th>
                 <th></th>
             </tr>
         </table>

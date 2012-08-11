@@ -28,23 +28,23 @@ window.onload=function(){
 
 <table width="100%">
     <tr>
-        <td width="72%"><input type="button" value="Add New Evaluation" onclick="document.location.href='evaluation.form'"/>
+        <td width="72%"><input type="button" value="<spring:message code="hr.evaluation.add" />" onclick="document.location.href='evaluation.form'"/>
     </tr>
 </table>
 
 
 <br/>
 <b class="boxHeader">
-<spring:message code="Evaluations"/>
+<spring:message code="hr.evaluations"/>
 </b>
 <form method="post" class="box">
 <table id="EvaluationsTable" width="100%">
 		<thead>
 		<tr>
-			<th> <spring:message code="Competency" /> </th>
-			<th> <spring:message code="Level" /></th>
-			<th> <spring:message code="Evaluation Date" /> </th>
-			<th> <spring:message code="Evaluator" /></th>
+			<th> <spring:message code="hr.evaluation.competency" /> </th>
+			<th> <spring:message code="hr.evaluation.level" /></th>
+			<th> <spring:message code="hr.evaluation.evaluation.date" /> </th>
+			<th> <spring:message code="hr.evaluation.evaluation.evaluator" /></th>
 		</thead>
 		<tbody>
 		<c:forEach var="evaluation" items="${evaluations}" varStatus="rowStatus">

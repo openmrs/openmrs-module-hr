@@ -57,7 +57,7 @@
 		<openmrs:hasPrivilege privilege="View Certificates">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffCertificates.list" <c:if test='<%= request.getRequestURI().contains("staffCertificate") %>'>class="current"</c:if>>
-                    <spring:message code="Certificates"/>
+                    <spring:message code="hr.certificates"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>
@@ -65,35 +65,35 @@
         <openmrs:hasPrivilege privilege="View Education">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffEducations.list" <c:if test='<%= request.getRequestURI().contains("staffEducation") %>'>class="current"</c:if>>
-                    <spring:message code="Education"/>
+                    <spring:message code="hr.education"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View Evaluations">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/evaluations.list" <c:if test='<%= request.getRequestURI().contains("evaluations") %>'>class="current"</c:if>>
-                    <spring:message code="Evaluations"/>
+                    <spring:message code="hr.evaluations"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View Notes">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Injury" <c:if test='<%= request.getRequestURI().contains("Injury") %>'>class="current"</c:if>>
-                    <spring:message code="Injury"/>
+                    <spring:message code="hr.notes.injury"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View Notes">
                     <li>
                         <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Discipline" <c:if test='<%= request.getParameter("noteType") == "Discipline" %>'>class="current"</c:if>>
-                            <spring:message code="Discipline"/>
+                            <spring:message code="hr.notes.discipline"/>
                         </a>
                     </li>
                 </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View StaffTrainings">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffTrainings.list" <c:if test='<%= request.getRequestURI().contains("Training") %>'>class="current"</c:if>>
-                    <spring:message code="Training"/>
+                    <spring:message code="hr.training"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>

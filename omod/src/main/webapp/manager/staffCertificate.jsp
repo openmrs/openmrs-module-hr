@@ -62,7 +62,7 @@
 <c:if test="${expired}">
     <div class="retiredMessage">
         <div>
-            <spring:message code="Certificate Expired on"/>
+            <spring:message code="hr.certificates.expired.on"/>
             <openmrs:formatDate date="${staffCertificate.certExpirationDate}" type="medium" />
         </div>
     </div>
@@ -72,7 +72,7 @@
 <c:if test="${not empty staffCertificate.certCancel}">
     <div class="retiredMessage">
         <div>
-            <spring:message code="This certificate is Cancelled on"/>
+            <spring:message code="hr.certificates.cancelled.on"/>
             <openmrs:formatDate date="${staffCertificate.cancelDate}" type="medium" />
             -
             ${staffCertificate.certCancel}
@@ -90,18 +90,18 @@
 </spring:hasBindErrors>
 
 <c:if test="{staffCertificate.staffCertId == 0}">
-    <h2><spring:message code="Add New Staff Certificate" /></h2>
+    <h2><spring:message code="hr.certificates.add" /></h2>
 </c:if>
 
 <form method="post" enctype="multipart/form-data" name="staffCertForm">
 <fieldset>
 <table width="100%">
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Certificate"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.certificate"/></th>
 		<td>
 				<spring:bind path="staffCertificate.hrCertificate">
 				<select name="hrCertificate" id="${status.expression}" onChange="getLevels()">
-				    <option value="">Select Certificate</option>
+				    <option value=""><spring:message code="hr.certificates.select" /></option>
 					<c:forEach items="${allCertificatesList}" var="certificate">
 					    <c:if test="${not certificate.retired}">
 						    <option value="${certificate.certificateId}" <c:if test='${certificate.certificateId == status.value}'>selected="selected"</c:if>>${certificate.certificate}</option>
@@ -113,7 +113,7 @@
 		</td>
 	</tr>
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Level"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.certificates.level"/></th>
 		<td>
      		<spring:bind path="staffCertificate.level">
      		    <select name="level" id="${status.expression}"/>
@@ -122,7 +122,7 @@
 		</td>
 	</tr>
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Certification Date"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.certificates.certification.date"/></th>
         <td>
             <spring:bind path="staffCertificate.currentCertDate">
                 <input type="text" name="${status.expression}" size="10"
@@ -139,7 +139,7 @@
     </tr>
 
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Expiration Date"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.certificates.expiration.date"/></th>
         <td>
             <spring:bind path="staffCertificate.certExpirationDate">
                 <input type="text" name="${status.expression}" size="10"
@@ -156,7 +156,7 @@
     </tr>
     <c:if test="${staffCertificate.imagePresent}">
         <tr>
-            <th width="10%" align="left" valign="top"><spring:message code="Image"/></th>
+            <th width="10%" align="left" valign="top"><spring:message code="hr.certificates.image"/></th>
             <td>
                 <a href="${pageContext.request.contextPath}/moduleServlet/hr/ImageServlet?staffCertId=${staffCertificate.staffCertId}&size=orig">
                 <img alt="" id="certImage" src="${pageContext.request.contextPath}/moduleServlet/hr/ImageServlet?staffCertId=${staffCertificate.staffCertId}&size=display" />
@@ -166,11 +166,12 @@
     </c:if>
 
     <tr>
+        <input type="hidden" name="imagePresent" value="${staffCertificate.imagePresent}"/>
         <c:if test="${staffCertificate.imagePresent}">
-            <th width="10%" align="left" valign="top"><spring:message code="Change Image"/></th>
+            <th width="10%" align="left" valign="top"><spring:message code="hr.action.certificates.change.image"/></th>
         </c:if>
         <c:if test="${not staffCertificate.imagePresent}">
-            <th width="10%" align="left" valign="top"><spring:message code="Upload Image"/></th>
+            <th width="10%" align="left" valign="top"><spring:message code="hr.action.certificates.upload.image"/></th>
         </c:if>
         <td>
             <input type="file" name="image" size="40" />
@@ -182,14 +183,14 @@
 <br />
 </fieldset>
 <c:if test="${empty staffCertificate.certCancel}">
-    <input type="submit" value="<spring:message code="Save Staff Certificate"/>" name="action"/>
+    <input type="submit" value="<spring:message code="hr.action.certificates.save"/>" name="action"/>
     <c:if test="${staffCertificate.staffCertId != 0}">
-        <input type="submit" value="<spring:message code="Delete Staff Certificate"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete the Staff Certificate?"/>')"/>
+        <input type="submit" value="<spring:message code="hr.action.certificates.delete"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete the Staff Certificate?"/>')"/>
     </c:if>
 </c:if>
 <c:if test="${empty staffCertificate.certCancel && not expired && staffCertificate.staffCertId!=0}">
 	<fieldset>
-			<h4><spring:message code="Cancel Staff Certificate"/></h4>
+			<h4><spring:message code="hr.certificates.cancel"/></h4>
 
 			<b><spring:message code="general.reason"/></b>
 			<input type="text" value="" size="40" name="certCancel" />
@@ -199,7 +200,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="Cancel Staff Certificate"/>' name="action"/>
+			<input type="submit" value='<spring:message code="hr.action.certificates.cancel"/>' name="action"/>
 		</fieldset>
 </c:if>
 

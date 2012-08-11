@@ -13,17 +13,17 @@
 </spring:hasBindErrors>
 
 <c:if test="{trainingClass.trainClassId == 0}">
-    <h2><spring:message code="Add New Training Class" /></h2>
+    <h2><spring:message code="hr.training.classes.add" /></h2>
 </c:if>
 <c:if test="{not trainingClass.trainClassId == 0}">
-    <h2><spring:message code="Training Class" /></h2>
+    <h2><spring:message code="hr.training.class" /></h2>
 </c:if>
 
 <form method="post" name="trainingClassForm">
 <fieldset>
 <table width="100%" >
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Training"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="hr.training"/></th>
 		<td>
 				<spring:bind path="trainingClass.hrTraining">
 				<select name="hrTraining" id="${status.expression}">
@@ -36,7 +36,7 @@
 		</td>
 	</tr>
     <tr>
-        <th width="10%" align="left" valign="top"><spring:message code="Start Date"/></th>
+        <th width="10%" align="left" valign="top"><spring:message code="hr.training.classes.start.date"/></th>
         <td>
             <spring:bind path="trainingClass.startDate">
                 <input type="text" name="${status.expression}" size="10"
@@ -53,7 +53,7 @@
     </tr>
 
     <tr>
-        <th valign="top"><spring:message code="Duration"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.duration"/></th>
         <td>
             <spring:bind path="trainingClass.duration">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -63,7 +63,7 @@
     </tr>
 
     <tr>
-        <th valign="top"><spring:message code="CE Units"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.ce.units"/></th>
         <td>
             <spring:bind path="trainingClass.ceunits">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -73,7 +73,7 @@
     </tr>
 
     <tr>
-        <th valign="top"><spring:message code="Location"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.location"/></th>
         <td>
             <spring:bind path="trainingClass.location">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -82,7 +82,7 @@
         </td>
     </tr>
      <tr>
-        <th valign="top"><spring:message code="Instructor"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.instructor"/></th>
         <td>
             <spring:bind path="trainingClass.instructor">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -92,7 +92,7 @@
     </tr>
 
     <tr>
-        <th valign="top"><spring:message code="Organization"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.organization"/></th>
         <td>
             <spring:bind path="trainingClass.organization">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -101,7 +101,7 @@
         </td>
     </tr>
     <tr>
-        <th valign="top"><spring:message code="Funding Source"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.funding.source"/></th>
         <td>
             <spring:bind path="trainingClass.fundingSource">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -110,7 +110,7 @@
         </td>
     </tr>
     <tr>
-        <th valign="top"><spring:message code="Course Cost"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.course.cost"/></th>
         <td>
             <spring:bind path="trainingClass.costCourse">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -120,7 +120,7 @@
     </tr>
 
     <tr>
-        <th valign="top"><spring:message code="Course Registration Cost"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.course.registration.cost"/></th>
         <td>
             <spring:bind path="trainingClass.costRegister">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -129,7 +129,7 @@
         </td>
     </tr>
     <tr>
-        <th valign="top"><spring:message code="Travel Cost"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.travel.cost"/></th>
         <td>
             <spring:bind path="trainingClass.costTravel">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -138,7 +138,7 @@
         </td>
     </tr>
     <tr>
-        <th valign="top"><spring:message code="PerDiem Cost"/></th>
+        <th valign="top"><spring:message code="hr.training.classes.perdiem.cost"/></th>
         <td>
             <spring:bind path="trainingClass.costPerdiem">
                 <input type="text" name="${status.expression}" size="40" value="${status.value}" />
@@ -152,9 +152,9 @@
 <br />
 <br />
 </fieldset>
-<input type="submit" value="<spring:message code="Save Training Class"/>" name="action"/>
+<input type="submit" value="<spring:message code="hr.action.training.classes.save"/>" name="action"/>
 <c:if test="${trainingClass.trainingClassId != 0}">
-    <input type="submit" value="<spring:message code="Delete Training Class"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this Training Class?"/>')"/>
+    <input type="submit" value="<spring:message code="hr.action.training.classes.delete"/>" name="action" onclick="return confirm('<spring:message code="Are you sure you want to Delete this Training Class?"/>')"/>
 </c:if>
 </form>
 <%@ include file="/WEB-INF/template/footer.jsp"%>
