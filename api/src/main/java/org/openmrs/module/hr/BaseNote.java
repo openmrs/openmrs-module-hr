@@ -2,8 +2,7 @@ package org.openmrs.module.hr;
 
 import org.openmrs.BaseOpenmrsData;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 public class BaseNote extends BaseOpenmrsData implements java.io.Serializable {
 
@@ -11,7 +10,7 @@ public class BaseNote extends BaseOpenmrsData implements java.io.Serializable {
     private int noteId;
     private String text;
     private String uuid;
-    private Integer priority;
+    private Date dateTime;
     private String noteType;
 
 
@@ -54,12 +53,12 @@ public class BaseNote extends BaseOpenmrsData implements java.io.Serializable {
         this.uuid = uuid;
     }
 
-    public Integer getPriority() {
-        return priority;
+    public Date getDateTime() {
+        return dateTime;
     }
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
+    public void setDateTime(Date date) {
+        this.dateTime = date;
     }
 
     public String getNoteType() {

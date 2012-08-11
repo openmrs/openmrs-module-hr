@@ -1,5 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-    <hr_staff_note staff_note_id="1" staff_id="7777701" staff_note_type="Injury" text="test" priority="1" creator="1" uuid="e4380f28-9538-11e0-1111-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
-    <hr_staff_note staff_note_id="2" staff_id="7777701" parent="1" staff_note_type="Injury" text="test" priority="1" creator="1" uuid="e4380f28-9538-11e0-1112-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
+    <hr_base_note note_id="1" note_type="Injury" text="test" date_time="2011-05-31 00:00:00.0" creator="1" uuid="e4380f28-9538-11e0-1111-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
+    <hr_base_note note_id="2" note_type="Injury" text="test" date_time="2011-05-31 00:00:00.0" creator="1" uuid="e4380f28-9538-11e0-1112-8a74a6e487f5" date_created="2011-05-31 00:00:00.0" voided="0"/>
+    <hr_staff_note note_id="1" staff_id="7777701" parent="1"  uuid="e4380f28-9538-11e0-1121-8a74a6e487f5" />
+    <hr_staff_note note_id="2" staff_id="7777701" uuid="e4380f28-9538-11e0-1122-8a74a6e487f5" />
 </dataset>

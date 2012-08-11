@@ -929,67 +929,20 @@
         <addAutoIncrement tableName="hr_evaluation" columnName="evaluation_id" columnDataType="int"/>
     </changeSet>
 
-    <changeSet author="Sandeep Joshi" id="humanresource_staff_memo">
+
+    <changeSet author="Sandeep Joshi" id="humanresource_base_note">
         <preConditions onFail="MARK_RAN">
-            <not><tableExists tableName="hr_staff_memo"/></not>
+            <not><tableExists tableName="hr_base_note"/></not>
         </preConditions>
         <comment>
-            Creating the staff_memo table
+            Creating the base_note table
         </comment>
 
-       <createTable tableName="hr_staff_memo">
-            <column name="memo_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
+        <createTable tableName="hr_base_note">
+            <column name="note_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
             <column name="note_type" type="varchar(50)" defaultValue="NULL"></column>
-            <column name="staff_id" type="int(11)" defaultValue="NULL"></column>
-            <column name="text" type="TEXT"><constraints nullable="false"/></column>
-            <column name="memo_date_time" type="DATETIME" defaultValue="NULL"></column>
-            <column name="parent" type="int(11)" defaultValue="NULL"></column>
-            <column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-            <column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
-            <column name="changed_by" type="int(11)" defaultValue="NULL"></column>
-            <column name="date_changed" type="DATETIME" defaultValue="NULL"></column>
-            <column name="voided" type="smallint(6)" defaultValue="0"><constraints nullable="false"/></column>
-            <column name="voided_by" type="int(11)" defaultValue="NULL"></column>
-            <column name="date_voided" type="DATETIME" defaultValue="NULL"></column>
-            <column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
-            <column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-        </createTable>
-        <addPrimaryKey tableName="hr_staff_memo" columnNames="memo_id"/>
-        <createIndex tableName="hr_staff_memo" indexName="memo_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-        <createIndex tableName="hr_staff_memo" indexName="staff_memo_hierarchy"><column name="parent"></column> </createIndex>
-        <createIndex tableName="hr_staff_memo" indexName="staff_memo_staff"><column name="staff_id"></column> </createIndex>
-        <createIndex tableName="hr_staff_memo" indexName="staff_memo_changer"><column name="changed_by"></column> </createIndex>
-        <createIndex tableName="hr_staff_memo" indexName="staff_memo_creator"><column name="creator"></column> </createIndex>
-        <createIndex tableName="hr_staff_memo" indexName="staff_memo_voider"><column name="voided_by"></column> </createIndex>
-        <addForeignKeyConstraint constraintName="staff_memo_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_staff_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_hierarchy" referencedTableName="hr_staff_memo" baseColumnNames="parent" baseTableName="hr_staff_memo" referencedColumnNames="memo_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_memo" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
-    </changeSet>
-
-    <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_memo_id">
-        <addAutoIncrement tableName="hr_staff_memo" columnName="memo_id" columnDataType="int"/>
-    </changeSet>
-
-    <changeSet author="Sandeep Joshi" id="dropping hr_staff_memo_table">
-        <dropTable tableName="hr_staff_memo"/>
-    </changeSet>
-
-    <changeSet author="Sandeep Joshi" id="humanresource_memo">
-        <preConditions onFail="MARK_RAN">
-            <not><tableExists tableName="hr_memo"/></not>
-        </preConditions>
-        <comment>
-            Creating the memo table
-        </comment>
-
-    <createTable tableName="hr_memo">
-            <column name="memo_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
-            <column name="type" type="varchar(50)" ><constraints nullable="false"/></column>
             <column name="text" type="TEXT"><constraints nullable="false"/></column>
             <column name="date_time" type="DATETIME" defaultValue="NULL"></column>
-            <column name="parent" type="int(11)" defaultValue="NULL"></column>
             <column name="creator" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
             <column name="date_created" type="DATETIME" defaultValue="0002-11-30 00:00:00"><constraints nullable="false"/></column>
             <column name="changed_by" type="int(11)" defaultValue="NULL"></column>
@@ -1000,34 +953,45 @@
             <column name="void_reason" type="varchar(255)" defaultValue="NULL"></column>
             <column name="uuid" type="char(38)"><constraints nullable="false"/></column>
         </createTable>
-        <addPrimaryKey tableName="hr_memo" columnNames="memo_id"/>
-        <createIndex tableName="hr_memo" indexName="memo_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-        <createIndex tableName="hr_memo" indexName="staff_memo_hierarchy"><column name="parent"></column> </createIndex>
-        <createIndex tableName="hr_memo" indexName="staff_memo_changer"><column name="changed_by"></column> </createIndex>
-        <createIndex tableName="hr_memo" indexName="staff_memo_creator"><column name="creator"></column> </createIndex>
-        <createIndex tableName="hr_memo" indexName="staff_memo_voider"><column name="voided_by"></column> </createIndex>
-        <addForeignKeyConstraint constraintName="staff_memo_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_memo" referencedColumnNames="user_id"/>
-        <addForeignKeyConstraint constraintName="staff_memo_hierarchy" referencedTableName="hr_memo" baseColumnNames="parent" baseTableName="hr_memo" referencedColumnNames="memo_id"/>
+        <addPrimaryKey tableName="hr_base_note" columnNames="note_id"/>
+        <createIndex tableName="hr_base_note" indexName="base_note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+        <createIndex tableName="hr_base_note" indexName="base_note_changer"><column name="changed_by"></column> </createIndex>
+        <createIndex tableName="hr_base_note" indexName="base_note_creator"><column name="creator"></column> </createIndex>
+        <createIndex tableName="hr_base_note" indexName="base_note_voider"><column name="voided_by"></column> </createIndex>
+        <addForeignKeyConstraint constraintName="base_note_changer" referencedTableName="users" baseColumnNames="changed_by" baseTableName="hr_base_note" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="base_note_creator" referencedTableName="users" baseColumnNames="creator" baseTableName="hr_base_note" referencedColumnNames="user_id"/>
+        <addForeignKeyConstraint constraintName="base_note_voider" referencedTableName="users" baseColumnNames="voided_by" baseTableName="hr_base_note" referencedColumnNames="user_id"/>
     </changeSet>
 
-    <changeSet author="sandeep Joshi" id="adding hr_injury table">
+    <changeSet author="Sandeep Joshi" id="dropping hr_staff_note_table">
+        <dropTable tableName="hr_staff_note"/>
+    </changeSet>
+
+    <changeSet author="Sandeep Joshi" id="humanresource_staff_note">
         <preConditions onFail="MARK_RAN">
-            <not><tableExists tableName="hr_injury"/></not>
+            <not><tableExists tableName="hr_staff_note"/></not>
         </preConditions>
         <comment>
-            Creating the injury table
+            Creating the staff_note table
         </comment>
-    <createTable tableName="hr_injury">
-        <column name="type" type="varchar(50)" ><constraints nullable="false"/></column>
-        <column name="uuid" type="char(38)"><constraints nullable="false"/></column>
-        <column name="staff_id" type="int(11)" defaultValue="NULL"></column>
-    </createTable>
-    <createIndex tableName="hr_memo" indexName="memo_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
-    <addForeignKeyConstraint constraintName="staff_memo_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_injury" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
-</changeSet>
+        <createTable tableName="hr_staff_note">
+            <column name="note_id" type="int(11)" defaultValue="0"><constraints nullable="false"/></column>
+            <column name="staff_id" type="int(11)" defaultValue="NULL"></column>
+            <column name="parent" type="int(11)" defaultValue="NULL"></column>
+            <column name="uuid" type="char(38)"><constraints nullable="false"/></column>
+        </createTable>
+        <addPrimaryKey tableName="hr_staff_note" columnNames="note_id"/>
+        <createIndex tableName="hr_staff_note" indexName="note_uuid_index" unique="true"><column name="uuid"></column> </createIndex>
+        <createIndex tableName="hr_staff_note" indexName="staff_note_hierarchy"><column name="parent"></column> </createIndex>
+        <createIndex tableName="hr_staff_note" indexName="staff_note_staff"><column name="staff_id"></column> </createIndex>
+        <addForeignKeyConstraint constraintName="staff_note_hierarchy" referencedTableName="hr_staff_note" baseColumnNames="parent" baseTableName="hr_staff_note" referencedColumnNames="note_id"/>
+        <addForeignKeyConstraint constraintName="staff_note_staff" referencedTableName="hr_staff" baseColumnNames="staff_id" baseTableName="hr_staff_note" referencedColumnNames="staff_id" onDelete="NO ACTION" onUpdate="NO ACTION"/>
+    </changeSet>
 
+    <changeSet author="Sandeep Joshi" id="adding_autoincrenment_for_note_id">
+        <addAutoIncrement tableName="hr_base_note" columnName="note_id" columnDataType="int"/>
+        <addForeignKeyConstraint  constraintName="staff_note_base_note" referencedTableName="hr_base_note" baseColumnNames="note_id" baseTableName="hr_staff_note" referencedColumnNames="note_id" onUpdate="NO ACTION" onDelete="NO ACTION"/>
+    </changeSet>
 
 
 </databaseChangeLog>

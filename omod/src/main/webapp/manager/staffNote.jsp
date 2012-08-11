@@ -50,10 +50,12 @@ window.onload=function(){
 		</td>
 	</tr>
 	<tr>
-		<th width="10%" align="left" valign="top"><spring:message code="Priority"/></th>
+		<th width="10%" align="left" valign="top"><spring:message code="Date"/></th>
 		<td>
-     		<spring:bind path="staffNote.priority">
-                <input type="text" value="${status.value}" size="40" name="${status.expression}" />
+     		<spring:bind path="staffNote.dateTime">
+                <input type="text" name="${status.expression}" size="10"
+                                       value="${status.value}" onClick="showCalendar(this)" id="${status.expression}" />
+                                (<spring:message code="general.format"/>: <openmrs:datePattern />)
                 <c:if test="${status.errorMessage != ''}"><span class="error">${status.errorMessage}</span></c:if>
             </spring:bind>
 		</td>

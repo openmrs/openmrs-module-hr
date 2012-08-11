@@ -10,6 +10,7 @@ public class HrStaffNote extends BaseNote {
     private HrStaff hrStaff;
     private HrStaffNote parent;
     private Set<HrStaffNote> hrStaffNotes = new HashSet<HrStaffNote>(0);
+    private String uuid;
 
 
 
@@ -44,4 +45,11 @@ public class HrStaffNote extends BaseNote {
         this.hrStaff = hrStaff;
     }
 
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 }

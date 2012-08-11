@@ -1,32 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.openmrs.module.hr.HrStaffNote" table="hr_staff_note">
-        <id name="noteId" type="int">
-            <column name="staff_note_id" />
-            <generator class="native" />
-        </id>
-        <property name="noteType" type="string" update="false" not-null="true">
-            <column name="staff_note_type" length="50" />
-        </property>
-        <property name="text" type="string">
-            <column name="text" length="65535" not-null="true" />
-        </property>
-        <property name="priority" type="java.lang.Integer">
-            <column name="priority" />
-        </property>
-        <many-to-one name="creator" class="org.openmrs.User" not-null="true" column="creator"/>
-        <property name="dateCreated" type="java.util.Date" column="date_created" not-null="true" />
-        <many-to-one name="changedBy" class="org.openmrs.User" column="changed_by" />
-        <property name="dateChanged" type="java.util.Date" column="date_changed" />
-        <property name="voided" type="java.lang.Boolean" length="1" not-null="true" column="voided"/>
-        <many-to-one name="voidedBy" class="org.openmrs.User" column="voided_by" />
-        <property name="dateVoided" type="java.util.Date" column="date_voided" />
-        <property name="voidReason" type="string" column="void_reason" />
-        <property name="uuid" type="string">
-            <column name="uuid" length="38" not-null="true" unique="true" />
-        </property>
+    <joined-subclass name="org.openmrs.module.hr.HrStaffNote" extends="org.openmrs.module.hr.BaseNote" table="hr_staff_note">
+        <key column="note_id" />
+
         <set name="hrStaffNotes" inverse="true">
             <key>
                 <column name="parent" />
@@ -39,5 +17,8 @@
         <many-to-one name="hrStaff" class="org.openmrs.module.hr.HrStaff" fetch="select">
             <column name="staff_id" />
         </many-to-one>
-    </class>
+        <property name="uuid" type="string">
+            <column name="uuid" length="38" not-null="true" unique="true" />
+        </property>
+    </joined-subclass>
 </hibernate-mapping>

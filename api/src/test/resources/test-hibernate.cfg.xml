@@ -21,6 +21,7 @@
 		<mapping resource="HrStaffAttributeType.hbm.xml"/>
 		<mapping resource="HrStaffCert.hbm.xml"/>
 		<mapping resource="HrStaffNote.hbm.xml" />
+		<mapping resource="HrBaseNote.hbm.xml" />
 		<mapping resource="HrTraining.hbm.xml"/>
 		<mapping resource="HrTrainingClass.hbm.xml"/>
 		<mapping resource="HrTrainPerson.hbm.xml"/>

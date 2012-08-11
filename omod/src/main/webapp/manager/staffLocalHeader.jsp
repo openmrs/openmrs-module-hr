@@ -78,11 +78,18 @@
         </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View Notes">
             <li>
-                <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Injury" <c:if test='<%= request.getRequestURI().contains("staffNotes") %>'>class="current"</c:if>>
+                <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Injury" <c:if test='<%= request.getRequestURI().contains("Injury") %>'>class="current"</c:if>>
                     <spring:message code="Injury"/>
                 </a>
             </li>
         </openmrs:hasPrivilege>
+        <openmrs:hasPrivilege privilege="View Notes">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/module/hr/manager/staffNotes.list?noteType=Discipline" <c:if test='<%= request.getParameter("noteType") == "Discipline" %>'>class="current"</c:if>>
+                            <spring:message code="Discipline"/>
+                        </a>
+                    </li>
+                </openmrs:hasPrivilege>
         <openmrs:hasPrivilege privilege="View StaffTrainings">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffTrainings.list" <c:if test='<%= request.getRequestURI().contains("Training") %>'>class="current"</c:if>>
