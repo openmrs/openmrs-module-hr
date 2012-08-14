@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="View StaffTrainings" otherwise="/login.htm" redirect="/module/hr/manager/findStaff.list"/>
+<openmrs:require privilege="View Staff Trainings" otherwise="/login.htm" redirect="/module/hr/manager/findStaff.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />

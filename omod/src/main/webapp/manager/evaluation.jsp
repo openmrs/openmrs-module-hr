@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="View Evaluation" otherwise="/login.htm" redirect="/module/hr/manager/findStaff.list"/>
+<openmrs:require privilege="View Evaluations" otherwise="/login.htm" redirect="/module/hr/manager/findStaff.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="staffLocalHeader.jsp" %>

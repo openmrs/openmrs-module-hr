@@ -5,6 +5,7 @@ import org.openmrs.annotation.Authorized;
 import org.openmrs.api.OpenmrsService;
 import org.openmrs.module.hr.HrStaff;
 import org.openmrs.module.hr.HrStaffAttributeType;
+import org.openmrs.module.hr.PrivilegeConstants;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -12,19 +13,19 @@ import java.util.List;
 @Transactional
 public interface HRStaffService{
 
-    @Authorized({"Manage Staff","Manage Staff Attribute Types","Add Post"})
+    @Authorized({PrivilegeConstants.MANAGE_STAFF,PrivilegeConstants.MANAGE_POSTS})
     public void saveStaff(HrStaff staff);
 
-    @Authorized({"View Staff","View Staff Demographics"})
+    @Authorized(PrivilegeConstants.VIEW_STAFF)
     public HrStaff getStaffById( int id);
 
-    @Authorized({"View Staff","Find Human Resources","Manage Staff Attribute Types","View Staff Demographics"})
+    @Authorized(PrivilegeConstants.VIEW_STAFF)
     public List<HrStaff> getAllStaff(boolean includeAllStaff,boolean includeAllLocations);
 
     @Authorized("Manage Staff Attribute Types")
     public void saveStaffAttributeType(HrStaffAttributeType staffAttributeType);
 
-    @Authorized({"Manage Staff Attribute Types","View Staff Demographics","Manage Staff"})
+    @Authorized(PrivilegeConstants.VIEW_STAFF)
 	public List<HrStaffAttributeType> getAllStaffAttributeTypes();
 
     @Authorized("Manage Staff Attribute Types")

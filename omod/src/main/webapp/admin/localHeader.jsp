@@ -65,7 +65,7 @@
                 </li>
         </openmrs:hasPrivilege>
 
-		<openmrs:hasPrivilege privilege="View Reports">
+		<openmrs:hasPrivilege privilege="Run Reports">
 		<li <c:if test='<%= request.getRequestURI().contains("eport") %>'>class="active"</c:if>>
 			<a href="${pageContext.request.contextPath}/module/hr/admin/reportSelection.list">
 				<spring:message code="Reports"/>

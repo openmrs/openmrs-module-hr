@@ -54,7 +54,7 @@
 			</a>
 		</li>
 		</openmrs:hasPrivilege>
-		<openmrs:hasPrivilege privilege="View Certificates">
+		<openmrs:hasPrivilege privilege="View Staff Certificates">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffCertificates.list" <c:if test='<%= request.getRequestURI().contains("staffCertificate") %>'>class="current"</c:if>>
                     <spring:message code="hr.certificates"/>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                 </openmrs:hasPrivilege>
-        <openmrs:hasPrivilege privilege="View StaffTrainings">
+        <openmrs:hasPrivilege privilege="View Staff Trainings">
             <li>
                 <a href="${pageContext.request.contextPath}/module/hr/manager/staffTrainings.list" <c:if test='<%= request.getRequestURI().contains("Training") %>'>class="current"</c:if>>
                     <spring:message code="hr.training"/>

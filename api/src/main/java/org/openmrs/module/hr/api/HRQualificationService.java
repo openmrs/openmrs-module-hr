@@ -3,10 +3,7 @@ package org.openmrs.module.hr.api;
 
 import org.openmrs.User;
 import org.openmrs.annotation.Authorized;
-import org.openmrs.module.hr.HrCertificate;
-import org.openmrs.module.hr.HrEducation;
-import org.openmrs.module.hr.HrStaff;
-import org.openmrs.module.hr.HrStaffCert;
+import org.openmrs.module.hr.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -14,39 +11,39 @@ import java.util.List;
 @Transactional
 public interface HRQualificationService {
 
-    @Authorized("Manage Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_CERTIFICATES)
     public HrCertificate getCertificateById(int id);
 
-    @Authorized("Manage Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_CERTIFICATES)
     List<HrCertificate> getCertificates();
 
-    @Authorized("Manage Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_CERTIFICATES)
     void retireCertificate(HrCertificate certificate, String retireReason , User retiredBy);
 
-    @Authorized("Manage Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_CERTIFICATES)
     void saveCertificate(HrCertificate certificate);
 
-    @Authorized("Manage Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_CERTIFICATES)
     void unretireCertificate(HrCertificate certificate);
 
-    @Authorized("View Certificates")
+    @Authorized(PrivilegeConstants.VIEW_CERTIFICATES)
     HrStaffCert getStaffCertificateById(Integer staffCertificateId);
 
-    @Authorized("Add Staff Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_STAFF_CERTIFICATES)
     void saveStaffCertificate(HrStaffCert hrStaffCert);
 
-    @Authorized("View Education")
+    @Authorized(PrivilegeConstants.VIEW_EDUCATION)
     HrEducation getEducationById(Integer educationId);
 
-    @Authorized("Manage Education")
+    @Authorized(PrivilegeConstants.MANAGE_EDUCATION)
     void saveEducation(HrEducation education);
 
-    @Authorized("View Education")
+    @Authorized(PrivilegeConstants.VIEW_EDUCATION)
     List<HrEducation> getEducationsForStaff(HrStaff staff);
 
-    @Authorized("Manage Staff Certificates")
+    @Authorized(PrivilegeConstants.MANAGE_STAFF_CERTIFICATES)
     void deleteStaffCertificate(HrStaffCert hrStaffCert);
 
-    @Authorized("Manage Education")
+    @Authorized(PrivilegeConstants.MANAGE_EDUCATION)
     void deleteEducation(HrEducation education);
 }

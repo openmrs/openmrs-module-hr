@@ -12,75 +12,75 @@ import java.util.Map;
 @Transactional
 public interface HRPostService {
 
-    @Authorized({"Manage Job Titles","Manage Posts","Add Post"})
+    @Authorized({PrivilegeConstants.MANAGE_JOB_TITLES,PrivilegeConstants.MANAGE_POSTS})
     public List<HrJobTitle> getAllJobTitles();
 
-    @Authorized("Manage Job Titles")
+    @Authorized(PrivilegeConstants.MANAGE_JOB_TITLES)
     public void saveJobTitle(HrJobTitle jobTitle);
 
-    @Authorized("Manage Posts")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public HrPost savePost(HrPost post);
 
-    @Authorized("Manage Posts")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public List<HrPost> getAllPosts(boolean includeAllPosts,boolean includeAllLocations);
 
-    @Authorized("Manage Job Titles")
+    @Authorized(PrivilegeConstants.MANAGE_JOB_TITLES)
     public void retireJobTitle(HrJobTitle jobTitle,String retireReason,User retiredBy);
 
-    @Authorized("Manage Job Titles")
+    @Authorized(PrivilegeConstants.MANAGE_JOB_TITLES)
     public void unretireJobTitle(HrJobTitle jobTitle);
 
-    @Authorized({"Manage Job Titles","Add Post"})
+    @Authorized({PrivilegeConstants.MANAGE_JOB_TITLES,PrivilegeConstants.MANAGE_POSTS})
     public HrJobTitle getJobTitleById( int id);
 
-    @Authorized("Manage Job Titles")
+    @Authorized(PrivilegeConstants.MANAGE_JOB_TITLES)
     public List<HrIscoCodes> getAllIscoCodes();
 
-    @Authorized("Manage Job Titles")
+    @Authorized(PrivilegeConstants.MANAGE_JOB_TITLES)
 	public HrIscoCodes getIscoCodeById( String id) ;
 
-    @Authorized("Manage Posts")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public String getMostRecentIncumbentForPostbyId(int id);
 
-    @Authorized({"Manage Posts","Add Post"})
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public HrPost getPostById( int id);
 
-    @Authorized("Manage Posts")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
 	public void retirePost(HrPost post,String reitreReason);
 
-    @Authorized("Manage Posts")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
 	public void unretirePost(HrPost post);
 
-    @Authorized({"Find Human Resources","Manage Staff"})
+    @Authorized({PrivilegeConstants.VIEW_STAFF})
 	public Map<String,Object> getCurrentJobLocationForStaff(int id);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public List<HrPostHistory> getPostHistoriesForStaff(HrStaff staff);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public HrPostHistory getPostHistoryById( int id);
 
-    @Authorized({"Add Assignments","Add Post","View Posts"})
+    @Authorized({PrivilegeConstants.MANAGE_ASSIGNMENTS,PrivilegeConstants.VIEW_POSTS})
     public HrPostHistory getCurrentPostForStaff(int staffId);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public void savePostHistory(HrPostHistory postHistory);
 
-    @Authorized("Add Assignments")
+    @Authorized(PrivilegeConstants.MANAGE_ASSIGNMENTS)
     public void saveAssignment(HrAssignment assignment);
 
-    @Authorized("Add Assignments")
+    @Authorized(PrivilegeConstants.MANAGE_ASSIGNMENTS)
     public HrAssignment getAssignmentById( int id);
 
-    @Authorized("View Posts")
+    @Authorized(PrivilegeConstants.VIEW_POSTS)
     public List<HrAssignment> getAssignmentsForPostHistory(HrPostHistory postHistory);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public HrPost wasPostOpen(HrPost post,Date start,Date end);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     public List<HrPost> getPostsByJobTitle(Integer locationId);
 
-    @Authorized("Add Post")
+    @Authorized(PrivilegeConstants.MANAGE_POSTS)
     List<HrPost> getOpenPostByJobTitle(Integer locationId);
 }

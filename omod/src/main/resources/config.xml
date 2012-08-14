@@ -89,69 +89,154 @@
 	<!-- Required Privileges -->
 
     <privilege>
+        <name>Manage Staff Certificates</name>
+        <description>Able to Manage (Create/Edit) Staff Certificates</description>
+    </privilege>
+
+    <privilege>
+        <name>View Staff Certificates</name>
+        <description>Able to view Staff Certificates</description>
+    </privilege>
+
+    <privilege>
+        <name>Manage Education</name>
+        <description>Able to Manage (Create/Edit) Staff Education</description>
+    </privilege>
+
+    <privilege>
+        <name>View Education</name>
+        <description>Able to view Staff Education</description>
+    </privilege>
+
+    <privilege>
+        <name>Manage Training Classes</name>
+        <description>Able to Manage (Create/Edit) the Training Classes</description>
+    </privilege>
+
+    <privilege>
+        <name>View Training Classes</name>
+        <description>Able to view the Training Classes</description>
+    </privilege>
+
+    <privilege>
+        <name>Manage Trainings</name>
+        <description>Able to Manage (Create/Edit) the Trainings</description>
+    </privilege>
+
+    <privilege>
+        <name>View Trainings</name>
+        <description>Able to view the Trainings</description>
+    </privilege>
+
+    <privilege>
+        <name>Manage Staff Trainings</name>
+        <description>Able to Manage (Create/Edit) the Staff Trainings</description>
+    </privilege>
+
+    <privilege>
+        <name>View Staff Trainings</name>
+        <description>Able to view the Staff Trainings</description>
+    </privilege>
+
+
+    <privilege>
+        <name>Manage Competencies</name>
+        <description>Able to Manage (Create/Edit) the Competencies</description>
+    </privilege>
+
+    <privilege>
+        <name>View Competencies</name>
+        <description>Able to view the Competencies</description>
+    </privilege>
+
+
+    <privilege>
+        <name>Manage Evaluations</name>
+        <description>Able to Manage (Create/Edit) the Evaluations</description>
+    </privilege>
+
+    <privilege>
+        <name>View Evaluations</name>
+        <description>Able to view the Evaluations</description>
+    </privilege>
+
+    <privilege>
+        <name>Manage Notes</name>
+        <description>Able to Manage (Create/Edit) the Notes</description>
+    </privilege>
+
+    <privilege>
+        <name>View Notes</name>
+        <description>Able to view the Notes</description>
+    </privilege>
+
+
+
+    <privilege>
         <name>Manage Certificates</name>
         <description>Able to Manage (Create/Edit) the Certificates</description>
+    </privilege>
+
+    <privilege>
+        <name>View Certificates</name>
+        <description>Able to view the Certificates</description>
     </privilege>
 
 	<privilege>
 		<name>Manage Posts</name>
 		<description>Able to Manage (Create/Edit) the Posts</description>
 	</privilege>
-	
+
+    <privilege>
+        <name>View Posts</name>
+        <description>Able to view the Posts</description>
+    </privilege>
+
 	<privilege>
 		<name>Manage Job Titles</name>
 		<description>Able to Manage (Create/Edit) the Job Titles</description>
 	</privilege>
+
+    <privilege>
+        <name>View Job Titles</name>
+        <description>Able to view the Job Titles</description>
+    </privilege>
 	
 	<privilege>
 		<name>Manage Staff</name>
 		<description>Able to Manage (Create/Edit) the Staff</description>
 	</privilege>
+
+    <privilege>
+        <name>View Staff</name>
+        <description>Able to View the Staff</description>
+    </privilege>
 	
 	<privilege>
 		<name>Manage Staff Attribute Types</name>
 		<description>Able to Manage (Create/Edit/Delete) the Staff Attribute Types</description>
 	</privilege>
 	
+
 	<privilege>
-		<name>View Staff</name>
-		<description>Able to View the Staff</description>
-	</privilege>
-	
-	<privilege>
-		<name>Add Post</name>
-		<description>Able to Add (Create/Move) Posts</description>
-	</privilege>
-	
-	<privilege>
-		<name>View Posts</name>
-		<description>Able to View Posts</description>
-	</privilege>
-	
-	<privilege>
-		<name>View Staff Demographics</name>
-		<description>Able to View Staff Demographics</description>
-	</privilege>
-	
-	<privilege>
-		<name>Find Human Resources</name>
-		<description>Able to Find Human Resources</description>
-	</privilege>
-	
-	<privilege>
-		<name>Add Assignments</name>
+		<name>Manage Assignments</name>
 		<description>Able to Add Assignments</description>
 	</privilege>
+
+    <privilege>
+        <name>View Assignments</name>
+        <description>Able to view Assignments</description>
+    </privilege>
 	
 	<privilege>
-		<name>View Reports</name>
+		<name>Run Reports</name>
 		<description>Able to view reports</description>
 	</privilege>
 
 	<!-- /Required Privileges -->
 	<!-- Global Properties -->
 	<globalProperty>
-		<property>@MODULE_ID@.Staff_Attribute_to_display</property>
+		<property>hr.Staff_Attribute_to_display</property>
 		<defaultValue></defaultValue>
 		<description>
 			Name of Staff_Attribute to display in Staff header
@@ -159,7 +244,7 @@
 	</globalProperty>
 		
 	<globalProperty>
-		<property>@MODULE_ID@.Centric</property>
+		<property>hr.Centric</property>
 		<defaultValue>post</defaultValue>
 		<description>
 			Value "person" for person-centric and "post" for post-centric.

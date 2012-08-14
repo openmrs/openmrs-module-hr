@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<openmrs:require privilege="Add Certificate" otherwise="/login.htm" redirect="/module/hr/admin/certificates.list"/>
+<openmrs:require privilege="Manage Certificates" otherwise="/login.htm" redirect="/module/hr/admin/certificates.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
