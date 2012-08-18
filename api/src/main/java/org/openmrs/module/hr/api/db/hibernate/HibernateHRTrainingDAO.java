@@ -84,11 +84,13 @@ public class HibernateHRTrainingDAO implements HRTrainingDAO{
         }
     }
 
-    @Override
-    public List<HrTraining> getTrainings() {
+    public List<HrTraining> getTrainings(Boolean includeRetired) {
         log.debug("getting all HrTrainings");
         try {
-            List<HrTraining> trainingList = sessionFactory.getCurrentSession().createCriteria(HrTraining.class).list();
+            Criteria criteria = sessionFactory.getCurrentSession().createCriteria(HrTraining.class);
+            if(!includeRetired)
+                criteria.add(Restrictions.ne("retired", true));
+            List<HrTraining> trainingList = (List<HrTraining>) criteria.list();
             if (trainingList==null) {
                 trainingList=new ArrayList<HrTraining>();
                 log.debug("get successful, no trainings found");

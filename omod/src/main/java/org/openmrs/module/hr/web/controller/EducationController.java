@@ -44,7 +44,7 @@ public class EducationController {
     public ModelAndView createOrUpdateEducation(HttpServletRequest request,@ModelAttribute("education")  HrEducation education, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRQualificationService hrQualificationService = Context.getService(HRQualificationService.class);
         HRStaffService hrStaffService = Context.getService(HRStaffService.class);
-        if(request.getParameter("action").equalsIgnoreCase("Delete Education"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.education.delete")))
             deleteEducation(request,hrQualificationService,education,hrStaffService);
         else{
         new EducationValidator().validate(education, errors);

@@ -20,7 +20,7 @@ public class TrainingManagementController {
     @RequestMapping(value = "module/hr/admin/trainingManagement.list")
     public String showList(ModelMap model){
         HRTrainingService hrTrainingService= Context.getService(HRTrainingService.class);
-        List<HrTraining> hrTrainingList= hrTrainingService.getTrainings();
+        List<HrTraining> hrTrainingList= hrTrainingService.getTrainings(true);
         model.addAttribute("trainingsList",hrTrainingList);
         return SUCCESS_LIST_VIEW;
     }

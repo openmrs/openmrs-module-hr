@@ -1,3 +1,5 @@
+<a href="${pageContext.request.contextPath}/module/hr/landing.list"><spring:message code="HR Home"/></a>
+<br/><br/>
 <div id="patientHeader" class="boxHeader">
 	<div id="patientHeaderPatientName">${staff.personName}</div>
 	

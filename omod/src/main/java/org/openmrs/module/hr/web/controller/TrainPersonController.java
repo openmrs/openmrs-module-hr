@@ -1,8 +1,6 @@
 package org.openmrs.module.hr.web.controller;
 
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.hr.HrStaff;
@@ -11,7 +9,6 @@ import org.openmrs.module.hr.HrTraining;
 import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.HRStaffService;
 import org.openmrs.module.hr.api.HRTrainingService;
-import org.openmrs.module.hr.api.propertyEditor.HrCertificateEditor;
 import org.openmrs.module.hr.api.propertyEditor.HrTrainingClassEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -48,7 +45,7 @@ public class TrainPersonController {
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
         model.addAttribute("staffTrainings",hrTrainingService.getTrainingHistoryFor(staff.getId()));
         Set<String> categories = new HashSet<String>();
-        for(HrTraining training : hrTrainingService.getTrainings())
+        for(HrTraining training : hrTrainingService.getTrainings(false))
             categories.add(training.getCategory());
         model.addAttribute("trainingCategories",categories);
         return SUCCESS_LIST_VIEW;

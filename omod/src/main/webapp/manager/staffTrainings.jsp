@@ -31,7 +31,7 @@
                 var trainingClass = trainingJson.hrTrainingClasses[i];
                 var table = jQuery("#createTrainPersonTable");
                 var row = jQuery('<tr id="row-'+trainingClass.uuid+'"></tr>');
-                var startDate = jQuery('<td valign="top">'+trainingClass.startDate+'</td>');
+                var startDate = jQuery('<td valign="top">'+jQuery.datepicker.formatDate( 'dd/mm/yy', new Date(trainingClass.startDate) )+'</td>');
                 var location = jQuery('<td valign="top">'+trainingClass.location+'</td>');
                 var organization = jQuery('<td valign="top">'+trainingClass.organization+'</td>');
                 var ceunits = jQuery('<td valign="top">'+trainingClass.ceunits+'</td>');
@@ -73,7 +73,7 @@
                 "data" : JSON.stringify(data),
                 "success" : function(data) {
                     var row = $j("<tr></tr>");
-                    var date = $j('<td>'+data.dateCreated+'</td>');
+                    var date = $j('<td>'+jQuery.datepicker.formatDate( 'dd/mm/yy', new Date(data.dateCreated) )+'</td>');
                     var location = $j('<td>'+data.hrTrainingClass.location+'</td>');
                     var organization = $j('<td>'+data.hrTrainingClass.hrTraining.name+'</td>');
                     var ceunits = $j('<td>'+data.hrTrainingClass.ceunits+'</td>');

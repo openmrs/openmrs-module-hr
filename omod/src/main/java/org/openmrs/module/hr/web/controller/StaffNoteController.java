@@ -62,7 +62,7 @@ public class StaffNoteController {
         ModelAndView modelAndView;
 
 
-        if(request.getParameter("action").equalsIgnoreCase("Delete " +hrStaffNote.getNoteType()+" Note"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.delete."+hrStaffNote.getNoteType()+".note")))
             deleteStaffNote(request, hrNoteService, hrStaffNote);
         else{
             new HRStaffNoteValidator().validate(hrStaffNote, errors);

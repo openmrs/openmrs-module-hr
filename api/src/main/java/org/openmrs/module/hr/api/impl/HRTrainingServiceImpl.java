@@ -43,8 +43,8 @@ public class HRTrainingServiceImpl implements HRTrainingService {
     }
 
     @Override
-    public List<HrTraining> getTrainings() {
-        return hrTrainingDAO.getTrainings();
+    public List<HrTraining> getTrainings(Boolean includeRetired) {
+        return hrTrainingDAO.getTrainings(includeRetired);
     }
 
     @Override

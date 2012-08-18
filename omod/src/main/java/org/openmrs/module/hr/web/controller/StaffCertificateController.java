@@ -104,6 +104,8 @@ public class StaffCertificateController {
         if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.certificates.cancel")))
             return cancelStaffCertificate(request, hrStaffCert, hrQualificationService, errors,staff,hrStaffService);
 
+        if(hrStaffCert.getId() == 0)
+            hrStaffCert.setImagePresent(false);
         hrStaffCert.setHrStaff(staff);
         hrQualificationService.saveStaffCertificate(hrStaffCert);
 
@@ -176,11 +178,11 @@ public class StaffCertificateController {
                 return;
             }
 
-
         }
-        else
+        else{
             if(!hrStaffCert.getImagePresent())
                 hrStaffCert.setImagePresent(false);
+        }
         hrQualificationService.saveStaffCertificate(hrStaffCert);
     }
 

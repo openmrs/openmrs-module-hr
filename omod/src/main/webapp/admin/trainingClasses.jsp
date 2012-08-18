@@ -20,7 +20,7 @@
 			<th> <spring:message code="hr.trainings.category"/> </th>
 			<th> <spring:message code="hr.training.classes.organization"/> </th>
 		</tr>
-		<c:forEach var="training" items="${trainingClassesList}">
+		<c:forEach var="trainingClass" items="${trainingClassesList}">
 			<tr>
 				<td valign="top">
 					<a href="trainingClass.form?trainingClassId=${trainingClass.trainingClassId}">

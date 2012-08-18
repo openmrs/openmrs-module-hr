@@ -1,15 +1,11 @@
 package org.openmrs.module.hr.rest.v1_0.resource;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.openmrs.annotation.Handler;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.hr.HrTrainPerson;
 import org.openmrs.module.hr.HrTraining;
-import org.openmrs.module.hr.HrTrainingClass;
 import org.openmrs.module.hr.api.HRTrainingService;
 import org.openmrs.module.webservices.rest.web.RequestContext;
 import org.openmrs.module.webservices.rest.web.RestConstants;
@@ -93,7 +89,7 @@ public class HRTrainingResource extends MetadataDelegatingCrudResource<HrTrainin
 
     @Override
     protected PageableResult doGetAll(RequestContext context) {
-        return  new NeedsPaging<HrTraining>(Context.getService(HRTrainingService.class).getTrainings(), context);
+        return  new NeedsPaging<HrTraining>(Context.getService(HRTrainingService.class).getTrainings(false), context);
     }
 
     public AlreadyPaged<HrTraining> getTrainingByCategory(String query, RequestContext context){

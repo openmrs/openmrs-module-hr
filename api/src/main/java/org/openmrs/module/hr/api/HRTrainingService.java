@@ -14,7 +14,7 @@ public interface HRTrainingService extends OpenmrsService{
     HrTraining getTrainingById(Integer trainingId);
 
     @Authorized(PrivilegeConstants.MANAGE_TRAININGS)
-    List<HrTraining> getTrainings();
+    List<HrTraining> getTrainings(Boolean b);
 
     @Authorized(PrivilegeConstants.MANAGE_TRAININGS)
     HrTraining saveTraining(HrTraining training);

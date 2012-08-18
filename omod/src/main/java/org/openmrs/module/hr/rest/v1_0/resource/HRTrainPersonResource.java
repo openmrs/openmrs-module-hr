@@ -51,7 +51,7 @@ public class HRTrainPersonResource extends DataDelegatingCrudResource<HrTrainPer
     public HrTrainPerson save(HrTrainPerson hrTrainPerson) {
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
         hrTrainPerson.setFollowUpDate(new Date());
-        if(!hrTrainPerson.getCompleted())
+        if(hrTrainPerson.getCompleted() == null || !hrTrainPerson.getCompleted())
             hrTrainPerson.setCompleted(false);
         hrTrainingService.saveTrainPerson(hrTrainPerson);
         return hrTrainPerson;

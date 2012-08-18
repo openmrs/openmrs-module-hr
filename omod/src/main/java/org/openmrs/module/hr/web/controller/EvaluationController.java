@@ -68,7 +68,7 @@ public class EvaluationController {
     public ModelAndView createOrUpdateEvaluation(HttpServletRequest request,@ModelAttribute("evaluation")  HrEvaluation hrEvaluation, BindingResult errors,@ModelAttribute("staff") HrStaff staff){
         HRCompetencyService hrCompetencyService = Context.getService(HRCompetencyService.class);
         HRStaffService hrStaffService = Context.getService(HRStaffService.class);
-        if(request.getParameter("action").equalsIgnoreCase("Delete Staff Evaluation"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.evaluation.delete")))
             deleteEvaluation(request,hrCompetencyService,hrEvaluation);
         else{
             new EvaluationValidator().validate(hrEvaluation,errors);

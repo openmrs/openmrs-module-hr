@@ -21,9 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.text.NumberFormat;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class TrainingClassController {
@@ -50,7 +48,7 @@ public class TrainingClassController {
             hrTrainingClass = hrTrainingService.getTrainingClassById(trainingClassId);
         else
             hrTrainingClass = new HrTrainingClass();
-        model.addAttribute("allTrainingsList", hrTrainingService.getTrainings());
+        model.addAttribute("allTrainingsList", hrTrainingService.getTrainings(false));
         return hrTrainingClass;
     }
 
@@ -58,7 +56,8 @@ public class TrainingClassController {
     @RequestMapping(value = "module/hr/admin/trainingClasses.list")
     public String showList(ModelMap model){
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
-        model.addAttribute("trainingClassesList",hrTrainingService.getTrainingClasses());
+        List<HrTrainingClass> hrTrainingClassList =hrTrainingService.getTrainingClasses();
+        model.addAttribute("trainingClassesList",hrTrainingClassList);
         return SUCCESS_LIST_VIEW;
     }
 
@@ -66,12 +65,12 @@ public class TrainingClassController {
     public ModelAndView createOrUpdateTrainingClass(HttpServletRequest request,@ModelAttribute("trainingClass")  HrTrainingClass hrTrainingClass, BindingResult errors){
         HRTrainingService hrTrainingService = Context.getService(HRTrainingService.class);
         HRStaffService hrStaffService = Context.getService(HRStaffService.class);
-        if(request.getParameter("action").equalsIgnoreCase("Delete Staff Training Class"))
+        if(request.getParameter("action").equalsIgnoreCase(Context.getMessageSourceService().getMessage("hr.action.training.classes.delete")))
             deleteTrainingClass(request,hrTrainingService,hrTrainingClass);
         else{
             new TrainingClassValidator().validate(hrTrainingClass,errors);
             if(errors.hasErrors())
-                return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allTrainingsList", hrTrainingService.getTrainings());
+                return new ModelAndView(SUCCESS_FORM_VIEW).addObject("allTrainingsList", hrTrainingService.getTrainings(false));
 
 
             hrTrainingService.saveTrainingClass(hrTrainingClass);

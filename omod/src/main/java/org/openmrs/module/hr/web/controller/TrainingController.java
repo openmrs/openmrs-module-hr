@@ -38,7 +38,7 @@ public class TrainingController {
     @RequestMapping(value = "module/hr/admin/trainings.list")
     public String showList(ModelMap model){
         HRTrainingService hrTrainingService=Context.getService(HRTrainingService.class);
-        List<HrTraining> hrTrainingList= hrTrainingService.getTrainings();
+        List<HrTraining> hrTrainingList= hrTrainingService.getTrainings(true);
         model.addAttribute("trainingsList",hrTrainingList);
         return SUCCESS_LIST_VIEW;
     }
@@ -59,13 +59,13 @@ public class TrainingController {
 
         hrTrainingService.saveTraining(training);
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Training saved Successfully");
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings());
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings(true));
     }
 
     private ModelAndView unRetireTraining(HttpServletRequest request, HrTraining training, HRTrainingService hrTrainingService, BindingResult errors) {
         hrTrainingService.unretireTraining(hrTrainingService.getTrainingById(training.getId()));
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Training Un-Retired Successfully");
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings());
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings(true));
     }
 
     private ModelAndView checkAndRetireTraining(HttpServletRequest request, HrTraining training, HRTrainingService hrTrainingService, BindingResult errors) {
@@ -76,7 +76,7 @@ public class TrainingController {
         }
         hrTrainingService.retireTraining(hrTrainingService.getTrainingById(training.getId()), retireReason, Context.getAuthenticatedUser());
         request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Training Retired Successfully");
-        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings());
+        return new ModelAndView(SUCCESS_LIST_VIEW).addObject("trainingsList",hrTrainingService.getTrainings(true));
     }
 
 }

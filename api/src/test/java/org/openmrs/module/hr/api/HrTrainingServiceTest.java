@@ -37,7 +37,7 @@ public class HrTrainingServiceTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void shouldGetAll(){
-        assertEquals(2,hrTrainingService.getTrainings().size());
+        assertEquals(2,hrTrainingService.getTrainings(false).size());
         assertEquals(1,hrTrainingService.getTrainingClasses().size());
     }
 
