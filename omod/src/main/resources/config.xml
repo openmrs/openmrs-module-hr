@@ -235,6 +235,16 @@
 
 	<!-- /Required Privileges -->
 	<!-- Global Properties -->
+    <globalProperty>
+        <property>hr.setup</property>
+        <description>Whether the initial setup for this module has been run</description>
+    </globalProperty>
+
+    <globalProperty>
+        <property>hr.setup.sampleData</property>
+        <description>Specifies whether sample data for this module has been installed.</description>
+    </globalProperty>
+
 	<globalProperty>
 		<property>hr.Staff_Attribute_to_display</property>
 		<defaultValue></defaultValue>

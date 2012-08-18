@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/certificates" />
+
 <h2><spring:message code="hr.certificates.manage" /></h2>
 <a href="certificate.form"><spring:message code="hr.certificates.add"/></a>
 <br /><br />

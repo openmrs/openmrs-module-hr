@@ -48,6 +48,7 @@ public class AdminList extends AdministrationSectionExt {
 		Map<String, String> map = new LinkedHashMap<String, String>();
 		map.put("module/hr/landing.list", "Manage Human Resources");
 		map.put("module/hr/admin/staffAttributeTypes.list", "Manage Staff Attribute Types");
+		map.put("module/hr/admin/setup.list", "human Resource Module Setup");
 		return map;
 	}
 	@Override

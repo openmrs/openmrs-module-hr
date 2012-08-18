@@ -1,5 +1,6 @@
 package org.openmrs.module.hr.rest.v1_0.controller;
 
+import org.openmrs.GlobalProperty;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.webservices.rest.SimpleObject;
@@ -39,7 +40,30 @@ public class RestHRController {
         SimpleObject simpleObject = new SimpleObject();
         PersonService personService = Context.getService(PersonService.class);
         simpleObject.put("person", personService.getPerson(staffID).getUuid());
-//        simpleObject.put("person", new PersonResource().asRepresentation(personService.getPerson(staffID), Representation.REF));
         return simpleObject;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "saveGlobalProperty")
+    @ResponseBody
+    public SimpleObject saveGlobalProperty(HttpServletRequest request,
+                                           @RequestParam(value = "property", required = true) String property,
+                                           @RequestParam(value = "value", required = true) String value
+    ) {
+
+        SimpleObject o = new SimpleObject();
+
+        GlobalProperty gp = Context.getAdministrationService().getGlobalPropertyObject(property);
+        if (gp != null) {
+            gp.setPropertyValue(value);
+            Context.getAdministrationService().saveGlobalProperty(gp);
+        } else {
+            o.put("code", "failure");
+            o.put("message", Context.getMessageSourceService().getMessage("hr.settings.globalproperties.result.failed"));
+            return o;
+        }
+
+        o.put("code", "success");
+        o.put("message", Context.getMessageSourceService().getMessage("hr.settings.globalproperties.result.success"));
+        return o;
     }
 }

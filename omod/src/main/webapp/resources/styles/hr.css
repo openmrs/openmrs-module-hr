@@ -1,0 +1,10 @@
+.error {
+	border: 1px dashed darkRed;
+	background-color: lightPink;
+	padding: 0 2px 0 2px;
+}
+.success {
+	border: 1px dashed darkGreen;
+	background-color: lightGreen;
+	padding: 0 2px 0 2px;
+}

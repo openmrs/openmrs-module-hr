@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/competencies" />
+
 <h2><spring:message code="hr.competencies.manage" /></h2>
 <a href="competency.form"><spring:message code="hr.competencies.add"/></a>
 <br /><br />
