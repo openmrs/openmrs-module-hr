@@ -3,6 +3,8 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 
 <h2><spring:message code="Generate Report" /></h2>

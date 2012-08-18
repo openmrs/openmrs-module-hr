@@ -6,6 +6,8 @@
 
 <%@ include file="localHeader.jsp" %>
 
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/trainingClasses" />
+
 <spring:hasBindErrors name="trainingClass">
 <c:set var="errorExist" value="true"/>
 	<spring:message code="fix.error"/>

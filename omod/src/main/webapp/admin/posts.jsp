@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/posts" />
+
 <openmrs:htmlInclude file="/scripts/dojoConfig.js" />
 <openmrs:htmlInclude file="/scripts/dojo/dojo.js" />
 <script type="text/javascript">

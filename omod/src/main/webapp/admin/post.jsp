@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/posts" />
+
 <h2><spring:message code="Post" /></h2>
 <c:if test="${post.retired}">
 <form action="" method="post">

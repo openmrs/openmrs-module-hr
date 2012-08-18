@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/staff" />
+
 <script type="text/javascript">
 //Saves the last tab clicked on (aka "current" or "selected" tab)
 var lastTab = new Array();

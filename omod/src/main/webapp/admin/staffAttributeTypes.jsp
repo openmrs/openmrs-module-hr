@@ -3,6 +3,9 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/staffAttributeTypes" />
+
 <h2><spring:message code="Manage Staff Attribute Types" /></h2>
 <a href="staffAttributeType.form"><spring:message code="Add New Staff Attribute Type"/></a>
 <br /><br />

@@ -2,6 +2,10 @@
 <openmrs:require privilege="Manage Trainings" otherwise="/login.htm" redirect="/module/hr/admin/trainingManagement.list"/>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
+<%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/trainingManagement" />
+
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/hr/styles/table.css"/>
 
@@ -36,7 +40,7 @@ jQuery(document).ready(function(){
 
 </script>
 
-<%@ include file="localHeader.jsp" %>
+
 <h2><spring:message code="hr.trainings.manage" /></h2>
 <a href="training.form"><spring:message code="hr.trainings.add"/></a>
 <br /><br />

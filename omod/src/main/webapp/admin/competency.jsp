@@ -3,6 +3,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/competency" />
+
+
 <h2><spring:message code="hr.competency" /></h2>
 <c:if test="${competency.retired}">
     <form method="post">

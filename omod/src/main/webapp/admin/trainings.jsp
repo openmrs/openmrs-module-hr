@@ -3,6 +3,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/trainings" />
+
+
 <h2><spring:message code="hr.trainings.manage" /></h2>
 <a href="training.form"><spring:message code="hr.trainings.add"/></a>
 <br /><br />

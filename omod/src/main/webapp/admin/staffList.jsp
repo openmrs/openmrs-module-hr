@@ -3,6 +3,11 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="localHeader.jsp" %>
+
+
+<openmrs:requireConfiguration propertyList="hr.setup" configurationPage="/module/hr/admin/setup.form?targetView=module/hr/admin/staff" />
+
+
 <script type="text/javascript"	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/hr/js/tablesorter_filter.js"/>
 <openmrs:htmlInclude file="${pageContext.request.contextPath}/moduleResources/hr/js/tablesorter.js"/>
