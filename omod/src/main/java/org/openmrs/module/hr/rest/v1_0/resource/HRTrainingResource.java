@@ -1,6 +1,8 @@
 package org.openmrs.module.hr.rest.v1_0.resource;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.openmrs.annotation.Handler;
@@ -121,5 +123,10 @@ public class HRTrainingResource extends MetadataDelegatingCrudResource<HrTrainin
 	protected String getNamespacePrefix() {
 		return "hr";
 	}
+
+    @Override
+    public List<String> getPropertiesToExposeAsSubResources() {
+        return Arrays.asList("hrTrainingClasses");
+    }
 
 }

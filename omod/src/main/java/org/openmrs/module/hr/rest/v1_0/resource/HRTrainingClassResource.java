@@ -25,7 +25,7 @@ import org.openmrs.module.webservices.rest.web.v1_0.resource.OrderResource;
 import java.util.ArrayList;
 import java.util.List;
 
-@SubResource(parent = HRTrainingResource.class ,path ="trainingClass")
+@SubResource(parent = HRTrainingResource.class ,path ="trainingclass")
 @Handler(supports = HrTrainingClass.class,order = 0)
 public class HRTrainingClassResource extends DelegatingSubResource<HrTrainingClass,HrTraining,HRTrainingResource> {
     @Override

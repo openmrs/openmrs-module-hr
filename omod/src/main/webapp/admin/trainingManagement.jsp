@@ -21,7 +21,7 @@ jQuery(document).ready(function(){
                     var row = jQuery('<tr id="row-'+trainingClass.uuid+'"></tr>');
                     var checkbox;
                     var retired;
-                    checkbox = jQuery('<td valign="top"><input type="checkbox" name="trainingClass-'+trainingClass.uuid+'" class="select-trainingClass" value="'+trainingClass.uuid+'"/></td>"');
+                    checkbox = jQuery('<td valign="top"><input type="checkbox" name="'+trainingJson.uuid+'" class="select-trainingClass" value="'+trainingClass.uuid+'" onClick="showTrainingClass(this)"/></td>"');
                     var startDate = jQuery('<td valign="top">'+trainingClass.startDate+'</td>');
                     var location = jQuery('<td valign="top">'+trainingClass.location+'</td>');
                     var organization = jQuery('<td valign="top">'+trainingClass.organization+'</td>');
@@ -37,6 +37,27 @@ jQuery(document).ready(function(){
              });
             });
     	});
+
+function showTrainingClass(checkbox){
+    var val = jQuery(checkbox).is(':checked');
+    if(val){
+        document.getElementById("showTraining").style.visibility='visible';
+        jQuery.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr/training/"+jQuery(checkbox).attr('name')+"/trainingclass/"+jQuery(checkbox).attr('value')+"?v=full" , function(trainingClassJson) {
+            document.getElementById("show.training.class.start.date").value=trainingClassJson.startDate;
+            document.getElementById("show.training.class.location").value=trainingClassJson.location;
+            document.getElementById("show.training.class.organization").value=trainingClassJson.organization;
+            document.getElementById("show.training.class.duration").value=trainingClassJson.duration;
+            document.getElementById("show.training.class.instructor").value=trainingClassJson.instructor;
+            document.getElementById("show.training.class.ce.units").value=trainingClassJson.ceunits;
+            document.getElementById("show.training.class.ce.course.cost").value=trainingClassJson.costCourse;
+            document.getElementById("show.training.class.course.registration.cost").value=trainingClassJson.costRegister;
+            document.getElementById("show.training.class.course.travel.cost").value=trainingClassJson.costTravel;
+        });
+    }
+    else
+        document.getElementById("showTraining").style.visibility='hidden';
+
+}
 
 </script>
 
@@ -92,6 +113,10 @@ jQuery(document).ready(function(){
 </br>
 
 <a href="trainingClass.form"><spring:message code="hr.training.classes.add"/></a>
+
+</br>
+</br>
+
 <b class="boxHeader">
 <spring:message code="hr.training.classes"/></b>
 <form method="post" class="box">
@@ -106,5 +131,74 @@ jQuery(document).ready(function(){
         </table>
 	</div>
 </form>
+
+</br>
+</br>
+<div id="showTraining" style="visibility:hidden">
+    <table>
+        <tr>
+            <td>
+                <spring:message code="hr.training.classes.start.date"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.start.date" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.location"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.location" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.organization" />
+            </td>
+            <td>
+                <input type="text" id="show.training.class.organization" readonly="readonly"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <spring:message code="hr.training.classes.duration" />
+            </td>
+            <td>
+                <input type="text" id="show.training.class.duration" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.instructor" />
+            </td>
+            <td>
+                <input type="text" id="show.training.class.instructor" readonly="readonly"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <spring:message code="hr.training.classes.ce.units"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.ce.units" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.course.cost"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.ce.course.cost" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.course.registration.cost"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.course.registration.cost" readonly="readonly"/>
+            </td>
+            <td>
+                <spring:message code="hr.training.classes.travel.cost"/>
+            </td>
+            <td>
+                <input type="text" id="show.training.class.course.travel.cost" readonly="readonly"/>
+            </td>
+        </tr>
+    </table>
+</div>
+
+
 
 <%@ include file="/WEB-INF/template/footer.jsp"%>

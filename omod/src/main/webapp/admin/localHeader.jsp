@@ -26,13 +26,7 @@
 			</a>
 		</li>
 		</openmrs:hasPrivilege>
-		<openmrs:hasPrivilege privilege="Manage Staff Attribute Types">
-		<li <c:if test='<%= request.getRequestURI().contains("staffAttributeTypes") %>'>class="active"</c:if>>
-			<a href="${pageContext.request.contextPath}/module/hr/admin/staffAttributeTypes.list">
-				<spring:message code="Manage Staff Attribute Types"/>
-			</a>
-		</li>
-		</openmrs:hasPrivilege>
+
 
 		<openmrs:hasPrivilege privilege="Manage Certificates">
         		<li <c:if test='<%= request.getRequestURI().contains("certificates") %>'>class="active"</c:if>>
