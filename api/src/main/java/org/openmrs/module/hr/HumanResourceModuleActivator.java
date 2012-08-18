@@ -164,7 +164,8 @@ public class HumanResourceModuleActivator implements ModuleActivator {
                         PrivilegeConstants.VIEW_TRAININGS,
                         PrivilegeConstants.VIEW_TRAINING_CLASSES,
                         PrivilegeConstants.MANAGE_STAFF_TRAININGS,
-                        PrivilegeConstants.VIEW_STAFF_TRAININGS
+                        PrivilegeConstants.VIEW_STAFF_TRAININGS,
+                "View Concepts","View People","Edit People"
                 ));
 
 

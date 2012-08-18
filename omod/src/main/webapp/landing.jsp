@@ -5,7 +5,7 @@
 <div id="hrWeakClerkFunctions" style="float:left">
     <ul>
         <li><a href="manager/findStaff.list">Find Staff</a></li>
-        <openmrs:hasPrivilege privilege="View Reports">
+        <openmrs:hasPrivilege privilege="Run Reports">
             <li><a href="admin/reportSelection.list">View Reports</a></li>
         </openmrs:hasPrivilege>
     </ul>
