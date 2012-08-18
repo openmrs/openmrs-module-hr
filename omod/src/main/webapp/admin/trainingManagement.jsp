@@ -22,7 +22,7 @@ jQuery(document).ready(function(){
                     var checkbox;
                     var retired;
                     checkbox = jQuery('<td valign="top"><input type="checkbox" name="'+trainingJson.uuid+'" class="select-trainingClass" value="'+trainingClass.uuid+'" onClick="showTrainingClass(this)"/></td>"');
-                    var startDate = jQuery('<td valign="top">'+trainingClass.startDate+'</td>');
+                    var startDate = jQuery('<td valign="top">'+jQuery.datepicker.formatDate( 'dd/mm/yy', new Date(trainingClass.startDate) )+'</td>');
                     var location = jQuery('<td valign="top">'+trainingClass.location+'</td>');
                     var organization = jQuery('<td valign="top">'+trainingClass.organization+'</td>');
                     row.append(checkbox);
@@ -43,7 +43,7 @@ function showTrainingClass(checkbox){
     if(val){
         document.getElementById("showTraining").style.visibility='visible';
         jQuery.getJSON("${pageContext.request.contextPath}" + "/ws/rest/v1/hr/training/"+jQuery(checkbox).attr('name')+"/trainingclass/"+jQuery(checkbox).attr('value')+"?v=full" , function(trainingClassJson) {
-            document.getElementById("show.training.class.start.date").value=trainingClassJson.startDate;
+            document.getElementById("show.training.class.start.date").value=jQuery.datepicker.formatDate( 'dd/mm/yy', new Date(trainingClassJson.startDate) );
             document.getElementById("show.training.class.location").value=trainingClassJson.location;
             document.getElementById("show.training.class.organization").value=trainingClassJson.organization;
             document.getElementById("show.training.class.duration").value=trainingClassJson.duration;
