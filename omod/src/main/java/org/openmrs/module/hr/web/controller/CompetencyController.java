@@ -55,7 +55,7 @@ public class CompetencyController {
         if(errors.hasErrors())
             return new ModelAndView(SUCCESS_FORM_VIEW);
 
-        if(request.getParameter("retireCertificate") != null)
+        if(request.getParameter("retireCompetency") != null)
             return checkAndRetireCompetency(request, competency, hrCompetencyService, errors);
 
         hrCompetencyService.saveCompetency(competency);
@@ -65,7 +65,7 @@ public class CompetencyController {
 
     private ModelAndView unRetireCompetency(HttpServletRequest request, HrCompetency competency, HRCompetencyService hrCompetencyService, BindingResult errors) {
         hrCompetencyService.unretireCompetency(competency);
-        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Certificate Un-Retired Successfully");
+        request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Competency Un-Retired Successfully");
         return new ModelAndView(SUCCESS_LIST_VIEW).addObject("competenciesList", hrCompetencyService.getCompetencies());
     }
 

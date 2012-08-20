@@ -97,7 +97,7 @@
 				</c:forEach>
 			</spring:hasBindErrors>
 			<br/>
-			<input type="submit" value='<spring:message code="hr.action.competencies.retire"/>' name="retirecompetency"/>
+			<input type="submit" value='<spring:message code="hr.action.competencies.retire"/>' name="retireCompetency"/>
 		</fieldset>
 </c:if>
 </form>
